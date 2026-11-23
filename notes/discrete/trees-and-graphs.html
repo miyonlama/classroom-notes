@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Trees and Graphs</title>
+<link rel="stylesheet" href="../../assets/css/notes.css"/>
+</head><body>
+<header class="site"><div class="container"><div class="breadcrumb"><a href="index.html">Discrete Structure</a> / Trees and Graphs</div></div></header>
+<main class="container">
+<h1>Trees and Graphs</h1>
+<p>Interactive recreation of the chapter PDF. Original: <a href="../../assets/pdfs/Tree and Graphs.pdf" download>Download PDF</a>.</p>
+<section><h2>Graphs</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>Graphs are discrete structures consisting of vertices and edges that connect these vertices. Problems in almost every conceivable discipline can be solved using graph models. For instance,</p>
+<p>∙ Graphs are used to represent the competition of different species in an  ecological niche. ∙ Graphs are used to represent who influences whom in an organization, and  how graphs are used to represent the outcomes of round-robin tournaments.  ∙ Graphs</p>
+<p>can be used to model acquaintanceships between people, collaboration between researchers, telephone calls between telephone numbers, and links between websites. ∙ Graphs can be used to model roadmaps and the assignment of jobs to  employees of an organization. ∙ Graphs can be used to determine whether it is possible to walk down all the streets in a city without going down a street twice. ∙ Graphs can be used to find the number of colors needed to color the regions of  a map. ∙ Graphs can be used to determine whether a circuit can be implemented on a planar circuit board. ∙ Graphs can be used to distinguish between two chemical compounds with the same molecular formula but different structures using graphs. ∙ Graphs can be used to determine whether two computers are connected by a communications link. ∙ Graphs with weights assigned to their edges can be used to solve problems  such as finding the shortest path between two cities in a transportation  network. ∙ Graphs can be used to schedule exams and assign channels to television  stations.</p>
+</section>
+<section><h3>2. Graph and Graph Types</h3>
+<p>A graph G = (V, E) consists of V, a nonempty set of vertices (or nodes) and E, a set of edges. Each edge has either one or two vertices associated with it, called its endpoints. An edge is said to connect its endpoints.</p>
+</section>
+<section><h4>2.1. Simple Graph</h4>
+<p>A graph in which each edge connects two different vertices and where no two edges connect the same pair of vertices is called a simple graph. A simple graph G = (V, E) consists of V, a nonempty set of vertices, and E, a set of unordered pairs of distinct elements of V called edges. This kind of graph has undirected edges, no loops and no multiple edges. The figure below is an example of simple graph.</p>
+<p>f b a</p>
+<p>g e</p>
+<p>d</p>
+<p>G</p>
+<p>c</p>
+<p>In the above graph G = (V, E), the set of vertices, V (G) or V = {a, b, c, d, e, f, g} and the set of edges E (G) or E = {{a, b}, {a, f}, {b, c}, {b, e}, {c, d}, {c, g}, {d, e}, {e, g},{e, f}}.</p>
+</section>
+<section><h4>2.2. Multigraph</h4>
+<p>Graphs that may have multiple edges connecting the same vertices are called multigraphs. When there are m different edges associated to the same unordered pair of vertices {u, v}, we also say that {u, v} is an edge of multiplicity m. That is, we can think of this set of edges as m different copies of an edge {u, v}. This kind of graph has undirected edges, and no loops. The figure below is an example of a multigraph.</p>
+</section>
+<section><h4>2.3. Pseudograph</h4>
+<p>Some graphs have edges that connect a vertex to itself. Such edges are called loops, and sometimes we may even have more than one loop at a vertex. Graphs that may include loops, and possibly multiple edges connecting the same pair of vertices or a vertex to itself, are sometimes called pseudographs. The figure below is an example of pseudograph.</p>
+</section>
+<section><h4>2.4. Directed Graph</h4>
+<p>The graphs have introduced so far are undirected graphs. Their edges are also said to be undirected. However, to construct a graph model, we may find it necessary to assign directions to the edges of a graph. A directed graph (or digraph) (V, E) consists of a nonempty set of vertices V and a set of directed edges (or arcs) E. Each directed edge is associated with an ordered pair of vertices. The directed edge associated with the ordered pair (u, v) is said to start at u and end at v. A directed graph may contain loops and it may contain multiple directed edges that start and end at the same vertices. A directed graph may also contain directed edges that connect vertices u and v in both directions; that is, when a digraph contains an edge from u to v, it may also contain one or more edges from v to u. When a directed graph has no loops and has no multiple directed edges, it is called a simple directed graph. The figure below is an example of simple directed graph.</p>
+<p>a</p>
+<p>b</p>
+<p>d</p>
+<p>c In the above graph G = (V, E), the set of vertices, V (G) or V = {a, b, c, d} and the set of edges E (G) or E = {(a, b), (b, c), (c, b), (d, a), (d, b), (d, c)}. Directed graphs that may have multiple directed edges and loops are called directed multigraphs. When there are m directed edges, each associated to an ordered pair of vertices (u, v), we say that (u, v) is an edge of multiplicity m.</p>
+</section>
+<section><h4>2.5. Mixed Graph</h4>
+<p>For some models we may need a graph where some edges are undirected, while others are directed. A graph with both directed and undirected edges is called a mixed graph.</p>
+<p>Type Edge Multiple Edges Loops</p>
+<p>Simple graph Undirected No No</p>
+<p>Multigraph Undirected Yes No</p>
+<p>Pseudograph Undirected Yes Yes</p>
+<p>Simple directed graph Directed No No</p>
+<p>Simple multigraph Directed Yes Yes</p>
+<p>Mixed graph Directed and Undirected Yes Yes</p>
+</section>
+<section><h3>3. Graph Models</h3>
+<p>Graphs are used in a wide variety of models. Some commonly used models are discussed below.</p>
+</section>
+<section><h4>3.1. Social Networks</h4>
+<p>Graphs are extensively used to model social structures based on different kinds of relationships between people or groups of people. These social structures can be represented using graphs known as social networks. In these graph models, individuals or organizations are represented by vertices and relationships between individuals or organizations are represented by edges. For example,</p>
+<p>∙ Acquaintanceship and friendship graphs - We can use a simple graph to represent whether two people know each other, that is, whether they are acquainted, or whether they are friends either in the real world in the virtual world via a social networking site such as Facebook. ∙ Influence graphs - A simple directed graph can be used to represent if certain people can influence the thinking of others. Each person of the group is represented by a vertex. There is a directed edge from vertex a to vertex b when the person represented by vertex a can influence the person represented by vertex b. ∙ Collaboration graphs - A simple graph can be used to represent if two people are related by working together in a particular way. Vertices in these graphs</p>
+<p>represent people; two people are connected by an undirected edge when the people have collaborated. The Hollywood graph is a collaborator graph that represents actors by vertices and connects two actors with an edge if they have worked together on a movie or television show. In an academic  collaboration graph, vertices represent people, and edges link two people if  they have jointly published a paper.</p>
+</section>
+<section><h4>3.2. Communication Networks</h4>
+<p>We can model different communications networks using vertices to represent devices and edges to represent the particular type of communications links of interest. For example,</p>
+<p>∙ Call graph. Call graphs can be used to model telephone calls made in a  network. In particular, a directed multigraph can be used to model calls where  each telephone number is represented by a vertex and each telephone call is represented by a directed edge. The edge representing a call starts at the telephone number from which the call was made and ends at the telephone number to which the call was made.</p>
+</section>
+<section><h4>3.3. Information Networks</h4>
+<p>Graphs can be used to model various networks that link particular types of information. For example,</p>
+<p>∙ The Web Graph – The World Wide Web can be modeled as a directed graph where each Web page is represented by a vertex and where an edge starts at the Web page a and ends at the Web page b if there is a link on a pointing to b. ∙ Citation Graphs – Graphs can be used to represent citations in different types  of documents. In such graphs, each document is represented by a vertex, and there is an edge from one document to a second document if the first document cites the second in its citation list. A citation graph is a directed graph without loops or multiple edges.</p>
+</section>
+<section><h4>3.4. Software Design Applications</h4>
+<p>Graph models are useful tools in the design of software. For example,  ∙ Module</p>
+<p>Dependency Graphs – A module dependency graph provides a  useful tool for understanding how different modules of a program interact.  Each module is represented by a vertex. There is a directed edge from a  module to a second module if the second module depends on the first.  ∙ Precedence Graphs and Concurrent Processing – Computer programs can  be executed more rapidly by executing certain statements concurrently. It is  important not to execute a statement that requires results of statements not yet  executed. The dependence of statements on previous statements can be  represented by a directed graph. Each statement is represented by a vertex, and  there is an edge from one statement to a second statement if the second  statement cannot be executed before the first statement.</p>
+</section>
+<section><h4>3.5. Transportation Network</h4>
+<p>We can use graphs to model many different types of transportation networks, including road, air, and rail networks, as well shipping networks. For example,</p>
+<p>∙ Airline Routes – We can model airline networks by representing each airport  by a vertex and directed edge going from the vertex representing the departure airport to the vertex representing the destination airport. The resulting graph</p>
+<p>will generally be a directed multigraph, as there may be multiple flights from one airport to some other airport during the same day. ∙ Road Networks – Graphs can be used to model road networks. In such  models, vertices represent intersections and edges represent roads. To build  such models, we use undirected edges to represent two-way roads and we use directed edges to represent one-way roads. Multiple undirected edges  represent multiple two-way roads connecting the same two intersections.  Multiple directed edges represent multiple one-way roads that start at one  intersection and end at a second intersection. Loops represent loop roads.  Mixed graphs are needed to model road networks that include both one-way  and two-way roads.</p>
+</section>
+<section><h4>3.6. Biological Network</h4>
+<p>Many aspects of the biological sciences can be modeled using graphs. For example,  ∙</p>
+<p>Niche Overlap Graphs in Ecology – The competition between species in an ecosystem can be modeled using a niche overlap graph. Each species is represented by a vertex. An undirected edge connects two vertices if the two species represented by these vertices compete (that is, some of the food  resources they use are the same). A niche overlap graph is a simple graph  because no loops or multiple edges are needed in this model. ∙ Protein Interaction Graphs – Protein interactions within a cell can be  modeled using a protein interaction graph (also called a protein–protein  interaction network), an undirected graph in which each protein is  represented by a vertex, with an edge connecting the vertices representing  each pair of proteins that interact.</p>
+</section>
+<section><h4>3.7. Tournaments</h4>
+<p>Graphs can also be used to model different kinds of tournaments. For example,  ∙</p>
+<p>Round-Robin Tournaments – A tournament where each team plays every  other team exactly once and no ties are allowed is called a round-robin  tournament. Such tournaments can be modeled using directed graphs where  each team is represented by a vertex. Note that (a, b) is an edge if team a beats  team b. This graph is a simple directed graph, containing no loops or multiple  directed edges. ∙ Single-Elimination Tournaments – A tournament where each contestant is eliminated after one loss is called a single-elimination tournament. We can model such a tournament using a vertex to represent each game and a directed edge to connect a game to the next game the winner of this game played in.</p>
+</section>
+<section><h3>4. Graph Terminologies</h3>
+<p>Two vertices u, v in an undirected graph G are called adjacent or neighbors in G if {u, v} is an edge. The edge e is called incident with the vertices u and v if e = {u, v}. This edge is also said to connect u and v, where u and v are end points of the edge. The set of all neighbors of a vertex v of G = (V, E), denoted by N(v), is called the neighbourhood of v. If A is a subset of V, we denote by N(A) the set of all vertices in G that are adjacent to at least one vertex in A. So, N(A) = ∪v∈A N(v). The degree of a vertex in an undirected graph is the number of edges incident with it, except a loop at a vertex. Loop in a vertex counts twice to the degree. Degree of a vertex v is denoted by deg (v). A vertex of degree zero is called isolated vertex and a vertex with degree one is called pendant vertex. A pendant vertex is adjacent to exactly one other vertex. Example: What are the degree of the vertices in the following graph? What is N(a)</p>
+<p>and N(a, b)?</p>
+<p>a b</p>
+<p>c d</p>
+<p>e f Solution: deg(a) = deg(f) = deg(e) = 2 ; deg(b) = deg(c) = 3; deg(d) = 4; N(a) = {b, f}; N(a, b) = {b, f, a, c, d}.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem 1: The Handshaking Theorem: Let G = (V, E) be an undirected graph with m edges.</div>
+</section>
+<section><h3>Then 2m = ∑ v∈V</h3>
+<p>deg(v).</p>
+<details><summary>Proof</summary><p>Proof: Each edge contributes two to the sum of the degrees of the vertices because an edge is incident with exactly two (possibly equal) vertices. This means that the sum of the degrees of the vertices is twice the number of edges. Example: How many edges are there in a graph with 10 vertices each of degree six? Solution: Because the sum of the degrees of the vertices is 6 × 10 = 60, it follows that 2m = 60 where m is the number of edges. Therefore, m = 30. Theorem 2: An undirected graph has an even number of vertices of odd degree. Proof: Take two sets of vertices, V1, a set of vertices with even degree, and V2, a set of vertices with odd degree. In an undirected graph G = (V, E) we have</p></details>
+<p>2e = ∑ v∈V</p>
+<p>deg(v) =∑ v V</p>
+<p>∈ 1 deg( ) v+</p>
+<p>∑ v V</p>
+<p>∈ 2</p>
+<p>deg( ) v .</p>
+<p>From the equality above we can say the left part is even i.e. 2e is even, the sum of deg(v) for v ∈ V1 is even since every vertices has even degree. So for the left hand to be even sum of deg(v) for v ∈ V2 must be even. Since all the vertices in the set V2 have odd degree the number of such vertices must be even for the sum to be even.  Hence proved. Let (u, v) be an edge representing edge of a directed graph G, u is called adjacent to v and v is called adjacent from u. The vertex u is called initial vertex and the vertex  v is called terminal or end vertex. Loop has same initial and terminal vertex.</p>
+<p>In directed graph the in-degree of a vertex v, denoted by deg-(v), is the number of edges that have v as their terminal vertex. The out-degree of a vertex v, denoted by deg+(v), is the number of edges that have v as their initial vertex. Loop at a vertex adds up both in-degree and out-degree to one more than calculated in-degree and out degree. Example: Find the in-degree and out-degree of each vertex in the following graph.</p>
+<p>1 2</p>
+<p>4</p>
+<p>3 Solution: In-degrees of a graph are deg-(1) = deg-(4) = 1; deg-(2) = 3; deg-(3) = 2 and the out-degrees of a graph are deg+(1) = deg+(2) = deg+(3) = 1; deg+(4) = 4.  Theorem</p>
+<p>3: Let G(V, E) be a graph with directed edges. Then ∑ v V</p>
+<p>∈ deg (v)</p>
+<p>=∑</p>
+<p>−</p>
+<p>v V</p>
+<p>∈</p>
+<p>+ deg (v)= |E|.</p>
+<details><summary>Proof</summary><p>Proof: Because each edge has an initial vertex and a terminal vertex, the sum of the in-degrees and the sum of the out-degrees of all vertices in a graph with directed edges are the same. Both of these sums are the number of edges in the graph.</p></details>
+</section>
+<section><h3>5. Subgraph and Union</h3>
+<p>A subgraph of a graph G = (V, E) is a graph H = (W, F) where W ⊆ V and F ⊆ E. Example:</p>
+<p>a b  c</p>
+<p>e f is subgraph of</p>
+<p>a b</p>
+<p>c d</p>
+<p>e f</p>
+<p>The union of two simple graphs G1 = (V1, E1) and G2 = (V2, E2) is the simple graph with vertex set V1∪V2 and the edge set E1∪E2. The union of G1 and G2 is denoted by G1 ∪ G2. Example: Find the union of two graphs given below.  2</p>
+<p>1</p>
+<p>3 1 Solution: 2</p>
+<p>6 4</p>
+<p>2 1</p>
+<p>4</p>
+<p>3</p>
+<p>5</p>
+<p>3 4 5  6</p>
+</section>
+<section><h3>6. Some Special Simple Graphs</h3>
+</section>
+<section><h4>6.1. Complete Graph</h4>
+<p>The complete graph of n vertices, denoted by Kn, is the simple graph that contains exactly one edge between each pair of distinct vertices. Example: What are K1, K3, and K5?</p>
+<p>K1K3 K5 6.1.1. Cycles The cycle Cn, n ≥ 3, consists of n vertices v1, v2, …, vn and edges {v1, v2},{v2, v3}, …,</p>
+<p>{vn-1, vn}, and {vn, v1}. Example: What are C3, C5, and C7?</p>
+<p>C3 C5 C7</p>
+</section>
+<section><h4>6.2. Wheels</h4>
+<p>The wheel Wn, for n ≥ 3, is an union of Cn and additional vertex where the new vertex is connected by each vertex of the cycle. Example: What are W3, W5, and W7?</p>
+<p>W3 W5 6.3. n-Cubes W7</p>
+<p>The n-dimensional cube, or n-cube, denoted by Qn, is the graph that has vertices representing the 2n bit strings of length n. Two vertices are adjacent if and only if the bit strings that they represent differ in exactly one bit position. Example: What are Q1, Q2, and Q3?</p>
+<p>110 111 Solution:</p>
+<p>0 1  Q1</p>
+<p>10 11 00 01  Q2</p>
+<p>100 101</p>
+<p>010 011</p>
+<p>000 001</p>
+</section>
+<section><h3>7. Bipartite Graphs</h3>
+<p>Q3</p>
+<p>A simple graph G is bipartite if its vertex set V can be partitioned into two disjoint subsets V1 and V2 such that every edge in the graph connects a vertex from the set V1 to the vertex of the set V2. No two vertices of the same set are connected by an edge. For example, C6 is bipartite but K3 is not. A graph is bipartite if and only if it is possible to color the vertices of the graph with at most two colors such that no two adjacent vertices have the same color.  A graph is bipartite if and only if it is not possible to start at a vertex and return to this  vertex by traversing an odd number of distinct edges.</p>
+<p>Q. Are the graphs below bipartite?</p>
+<p>1</p>
+<p>4</p>
+<p>3 2 5</p>
+<p>1</p>
+<p>6</p>
+<p>5</p>
+<p>2 3 4</p>
+<p>Complete Bipartite Graphs: The complete bipartite graph Km,n is the graph where the vertex set is partitioned into two subsets of m and n vertices, respectively. In this graph there is an edge between two vertices if and only if two vertices are in different subsets of vertices. Example: Sketch K2,5, K1,5.</p>
+<p>K K1,5 2,5</p>
+</section>
+<section><h3>8. Graph Representation</h3>
+<p>There are many useful ways to represent graphs. As explained earlier, one way to represent a graph without multiple edges is to list all the edges of this graph. Other techniques are adjacency list, adjacency matrix, and incidence matrix.</p>
+</section>
+<section><h4>8.1. Adjacency List</h4>
+<p>This type of representation is suitable for the undirected graphs without multiple edges, and directed graphs. This representation looks as in the tables below.</p>
+<p>a b c d</p>
+<p>Edge List for Simple Graph</p>
+<p>Vertex Adjacent Vertices</p>
+<p>a b, c</p>
+<p>b a, d</p>
+<p>c a, d</p>
+<p>d b, c</p>
+<p>a</p>
+<p>d</p>
+<p>c</p>
+<p>Edge List for Directed Graph</p>
+<p>Initial Vertex End Vertices</p>
+<p>a B</p>
+<p>b C</p>
+<p>c B</p>
+<p>d a, b, c, d</p>
+<p>b</p>
+<p>Carrying out graph algorithms using the representation of graphs by lists of edges, or by adjacency lists, can be cumbersome if there are many edges in the graph. To simplify computation, graphs can be represented using matrices. Two types of matrices commonly used to represent graphs will be presented here. One is based on the adjacency of vertices, and the other is based on incidence of vertices and edges.</p>
+</section>
+<section><h4>8.2. Adjacency Matrix</h4>
+<p>Given a simple graph G = (V, E) with |V| = n. Assume that the vertices of the graph are listed in some arbitrary order like v1, v2, …, vn. The adjacency matrix A of G  (AG), with respect to the order of the vertices is n-by-n zero-one matrix (A = [aij])  with the condition,</p>
+<p>aij = 1 if {v , v }is an edge of G, i j ⎧</p>
+<p>⎨ 0 otherwise. ⎩</p>
+<p>Since there are n vertices and we may order vertices in any order there are n! possible order of the vertices. The adjacency matrix depends on the order of the vertices, hence there are n! possible adjacency matrices for a graph with n vertices.</p>
+<p>Adjacency matrix for undirected graph is symmetric, in case of the pseudograph or multigraph the representation is similar but the matrix here is not zero-one matrix</p>
+<p>rather the (i, j)th entry of the matrix contains the number of edges appearing between that pair of vertices.</p>
+<p>In case of the directed graph we can extend the same concept as in undirected graph as dictated by the relation</p>
+<p>aij = 1 if (v , v ) is an edge of G, i j ⎧</p>
+<p>⎨ 0 otherwise. ⎩</p>
+<p>The main difference is that the matrix may not be symmetric. Adjacency matrices can also be used to represent directed multigraphs. Again, such matrices are not zero–one matrices when there are multiple edges in the same direction connecting two vertices. In the adjacency matrix for a directed multigraph, aij equals the number of edges that</p>
+<p>are associated to (vi , vj ).</p>
+<p>If the number of edges is few then the adjacency matrix becomes sparse. Sometimes it will be beneficial to represent graph with adjacency list in such a condition.</p>
+</section>
+<section><h4>8.3. Incidence Matrix</h4>
+<p>This is another way of representing graph. Given an undirected graph G = (V, E). Assume that the vertices of the graph are v1, v2, …, vn and the edges of the graph are e1, e2, …, em. The incidence matrix of a graph with respect to the above ordering of V and E is n-by-m matrix M = [mij], where</p>
+<p>mij = 1 when edge e is</p>
+<p>incident with v , ⎧</p>
+<p>j i ⎨ 0 otherwise. ⎩</p>
+<p>When the graph is not simple then also the graph can be represented by using incidence matrix where multiple edges corresponds to two different columns with exactly same entries. Loops are represented with column with only one entry. Example 1: Represent the following graph using adjacency matrix and incidence matrix.</p>
+<p>e3</p>
+<p>a b</p>
+<p>e1e2</p>
+<p>e5 e8</p>
+<p>e7</p>
+<p>e4 c d  e6</p>
+<p>e f e9</p>
+<p>e e e e e e e e e 0 1 0 0 0 1 ⎡</p>
+<p>⎤ ⎢ ⎥ 1 0 1 1 1 1 ⎢</p>
+<p>⎥</p>
+<p>⎢ ⎥ 0 1 0 0 1 1</p>
+<p>⎢ ⎥ 0 1 0 0 1 0 ⎢</p>
+<p>⎥ ⎢ ⎥ 0 1 1 1 0 0 ⎢ ⎥ 1 1 1 0 0 0 ⎢</p>
+<p>⎥ ⎣ ⎦</p>
+<p>a b c d e f</p>
+<p>1 2 3 4 5 6 7 8 9 1 0 1 0 0 0 0 0 0</p>
+<p>⎤ ⎡</p>
+<p>⎥ ⎢ 0 1 1 0 1 0 1 1 0 ⎢</p>
+<p>⎥ ⎥ ⎢</p>
+<p>0 0 0 1 1 1 0 0 0 ⎢</p>
+<p>⎥ 0 0 0 0 0 0 0 1 1 ⎥</p>
+<p>⎢ ⎢</p>
+<p>⎥ 0 0 0 0 0 1 1 0 1 ⎥</p>
+<p>⎢</p>
+<p>1 1 0 1 0 0 0 0 0 ⎥</p>
+<p>⎢ ⎣</p>
+<p>⎦</p>
+<p>Adjacency Matrix Incidence Matrix</p>
+<details><summary>Example</summary><p>Example 2: Represent the following graph using adjacency matrix and incidence matrix.</p></details>
+<p>a  e2</p>
+<p>e1</p>
+<p>e5 c</p>
+<p>d e6 e7</p>
+<p>e8</p>
+<p>e9e10 e4</p>
+<p>b</p>
+<p>e3 e11 e</p>
+<p>e9, e10, e11.</p>
+<p>e</p>
+<p>e</p>
+<p>1</p>
+<p>e</p>
+<p>2</p>
+<p>e</p>
+<p>3</p>
+<p>e</p>
+<p>4</p>
+<p>e</p>
+<p>5</p>
+<p>e</p>
+<p>6</p>
+<p>e</p>
+<p>7</p>
+<p>e</p>
+<p>8</p>
+<p>10 e</p>
+<p>9</p>
+<p>11 e ⎡ ⎢ ⎢ ⎢ ⎢ ⎢ ⎢ ⎣ 1 1 0 1 0 1 0</p>
+<p>2 0 0 0 2 0 1</p>
+<p>1 1 0 1 0 3 0</p>
+<p>0 1 3 1</p>
+<p>⎤ ⎥ ⎥ ⎥ ⎥ ⎥</p>
+<p>⎥ ⎦</p>
+<p>a b c d e 1 1 0 0 1 0</p>
+<p>0 0 0 0 0 ⎡</p>
+<p>⎤ ⎢</p>
+<p>⎥</p>
+<p>0 1 1 1 0 0</p>
+<p>0 0 0 0 0 ⎢</p>
+<p>⎥ ⎢</p>
+<p>⎥ 0 0 1 1 0 1</p>
+<p>0 0 0 0 1 ⎢</p>
+<p>⎥ 0 0 0 0 1 1</p>
+<p>1 1 1 0 0 ⎢</p>
+<p>⎥ ⎢</p>
+<p>⎥</p>
+<p>0 0 0 0 0 0</p>
+<p>1 1 1 1 1 ⎣</p>
+<p>⎦</p>
+<p>Adjacency Matrix Incidence Matrix Example 3: Represent the following directed graph using adjacency matrix.</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>d</p>
+<p>h e</p>
+<p>f</p>
+<p>g</p>
+<p>0 0 1 0 0 0 0 0 ⎡</p>
+<p>⎤ ⎢</p>
+<p>⎥ 1 1 1 1 0 0 0 0 ⎢</p>
+<p>⎥ ⎢</p>
+<p>⎥ 0 0 0 1 1 0 0 0 ⎢ ⎥ 0 0 1 0 0 0 0 2 ⎢</p>
+<p>⎥ ⎢</p>
+<p>⎥ 0 0 0 0 1 1 0 0 ⎢ ⎥ 0 0 0 0 0 0 1 0 ⎢</p>
+<p>⎥ ⎢</p>
+<p>⎥ 0 0 0 0 0 1 0 0 ⎢</p>
+<p>⎥ 0 0 0 0 0 2 1 0 ⎢</p>
+<p>⎥ ⎣</p>
+<p>⎦</p>
+</section>
+<section><h3>9. Graph Isomorphism</h3>
+<p>The two simple graphs G1 = (V1, E1) and G2 = (V2, E2) are isomorphic if there is a one-to-one and onto function f from V1 to V2 with the property that a and b are adjacent in G1 if and only if f(a) and f(b) are adjacent in G2, for all a and b in V1. Such</p>
+<p>a function f is called isomorphism.</p>
+<p>In other words, two simple graphs are called isomorphic if there is a one-to-one correspondence between vertices of the two graphs that preserves the adjacency relationship. Also, isomorphism of simple graphs is an equivalence relationship. The opposite of isomorphic is called nonisomorphic. Example: Show that the graphs G = (V, E) and H = (W, F) displayed below are isomorphic.</p>
+<p>a b  c d p q r s</p>
+<p>G H</p>
+</section>
+<section><h4>9.1. Determining whether Two Simple Graphs are Isomorphic</h4>
+<p>Determining whether two simple graphs are isomorphic is difficult if the number of vertices of graphs is large because there are n! possible one-to-one correspondences between the vertex sets of two simple graphs with n vertices.</p>
+<p>However we can show that two simple graphs are not isomorphic by showing that they do not share a property that isomorphic simple graphs must both preserve. A property preserved by isomorphism of graphs is called a graph invariant. For example,</p>
+<p>1. Isomorphic simple graphs must have the same number of vertices (one-to-one correspondence between vertices of two graphs is required). 2. Isomorphic simple graphs also must have the same number of edges (due to adjacency preservation). 3. The degrees of the vertices in isomorphic simple graphs must be same because the number of edges from the vertex is determined by degree. Example: Show that the graphs displayed below are not isomorphic.</p>
+<p>b</p>
+<p>a c  e d</p>
+<p>b</p>
+<p>a c  e d</p>
+<p>G H</p>
+<p>G Solution: Both graphs have five vertices and six edges. However, H has a vertex of degree one, namely e, whereas G has no vertices of degree one. Hence G and H are not isomorphic. When the above three invariants are same, it does not necessarily mean that the two graphs are isomorphic. There are no useful sets of invariants currently known that can be used to determine whether simple graphs are isomorphic. Example: Determine whether the graphs shown below are isomorphic.</p>
+<p>a b  e f</p>
+<p>s t  w x</p>
+<p>d</p>
+<p>h</p>
+<p>G</p>
+<p>g</p>
+<p>c</p>
+<p>H v G</p>
+<p>z</p>
+<p>H y</p>
+<p>u</p>
+<p>However, G and H are not isomorphic. Since, deg(a) = 2 in G, a must correspondence to either t, u, x, or y in H because these are the vertices of degree two in H. Here, each of these four vertices in H is adjacent to another vertex of degree two in H, which is not true for a in G. Another way to see that two graphs are not isomorphic is to note that the subgraphs formed by connecting the edges from the vertex with same degree in both the graphs are not isomorphic. For example, subgraphs of G and H made up of vertices of degree three and the edges connecting them in the above figure are not isomorphic. Hence, G and H are not isomorphic. The figure below shows subgraphs of G and H made up of vertices of degree three.</p>
+<p>b f</p>
+<p>h</p>
+<p>d</p>
+<p>s w</p>
+<p>z</p>
+<p>v To show isomorphism of graphs, we can also use the concept of adjacency matrix. For this we should show that adjacency matrices of the two graphs are same. For this, we may need to arrange vertices in the adjacency matrix. Example: Determine whether the graphs displayed below are isomorphic.</p>
+<p>a b  f e</p>
+<p>s t</p>
+<p>x</p>
+<p>w</p>
+<p>d u</p>
+<p>c G</p>
+<p>v</p>
+<p>H</p>
+<p>adjacency matrices with the above mentioned orders of vertices, we can see similar two matrices. Hence these graphs are isomorphic. Note: If both adjacency matrices are not same, we cannot say that the two graphs are not isomorphic because another correspondence of the vertices may be same.</p>
+</section>
+<section><h3>10. Graph Connectivity</h3>
+<p>Many problems can be modeled with paths formed by travelling along the edges of the graphs. For example, problem of determining whether a message can be sent between two computers using intermediate links, problems of efficiently planning routes for mail delivery, garbage pickup, diagnostics in computer networks, and so on.</p>
+</section>
+<section><h4>10.1. Path</h4>
+<p>A path is a sequence of edges that begins at a vertex of a graph and travels along edges of the graph, always connecting pairs of adjacent vertices. A formal definition is given below.</p>
+<p>In an undirected graph G, a path of length n, where n is a nonnegative integer, from vertex u to vertex v in G is a sequence of n edges e1, e2, …, en of G such that f(e1) = {x0, x1}, f(e2) = {x1, x2}, …, f(en) = {xn-1, xn}, where u = x0 and v = xn. When the graph is simple, we denoted this path by a vertex sequence x0, x1, …, xn. If u = v and the path length is greater than zero, then the path is called circuit or cycle. The path or circuit is said to pass through the vertices x1, x2, …, xn-1 or traverse the  edges e1, e2, …, en. A path or circuit is simple if it does not contain the same edge  more than once.</p>
+<p>When it is not necessary to distinguish between multiple edges, we will denote a path e1, e2, …, en, where f(ei) = {xi-1, xi} for i = 1, 2, …, n by its vertex sequence x0, x1, …, xn. A path of length zero consists of a single vertex. Example: In the simple graph G shown below a, b, e, g, c is a simple path of length 4 since {a, b}, {b, e}, {e, g}, and {g, c} are all edges. However, a, b, g, c is not a path since {b, g} is not an edge. Note that a, b, e, f, a is a circuit of length 4 since {a, b}, {b, e}, {e, f}, {f, a} are edges, and this path begins and ends at a. The path a, b, e, f, a, b, which is of length 5, is not simple since it contains the {a, b} twice.</p>
+<p>b a</p>
+<p>f</p>
+<p>g e  d</p>
+<p>G</p>
+<p>c</p>
+<p>Let n be a nonnegative integer and G a directed graph. A path of length n, where n is a nonnegative integer, from u to v in G is a sequence of n edges e1, e2, …, en of G such that f(e1) = (x0, x1), f(e2) = (x1, x2), …, f(en) = (xn-1, xn), where u = x0 and v = xn.  When there is no multiple edges in the directed graph, this path is denoted by its  vertex sequence x0, x1, …, xn. If a = b and the path length is greater than zero, then the  path is called circuit or cycle. A path or circuit is simple if it does not contain the  same edge more than once.</p>
+</section>
+<section><h4>10.2. Connectedness in Undirected Graphs</h4>
+<p>An undirected graph is called connected if there is a path between every pair of distinct vertices of the graph. A graph that is not connected is called disconnected graph. The first graph given below is connected whereas the second graph is not.</p>
+<p>d b</p>
+<p>a</p>
+<p>c d b a</p>
+<p>c</p>
+<p>A graph that is not connected is the union of more than one connected graphs that do not share the common vertex. These disjoint connected subgraphs are called connected components of a graph.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem: There is a simple path between every pair of distinct vertices of a connected undirected graph. Proof: Suppose a and b are two distinct vertices of the connected undirected graph G = (V, E). We know that G is connected so by definition there is at least one path between a and b . Let x0, x1, …, xn, where x0 = a and xn = b, be the vertex sequence of a path of a least length. Now if this path of the least length is not simple then we have xi = xj, for some i and j with 0 ≤ i &lt; j. This implies that there is a path from a to b of shorter length with the vertex sequence x0, x1, …, xi, …, xj+1, …, xn obtained by removing the edges corresponding to the vertex sequence xi+1, …, xj. This shows that there is a simple path.</div>
+<p>Cut vertices (articulation points) are those vertices in the graph whose removal along with the edges incident on them produces subgraph with more connected components than in the original graph. Cut edge (bridge) is an edge whose removal produces a graph with more connected components than in the original graph. A cut set of a graph is a set of edges such that the removal of these edges produces a subgraph with more connected components than in the original graph, but no proper subset of this set of edges has this property. Example: Find the cut vertices and cut edges in the graph given below.</p>
+<p>a</p>
+<p>d f g</p>
+<p>h b c</p>
+<p>e Solution: The cut vertices are b, c, and e. the removal of one of these vertices and its adjacent edges disconnects the graph. The cut edges are {a, b} and {c, e}. Removing either one of these edges disconnects the graph.</p>
+</section>
+<section><h4>10.3. Connectedness in Directed Graphs</h4>
+<p>A directed graph is strongly connected if there is a path from a to b and from b to a whenever a and b are vertices in the graph. A directed graph is weakly connected if</p>
+<p>there is a path between every two vertices in the underlying undirected graph.  The subgraphs of a directed graph G that are strongly connected but not contained in  larger strongly connected subgraphs are called strongly connected components or  strong components of G.</p>
+<p>a b b</p>
+<p>c</p>
+<p>d e</p>
+<p>a</p>
+<p>d e</p>
+<p>c</p>
+<p>For example, the first graph shown above is strongly connected because there is a path between any two vertices in this directed graph. Hence it is also weakly connected. The second graph below is not strongly connected. There is no directed path from a to b in this graph. However, this graph is weakly connected, since there is</p>
+<p>a path between any two vertices in the underlying undirected graph of this graph. The second graph in the figure above has three strongly connected components, consisting of the vertex a; the vertex e; and the subgraph consisting of the vertices b, c, and d  and edges (b, c), (c, d), and (d, b).</p>
+</section>
+<section><h3>11. Euler and Hamilton Paths</h3>
+</section>
+<section><h4>11.1. Euler Paths and Circuits</h4>
+<p>An Euler circuit in a graph G is a simple circuit containing every edge of G. An Euler path in G is a simple path containing every edge of G.</p>
+<details><summary>Example</summary><p>Example 1: Which of the undirected graphs given below have an Euler circuit? Of those that do not, which have an Euler path?</p></details>
+<p>a b</p>
+<p>b</p>
+<p>e a b  a</p>
+<p>e</p>
+<p>d c</p>
+<p>d c d c</p>
+<p>e</p>
+<p>G1 G2 G3</p>
+<details><summary>Example</summary><p>Example 2: Which of the directed graphs shown below have an Euler circuit? Of those that do not, which have an Euler path?</p></details>
+<p>a b</p>
+<p>b</p>
+<p>f</p>
+<p>a</p>
+<p>g</p>
+<p>c</p>
+<p>c</p>
+<p>d</p>
+<p>c d</p>
+<p>d e</p>
+<p>b a</p>
+<p>H1 H2 H3</p>
+<p>Necessary and Sufficient Conditions for Euler Circuits and Paths There are simple criteria for determining whether a multigraph has an Euler circuit or  an Euler path. The Swiss mathematician Leonhard Euler discovered them when he  solved the famous Königsberg bridge problem.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem 1: A connected multigraph with at least two vertices has an Euler circuit if</div>
+<p>and only if each of its vertices has even degree. Proof: Suppose that a connected multigraph with at least two vertices has an Euler circuit. We pick an arbitrary starting vertex of the circuit, say a. The edge in the path leaving a contributes 1 to a’s degree. Every time the circuit passes through a vertex, it contributes two to the vertex’s degree, one for entering and the other for leaving the vertex. When the circuit ends, it stops at a, contributes 1 more to a’s degree. Hence, every vertex will have even degree.</p>
+<p>Alternatively, suppose that a connected multigraph with at least two vertices has the degree of every vertex even. We begin with an arbitrary vertex a of G. We choose an arbitrary edge incident with a and continue by building a simple path, adding edges to the path until we cannot add another edge to the path. This happens when we reach a vertex for which we have already included all edges incident with that vertex in the path. The path we have constructed must terminate because the graph has a finite number of edges. Another claim is that the path must terminate at vertex a. To see this, every time the path goes through a vertex with even degree, it uses one edge to enter it and another to leave it. This means, other than a every time we enter a vertex, we can leave it. An Euler circuit has been constructed if all the edges have been used. Otherwise, consider the subgraph H obtained from G be deleting the edges already used and vertices that are not incident with any remaining edges. Because G is connected, H has at least one vertex in common with the circuit that has been deleted. Let w be such a vertex. Every vertex in H has even degree. Beginning at w, construct a simple path in H by choosing edges as long as possible, as done in G. This path terminate at w. Next, form a circuit in G by splicing the circuit in H with the original circuit in G. Continue the process until all edges have been used.</p>
+<p>Constructing Euler Circuit procedure Euler(G: connected multigraph with all vertices of even degree)  circuit := a circuit in G beginning at an arbitrarily chosen vertex with edges  successively added to form a path that returns to this vertex H := G with the edges of this circuit removed while H has edges</p>
+<p>subcircuit := a circuit in H beginning at a vertex in H that also is an endpoint of an</p>
+<p>edge of circuit H := H with edges of subcircuit and all isolated vertices removed circuit := circuit with subcircuit inserted at the appropriate vertex return circuit {circuit is an Euler circuit} For example,</p>
+<p>a</p>
+<p>b</p>
+<p>e G = circuit = a, b, e, a H = sucircuit = e, c, d, e  e</p>
+<p>d c</p>
+<p>c d</p>
+<p>H = circuit = a, b, e, c, d, e, a Theorem 2: A connected multigraph has an Euler path but not an Euler circuit if and only if it has exactly two vertices of odd degree. Proof: First, suppose that a connected multigraph does have an Euler path from a to b, but not an Euler circuit. The first edge of the path contributes one to the degree of a. A contribution of two the degree of a every time the path passes through a. The last edge in the path contributes one to the degree of b. Every time the path goes through b, it contributes two to its degree.</p>
+<p>Now consider the converse. Suppose that a graph has exactly two vertices of odd degree, say a and b. Consider the larger graph made up of the original graph with the addition of an edge {a, b}. Every vertex of this larger graph has even degree, so there is an Euler circuit. The removal of the new edge produces an Euler path in the original graph.</p>
+</section>
+<section><h4>11.2. Hamilton Paths and Circuits</h4>
+<p>A simple path in a graph G that passes through every vertex exactly once is called a Hamilton path, and a simple circuit in a graph G that passes through every vertex exactly once is called a Hamilton circuit. That is, the simple path x0, x1, . . . , xn − 1, xn in the graph G = (V ,E) is a Hamilton path if V = {x0, x1, . . . , xn − 1, xn} and xi ≠ xj for  0 ≤ i &lt; j ≤ n, and the simple circuit x0, x1, . . . , xn − 1, xn, x0 (with n &gt; 0) is a Hamilton circuit if x0, x1, . . . , xn − 1, xn is a Hamilton path. Note: This terminology comes from a game, called the Icosian puzzle, invented in</p>
+<p>1857 by the Irish mathematician Sir William Rowan Hamilton.</p>
+<details><summary>Example</summary><p>Example: Which of the simple graphs given below have a Hamilton circuit or, if not,</p></details>
+<p>a Hamilton path?</p>
+<p>a b a b a b g</p>
+<p>c e  d</p>
+<p>G1 c d  G2</p>
+<p>c d  G3</p>
+<p>e f</p>
+<p>Conditions for the Existence of Hamilton Circuits Although no useful necessary and sufficient conditions for the existence of Hamilton circuits are known, quite a few sufficient conditions have been found. We state two of the most important sufficient conditions here.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem 1: Dirac’s Theorem (Gabriel A. Dirac in 1952): If G is a simple graph with n vertices with n ≥ 3 such that the degree of every vertex in G is at least n/2, then G has a Hamilton circuit.</div>
+<div class="callout key"><strong>Theorem:</strong> Theorem 2: Ore’s Theorem (Øystein Ore in 1960): If G is a simple graph with n vertices with n ≥ 3 such that deg(u) + deg(v) ≥ n for every pair of nonadjacent vertices u and v in G, then G has a Hamilton circuit.</div>
+</section>
+<section><h3>12. Shortest Path Problem</h3>
+</section>
+<section><h4>12.1. Introduction</h4>
+<p>Many problems can be modeled using graphs with weights assigned to their edges. Graphs that have a number assigned to each edge are called weighted graphs. Weighted graphs are used to model computer networks, airline systems etc. For example, communications costs, response times, or the distance between computers, can all be studied using weighted graphs of computer networks. Problems involving flight time or fares can be studied using weighted graphs of airline systems.</p>
+<p>Several types of problems involving weighted graphs arise frequently. Determining a path of least length (i.e. shortest path) between two vertices in a network is one such problem. Another important problem involving weighted graphs asks for a circuit of shortest total length that visits every vertex of a complete graph exactly once. This is the famous traveling Sales person problem, which asks for an order in which a salesperson should visit each of the cities on his route exactly once so that he travels the minimum total distance.</p>
+</section>
+<section><h4>12.2. A Shortest-Path Algorithm</h4>
+<p>There are several different algorithms that find a shortest path between two vertices in a weighted graph. We will present a greedy algorithm discovered by the Dutch mathematician Edsger Dijkstra in 1959. The version we will describe solves this problem in undirected weighted graphs where all the weights are positive. It is easy to adapt it to solve shortest-path problems in directed graphs.</p>
+<p>Dijkstra’s Algorithm procedure Dijkstra(G: weighted connected simple graph, with all weights positive) {G has vertices a = v0, v1, . . . , vn = z and lengths w(vi , vj) where w(vi , vj) = ∞ if {vi, vj} is not an edge in G} for i := 1 to n</p>
+<p>L(vi) := ∞</p>
+<p>L(a) := 0 S := ∅</p>
+<p>{the labels are now initialized so that the label of a is 0 and all other labels are ∞, and S is the empty set} while z ∉ S</p>
+<p>u := a vertex not in S with L(u) minimal S := S ∪ {u} for all vertices v not in S</p>
+<p>if L(u) + w(u, v) &lt; L(v) then L(v) := L(u) + w(u, v)</p>
+<p>{this adds a vertex to S with minimal label and updates the labels of vertices not in S} return L(z) {L(z) = length of a shortest path from a to z}</p>
+<details><summary>Example</summary><p>Example: Use Dijkstra’s algorithm to find the length of shortest path between the vertices a and z in the weighted graph given below.</p></details>
+<p>4 b 1 5</p>
+<p>8 d</p>
+<p>6</p>
+<p>a z  2</p>
+<p>2</p>
+<p>e c</p>
+<p>10</p>
+<p>3</p>
+<p>b ∞ 1</p>
+<p>5</p>
+<p>8</p>
+<p>d ∞</p>
+<p>6 z ∞</p>
+<p>b 4(a)</p>
+<p>4</p>
+<p>5</p>
+<p>8</p>
+<p>d ∞</p>
+<p>6</p>
+<p>0 z ∞</p>
+<p>0 a 2</p>
+<p>2</p>
+<p>3</p>
+<p>a</p>
+<p>2</p>
+<p>1 2 3</p>
+<p>c ∞ e ∞ 10</p>
+<p>c 2(a) e ∞ 10</p>
+<p>Fig (a) Fig (b)</p>
+<p>b 3(a,c)</p>
+<p>4</p>
+<p>5</p>
+<p>8 d 10(a,c)</p>
+<p>6</p>
+<p>b</p>
+<p>4 3(a,c) 5 8 d 8(a,c,b)</p>
+<p>6</p>
+<p>0 z ∞ 0 z ∞</p>
+<p>a</p>
+<p>2 1 c</p>
+<p>2(a) 10 2</p>
+<p>e 12(a,c) a</p>
+<p>3</p>
+<p>2</p>
+<p>1</p>
+<p>c</p>
+<p>2(a) 10</p>
+<p>2</p>
+<p>e 12(a,c)</p>
+<p>3</p>
+<p>Fig (c) Fig (d)</p>
+<p>3(a,c)</p>
+<p>b d 8(a,c,b)  5</p>
+<p>3(a,c)</p>
+<p>4 5 8(a,c,b) 6 4 b d  8</p>
+<p>6</p>
+<p>8 z 14(a,c,b,d) z 13(a,c,b,d,e) 0</p>
+<p>0 a</p>
+<p>2</p>
+<p>1</p>
+<p>c</p>
+<p>2 3 a</p>
+<p>2 1 c</p>
+<p>2(a) 2</p>
+<p>10 3</p>
+<p>2(a) 10 e 10(a,c,b,d) e 10(a,c,b,d)</p>
+<p>Fig (e) Fig(f)</p>
+<p>3(a,c) 5 8(a,c,b)</p>
+<p>0</p>
+<p>a</p>
+<p>4  2</p>
+<p>b d</p>
+<p>8 1</p>
+<p>c</p>
+<p>6</p>
+<p>2</p>
+<p>3 z</p>
+<p>13(a,c,b,d ,e)</p>
+<p>2(a)</p>
+<p>10</p>
+<p>Fig (g)</p>
+<p>e</p>
+<p>10(a,c,b,d )</p>
+<p>Hence, the length of the shortest path is 13 and the shortest path is a, c, b, d, e, z.</p>
+<p>Exercise: Find the length of the shortest path between a and z in the given weighted graphs.</p>
+<p>2</p>
+<p>b 5 2 d</p>
+<p>2</p>
+<p>a z  1</p>
+<p>3</p>
+<p>e c</p>
+<p>5</p>
+<p>4</p>
+</section>
+<section><h4>12.3. Travelling Salesman Problem</h4>
+<p>A travelling salesman wants to visit each of n cities exactly once and return to his starting point. The problem is to find the order of cities the salesman travels with minimum total distance. This problem asks for the circuit of minimum total weight in a weighted, complete, undirected graph that visits each vertex exactly once and returns to its starting point. This is equivalent to asking for a Hamilton circuit with minimum total weight.</p>
+<p>City 1 City 2</p>
+<p>5km</p>
+<p>3km 4km 1km</p>
+<p>2km  5km</p>
+<p>City 3 City 4</p>
+<p>The most straightforward way to solve this problem is to examine all possible Hamilton circuits and select one with total minimum weight. Once a starting point is chosen, there are (n – 1)! Different Hamilton circuits to examine, since there are n -1 choices for the second vertex, n – 2 choices for the third vertex, and so on. Since a Hamilton circuit can be travelled in reverse order, we need to examine only (n – 1) / 2 ! circuits to find our answer. Trying to solve this problem in this way is impractical when there are only few dozens of vertices. Although there are many algorithms to solve this problem, no algorithm is known till now to solve this problem efficiently.</p>
+</section>
+<section><h3>13. Graph Coloring</h3>
+<p>A coloring of a simple graph is the assignment of a color to each vertex of the graph</p>
+<p>so that no two adjacent vertices are assigned the same color. The chromatic number of a graph is the least number of colors needed for a coloring of this graph. The chromatic number of a graph G is denoted by χ(G). (Here χ is the Greek letter chi.)</p>
+<details><summary>Example</summary><p>Example: What is the chromatic number of the graph giver below?</p></details>
+<p>a b a Red b Green</p>
+<p>d c</p>
+<p>e</p>
+<p>c Green d Blue e Red</p>
+</section>
+<section><h4>13.1. Applications of Graph Coloring</h4>
+<p>Map Coloring We can use graph coloring to color different regions of a map. When a map is  colored, two regions with a common border are customarily assigned different colors.  One way to ensure that two adjacent regions never have the same color is to use a different color for each region. However, this is inefficient, and on maps with many regions it would be hard to distinguish similar colors. Instead, a small number of colors should be used whenever possible. Consider the problem of determining the least number of colors that can be used to color a map so that adjacent regions never have the same color. To do this, map is represented with a graph. Each region of the map is represented by a vertex. Edges connect two vertices if the regions represented by these vertices have a common border. Two regions that touch at only one point are not considered adjacent. The resulting graph is called the dual graph of the map. Now, we can find minimum number of colors required to color this graph and the color assigned to the vertices of the graph are used to color the regions of map.</p>
+<p>A B</p>
+<p>C</p>
+<p>D E</p>
+<p>B</p>
+<p>A C  D</p>
+<p>E</p>
+<p>Map Dual Graph</p>
+<p>Scheduling Final Exams How can the final exams at a university be scheduled so that no student has two exams at the same time? This problem can be solved using a graph model with vertices representing courses and with an edge between two vertices if there is a common student in the courses they represent. Each time slot for final exam is represented by different color. For example, suppose there are four finals to be scheduled. And suppose that math and biology, physics and chemistry, and math and physic have common student. Now, we can draw a graph as show below.</p>
+<p>Red Green</p>
+<p>Red Green</p>
+<p>Biology</p>
+<p>Math Physics Chemistry</p>
+<p>Since, the chromatic number of this graph is 2, two time slots are needed. Now, we can conduct the finals of the subjects having same color in one time slot. Hence,</p>
+<p>Time Slot Courses</p>
+<p>I Biology, Physics</p>
+<p>II Math, Chemistry</p>
+</section>
+<section><h2>Trees</h2>
+</section>
+<section><h3>1. Introduction to Trees</h3>
+</section>
+<section><h4>1.1. Introduction</h4>
+<p>A tree is a connected undirected simple graph with no simple circuits. A tree is a particular type of graph. For example, family trees are graphs that represent genealogical charts. Family trees have vertices to represents the members of a family and edges to represents parent-child relationship.</p>
+<details><summary>Example</summary><p>Example: Which of the graphs shown below are trees?</p></details>
+<p>a  c b  d</p>
+<p>a  c b  d a  c b  d a  c b  d</p>
+<p>e f  G1 e f  G2 e f  G3 e f  G4</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem: An undirected graph is a tree if and only if there is a unique simple path between any two of its vertices. Proof: First assume that T is a tree. Then T is a connected undirected graph with no simple circuits. We know that there is a simple path between every pair of distinct vertices of a connected undirected graph (theorem in graph theory). Suppose that there is a simple path between x and y in the graph. Moreover, this path must be unique because if the path between x and y is not unique, there is another path between x and y that uses edges different from the first path between x and y forming a circuit. This implies that there is a simple circuit in T and this is a contradiction. Hence, there is a unique simple path between any two vertices in a tree. Now, assume that there is a unique simple path between any two vertices of a graph  T. Then T is connected, since there is a path between any two of its vertices. Now we can show that T can have no simple circuits. To show this suppose T had a simple circuit that contains the vertices x and y. This violates our assumption that the path is unique. Hence, a graph with a unique simple path between any two vertices is a tree.</div>
+</section>
+<section><h4>1.2. Rooted Tree</h4>
+<p>In many applications of trees, a particular vertex of a tree is designated as the root. A rooted tree is a tree in which one vertex has been designated as the root and every edge is directed away from the root. Note that different choices of the root produce different rooted trees. We can change an un-rooted tree in to a rooted by choosing any vertex as the root. The tree in which root is defined produces a directed graph as shown below.</p>
+<p>a  c b  d</p>
+<p>a</p>
+<p>a</p>
+<p>c c</p>
+<p>b d</p>
+<p>f</p>
+<p>c</p>
+<p>f</p>
+<p>e</p>
+<p>e f</p>
+<p>with root c</p>
+<p>e a</p>
+<p>b d</p>
+<p>T</p>
+<p>with root f</p>
+<p>The terminology for trees has botanical and genealogical origins. Suppose that T is a rooted tree. If v is the unique vertex in T other than the root, the parent of v is the unique vertex u such that there is a directed edge from u to v. And this parent is unique. When u is a parent of v, v is called a child of u. Vertices with the same parent are called siblings. The ancestors of a vertex other than the root are the vertices in the</p>
+<p>path from the root to this vertex excluding the vertex itself and including the root. The descendants of a vertex v are those vertices that have v as an ancestor. A vertex of a tree is called a leaf if it has no children. Vertices that have children are called internal vertices. The root is an internal vertex unless it is the only vertex in the graph, in which case it is a leaf. The subtree with a vertex in a tree as its root is the sub graph of the tree consisting of that vertex and its descendants and all edges incident to these descendants.</p>
+<p>Remember: We usually draw a rooted tree with its root at the top of the graph. The arrows indicating the directions of the edges in a rooted tree can be omitted, because the choice of root determines the directions of the edges.</p>
+<details><summary>Example</summary><p>Example: In the rooted tree T (with root a) given below in Figure 1, find the parent of c, the children of g, the siblings of h, all ancestors of e, all descendants of b, all internal vertices, and all leaves. What is the subtree rooted at g?</p></details>
+<p>a</p>
+<p>a g g</p>
+<p>d</p>
+<p>b f  c</p>
+<p>e</p>
+<p>h i  k j</p>
+<p>l m</p>
+<p>h i  k j</p>
+<p>l m</p>
+<p>Figure 1 Figure 2 Solution: The parent of c is b. The children of g are h, i, and j. The siblings of h are i and j. The ancestors of e are c, b, and a. The descendants of b are c, d, and e. The internal vertices are a, b, c, g, h, and j . The leaves are d, e, f , i, k, l, and m. The subtree rooted at g is shown in Figure 2 above.</p>
+<p>M-ary Tree A rooted tree is called an m-ary tree if every internal vertex has no more than m children. The tree is called a full m-ary tree if every internal vertex has exactly m children. An m-ary tree with m = 2 is called a binary tree. For example, the tree in Figure 1 below is 3-ary tree and the tree in Figure 2 below is full 3-ary tree.</p>
+<p>a</p>
+<p>b c d</p>
+<p>g a</p>
+<p>b f</p>
+<p>g</p>
+<p>h j</p>
+<p>e f c d e i</p>
+<p>Figure 1 Figure 2</p>
+<p>Ordered Rooted Tree An ordered rooted tree is a rooted tree where the children of each internal vertex are ordered. Ordered rooted trees are drawn so that the children of each internal vertex are shown in order from left to right. The trees shown in Figure 1 and Figure 2 above are ordered rooted trees. In an ordered binary tree (usually called just a binary tree), if an internal vertex has</p>
+<p>two children, the first child is called the left child and the second child is called the right child. The tree rooted at the left child of a vertex is called the left subtree of this vertex, and the tree rooted at the right child of a vertex is called the right subtree of the vertex.</p>
+<p>Balanced m-Ary Trees The level of a vertex v in a rooted tree is the length of the unique path from the root to this vertex. The level of the root is defined to be zero. The height of a rooted tree is the maximum of the levels of vertices. In other words, the height of a rooted tree is the length of the longest path from the root to any vertex. A rooted m-ary tree of height h is balanced if all leaves are at levels h or h − 1.</p>
+<details><summary>Example</summary><p>Example: Find the level of each vertex in the rooted tree shown below. What is the height of this tree? Is this tree balanced?</p></details>
+<p>g</p>
+<p>h i  k</p>
+<p>j</p>
+<p>l m</p>
+</section>
+<section><h3>2. Applications of Trees</h3>
+<p>Trees have may different applications. We can solve different problems using trees as discussed below.</p>
+<p>∙ How should items in a list be stored so that an item can be easily located? To  solve these problems, we use the concept of binary search trees.  ∙ What series of decisions should be made to find an object with a certain property  in a collection of objects of a certain type? To solve these problems, we use the  concept of decision trees. ∙ How should a set of characters be efficiency coded by bit strings? To solve these problems, we use the concept of prefix codes.</p>
+</section>
+<section><h4>2.1. Binary Search Trees</h4>
+<p>Binary search trees are used to search items in a list efficiently. A binary search tree (BST) is a binary tree in which each child of a vertex is designated as a right or left child, no vertex has more than one right child or left child and each vertex is labeled with a key, which is one of the items. Furthermore vertices are assigned keys so that the key of a vertex is both larger than the keys of all vertices in its left subtree and smaller than the keys of all vertices in its right subtree. We use a recursive procedure to form a binary search tree for a list of items. We start with a tree containing just one vertex, namely, the root. The first item in the list is assigned as the key of the root. To add a new item, first compare it with the keys of vertices already in the tree, starting at the root and moving to the left if the item is less than the key of the respective vertex if this vertex has a left child or moving to the right if the item is greater than the key of the respective vertex if this vertex has a  right child. When the item is less than the respective vertex and this vertex has no left  child, then a new vertex with this item as its key is inserted as a new left child.  Similarly, when the item is greater than the respective vertex and this vertex has no  right child, then a new vertex with this item as its key is inserted as a new right child.</p>
+<details><summary>Example</summary><p>Example: Form a BST for the words mathematics, physics, geography, zoology, metrology, geology, psychology, and chemistry. Solution:</p></details>
+<p>Mathematics</p>
+<p>(a)</p>
+<p>Mathematics</p>
+<p>Geography</p>
+<p>Mathematics</p>
+<p>Physics</p>
+<p>(b)</p>
+<p>Physics Mathematics</p>
+<p>Physics Geography</p>
+<p>(c)</p>
+<p>Mathematics</p>
+<p>Physics Geography</p>
+<p>Zoology (d)</p>
+<p>Mathematics Metrology (e)</p>
+<p>Mathematics Zoology</p>
+<p>Geography Physics</p>
+<p>Geography Physics</p>
+<p>Metrology Geology Zoology (f)</p>
+<p>Geology  (g)</p>
+<p>Metrology</p>
+<p>Psychology Zoology</p>
+<p>Mathematics</p>
+<p>Geography Physics</p>
+<p>Chemistry Geology  (h)</p>
+<p>Metrology</p>
+<p>Psychology Zoology</p>
+<p>Exercise: Consider a BST whose elements are abbreviated names of chemical elements. Starting with an empty BST, show the effect of successively adding the following elements: H, C, N, O, Al, Si, Fe, Na, P, S, Ni, and Ca. Exercise: Starting with empty BST, show the effect of successively adding the following numbers as keys: 20, 23, 10, 21, 30, 15, 5, 22 and 40.</p>
+</section>
+<section><h4>2.2. Decision Tree</h4>
+<p>Rooted trees can be used to model problems in which a series of decisions leads to a solution. A rooted tree in which each internal vertex corresponds to a decision, with a</p>
+<p>subtree at these vertices for each possible outcome of the decision, is called a decision tree. The possible solutions of the problem correspond to the paths to the leaves of this rooted tree.</p>
+<details><summary>Example</summary><p>Example: Suppose there are seven coins, all with the same weight, and a counterfeit coin that weights less than the others. How many weighing are necessary using a balance scale to determine which of the eight coins is the counterfeit one?  Solution: There are three possibilities for each weighing on a balance scale. The two  pans can have equal weight, the first pan can be heavier or the second pan can be  heavier. Consequently, the decision tree for the sequence weighing is a 3-ary tree.</p></details>
+<p>There are at least eight leaves in the decision tree since there are eight possible outcomes (since each of the eight coin can be the counterfeit lighter coin), and each possible outcomes must be represented by at least one leaf.</p>
+<p>The largest number of weighings needed to determine the counterfeit coin is the height of the decision tree. Hence 2 weighing are needed if we choose 3 coins in a group.</p>
+<p>123 vs. 456</p>
+<p>Light Light</p>
+<p>Balance</p>
+<p>1 vs. 2 7 vs. 8 4 vs. 5</p>
+<p>L</p>
+<p>B</p>
+<p>L L L L</p>
+<p>B L 1 3 2</p>
+</section>
+<section><h4>2.3. Prefix Codes</h4>
+<p>7 8 4 6 5</p>
+<p>Prefix codes are the codes where no bit string corresponds to more than one sequence of letters. For this, we can encode letters so that the bit string for a letter never occurs as the first part of the bit string for another letter. For example, the encoding of e as 0, a as 10, and t as 11 is a prefix code. A word can be recovered from the unique bit string that encodes its letters. For example, the string 10110 is the encoding of ate. A prefix code can be represented using a binary tree, where the characters are the labels of the leaves in the tree. The edges of the tree are labeled so that an edge leading to a left child is assigned to a 0 and an edge leading to a right child is assigned to a 1. The bit string used to encode a character is the sequence of labels of the edges in the unique path from the root to the leaf that has this character as its label. For example, the tree below represents the encoding of e by 0, a by 10, t by 110, n by 1110, and s by 1111.</p>
+<p>e 0</p>
+<p>0</p>
+<p>a</p>
+<p>t 1</p>
+<p>1</p>
+<p>0</p>
+<p>0 1</p>
+<p>1</p>
+<p>n s We can use this tree to decode a bit string. For example, the bit string 11111011100 is decoded to the word sane.</p>
+<p>We can also use this tree to encode characters with the bit string using the labels of  the edges in the unique path from the root to the leaves. For example, the word eat is encoded the bit string 010110. Prefix codes are used to save memory and reduce transmission time because it can be used to represent data with fewer bits. The concept of representing data with fewer bits is called data compression.</p>
+</section>
+<section><h3>3. Tree Traversal</h3>
+<p>Ordered rooted trees are often used to store information. We need procedures for visiting each vertex of an ordered rooted tree to access data. Procedures for systematically visiting every vertex of an ordered rooted tree are called traversal algorithms. The most commonly used such algorithms are preorder traversal, inorder traversal, and postorder traversal. Each of these algorithms can be defined recursively.</p>
+</section>
+<section><h4>3.1. Preorder Traversal</h4>
+<p>Let T be an ordered rooted tree with root r. If T consists only of r, then r is the preorder traversal of T. Otherwise, suppose that T1, T2, . . . , Tn are the subtrees at r from left to right in T. The preorder traversal begins by visiting r. It continues by traversing T1 in preorder, then T2 in preorder, and so on, until Tn is traversed in preorder. The figure below shows preorder traversal.</p>
+<p>Step 1:Visit r r</p>
+<p>T1 T2 ……... Tn</p>
+<p>Step 2:Visit T1 in Preorder</p>
+<p>Step 3:Visit T2 in Preorder</p>
+<p>Step n+1:Visit Tn in Preorder Example: What is the preorder traversal of the ordered rooted tree given below?</p>
+<p>a</p>
+<p>b d  c</p>
+<p>f e</p>
+<p>k j</p>
+<p>o</p>
+<p>p n</p>
+<p>g</p>
+<p>l m</p>
+<p>i</p>
+<p>h</p>
+<p>a b c d  i f</p>
+<p>j e</p>
+<p>k</p>
+<p>o</p>
+<p>p n g m l h</p>
+<p>a c</p>
+<p>d b h</p>
+<p>i f e  g</p>
+<p>j k o</p>
+<p>p n</p>
+<p>m l</p>
+<p>a c</p>
+<p>d b h</p>
+<p>i f e</p>
+<p>j k  g l m</p>
+<p>o</p>
+<p>p n</p>
+<p>a c</p>
+<p>d b h i  e</p>
+<p>j k n o p f g l m</p>
+<p>Hence, the preorder traversal of the given tree is a, b, e, j , k, n, o, p, f , c, d, g, l, m, h,</p>
+<p>i.</p>
+</section>
+<section><h4>3.2. Inorder Traversal</h4>
+<p>Let T be an ordered rooted tree with root r. If T consists only of r, then r is the inorder traversal of T . Otherwise, suppose that T1, T2, . . . , Tn are the subtrees at r from left  to right. The inorder traversal begins by traversing T1 in inorder, then visiting r. It continues by traversing T2 in inorder, then T3 in inorder, . . . , and finally Tn in  inorder. The figure below shows this concept.</p>
+<p>Step 2:Visit r r</p>
+<p>T1 T2 ……... Tn</p>
+<p>Step 1:Visit</p>
+<p>T1 in Inorder Step 3:Visit  T2</p>
+<p>in Preorder</p>
+<p>Step n+1:Visit  Tn in Preorder</p>
+<details><summary>Example</summary><p>Example: What is the inorder traversal of the same ordered rooted tree given above? Solution:</p></details>
+<p>b a</p>
+<p>c d</p>
+<p>i f</p>
+<p>j e</p>
+<p>k</p>
+<p>o</p>
+<p>p n g m l h</p>
+<p>a c d</p>
+<p>b</p>
+<p>h</p>
+<p>i f e  g</p>
+<p>k j</p>
+<p>m l</p>
+<p>o</p>
+<p>p n</p>
+<p>a c</p>
+<p>b d h i</p>
+<p>e</p>
+<p>k f j  o</p>
+<p>p n l g m</p>
+<p>i c</p>
+<p>l e h</p>
+<p>i n</p>
+<p>k</p>
+<p>o p</p>
+<p>b f a g m d</p>
+<p>Hence, the preorder traversal of the given tree is i, e, n, k, o, p, b, f, a , c, l, g, m, d, h,</p>
+<p>i.</p>
+</section>
+<section><h4>3.3. Postorder Traversal</h4>
+<p>Let T be an ordered rooted tree with root r. If T consists only of r, then r is the postorder traversal of T . Otherwise, suppose that T1, T2, . . . , Tn are the subtrees at r from left to right. The postorder traversal begins by traversing T1 in postorder, then T2 in postorder, . . . , then Tn in postorder, and ends by visiting r. The figure below shows this concept.</p>
+<p>Step n+1:Visit r r</p>
+<p>T1 T2 ……... Tn</p>
+<p>Step 1:Visit</p>
+<p>T1 in Inorder Step 2:Visit  T2</p>
+<p>in Preorder</p>
+<p>Step n:Visit  Tn in Preorder</p>
+<p>Exercise: What is the postorder traversal of the same ordered rooted tree given</p>
+<p>above? Solution:</p>
+<p>j e</p>
+<p>k</p>
+<p>b</p>
+<p>c d</p>
+<p>a</p>
+<p>i f  g</p>
+<p>h</p>
+<p>m l</p>
+<p>o</p>
+<p>p n</p>
+<p>a b c h</p>
+<p>d</p>
+<p>i</p>
+<p>f e  g</p>
+<p>j k o</p>
+<p>p n m l</p>
+<p>e f h</p>
+<p>d</p>
+<p>i</p>
+<p>k a j b c  o</p>
+<p>p n l m g</p>
+<p>j l</p>
+<p>m n d a  o</p>
+<p>p</p>
+<p>k e</p>
+<p>f b c g h i</p>
+<p>Hence, the postorder traversal of the given tree is j, n, o, p, k, e, f, b, c, l, m, g, h, i, d, a.</p>
+</section>
+<section><h3>4. Spanning Trees</h3>
+<p>Let G be a simple connected graph. A spanning tree of G is a subgraph of G that is a tree containing every vertex of G. Example: Find a spanning tree of the simple graph G shown below.</p>
+<p>e a b</p>
+<p>f</p>
+<p>c d  g</p>
+<p>a b  e f</p>
+<p>c d g</p>
+<p>This tree is not the only spanning tree of the graph. The graph can also have other</p>
+<p>spanning trees.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem: A simple graph is connected if and only if it has a spanning tree.  Proof: First, suppose that a simple graph G has a spanning tree T. Then, T contains  every vertex of G. Furthermore, there is a path in T between any two of its vertices.  Since T is a subgraph of G, there is a path in G between any two of its vertices.  Hence, G is connected.</div>
+<p>Now, suppose that G is connected. If G is not a tree, it must contain a simple circuit. Remove an edge from one of these simple circuits. The resulting subgraph has one fewer edge but still contains all the vertices of G and is connected. If this subgraph is not a tree, it has a simple circuit; so as before, remove an edge that is in a simple circuit. Repeat this process until no simple circuits remain. A tree is produced since the graph stays connected as edges are removed. And, this tree is a spanning tree since it contains every vertex of G.</p>
+</section>
+<section><h4>4.1. Minimum Spanning Trees</h4>
+<p>A minimum spanning tree in a connected weighted graph is a spanning tree that has the smallest possible sum of weights of its edges.</p>
+<p>Kruskal’s algorithm for constructing minimum spanning trees: To carry out Kruskal’s algorithm, choose an edge in the graph with minimum weight. Successively add edges with minimum weight that do not form a simple circuit with those edges already chosen. Stop after n-1 edges have been selected.</p>
+<p>Algorithm: procedure Kruskal (G:weighted connected undirected graph with n vertices)</p>
+<p>T := empty graph for i := 1 to n - 1</p>
+<p>begin e := any edge in graph G with smallest weight that edges not form a simple circuit when added to T T := T with e added end {T is a minimum spanning tree of G} Example: Find the minimum spanning tree of the following graph using Kruskal’s</p>
+<p>algorithm.</p>
+<p>a</p>
+<p>7  7</p>
+<p>18  19</p>
+<p>c</p>
+<p>10</p>
+<p>b</p>
+<p>15 0</p>
+<p>d e</p>
+<p>13</p>
+<p>a 11 8</p>
+<p>f</p>
+<p>g  c</p>
+<p>a</p>
+<p>c</p>
+<p>7</p>
+<p>b d e b 7</p>
+<p>8</p>
+<p>d e 7</p>
+<p>b</p>
+<p>10</p>
+<p>d e  8</p>
+<p>f (a) g</p>
+<p>f</p>
+<p>(b)</p>
+<p>g</p>
+<p>g f  (c)</p>
+<p>a a</p>
+<p>a c</p>
+<p>7 c</p>
+<p>10 7 10 7 c 10</p>
+<p>b</p>
+<p>d e  11</p>
+<p>b</p>
+<p>8</p>
+<p>d e  11</p>
+<p>8 b 17 d e  11</p>
+<p>8</p>
+<p>g f  (d)</p>
+<p>g f  13</p>
+<p>(e)</p>
+<p>g f</p>
+<p>13</p>
+<p>(f)</p>
+<p>Exercise: Use Kruskal’s algorithm to find minimum spanning tree of the graph used in the example of Dijkstra’s shortest path algorithm above.</p>
+<p>including computer networks, telecommunications networks, transportation  networks, water supply networks, and electrical grids. Other practical applications  based on minimal spanning trees include constructing trees for broadcasting in  computer networks, Circuit design, and financial market description.</p>
+</section>
+</main>
+<footer>Trees and Graphs</footer>
+<script src="../../assets/js/notes.js" defer></script>
+</body></html>

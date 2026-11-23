@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classroom Notes Hub</title>
+  <link rel="stylesheet" href="assets/css/hub.css" />
+</head>
+<body>
+  <main id="scroll-container">
+    <section id="stage-wrap">
+      <canvas id="stage" aria-hidden="true"></canvas>
+      <div id="overlay">
+        <h1>Classroom Notes</h1>
+        <p>Scroll to enter the classroom.</p>
+        <a id="enter-btn" href="notes/index.html">Enter</a>
+        <nav id="subject-nav" aria-label="Subjects"></nav>
+      </div>
+    </section>
+    <div id="scroll-spacer" aria-hidden="true"></div>
+  </main>
+
+  <noscript>
+    <div class="noscript-hero">
+      <h1>Classroom Notes</h1>
+      <p>JavaScript is required for the 3D scroll experience.</p>
+      <a href="notes/index.html">Enter notes</a>
+    </div>
+  </noscript>
+
+  <script src="assets/js/scrubber.js" defer></script>
+  <script>
+    (async () => {
+      const res = await fetch('subjects.json');
+      const subjects = await res.json();
+      const nav = document.getElementById('subject-nav');
+      subjects.forEach(s => {
+        const a = document.createElement('a');
+        a.href = 'notes/' + (s.href ? s.href : (s.slug + '.html'));
+        a.textContent = s.icon + ' ' + s.title;
+        a.style.setProperty('--accent', s.color);
+        nav.appendChild(a);
+      });
+    })().catch(() => {});
+  </script>
+</body>
+</html>

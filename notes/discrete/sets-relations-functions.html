@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Sets, Relations, and Functions</title>
+<link rel="stylesheet" href="../../assets/css/notes.css"/>
+</head><body>
+<header class="site"><div class="container"><div class="breadcrumb"><a href="index.html">Discrete Structure</a> / Sets, Relations, and Functions</div></div></header>
+<main class="container">
+<h1>Sets, Relations, and Functions</h1>
+<p>Interactive recreation of the chapter PDF. Original: <a href="../../assets/pdfs/Sets, Relations, and Functions.pdf" download>Download PDF</a>.</p>
+<section><h2>Sets</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>Set is a fundamental discrete structure on which all other discrete structures are built. Sets are used to group objects together. Often, but not always, the objects in a set have similar properties. For instance, all the students who are currently enrolled in BIT program in your college make up a set.</p>
+</section>
+<section><h4>1.1. Definition</h4>
+<p>A set is defined as an unordered collection of objects, called elements or members of the set. A set is said to contain its elements. We write a ∈ A to denote that a is an element of the set A. The notation a ∉ A denotes that a is not an element of the set A. A set is commonly denoted using uppercase letters. Lowercase letters are usually used to denote elements of sets.</p>
+</section>
+<section><h4>1.2. Set Notation</h4>
+<p>There are several ways to describe a set. One way is to list all the members of a set between braces, when it is possible. For example, the notation {a, b, c, d} represents the set with the four elements a, b, c, and d. This way of describing a set is known as the roster method. For example, set V of all vowels in the English alphabet can be written as V = {a, e, i, o, u}. Sometimes the roster method is used to describe a set without listing all its members. For example, The set of positive integers less than 80 can be denoted by {1, 2, 3, . . . , 79}. We can also use set builder notation to represent sets. Here, we characterize all those elements in the set by stating the property or properties they must have to be members. For instance, the set O of all odd positive integers less than 10 can be written as, O = {x | x is an odd positive integer less than 10} or, specifying the universe as the set of positive integers, as O = {x ∈ Z+ | x is odd and x &lt; 10}. We often use this type of notation to describe sets when it is impossible to list all the elements of the set. For instance, the set Q+ of all positive rational numbers can be written as Q+ = {x ∈ R | x =</p>
+<p>p, for some positive integers p and</p>
+<p>q}.  q</p>
+</section>
+<section><h4>1.3. Some Important Sets</h4>
+<p>The sets given below play an important role in discrete mathematics: N = {0, 1, 2, 3, . . .}, the set of natural numbers Z = {. . . ,−2,−1, 0, 1, 2, . . .}, the set of integers Z+ = {1, 2, 3, . . .}, the set of positive integers Q = { p| p ∈ Z, q ∈ Z, and q ≠ 0}, the</p>
+<p>set of rational numbers  q</p>
+<p>R, the set of real numbers R+, the set of positive real numbers C, the set of complex numbers</p>
+<p>Sets can have other sets as members. For example, the set {N,Z,Q,R} is a set containing four elements, each of which is a set. The four elements of this set are N, the set of natural numbers; Z, the set of integers; Q, the set of rational numbers; and</p>
+<p>R, the set of real numbers.</p>
+</section>
+<section><h4>1.4. Equal Sets</h4>
+<p>Two sets are equal if and only if they have the same elements. Therefore, if A and B are sets, then A and B are equal if and only if ∀x(x ∈ A ↔ x ∈ B). We write A = B if A and B are equal sets. For example, the sets {1, 3, 5} and {3, 5, 1} are equal, because they have the same elements. Note that the order in which the elements of a set are listed does not matter. Note also that it does not matter if an element of a set is listed more than once, so {1, 3, 3, 3, 5, 5, 5, 5} is the same as the set {1, 3, 5} because they have the same elements.</p>
+</section>
+<section><h4>1.5. Empty Set</h4>
+<p>There is a special set that has no elements. This set is called the empty set, or null set, and is denoted by ∅. The empty set can also be denoted by {}. For instance, the  set of all positive integers that are greater than their squares is the null set.  A set with one element is called a singleton set. A common error is to confuse the  empty set ∅ with the set {∅}, which is a singleton set. The single element of the set  {∅} is the empty set itself. For example, the empty set can be thought of as an empty  folder and the set consisting of just the empty set can be thought of as a folder with  exactly one folder inside, namely, the empty folder</p>
+</section>
+<section><h3>2. Venn Diagrams</h3>
+<p>Sets can be represented graphically using Venn diagrams. In this diagrams the universal set U, which contains all the objects under consideration, is represented by a rectangle. Inside this rectangle, circles or other geometrical figures are used to represent sets. Sometimes points are used to represent the particular elements of the set. Venn diagrams are often used to indicate the relationships between sets. Venn diagram that represents V, the set of vowels in the English alphabet is given below.</p>
+<p>Fig: Venn diagram for Set of Vowels</p>
+</section>
+<section><h3>3. Subsets</h3>
+<p>The set A is a subset of B if and only if every element of A is also an element of B. We use the notation A ⊆ B to indicate that A is a subset of the set B. We see that A ⊆ B if and only if the quantification ∀x(x ∈ A → x ∈ B) is true. Example 1: The set of all odd positive integers less than 20 is a subset of the set of all positive integers less than 20. Example 2: The set of all information technology majors at your college is a subset of the set of all students at your college.</p>
+<p>Fig: Venn Diagram Showing that A Is a Subset of B. To show that A is not a subset of B we need only find one element x ∈ A with x ∉ B.</p>
+<p>Such an x is a counterexample. Example: The set of people who have taken discrete mathematics at your college is not a subset of the set of all IT majors at your college if there is at least one student who has taken discrete mathematics who is not a IT major.</p>
+<div class="callout key"><strong>Theorem:</strong> Theorem: For every set S, (i) ∅ ⊆ S and (ii) S ⊆ S. Proof: To show that ∅ ⊆ S, we must show that ∀x(x ∈ ∅ → x ∈ S) is true. Because the empty set contains no elements, it follows that x ∈ ∅ is always false. It follows that the conditional statement x ∈ ∅ → x ∈ S is always true, because its hypothesis is always false and a conditional statement with a false hypothesis is true. Therefore, ∀x(x ∈ ∅ → x ∈ S) is true. (Vacuous proof) To show that S ⊆ S, we must show that ∀x(x ∈ S → x ∈ S) is true. If x ∈ S in the left hand side of the implication is false, the right hand side is also false and if the left hand side of the implication is true, the right hand side is also true. In both cases the conditional statement is always true. Therefore, ∀x(x ∈ S → x ∈ S) is true.</div>
+<p>We say that A is a proper subset of B, written as A ⊂ B, if A is a subset of a set B and A ≠ B. For A ⊂ B to be true, it must be the case that A ⊆ B and there must exist an element x of B that is not an element of A. That is, A is a proper subset of B if and only if ∀x(x ∈ A → x ∈ B) ∧ ∃x(x ∈ B ∧ x ∉ A) is true. Venn diagrams can be used to illustrate that a set A is a subset of a set B. We draw the universal set U as a rectangle. Within this rectangle we draw a circle for B. Because A is a subset of B, we draw the circle for A within the circle for B as shown in the figure above. Two sets are equal if each set is a subset of the other. In other words, A = B if A ⊆ B and B ⊆ A. That is, A = B if and only if ∀x(x ∈ A → x ∈ B) and ∀x(x ∈ B → x ∈ A) or equivalently if and only if ∀x(x ∈ A ↔ x ∈ B).</p>
+</section>
+<section><h3>4. Size of a Set</h3>
+<p>If there are exactly n distinct elements in a set S where n is a nonnegative integer, we say that S is a finite set and that n is the cardinality of S. The cardinality of S is denoted by |S|. For example, set of odd positive integers less than 10 has cardinality 5 and the null set has cardinality 0. A set is said to be infinite if it is not finite. For example, set of positive integers is infinite.</p>
+</section>
+<section><h3>5. Power Sets</h3>
+<p>Given a set S, the power set of S is the set of all subsets of the set S. The power set of S is denoted by P(S). Example 1: What is the power set of the set {0, 1, 2}?</p>
+<p>1, 2}) = {∅, {0}, {1}, {2}, {0, 1}, {0, 2}, {1, 2}, {0, 1, 2}}. Example 2: What is the power set of the empty set? What is the power set of the set</p>
+<p>{∅}? Solution: The empty set has exactly one subset, namely, itself. Consequently, P(∅) = {∅}.The set {∅} has exactly two subsets, namely, ∅ and the set {∅} itself. Therefore, P({∅}) = {∅, {∅}}. Remember: If a set has n elements, then its power set has 2n elements.</p>
+</section>
+<section><h3>6. Cartesian Product</h3>
+<p>The ordered n-tuple (a1, a2, . . . , an) is the ordered collection that has a1 as its first element, a2 as its second element, . . . , and an as its nth element. Two ordered n-tuples are equal if and only if each corresponding pair of their elements is equal. In other words, (a1, a2, . . . , an) = (b1, b2, . . . , bn) if and only if ai = bi , for i = 1, 2, . . . , n. Ordered 2-tuples are also called ordered pairs.</p>
+<p>Let A and B be sets. The Cartesian product of A and B, denoted by A × B, is the set of all ordered pairs (a, b), where a ∈ A and b ∈ B. Hence, A × B = {(a, b) | a ∈ A ∧ b ∈ B}. Example: What is the Cartesian product of A = {1, 2} and B = {a, b, c}?  Solution: The Cartesian product A × B is A × B = {(1, a), (1, b), (1, c), (2, a), (2, b),  (2, c)}. Note: The Cartesian products A × B and B × A are not equal, unless A = ∅ or B = ∅.</p>
+<p>The Cartesian product of more than two sets can also be defined. The Cartesian product of the sets A1,A2, . . . , An, denoted by A1 × A2 ×…..×An, is the set of ordered n-tuples (a1, a2, . . . , an), where ai belongs to Ai for i = 1, 2, . . . , n. In other words, A1 × A2 ×……×An = {(a1, a2, . . . , an) | ai ∈ Ai for i = 1, 2, . . . , n}.</p>
+<p>Exercise: What is the Cartesian product A × B × C, where A = {0, 1}, B = {1, 2}, and</p>
+<p>C = {0, 1, 2}?</p>
+<p>We use the notation A2 to denote A × A, the Cartesian product of the set A with itself. Similarly, A3 = A × A × A, A4 = A × A × A × A, and so on. More generally,  An = {(a1, a2, . . . , an) | ai ∈ A for i = 1, 2, . . . , n}.</p>
+<details><summary>Example</summary><p>Example: Suppose that A = {1, 2}. It follows that A2 = {(1, 1), (1, 2), (2, 1), (2, 2)}</p></details>
+<p>and A3 = {(1, 1, 1), (1, 1, 2), (1, 2, 1), (1, 2, 2), (2, 1, 1), (2, 1, 2), (2, 2, 1), (2, 2, 2)}.</p>
+</section>
+<section><h3>7. Set Operations</h3>
+<p>Two, or more, sets can be combined in many different ways using different set operations like union, intersection, difference, and complement.</p>
+</section>
+<section><h4>7.1. Union</h4>
+<p>Let A and B be sets. The union of the sets A and B, denoted by A ∪ B, is the set that contains those elements that are either in A or in B, or in both A and B.  An element x belongs to the union of the sets A and B if and only if x belongs to A or x  belongs to B. This tells us that A ∪ B = {x | x ∈ A ∨ x ∈ B}. Example 1: The union of the sets {1, 3, 5} and {1, 2, 3} is the set {1, 2, 3, 5}.That is,</p>
+<p>{1, 3, 5} ∪ {1, 2, 3} = {1, 2, 3, 5}. Example 2: The union of the set of all IT majors at your college and the set of all CS majors at your college is the set of students at your college who are majoring either in IT or in CS or in both. We can use Venn diagram to represent the union of two sets A and B. The area that represents A ∪ B is the shaded area within either the circle representing A or the circle representing B.</p>
+<p>Fig: Venn diagram of A ∪ B Generalized Union – The union of a collection of sets is the set that contains those elements that are members of at least one set in the collection. We use the notation  n A1 ∪ A2 ∪ ….. ∪</p>
+<p>An = </p>
+<p>Ai</p>
+<p>i =1 to denote the union of the sets A1,A2, . . . , An. Example: Let A = {0, 2, 4, 6, 8}, B = {0, 1, 2, 3, 4}, and C = {0, 3, 6, 9}. What is are A ∪ B ∪ C?</p>
+</section>
+<section><h4>7.2. Intersection</h4>
+<p>Let A and B be sets. The intersection of the sets A and B, denoted by A ∩ B, is the</p>
+<p>set containing those elements in both A and B. An element x belongs to the intersection of the sets A and B if and only if x belongs to A and x belongs to B. This tells us that A ∩ B = {x | x ∈ A ∧ x ∈ B}. Example 1: The intersection of the sets {1, 3, 5} and {1, 2, 3} is the set {1, 3}; that  is, {1, 3, 5} ∩ {1, 2, 3} = {1, 3}. Example 2: The intersection of the set of all IT majors at your college and the set of all CS majors is the set of all students who are joint majors in IT and CS. We can use Venn diagram to represent the intersection of two sets A and B. The  shaded area that is within both the circles representing the sets A and B is the area that  represents the intersection of A and B.</p>
+<p>Fig: Venn diagram of A ∩ B Generalized Intersection – The intersection of a collection of sets is the set that contains those elements that are members of all the sets in the collection. We use the notation</p>
+<p>n</p>
+<p>A1 ∩ A2 ∩ …… ∩</p>
+<p>An = </p>
+<p>Ai</p>
+<p>i =1 to denote the intersection of the sets A1,A2, . . . , An. Example: Let A = {0, 2, 4, 6, 8}, B = {0, 1, 2, 3, 4}, and C = {0, 3, 6, 9}. What is A ∩ B ∩ C?</p>
+<p>Disjoint Sets: Two sets are called disjoint if their intersection is the empty set. For example, Let A =</p>
+<p>{1, 3, 5, 7, 9} and B = {2, 4, 6, 8, 10}. Because A ∩ B = ∅, A and B are disjoint.</p>
+<p>Principle of Inclusion-Exclusion: We are often interested in finding the cardinality of a union of two finite sets A and B. For this we use principle of inclusion-exclusion. This principle states that the cardinality of union of two finite sets A and B is equal to the sum of cardinality of A and cardinality of B minus cardinality of A ∩ B. Hence,</p>
+<p>|A ∪ B| = |A| + |B| − |A ∩ B| The principle of inclusion–exclusion is an important technique used in enumeration</p>
+<p>(will be discussed more detail in Unit 5).</p>
+</section>
+<section><h4>7.3. Difference</h4>
+<p>Let A and B be sets. The difference of A and B, denoted by A – B (sometimes denoted by A\B), is the set containing those elements that are in A but not in B. The difference of A and B is also called the complement of B with respect to A.  A − B = {x | x ∈ A ∧x ∉ B} Example 1: The difference of {1, 3, 5} and {1, 2, 3} is the set {5}. That is, {1, 3, 5} − {1, 2, 3} = {5}. Example 2: The difference of the set of IT majors at your college and the set of CS majors at your college is the set of all IT majors at your college who are not also CS majors. The shaded area inside the circle in the Vann diagram that represents A and outside the circle that represents B is the area that represents A − B.</p>
+<p>Fig: Venn diagram of A – B</p>
+</section>
+<section><h4>7.4. Complement</h4>
+<p>Let U be the universal set. The complement of the set A, denoted by</p>
+<p>A , is the</p>
+<p>complement of A with respect to U. Therefore, the complement of the set A is U − A.</p>
+<p>An element belongs to Aif and only if x ∉ A. A= {x ∈ U |</p>
+<p>x ∉ A}.</p>
+<details><summary>Example</summary><p>Example: Let A = {a, e, i, o, u} and universal set is the set of letters of the English alphabet). Then A= {b, c, d, f, g, h, j, k, l, m, n, p, q,</p></details>
+<p>r, s, t, v, w, x, y, z}.</p>
+<p>The shaded area outside the circle representing A is the area representingA .</p>
+<p>Fig: Venn diagram of A Note: A − B = A ∩</p>
+<p>B</p>
+</section>
+<section><h3>8. Set Identities</h3>
+<p>Some common set identities are:</p>
+<p>Identity Identity Name</p>
+<p>A ∩ U = A A ∪ φ = A</p>
+<p>Identity laws</p>
+<p>A ∪ U = U A ∩ φ = φ</p>
+<p>Domination laws</p>
+<p>A ∪ A = A A ∩ A = A</p>
+<p>Idempotent laws</p>
+<p>(</p>
+<p>A) = A</p>
+<p>Complementation law</p>
+<p>A ∪ B = B ∪ A A ∩ B = B ∩ A</p>
+<p>Commutative laws</p>
+<p>A ∪ (B ∪ C) = (A ∪ B) ∪ C  A ∩ (B ∩ C) = (A ∩ B) ∩ C</p>
+<p>Associative laws</p>
+<p>A ∪ (B ∩ C) = (A ∪ B) ∩ (A ∪ C)  A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)</p>
+<p>Distributive laws</p>
+<p>A∩B=</p>
+<p>A∪</p>
+<p>B A∪B=</p>
+<p>De Morgan’s laws</p>
+<p>A∩</p>
+<p>B</p>
+<p>A ∪ (A ∩ B) = A A ∩ (A ∪ B) = A</p>
+<p>Absorption laws</p>
+<p>A ∪</p>
+<p>A= U A ∩</p>
+<p>A= φ</p>
+<p>Complement laws</p>
+</section>
+<section><h3>9. Computer Representation of Sets</h3>
+<p>There are various ways to represent sets using a computer. One method is to store the elements of the set in an unordered fashion. However, if this is done, the operations of computing the union, intersection, or difference of two sets would be time-consuming, because each of these operations would require a large amount of searching for elements. A different and powerful method stores elements using an arbitrary ordering of the elements of the universal set. In this method, first we specify an arbitrary ordering of the elements of U, for instance a1, a2, . . . , an. Represent a subset A of U with the bit</p>
+<p>string of length n, where the ith bit in this string is 1 if ai belongs to A and is 0 if ai does not belong to A. Example: Let U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}.What bit strings represent the subset of all odd integers in U, the subset of all even integers in U, and the subset of integers not exceeding 5 in U? Solution: The bit string that represents the set of odd integers in U, namely, {1, 3, 5, 7, 9}, is 1010101010. Similarly, we represent the subset of all even integers in U, namely, {2, 4, 6, 8, 10}, by the string 0101010101. The set of all integers in U that do not exceed 5, namely, {1, 2, 3, 4, 5}, is represented by the string 1111100000.</p>
+</section>
+<section><h4>9.1. Complement</h4>
+<p>To find the bit string for the complement of a set from the bit string for that set, we simply change each 1 to a 0 and each 0 to 1. Note that this operation corresponds to taking the negation of each bit when we associate a bit with a truth value - with 1 representing true and 0 representing false. Example: Let U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}. The bit string for the set {1, 3, 5, 7, 9} is 1010101010. What is the bit string for the complement of this set?  Solution: The bit string for the complement of this set is obtained by replacing 0s with  1s and vice versa. This yields the string 0101010101, which corresponds to the set {2,  4, 6, 8, 10}.</p>
+</section>
+<section><h4>9.2. Union and Intersection</h4>
+<p>To obtain the bit string for the union and intersection of two sets we perform bitwise Boolean operations on the bit strings representing the two sets. Hence, the bit string for the union is the bitwise OR of the bit strings for the two sets and bit string for the intersection is the bitwise AND of the bit strings for the two sets. Example: Let U = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}. The bit strings for the sets {1, 2, 3, 4, 5} and {1, 3, 5, 7, 9} are 1111100000 and 1010101010, respectively. Use bit strings  to</p>
+<p>find the union and intersection of these sets. Solution: The bit string for the union of these sets is 1111100000 ∨ 1010101010 =</p>
+<p>1111101010, which corresponds to the set {1, 2, 3, 4, 5, 7, 9}. The bit string for the intersection of these sets is 1111100000 ∧ 1010101010 = 10</p>
+<p>1010 0000, which corresponds to the set {1, 3, 5}.</p>
+</section>
+<section><h2>Relations</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>Relationships between elements of sets are represented using the structure called a relation, which is just a subset of the Cartesian product of the sets. Relations can be used to solve problems such as determining which pairs of cities are linked by airline flights in a network, determining which courses are being studied by students etc. The most direct way to express a relationship between elements of two sets is to use ordered pairs made up of two related elements. Such set of ordered pairs is called binary relation. Let A and B be sets. A binary relation from A to B is a subset of A × B. In other words, a binary relation from A to B is a set R of ordered pairs where the first element of each ordered pair comes from A and the second element comes from B. We use the</p>
+<p>notation aRb to denote that (a, b) ∈ R and</p>
+<p>a</p>
+<p>R/b to denote that (a, b) ∉ R. Moreover,</p>
+<p>when (a, b) belongs to R, a is said to be related to b by R. Binary relations represent relationships between the elements of two sets. Example 1: Let A be the set of students in your school, and let B be the set of courses. Let R be the relation that consists of those pairs (a, b), where a is a student enrolled in course b. For instance, (Ram, Discrete Structure) belong to R.</p>
+<details><summary>Example</summary><p>Example 2: Let A = {0, 1, 2} and B = {a, b}. Then {(0, a), (0, b), (1, a), (2, b)} is a relation from A to B. This means, for instance, that 0Ra, but that 1 be represented graphically as well as using table, as shown</p></details>
+<p>below. R/b. Relations can</p>
+<p>0 1 a</p>
+<p>R a b  0 × ×  1 ×</p>
+<p>2 b  2. Functions as Relations   2 ×</p>
+<p>A function f from a set A to a set B assigns exactly one element of B to each element of A. The graph of f is the set of ordered pairs (a, b) such that b = f (a). Because the graph of f is a subset of A × B, it is a relation from A to B. Conversely, if R is a relation from A to B such that every element in A is the first element of exactly one ordered pair of R, then a function can be defined with R as its graph. This can be done by assigning to an element a of A the unique element b ∈ B such that (a, b) ∈ R. A relation can be used to express a one-to-many relationship between the elements of the sets A and B, where an element of A may be related to more than one element of B. A function represents a relation where exactly one element of B is related to each</p>
+<p>element of A. Relations are a generalization of graphs of functions; they can be used to express a much wider class of relationships between sets.</p>
+</section>
+<section><h3>3. Relation on a Set</h3>
+<p>A relation on a set A is a relation from A to A. In other words, a relation on a set A is</p>
+<p>a subset of A × A. Example 1: Let A be the set {1, 2, 3, 4}. Which ordered pairs are in the relation R =</p>
+<p>{(a, b) | a divides b}? Solution: Because (a, b) is in R if and only if a and b are positive integers not exceeding 4 such that a divides b, we see that R = {(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 4), (3, 3), (4, 4)} Exercise 1: Display the relation in the example above both graphically and in tabular form. Exercise 2: Consider these relations on the set of integers: R1 = {(a, b) | a ≤ b}, R2 = {(a, b) | a &gt; b}, R3 = {(a, b) | a = b or a = −b}, R4 = {(a, b) | a = b}, R5 = {(a, b) | a = b + 1}, R6 = {(a, b) | a + b ≤ 3}. Which of these relations contain each of the pairs (1, 1), (1, 2), (2, 1), (1,−1), and (2, 2)? Example 2: There are2</p>
+<p>2nrelations on a set with n elements. Solution: A relation on a set A is a subset of A × A. Because A × A has n2 elements</p>
+<p>n</p>
+<p>2 when A has n elements, and a set with m elements has 2m subsets, there are</p>
+<p>2</p>
+<p>2 s</p>
+<p>u</p>
+<p>b</p>
+<p>s</p>
+<p>e</p>
+<p>t</p>
+<p>s</p>
+<p>o</p>
+<p>f</p>
+<p>A</p>
+<p>×</p>
+<p>A</p>
+<p>.</p>
+<p>H</p>
+<p>e</p>
+<p>n</p>
+<p>c</p>
+<p>e</p>
+<p>,</p>
+<p>t</p>
+<p>h</p>
+<p>e</p>
+<p>r</p>
+<p>e</p>
+<p>a</p>
+<p>r</p>
+<p>e</p>
+<p>2</p>
+<p>nrelations on a set with n elements.</p>
+</section>
+<section><h3>4. Properties of Relations</h3>
+<p>There are several properties that are used to classify relations on a set. We will introduce the most important of these here.</p>
+</section>
+<section><h4>4.1. Reflexive</h4>
+<p>A relation R on a set A is called reflexive if (a, a) ∈ R for every element a ∈ A. The relation R on the set A is reflexive if ∀a((a, a) ∈ R), where the universe of discourse is the set of all elements in A. A relation on A is reflexive if every element of A is related to itself. Example 1: Consider the following relations on {1, 2, 3, 4} R1 = {(1, 1), (1, 2), (2, 1), (2, 2), (3, 4), (4, 1), (4, 4)}, R2 = {(1, 1), (1, 2), (2, 1)}, R3 = {(1, 1), (1, 2), (1, 4), (2, 1), (2, 2), (3, 3), (4, 1), (4, 4)}, R4 = {(2, 1), (3, 1), (3, 2), (4, 1), (4, 2), (4, 3)}, R5 = {(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)}, R6 = {(3, 4)}. Which of these relations are reflexive? Solution: The relations R3 and R5 are reflexive because they both contain all pairs of the form (a, a), namely, (1, 1), (2, 2), (3, 3), and (4, 4). The other relations are not reflexive because they do not contain all of these ordered pairs. In particular, R1, R2, R4, and R6 are not reflexive. Example 2: Let R be the relation on the set of real numbers such that aRb if and only if a − b is an integer. Is R a reflexive? Solution: Because a – a = 0 is an integer for all real numbers a, aRa for all real numbers a. Hence, R is reflexive.</p>
+</section>
+<section><h4>4.2. Symmetric and Antisymmetric</h4>
+<p>In some relations an element is related to a second element if and only if the second element is also related to the first element. Other relations have the property that if an element is related to a second element, then this second element is not related to the first. A relation R on a set A is called symmetric if (b, a) ∈ R whenever (a, b) ∈ R, for all a, b ∈ A. A relation R on a set A such that for all a, b ∈ A, if (a, b) ∈ R and (b, a) ∈ R, then a = b is called antisymmetric. Using quantifiers, we see that the relation R on the set A is symmetric if ∀a∀b((a, b) ∈ R → (b, a) ∈ R). Similarly, the relation R on the set A is antisymmetric if ∀a∀b(((a, b) ∈ R ∧ (b, a) ∈ R) → (a = b)). That is, a relation is symmetric if and only if a is related to b implies that b is related to a. A relation is antisymmetric if and only if there are no pairs of distinct elements a and b with a related to b and b related to a. That is, the only way to have a related to b and b related to a is for a and b to be the same element.</p>
+</section>
+<section><h4>4.3. Transitive</h4>
+<p>A relation R on a set A is called transitive if whenever (a, b) ∈ R and (b, c) ∈ R, then</p>
+<p>(a, c) ∈ R, for all a, b, c ∈ A. Using quantifiers we see that the relation R on a set A is transitive if we have ∀a∀b∀c(((a, b) ∈ R ∧ (b, c) ∈ R) → (a, c) ∈ R). Example 1: Consider the following relations on {1, 2, 3, 4}: R1 = {(1, 1), (1, 2), (2, 1), (2, 2), (3, 4), (4, 1), (4, 4)}, R2 = {(1, 1), (1, 2), (2, 1)}, R3 = {(1, 1), (1, 2), (1, 4), (2, 1), (2, 2), (3, 3), (4, 1), (4, 4)}, R4 = {(2, 1), (3, 1), (3, 2), (4, 1), (4, 2), (4, 3)}, R5 = {(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (2, 3), (2, 4), (3, 3), (3, 4), (4, 4)}, R6 = {(3, 4)}. Which of the relations are transitive? Solution: R4, R5, and R6 are transitive. For instance, R4 is transitive, because (3, 2) and (2, 1), (4, 2) and (2, 1), (4, 3) and (3, 1), and (4, 3) and (3, 2) are the only such sets of pairs, and (3, 1), (4, 1), and (4, 2) belong to R4. You should verify that R5 and R6 are transitive. R1 is not transitive because (3, 4) and (4, 1) belong to R1, but (3, 1) does not. R2 is not transitive because (2, 1) and (1, 2) belong to R2, but (2, 2) does not. R3 is not transitive because (4, 1) and (1, 2) belong to R3, but (4, 2) does not.  Example 2: Let R be the relation on the set of real numbers such that aRb if and only  if a − b is an integer. Is R a transitive relation? Solution: If aRb and bRc, then a − b and b − c are integers. Therefore, a − c = (a − b) + (b − c) is also an integer. Hence, aRc. Thus, R is transitive.</p>
+</section>
+<section><h3>5. Combining Relations</h3>
+</section>
+<section><h4>5.1. Set Operations</h4>
+<p>Because relations from A to B are subsets of A × B, two relations from A to B can be combined in any way two sets can be combined. Example: Let A = {1, 2, 3} and B = {1, 2, 3, 4}. The relations R1 = {(1, 1), (2, 2), (3, 3)} and R2 = {(1, 1), (1, 2), (1, 3), (1, 4)} can be combined to obtain  R1 ∪ R2 = {(1, 1), (1, 2), (1, 3), (1, 4), (2, 2), (3, 3)}, R1 ∩ R2 = {(1, 1)}, R1 − R2 = {(2, 2), (3, 3)}, R2 − R1 = {(1, 2), (1, 3), (1, 4)}.</p>
+</section>
+<section><h4>5.2. Composite of Relations</h4>
+<p>Let R be a relation from a set A to a set B and S a relation from B to a set C. The composite of R and S is the relation consisting of ordered pairs (a, c), where a ∈ A, c ∈ C, and for which there exists an element b ∈ B such that (a, b) ∈ R and (b, c) ∈ S. We denote the composite of R and S by S ◦ R. Computing the composite of two relations requires that we find elements that are the second element of ordered pairs in the first relation and the first element of ordered pairs in the second relation. Example: What is the composite of the relations R and S, where R is the relation from {1, 2, 3} to {1, 2, 3, 4} with R = {(1, 1), (1, 4), (2, 3), (3, 1), (3, 4)} and S is the relation from {1, 2, 3, 4} to {0, 1, 2} with S = {(1, 0), (2, 0), (3, 1), (3, 2), (4, 1)}? Solution: S ◦ R is constructed using all ordered pairs in R and ordered pairs in S, where the second element of the ordered pair in R agrees with the first element of the ordered pair in S. For example, the ordered pairs (2, 3) in R and (3, 1) in S produce the ordered pair (2, 1) in S ◦R. Computing all the ordered pairs in the composite, we find S ◦ R = {(1, 0), (1, 1), (2, 1), (2, 2), (3, 0), (3, 1)}.</p>
+</section>
+<section><h4>5.3. Powers of Relations</h4>
+<p>Let R be a relation on the set A. The powers Rn, n = 1, 2, 3,…… are defined recursively by R1 = R and Rn+1 = Rn ◦ R. The definition shows that R2 = R ◦ R, R3 =  R2</p>
+<p>◦ R = (R ◦ R) ◦ R, and so on. Example: Let R = {(1, 1), (2, 1), (3, 2), (4, 3)}. Find the powers Rn, n = 2, 3, 4, . … Solution: Because R2 = R ◦ R, we find that R2 = {(1, 1), (2, 1), (3, 1), (4, 2)}. Furthermore, because R3 = R2 ◦R, R3 = {(1, 1), (2, 1), (3, 1), (4, 1)}. Additional computation shows that R4 is the same as R3, so R4 = {(1, 1), (2, 1), (3, 1), (4, 1)}. It also follows that Rn = R3 for n = 5, 6, 7, …….</p>
+<p>6. n-ary Relations and their Applications</p>
+</section>
+<section><h4>6.1. Introduction</h4>
+<p>Relationships among elements of more than two sets often arise. These relationships are called n-ary relations. For instance, the relationship involving the name of a student, the student’s major, and the student’s grade point average is a 3-ary relationship. Let A1, A2, …, An be sets. An n-ary relation on these sets is a subset of A1 × A2 × …. ×An. The sets A1, A2, …., An are called the domains of the relation, and n is called its degree.</p>
+<details><summary>Example</summary><p>Example 1: Let R be the relation on N × N × N consisting of triples (a, b, c), where a, b, and c are integers with a &lt; b &lt; c. Then (1, 2, 3) ∈ R, but (2, 4, 3) ∉ R. The degree of this relation is 3. Its domains are all equal to the set of natural numbers.  Example 2: Let R be the relation consisting of 5-tuples (A, N, S, D, T) representing  airplane flights, where A is the airline, N is the flight number, S is the starting point,  D is the destination, and T is the departure time. For instance, if Shree Airlines has  flight 963 from Kathmandu to Pokhara at 15:00, then (Shree, 963, Kathmandu,  Pokhara, 5:00) belongs to R. The degree of this relation is 5, and its domains are the  set of all airlines, the set of flight numbers, the set of cities, the set of cities (again),  and the set of times.</p></details>
+</section>
+<section><h4>6.2. Database and Relations</h4>
+<p>A relational database model consists of collection of tables to store data. Each table in the database consists of records, which are n-tuples, made up of fields. The fields are the entries of the n-tuples and correspond to attributes of the database. The relational data model represents records as an n-ary relation. For example, the Account table below is a 3-ary relation with its members {(A-101, Downtown, 500), (A-102, Perryridge, 400), (A-201, Brighton, 900), (A-215, Mianus, 700), (A-217, Brighton, 750), (A-222, Redwood, 700), (A-305, Round Hill, 350)}</p>
+<p>me mber</p>
+<p>Hayes A-102</p>
+<p>Johnson A-101</p>
+<p>Johnson A-201</p>
+<p>Jones A-217</p>
+<p>Lindsay A-222</p>
+<p>Smith A-255</p>
+<p>Turner A-305</p>
+<p>acco branch_n</p>
+<p>A-101 Downtown 500</p>
+<p>A-102 Perryridge 400</p>
+<p>A-201 Brighton 900</p>
+<p>A-215 Mianus 700</p>
+<p>A-217 Brighton 750</p>
+<p>A-222 Redwood 700</p>
+<p>A-305 Round Hill 350</p>
+<p>Fig: Customer and Account tables</p>
+<p>Let D1 denotes the domain of attribute account-number, D2 denotes the domain of attribute branch-name and D3 denotes domain of attribute balance then, any row of the table must consists of 3-tuple (v1, v2, v3) where v1 is in D1, v2 is in D2,and v3 is in D3. In general, a table of n attributes must be a subset of D1 × D2 ×…..× Dn.</p>
+<p>Since a relation to be a subset of a Cartesian product of a list of domains, therefore, a table in relational database resembles a relation. A domain is a primary key when no two n-tuples in the relation have the same value from this domain. A primary key should be chosen that remains one whenever the database is changed. The current collection of n-tuples in a relation is called the extension of the relation.</p>
+<p>The more permanent part of a database, including the name and attributes of the relation, is called its intension. Combinations of domains can also uniquely identify n-tuples in an n-ary relation. When the values of a set of domains determine an n-tuple in a relation, the Cartesian product of these domains is called a composite key. Exercise: Which domains are primary keys for the 3-ary Account relation displayed in the table above, assuming that no tuples will be added in the future?</p>
+</section>
+<section><h4>6.3. Operations on n-ary Relations</h4>
+<p>There are a variety of operations on n-ary relations that can be used to form new n-ary relations.</p>
+<p>Selection Operator The most basic operation on an n-ary relation is determining all n-tuples in the n-ary relation that satisfy certain conditions. To perform such tasks we use the selection operator. Let R be an n-ary relation and C a condition that elements in R may satisfy. Then the selection operator SC(R) maps the n-ary relation R to the n-ary relation of all n-tuples from R that satisfy the condition C. We can use different operators like =, ≠, &gt;, ≥, &lt;, and ≤ to check the condition and we can also connect two conditions using ¬, ∧, and ∨ connectives. Example 1: To find the records in the Account table with branch name Brighton, we write, Sbranch-name = “Brighton”(Account). This gives a relation as given below.</p>
+<p>account_number branch_name</p>
+<p>A-201 Brighton 900</p>
+<p>A-217 Brighton 750</p>
+<details><summary>Example</summary><p>Example 2: To find the records in the Account table with branch name downtown  and balance greater than 500, we write, Sbranch-name = “Brighton” ∧ balance &gt; 800(Account). This gives a relation as given below.</p></details>
+<p>account_number branch_name</p>
+<p>A-201 Brighton 900</p>
+<p>Projection Operator Projections are used to form new n-ary relations by deleting some fields in every record of the relation. The projection Pi1,i2, …, im(R) where i1 &lt; i2 &lt; … &lt; im, maps the n-tuple (a1, a2, . . . , an) to the m-tuple (ai1 , ai2, . . . , aim), where m ≤ n. In other words, the projection Pi1,i2,...,im deletes n − m of the components of an n-tuple, leaving the</p>
+<p>i1</p>
+<p>th, i2</p>
+<p>th, . . . , and im</p>
+<p>th components. Example: To project account-number and balance, we write, P1,3(Account).</p>
+<p>account_number  balance</p>
+<p>A-101 500</p>
+<p>A-102 400</p>
+<p>A-201 900</p>
+<p>A-215 700</p>
+<p>A-217 750</p>
+<p>A-222 700</p>
+<p>A-305 350</p>
+<p>Join Operation The join operation is used to combine two tables into one when these tables share</p>
+<p>some identical fields. Let R be a relation of degree m and S a relation of degree n. The join Jp(R, S), where p ≤ m and p ≤ n, is a relation of degree m + n – p that consists of all (m + n – p)-tuples (a1, a2, . . . , am - p, c1, c2, . . . , cp, b1, b2, . . . , bn - p), where the m-tuple (a1, a2, . . . , am−p, c1, c2, . . . , cp) belongs to R and the n-tuple (c1, c2, . . . , cp, b1, b2, …, bn−p) belongs to S. In other words, the join operator Jp produces a new relation from two relations by combining all m-tuples of the first relation with all n-tuples of the second relation, where the last p components of the m-tuples agree with the first p components of the n-tuples.</p>
+<details><summary>Example</summary><p>Example: The join of Customer and Account J1(Customer, Account) is given below.</p></details>
+<p>customer_name  accout_number  branch_name balance</p>
+<p>Hayes A-102 Perryridge 400</p>
+<p>Johnson A-101 Downtown 500</p>
+<p>Johnson A-201 Brighton 900</p>
+<p>Jones A-217 Brighton 750</p>
+<p>Lindsay A-222 Redwood 700</p>
+<p>Turner A-305 Round Hill 350</p>
+</section>
+<section><h3>7. Representing Relations</h3>
+</section>
+<section><h4>7.1. Introduction</h4>
+<p>There are many ways to represent a relation between finite sets. One way is to list its ordered pairs. Another way to represent a relation is to use a table.  The two other alternative methods for representing relations are zero – one matrices and directed graphs. Generally, matrices are appropriate for the representation of  relations in computer programs. On the other hand, people often find the  representation of relations using directed graphs useful for understanding the  properties of these relations.</p>
+</section>
+<section><h4>7.2. Representation Relations using Matrices</h4>
+<p>A relation between finite sets can be represented using a zero – one matrix. Suppose that R is a relation from A = {a1, a2, ….., am} to B = {b1, b2, …, bn}. The relation R can be represented by the matrix MR = [mij], where</p>
+<p>⎩⎨</p>
+<p>⎧</p>
+<p>∉∈ 1 ( , ) , if a b R mij = i j 0 ( , ) . if a b R i j</p>
+<p>In other words, the zero – one matrix representing R has a 1 as its (i, j ) entry when ai is related to bj, and a 0 in this position if ai is not related to bj. Example 1: Suppose that A = {1, 2, 3} and B = {1, 2}. Let R be the relation from A to B containing (a, b) if a ∈ A, b ∈ B, and a &gt; b. What is the matrix representing R if a1 = 1, a2 = 2, and a3 = 3, and b1 = 1 and b2 = 2?</p>
+<p>MR = ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 0 0 1 0 1 1</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦</p>
+<p>The 1s in MR show that the pairs (2, 1), (3, 1), and (3, 2) belong to R. The 0s show that no other pairs belong to R. Example 2: Let A = {a1, a2, a3} and B = {b1, b2, b3, b4, b5}. Which ordered pairs are in the relation R represented by the matrix?</p>
+<p>MR =</p>
+<p>⎡ ⎢ ⎢ ⎢ ⎣ 0 1 0 0</p>
+<p>0 1 0 1</p>
+<p>1 0 1 0</p>
+<p>1 0 1</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦ ?</p>
+<p>Relation Properties The matrix of a relation on a set, which is a square matrix, can be used to determine whether the relation has certain properties. R is reflexive if and only if mii = 1, for i = 1, 2, . . . , n. In other words, R is reflexive if all the elements on the main diagonal of MR are equal to 1. The elements off the main diagonal can be either 0 or 1. R is symmetric if and only if mji = 1 whenever mij = 1. This also means mji = 0 whenever mij = 0. Consequently, R is symmetric if and only if mij = mji , for all pairs  of integers i and j with i = 1, 2, . . . , n and j = 1, 2, . . . , n. We see that R is symmetric  if and only if MR = (MR)t. That is, if MR is equal to its transpose matrix.</p>
+<p>The matrix of an antisymmetric relation has the property that if mij = 1 with i ≠ j , then mji = 0. Or, in other words, either mij = 0 or mji = 0 when i ≠ j. Example: Suppose that the relation R on a set is represented by the matrix</p>
+<p>MR = ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 1 1 0 1</p>
+<p>1 1 0 1</p>
+<p>1</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦</p>
+<p>Is R reflexive, symmetric, and/or antisymmetric? Solution: Because all the diagonal elements of this matrix are equal to 1, R is reflexive. Moreover, because MR is symmetric, it follows that R is symmetric. It is also easy to see that R is not antisymmetric.</p>
+<p>Set Operations</p>
+<p>Suppose that R1 and R2 are relations on a set A represented by the matrices MR1 and MR2, respectively. The matrix representing the union of these relations has a 1 in the positions where either MR1 or MR2 has a 1. The matrix representing the intersection of these relations has a 1 in the positions where both MR1 and MR2 have a 1. Thus, the matrices representing the union and intersection of these relations are MR1 ∪ R2 = MR1 ∨ MR2 and MR1 ∩ R2 = MR1 ∧ MR2. Example: Suppose that the relations R1 and R2 on a set A = {a,b,c} are represented  by the matrices</p>
+<p>MR1 = ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 1 0 1 1</p>
+<p>0 0 0 1</p>
+<p>0</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦ and</p>
+<p>MR2 = ⎡ ⎢ ⎢ ⎢ ⎣</p>
+<p>1 0 1 0</p>
+<p>1 1 1 0</p>
+<p>0</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦</p>
+<p>What are the matrices representing R1 ∪ R2 and R1 ∩ R2? Solution: The matrices of these relations are  1 0 1 1 0 1</p>
+<p>MR1 ∪ R2 = MR1</p>
+<p>∨ MR2 =</p>
+<p>Composite</p>
+<p>Relations</p>
+<p>⎢⎢</p>
+<p>⎢</p>
+<p>⎣</p>
+<p>⎡1 1 0 1 1 1</p>
+<p>⎥⎥</p>
+<p>⎥</p>
+<p>⎦⎤ ⎡ ⎢</p>
+<p>and MR1 ∩ R2 = MR1 ∧ MR2 =</p>
+<p>⎢ ⎢ ⎣</p>
+<p>0 0 0 0 0 0</p>
+<p>⎤ ⎥ ⎥ ⎥ ⎦</p>
+<p>We can also find matrix for the composite of relations. This matrix can be found by using the Boolean product (ʘ) of the matrices. Let R is a relation from A to B and S is a relation from B to C. Suppose A, B, and C have m, n, and p elements respectively. Let MR and MS are the zero-one matrices of sizes m × n and n × p respectively. Then we find the martix MR o S = MR ʘ MS. Example: Find the matrix representing the relations S◦R, where the matrices representing R and</p>
+<p>S are</p>
+<p>MR = ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 1 0 1 1</p>
+<p>1 0 0 0</p>
+<p>0</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦ and MS</p>
+<p>= ⎡ ⎢ ⎢ ⎢ ⎣</p>
+<p>0 1 0 0</p>
+<p>0 1 1 0</p>
+<p>1</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦</p>
+<p>⎡ ⎢ Solution : The</p>
+<p>matrix for S ◦R is ⎢ ⎢</p>
+<p>⎣ 1 0 1 1</p>
+<p>1 0 0 0</p>
+<p>0</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦ ʘ ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 0 1 0 0</p>
+<p>0 1 1 0</p>
+<p>1</p>
+<p>⎤ ⎥ ⎥</p>
+<p>⎥ ⎦ = ⎡ ⎢ ⎢ ⎢</p>
+<p>⎣ 1 1 1 0 1 1 0 0 0 ⎤ ⎥ ⎥ ⎥ ⎦</p>
+<p>The matrix representing the composite of two relations can be used to find the matrix</p>
+<p>[n] for MRn using Boolean powers. In particular we write MRn = M R.</p>
+<details><summary>Example</summary><p>Example: Find the matrix representing the relation R2, where the matrix representing R is</p></details>
+<p>MR = ⎡ ⎢ ⎢ ⎢ ⎣ 0 1 0 0</p>
+<p>1 1 1 0</p>
+<p>0</p>
+<p>⎤ ⎥ ⎥ ⎥</p>
+<p>⎦</p>
+<p>⎡ 0 1 0  ⎤</p>
+<p>0 1 0</p>
+<p>⎡</p>
+<p>0 1 1</p>
+<p>⎤</p>
+<p>Solutio n: The matrix</p>
+<p>for R2 is MR2 = M</p>
+<p>[2]</p>
+<p>R= ⎢ ⎢ ⎢</p>
+<p>⎣</p>
+<p>0 1 1 1</p>
+<p>0 0</p>
+<p>⎥</p>
+<p>⎥ ⎥ ⎦</p>
+<p>ʘ</p>
+<p>⎢⎢</p>
+<p>⎢</p>
+<p>⎣</p>
+<p>⎡1 0</p>
+<p>0 0 1 1</p>
+<p>⎥⎥</p>
+<p>⎥</p>
+<p>⎦⎤</p>
+<p>= ⎢ ⎢ ⎢</p>
+<p>⎣ 1 1 1 0</p>
+<p>1 0</p>
+<p>⎥ ⎥ ⎥</p>
+<p>⎦ .</p>
+</section>
+<section><h4>7.3. Representation Relations using Diagraphs</h4>
+<p>We can also represent a relation using a pictorial representation. Each element of the set is represented by a point, and each ordered pair is represented using an arc with its direction indicated by an arrow. We use such pictorial representations when we think of relations on a finite set as directed graphs, or digraphs. A directed graph, or digraph, consists of a set V of vertices (or nodes) together with a set E of ordered pairs of elements of V called edges (or arcs). The vertex a is called the initial vertex of the edge (a, b), and the vertex b is called the terminal vertex of this edge. An edge of the form (a, a) is represented using an arc from the vertex a back to itself. Such an edge is called a loop. Example: The directed graph of the relation R = {(a, b), (a, d), (b, b), (b, d), (c, a), (c, b), (c,c), (d, b)} on the set A = {a, b, c, d) is displayed below.</p>
+<p>Exercise 1: Draw a directed graph of the relation R = {(1, 1), (1, 3), (2, 1), (2, 3), (2, 4), (3, 1), (3, 2), (4, 1)} on the set {1, 2, 3, 4}. Exercise 2: What are the ordered pairs in the relation R represented by the directed graph shown below.</p>
+<p>The directed graph representing a relation can be used to determine whether the relation has various properties. For instance, a relation is reflexive if and only if there is a loop at every vertex of the directed graph, so that every ordered pair of the form (x, x) occurs in the relation. A relation is symmetric if and only if for every edge between distinct vertices in its digraph there is an edge in the opposite direction, so that (y, x) is in the relation whenever (x, y) is in the relation. Similarly, a relation is antisymmetric if and only if there are never two edges in opposite directions between distinct vertices. Finally, a relation is transitive if and only if whenever there is an edge from a vertex x to a vertex y and an edge from a vertex y to a vertex z, there is an edge from x to z. Example: Determine whether the relations for the directed graphs shown below is reflexive, symmetric, antisymmetric, and/or transitive.</p>
+</section>
+<section><h3>8. Closure of Relations</h3>
+<p>Let R be a relation on a set A. R may or may not have some property P, such as reflexivity, symmetry, or transitivity. If there is a relation S with property P  containing R such that S is a subset of every relation with property P containing R,  then S is called the closure of R with respect to P.</p>
+</section>
+<section><h4>8.1. Reflexive Closure</h4>
+<p>Reflexive closure of a relation R on a set A is the smallest reflexive relation S on the</p>
+<p>set A that contains R. Reflexive closure of a relation R on a set A can be formed by adding to R all pairs of the form (a, a) with a ∈ A, not already in R. The addition of these pairs produces a new relation S that is reflexive, contains R, and is contained within any reflexive relation containing R. We see that the reflexive closure of R equals R ∪ Δ, where Δ = {(a, a) | a ∈ A} is the diagonal relation on A. Example 1: What is the reflexive closure of the relation R = {(1, 1), (1, 2), (2, 1), (3, 2)} on the set A = {1, 2, 3}? Solution: We can produce a reflexive relation S containing R by adding (2, 2) and (3, 3) to R, because these are the only pairs of the form (a, a) that are not in R. Now the relation S = {(1, 1), (1, 2), (2, 1), (3, 2), (2, 2), (3, 3)}. Clearly, this new relation S contains R is reflexive, and is contained within every reflexive relation that contains R, it is reflexive closure of R. Example 2: What is the reflexive closure of the relation R = {(a, b) | a &lt; b} on the set of integers? Solution: The reflexive closure of R is R ∪ Δ = {(a, b) | a &lt; b} ∪ {(a, a) | a ∈ Z} =</p>
+<p>{(a, b) | a ≤ b}.</p>
+</section>
+<section><h4>8.2. Symmetric Closure</h4>
+<p>Symmetric closure of a relation R on a set A is the smallest symmetric relation S on the set A that contains R. The symmetric closure of a relation R on a set A can be constructed by adding all ordered pairs of the form (b, a), where (a, b) is in the relation, that are not already present in R. Adding these pairs produces a new relation S that is symmetric, that contains R, and that is contained in any symmetric relation that contains R. The symmetric closure of a relation can be constructed by taking the union of a relation with its inverse; that is, R ∪ R−1 is the symmetric closure of R, where R −1 = {(b, a) | (a, b) ∈ R}. Example 1: What is the symmetric closure of the relation R = {(1, 1), (1, 2), (2, 2),</p>
+<p>(2, 3), (3, 1), (3, 2)} on the set A = {1, 2, 3}? Solution: We can produce a symmetric relation S containing R by adding only (2, 1) and (1, 3) to R because these are the only pairs of the form (b, a) with (a, b) ∈ R that are not in R. Now the relation S = {(1, 1), (1, 2), (2, 2), (2, 3), (3, 1), (3, 2), {2, 1), (1, 3)}. Clearly, this new relation S contains R is symmetric, and is contained within every symmetric relation that contains R, it is symmetric closure of R. Example 2: What is the symmetric closure of the relation R = {(a, b) | a &gt; b} on the</p>
+<p>set of positive integers? R = {(2,1), (3,1),(3,2)……} Solution: The symmetric closure of R is the relation R ∪ R−1 = {(a, b) | a &gt; b} ∪ {(b, a) | a &gt; b} = {(a, b) | a ≠ b}.</p>
+</section>
+<section><h4>8.3. Transitive Closure</h4>
+<p>Transitive closure of a relation R on a set A is the smallest transitive relation S on the</p>
+<p>set A that contains R. Constructing the transitive closure of a relation is more complicated than constructing either the reflexive or symmetric closure. The transitive closure S of a relation R on a set A can be constructed by adding all ordered pairs of the form (a, c), where (a, b) and (b, c) are already in the relation. We repeat the same process if the relation after adding (a, c) is not transitive.  Example:</p>
+<p>What is transitive closure of the relation R = {(1, 3), (1, 4), (2, 1), (3, 2)}  on the set A = {1, 2, 3, 4}? Solution: This relation is not transitive because it does not contain all pairs of the form (a, c) where (a, b) and (b, c) are in R. The pairs of this form not in R are (1, 2), (2, 3), (2, 4), and (3, 1). Adding these pairs does not produce a transitive relation. After adding these pairs we repeat the same process until we get transitive relation. Finally, we get the transitive closure S = {(1, 3), (1, 4), (2, 1), (3, 2), (1, 2), (2, 3), (2, 4), (3, 1), (1, 1), (2, 2), (3, 3), (3, 4)}.</p>
+</section>
+<section><h3>9. Equivalence Relations</h3>
+<p>A relation on a set A is called an equivalence relation if it is reflexive, symmetric, and transitive. Two elements a and b that are related by an equivalence relation are called equivalent. The notation a ∼ b is often used to denote that a and b are equivalent elements with respect to a particular equivalence relation. Example 1: Let R be the relation on the set of integers such that aRb if and only if a = b or a = −b. Is R an equivalence relation? Solution: The relation R is reflexive because a = a for every integer a. The relation R is symmetric, for if a = b or a = −b, then b = a or b = −a. The relation R is transitive because a = ±b and b = ±c imply that a = ±c. Since the relation R is reflexive, symmetric, and transitive, R is an equivalence relation. Example 2: Let R be the relation on the set of real numbers such that aRb if and only if a − b is an integer. Is R an equivalence relation? R = {(1.2, 1.2), (1.2, 2.2), (2.2, 2.1) Solution: Because a – a = 0 is an integer for all real numbers a, aRa for all real numbers a. Hence, R is reflexive. Now suppose that aRb. Then a − b is an integer, so b − a is also an integer. Hence, bRa. It follows that R is symmetric. If aRb and bRc, then a − b and b − c are integers. Therefore, a − c = (a − b) + (b − c) is also an integer. Hence, aRc. Thus, R is transitive. Consequently, R is an equivalence relation. Example 3: Show that the “divides” relation on the set of positive integers is not an equivalence relation. Solution: Because a | a whenever a is a positive integer, the “divides” relation is reflexive. Suppose that a divides b and b divides c. Then there are positive integers k and l such that b = ak and c = bl. Hence, c = a(kl), so a divides c. It follows that this relation is transitive. This relation is not symmetric (for instance, 2 | 4 but 4 ∤ 2). So, the “divides” relation on the set of positive integers is not an equivalence relation. Equivalent Classes: Let R be an equivalence relation on a set A. The set of all elements that are related to an element a of A is called the equivalence class of a. The equivalence class of a with respect to R is denoted by [a]R. When only one relation is under consideration, we can delete the subscript R and write [a] for this equivalence class. In other words, if R is an equivalence relation on a set A, the equivalence class of the element a is [a]R = {s | (a, s) ∈ R}. If b ∈ [a]R, then b is called a representative of this equivalence class. Any element of a class can be used as a representative of this class. That is, there is nothing special about the particular element chosen as the representative of the class. Example: What is the equivalence class of an integer for the equivalence relation aRb with a = b or a = −b? Solution: Because an integer is equivalent to itself and its negative in this equivalence relation, it follows that [a] = {−a, a}. This set contains two distinct integers unless a =</p>
+<p>0. For instance, [7] = {−7, 7}, [−5] = {−5, 5}, and [0] = {0}. Note: Equivalence classes of an equivalence relation partition a set into disjoint, nonempty subsets.</p>
+</section>
+<section><h3>10. Partial Orderings</h3>
+<p>A relation R on a set S is called a partial ordering or partial order if it is reflexive, antisymmetric, and transitive. A set S together with a partial ordering R is called a partially ordered set, or poset, and is denoted by (S, R). Members of S are called elements of the poset.</p>
+<details><summary>Example</summary><p>Example: Show that the “greater than or equal” relation (≥) is a partial ordering on the set of integers. R = {(1,1)(2,1), (3,1)…..(3, 2)….} Solution: Because a ≥ a for every integer a, ≥ is reflexive. If a ≥ b and b ≥ a, then a = b. Hence, ≥ is antisymmetric. Finally, ≥ is transitive because a ≥ b and b ≥ c imply that a ≥ c. It follows that ≥ is a partial ordering on the set of integers and (Z, ≥) is a poset.</p></details>
+</section>
+<section><h2>Functions</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>In many instances we assign to each element of a set a particular element of a second set. For example, each student in a discrete structures class can be assigned a letter grade from the set {A,B,C,D,F}. This assignment is an example of a function.</p>
+<p>A</p>
+<p>Ram  Shyam  Gita</p>
+<p>Rita</p>
+<p>B  C</p>
+<p>D  F</p>
+<p>The concept of a function is extremely important. Functions are used to represent how long it takes a computer to solve problems of a given size. Many computer programs are designed to calculate values of functions. Recursive functions are also used frequently.</p>
+</section>
+<section><h4>1.1. Definition</h4>
+<p>Let A and B be nonempty sets. A function f from A to B is an assignment of exactly one element of B to each element of A. We write f (a) = b if b is the unique element of B assigned by the function f to the element a of A. If f is a function from A to B, we write f : A → B. Functions are also called mappings or transformations. A function f : A → B can also be defined in terms of a relation from A to B. A relation from A to B is just a subset of A × B. A relation from A to B that contains one, and only one, ordered pair (a, b) for every element a ∈ A, defines a function f from A to B. This function is defined by the assignment f (a) = b, where (a, b) is the unique ordered pair in the relation that has a as its first element.</p>
+</section>
+<section><h4>1.2. Some Terminologies</h4>
+<p>If f is a function from A to B, we say that A is the domain of f and B is the codomain of f. If f (a) = b, we say that b is the image of a and a is a preimage of b. The range, or image, of f is the set of all images of elements of A. Also, if f is a function from A to B, we say that f maps A to B.</p>
+<details><summary>Example</summary><p>Example 1: What are the domain, codomain, and range of the function that assigns grades to students described in the figure above? Solution: Let G be the function that assigns a grade to a student in our discrete structures class. Note that G(Ram) = A, for instance. The domain of G is the set  {Ram, Shyam, Gita, Rita}, and the codomain is the set {A,B,C,D, F}. The range of G  is the set {A, C, D}. Example 2: Let R be the relation with ordered pairs (Abdul, 22), (Brenda, 24), (Carla, 21), (Desire, 22), (Eddie, 24), and (Felicia, 22). Here each pair consists of a graduate student and this student’s age. Specify a function determined by this relation. Solution: If f is a function specified by R, then f (Abdul ) = 22, f (Brenda) = 24, f  (Carla) = 21, f (Desire) = 22, f (Eddie) = 24, and f (Felicia) = 22. (Here, f (x) is the age  of x, where x is a student.) For the domain, we take the set {Abdul, Brenda, Carla, Desire, Eddie, Felicia}. We also need to specify a codomain, which needs to contain all possible ages of students. Because it is highly likely that all students are less than 100 years old, we can take the set of positive integers less than 100 as the codomain. The range of the function we have specified is the set of different ages of these students, which is the set {21, 22, 24}. Example 3: Let f : Z → Z assign the square of an integer to this integer. Then, f (x) = x2, where the domain of f is the set of all integers, the codomain of f is the set of all integers, and the range of f is the set of all integers that are perfect squares, namely, {0, 1, 4, 9, . . . }. Program: Write a C program to implement this function.</p></details>
+</section>
+<section><h4>1.3. Equal Functions</h4>
+<p>Two functions are equal when they have the same domain, have the same codomain, and map each element of their common domain to the same element in their common codomain.</p>
+</section>
+<section><h4>1.4. Real Valued and Integer Valued Functions</h4>
+<p>A function is called real-valued if its codomain is the set of real numbers, and it is called integer-valued if its codomain is the set of integers. Two real-valued functions or two integer valued functions with the same domain can be added, as well as multiplied. Let f1 and f2 be functions from A to R. Then f1 + f2 and f1f2 are also functions from A to R defined for all x ∈ A by</p>
+<p>(f1 + f2)(x) = f1(x) + f2(x) (f1f2)(x) = f1(x)f2(x) Example: Let f1 and f2 be functions from R to R such that f1(x) = x2 and f2(x) = x − x2. What are the functions f1 + f2 and f1f2? Solution: From the definition of the sum and product of functions, it follows that</p>
+<p>(f1 + f2)(x) = f1(x) + f2(x) = x2 + (x − x2) = x and (f1f2)(x) = x2(x − x2) = x3 − x4</p>
+</section>
+<section><h4>1.5. Image of Subset of a Domain</h4>
+<p>Let f be a function from A to B and let S be a subset of A. The image of S under the function f is the subset of B that consists of the images of the elements of S. We denote the image of S by f (S), so</p>
+<p>f (S) = {t | ∃s ∈S (t = f (s))} We also use the shorthand {f (s) | s ∈ S} to denote this set. Example: Let A = {a, b, c, d, e} and B = {1, 2, 3, 4} with f (a) = 2, f (b) = 1, f (c) = 4, f (d) = 1, and f (e) = 1. The image of the subset S = {b, c, d} is the set f (S) = {1, 4} which is subset of B.</p>
+</section>
+<section><h3>2. One-to-one and Onto Functions</h3>
+</section>
+<section><h4>2.1. One-to-one Functions</h4>
+<p>Functions that never assign the same value to two different domain elements are called one-to-one function. A function f is said to be one-to-one, or an injunction, if and only if f (a) = f (b) implies that a = b for all a and b in the domain of f or equivalently if and only if f (a) ≠ f (b) whenever a ≠ b. One-to-one function is also called injective function. We can express that f is one-to-one using quantifiers as ∀a∀b(f (a) = f (b) → a = b) or equivalently ∀a∀b (a ≠ b → f (a) ≠ f (b)), where the universe of discourse is the domain of the function.</p>
+<p>1</p>
+<p>a</p>
+<p>b  c  d</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>5 Fig: One-to-one Function</p>
+<details><summary>Example</summary><p>Example 1: Determine whether the function f from {a, b, c, d} to {1, 2, 3, 4, 5} with f</p></details>
+<p>(a) = 4, f (b) = 5, f (c) = 1, and f (d) = 3 is one-to-one. Solution: The function f is one-to-one because f takes on different values at the four elements of its domain. Example 2: Determine whether the function f (x) = x + 1 from the set of real numbers to itself is one-to-one. Solution: The function f (x) = x + 1 is a one-to-one function because x + 1 ≠ y + 1 when x ≠ y. Exercise: Determine whether the function f (x) = x2 from the set of integers to the set of integers is one-to-one.</p>
+<p>Increasing and Decreasing Function A function f whose domain and codomain are subsets of the set of real numbers is called increasing if f (x) ≤ f (y), and strictly increasing if f(x) &lt; f(y), whenever x &lt; y and x and y are in the domain of f.</p>
+<p>Similarly, f is called decreasing if f (x) ≥ f (y), and strictly decreasing if f(x) &gt; f(y), whenever x &lt; y and x and y are in the domain of f. A function f is increasing if ∀x∀y(x &lt; y → f (x) ≤ f (y)), strictly increasing if ∀x∀y(x &lt; y → f (x) &lt; f (y)), decreasing if ∀x∀y(x &lt; y → f (x) ≥ f (y)), and strictly decreasing if ∀x∀y(x &lt; y → f (x) &gt; f (y)), where the universe of discourse is the domain of f. Hence, a function that is either strictly increasing or strictly decreasing must be one to-one. However, a function that is increasing, but not strictly increasing, or decreasing, but not strictly decreasing, is not one-to-one.</p>
+</section>
+<section><h4>2.2. Onto Function</h4>
+<p>A function with equal range and codomain is called onto function. That is, every member of the codomain is the image of some element of the domain.</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>d</p>
+<p>Fig: Onto Function</p>
+<p>1  2  3</p>
+<p>A function f from A to B is called onto, or a surjection, if and only if for every element b ∈ B there is an element a ∈ A with f (a) = b. A function f is called surjective if it is onto. A function f is onto if ∀y∃x(f (x) = y), where the domain for x is the domain of the function and the domain for y is the codomain of the function. Example 1: Let f be the function from {a, b, c, d} to {1, 2, 3} defined by f (a) = 3, f</p>
+<p>(b) = 2, f (c) = 1, and f (d) = 3. Is f an onto function? Solution: Because all three elements of the codomain are images of elements in the domain, f is onto. Example 2: Is the function f (x) = x2 from the set of integers to the set of integers onto? Solution: The function f is not onto because there is no integer x with x2 = −1, for instance. Exercise: Is the function f (x) = x + 1 from the set of integers to the set of integers onto?</p>
+</section>
+<section><h4>2.3. One-to-one Correspondence</h4>
+<p>The function f is a one-to-one correspondence, or a bijection, if it is both one-to-one</p>
+<p>and onto. We also say that such a function is bijective.</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>Fig: One-to-one Correspondence Example 1: Let f be the function from {a, b, c, d} to {1, 2, 3, 4} with f (a) = 4, f (b) = 2, f (c) = 1, and f (d) = 3. Is f a bijection? Solution: The function f is one-to-one and onto. It is one-to-one because no two values in the domain are assigned the same function value. It is onto because all four elements of the codomain are images of elements in the domain. Hence, f is a bijection.</p>
+<p>Identity Function Let A be a set. The identity function on A is the function ιA : A → A, where ιA(x) =  x for all x ∈ A. In other words, the identity function ιA is the function that assigns  each element to itself. The function ιA is one-to-one and onto, so it is a bijection.</p>
+</section>
+<section><h3>3. Inverse Functions and Composition of Functions</h3>
+</section>
+<section><h4>3.1. Inverse Functions</h4>
+<p>Let f be a one-to-one correspondence from the set A to the set B. The inverse function of f is the function that assigns to an element b belonging to B the unique element a in A such that f (a) = b. The inverse function of f is denoted by f-1. Hence, f-1(b) = a when f (a) = b.</p>
+<p>Fig: The Function f-1 Is the Inverse of Function f A one-to-one correspondence is called invertible because we can define an inverse of this function. A function is not invertible if it is not a one-to-one correspondence, because the inverse of such a function does not exist.</p>
+<details><summary>Example</summary><p>Example 1: Let f be the function from {a, b, c} to {1, 2, 3} such that f (a) = 2, f (b) = 3, and f (c) = 1. Is f invertible, and if it is, what is its inverse? Solution: The function f is invertible because it is a one-to-one correspondence. The inverse function f-1 reverses the correspondence given by f , so f-1(1) = c, f-1(2) = a, and f-1(3) = b. Example 2: Let f : Z → Z be such that f (x) = x + 1. Is f invertible, and if it is, what is its inverse? Solution: The function f has an inverse because it is a one-to-one correspondence. To reverse the correspondence, suppose that y is the image of x, so that y = x + 1. Then x = y − 1. This means that y − 1 is the unique element of Z that is sent to y by f. Consequently, f-1(y) = y − 1. Exercise: Let f be the function from R to R with f (x) = x2. Is f invertible?</p></details>
+</section>
+<section><h4>3.2. Composition of Functions</h4>
+<p>Let g be a function from the set A to the set B and let f be a function from the set B to the set C. The composition of the functions f and g, denoted for all a ∈ A by f ◦ g, is defined by (f ◦ g)(a) = f (g(a)).</p>
+<p>Fig: The Composition of the Functions f and g In other words, f ◦ g is the function that assigns to the element a of A the element assigned by f to g(a). That is, to find (f ◦ g)(a) we first apply the function g to a to obtain g(a) and then we apply the function f to the result g(a) to obtain (f ◦ g)(a) = f (g(a)). Note: The composition f ◦ g cannot be defined unless the range of g is a subset of the domain of f. Example 1: Let g be the function from the set {a, b, c} to itself such that g(a) = b, g(b) = c, and g(c) = a. Let f be the function from the set {a, b, c} to the set {1, 2, 3} such that f (a) = 3, f (b) = 2, and f (c) = 1. What is the composition of f and g, and what is the composition of g and f ? Solution: The composition f ◦ g is defined by (f ◦ g)(a) = f (g(a)) = f (b) = 2, (f ◦ g) (b) = f (g(b)) = f (c) = 1, and (f ◦ g)(c) = f (g(c)) = f (a) = 3. Note that g ◦ f is not defined, because the range of f is not a subset of the domain of g. Example 2: Let f and g be the functions from the set of integers to the set of integers defined by f (x) = 2x + 3 and g(x) = 3x + 2. What is the composition of f and g? What is the composition of g and f ? Solution: Both the compositions f ◦ g and g ◦ f are defined. Moreover, (f ◦ g)(x) = f (g(x)) = f (3x + 2) = 2(3x + 2) + 3 = 6x + 7 and (g ◦ f )(x) = g(f (x)) = g(2x + 3) = 3(2x + 3) + 2 = 6x + 11.</p>
+<p>Composition of a Function and its Inverse: When the composition of a function and its inverse is formed, in either order, an identity function is obtained. For example, suppose that f is a one-to-one correspondence from the set A to the set B. Then the inverse function f-1 exists and is a one-to-one correspondence from B to A. The inverse function reverses the correspondence of the original function, so f-1(b) = a when f (a) = b, and f (a) = b when f-1(b) = a. Hence, (f-1 ◦ f )(a) = f-1(f (a)) = f-1(b) = a, and (f ◦ f-1)(b) = f (f-1(b)) = f(a) = b. Consequently f-1 ◦ f = ιA and f ◦ f-1 = ιB, where ιA and ιB are the identity functions on the sets A and B, respectively. That is, (f-1)-1 = f.</p>
+</section>
+<section><h3>4. Graph of Functions</h3>
+<p>Let f be a function from the set A to the set B. The graph of the function f from A to B is the set of ordered pairs {(a, b) | a ∈ A and f (a) = b}. These ordered pairs are often displayed pictorially to aid in understanding the behaviour of the function.  The graph of a function f from A to B is the subset of A × B containing the ordered  pairs with the second entry equal to the element of B assigned by f to the first entry.  The graph of a function f from A to B is the same as the relation from A to B  determined by the function f. Example 1: Display the graph of the function f (x) = x2 from the set of integers to the</p>
+<p>set of integers. Solution: The graph of f is the set of ordered pairs of the form (x, f (x)) = (x, x2), where x is an integer.</p>
+<p>Fig: The Graph of f (x) = x2 from Z to Z Exercise: Display the graph of the function f (n) = 2n + 1 from the set of integers to the set of integers.</p>
+</section>
+<section><h3>5. Some Important Functions</h3>
+</section>
+<section><h4>5.1. Floor and Ceiling Functions</h4>
+<p>Let x be a real number. The floor function rounds x down to the closest integer less than or equal to x, and the ceiling function rounds x up to the closest integer greater than or equal to x. These functions are often used when objects are counted. They play an important role in the analysis of the number of steps used by procedures to solve problems of a particular size. The floor function assigns to the real number x the largest integer that is less than or equal to x. The value of the floor function at x is denoted by ⎣x⎦. The ceiling function assigns to the real number x the smallest integer that is greater than or equal to x. The value of the ceiling function at x is denoted by ⎡x⎤. Remark: The floor function is often also called the greatest integer function. It is often denoted by [x].</p>
+<p>Exam ples: ⎢</p>
+<p>1= 0,  ⎥</p>
+<p>⎡</p>
+<p>1= 1,  ⎤</p>
+<p>⎢ ⎢</p>
+<p>−</p>
+<p>1= -1,</p>
+<p>⎥</p>
+<p>⎡ −</p>
+<p>1= 0,  ⎤ ⎣3.1⎦=</p>
+<p>3,</p>
+<p>⎡3.1⎤=</p>
+<p>4,</p>
+<p>⎣3⎦= 3,</p>
+<p>⎡3⎤= 3</p>
+<p>⎢ ⎣ 2 ⎥ ⎦</p>
+<p>⎢ ⎢ 2 ⎥ ⎥ ⎣ 2 ⎥</p>
+<p>⎦ ⎢ ⎢</p>
+<p>2 ⎥ ⎥</p>
+<details><summary>Example</summary><p>Example 1: Data stored on a computer disk or transmitted over a data network are usually represented as a string of bytes. Each byte is made up of 8 bits. How many bytes are required to encode 100 bits of data? Solution: To determine the number of bytes needed, we determine the smallest integer that is at least as large as the quotient when 100 is divided by 8, the number of bits in a byte. Consequently, ⎡100/8⎤ = ⎡12.5⎤ = 13 bytes are required. Example 2: In asynchronous transfer mode (ATM), data are organized into cells of  53 bytes. How many ATM cells can be transmitted in 1 minute over a connection that transmits data at the rate of 500 kilobits per second? Solution: In 1 minute, this connection can transmit 500,000 . 60 = 30,000,000 bits. Each ATM cell is 53 bytes long, which means that it is 53 . 8 = 424 bits long. To</p></details>
+<p>determine the number of cells that can be transmitted in 1 minute, we determine the largest integer not exceeding the quotient when 30,000,000 is divided by 424. Consequently, ⎣30,000,000/424⎦ = 70,754ATM cells can be transmitted in 1 minute over a 500 kilobit per second connection.</p>
+<p>Properties of Floor and Ceiling Functions:</p>
+<p>• ⎣x⎦ = n if and only if n ≤ x &lt; n + 1 • ⎡x⎤ = n if and only if n − 1 &lt; x ≤ n • ⎣x⎦ = n if and only if x − 1 &lt; n ≤ x • ⎡x⎤ = n if and only if x ≤ n &lt; x + 1 • x − 1 &lt; ⎣x⎦ ≤ x ≤ ⎡x⎤ &lt; x + 1 • ⎣- x⎦ = - ⎡x⎤ • ⎡- x⎤ = - ⎣x⎦ • ⎣x + n⎦ = ⎣x⎦ + n • ⎡ x + n⎤ = ⎡x⎤ + n</p>
+</section>
+<section><h4>5.2. Boolean Function</h4>
+<p>Boolean algebra provides the operations and the rules for working with the set {0, 1}. The three operations in Boolean algebra that we will use most are complementation, the Boolean sum, and the Boolean product. The complement of an element, denoted with a bar, is defined by 0= 1 and 1= 0. The Boolean sum, denoted by + or by OR,</p>
+<p>has the following values: 1 + 1 = 1, 1 + 0 = 1, 0 + 1 = 1, 0 + 0 = 0. The Boolean product, denoted by . or by AND has the following values: 1 . 1 = 1, 1 . 0 = 0, 0 . 1 = 0, 0 . 0 = 0. Example: The value of 1 . 0</p>
+<p>+ (</p>
+<p>1+ 0) is 0 + 1= 0 + 0 = 0.</p>
+<p>Let B = {0, 1}. Then Bn = {(x1, x2, . . . , xn) | xi ∈ B for 1 ≤ i ≤ n} is the set of all possible n-tuples of 0s and 1s. The variable x is called a Boolean variable if it assumes values only from B, that is, if its only possible values are 0 and 1. A function from Bn to B is called a Boolean function of degree n. Boolean functions can be represented using expressions made up from variables and Boolean operations. The Boolean expressions in the variables x1, x2, ..…, xn are defined recursively as</p>
+<p>• 0, 1, x1, x2, ..…, xn are Boolean expressions • if E1 and E2 are Boolean expressions, then E1, (E1E2), and (E1 + E2) are Boolean expressions. Example: The function F(x, y) = xyfrom the set of ordered pairs of Boolean  variables to the set {0, 1} is a Boolean function of degree 2 with F(1, 1) = 0, F(1, 0) =  1, F(0, 1) = 0, and F(0, 0) = 0. Can also be displayed in a table as follows:</p>
+<p>x y F(x,y)</p>
+<p>1 1 0</p>
+<p>1 0 1</p>
+<p>0 1 0</p>
+<p>0 0 0</p>
+<p>Exercise: Find the values of the Boolean function represented by F(x, y, z) = xy +  z</p>
+<p>.</p>
+</section>
+<section><h4>5.3. Exponential Function</h4>
+<p>Let n be a positive integer, and let b be a fixed positive real number. The function fb(n) = bn is defined by fb(n) = bn = b . b . b …… b, where there are n factors of b multiplied together on the right-hand side of the equation. The function fb(n) = bn is called the exponential function to the base b. Two of the important properties satisfied by exponential functions are: bx+y = bxby, and (bx)y =  bxy.</p>
+</section>
+</main>
+<footer>Sets, Relations, and Functions</footer>
+<script src="../../assets/js/notes.js" defer></script>
+</body></html>

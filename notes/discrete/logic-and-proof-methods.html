@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Logic and Proof Methods</title>
+<link rel="stylesheet" href="../../assets/css/notes.css"/>
+</head><body>
+<header class="site"><div class="container"><div class="breadcrumb"><a href="index.html">Discrete Structure</a> / Logic and Proof Methods</div></div></header>
+<main class="container">
+<h1>Logic and Proof Methods</h1>
+<p>Interactive recreation of the chapter PDF. Original: <a href="../../assets/pdfs/Logic and Proof Methods.pdf" download>Download PDF</a>.</p>
+<section><h2>Propositional Logic</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>The rules of logic give precise meaning to mathematical statements. These rules are used to distinguish between valid and invalid mathematical arguments. Besides the importance of logic in understanding mathematical reasoning, logic has numerous applications to computer science. These rules are used in the design of computer circuits, the construction of computer programs, the verification of the correctness of programs, and in many other ways.</p>
+</section>
+<section><h3>2. Propositions</h3>
+<div class="callout key"><strong>Proposition:</strong> Proposition is a basic building block of logic. A proposition is a declarative sentence that is either true or false, but not both. For example, all the following declarative sentences are propositions:</div>
+<p> Kathmandu is the capital of Nepal. (true)  2 + 2 = 5. (false)  1 + 1 = 2. (true) The following sentences are not propositions because they are not declarative sentences and we cannot say whether they are true or false.</p>
+<p> x &gt; 5.  What time is it?  Read this carefully.  x + y = z. Propositions are denoted conventionally by using small letters like p, q, r, s …. The truth value of proposition is denoted by T for true proposition and F for false proposition. The logic that deals with propositions is called propositional logic or propositional calculus. It was first developed systematically by the Greek philosopher Aristotle more than 2300 years ago.</p>
+</section>
+<section><h3>3. Logical Operators / Connectives</h3>
+<p>Compound propositions are formed from existing propositions using logical operators. Truth table is used to show the relationship between truth values of propositions. Here we present the logical operators along with their behavior in truth table.</p>
+</section>
+<section><h4>3.1. Negation (not)</h4>
+<p>Given a proposition p, negation operator () is used to get negation of p denoted by p called “not p”. Example: Negation of the proposition “I love birds” is “I do not love birds” if the sentence “I love birds” is denoted by p then its negation is denoted by p. Truth table:</p>
+<p>p p T F F T</p>
+</section>
+<section><h4>3.2. Conjunction (and)</h4>
+<p>Given two propositions p and q, the proposition “p and q” denoted by p q is the proposition that is true whenever both the propositions p and q are true, false otherwise. The proposition that is obtained by the use of “and” operator is also called conjunction of p and q. Example: If we have propositions p = “Ram is intelligent” and q = “Ram is diligent” the conjunction of p and q is Ram is intelligent and diligent. This proposition is true only when Ram is intelligent and he is diligent also, false otherwise. Truth Table:</p>
+<p>p q p q T T T T F F F T F F F F</p>
+</section>
+<section><h4>3.3. Disjunction (or)</h4>
+<p>Given two propositions p and q, the proposition “p or q” denoted by p q is the proposition that is false whenever both the propositions p and q are false, true otherwise. The proposition that is obtained by the use of “or” operator is also called disjunction of p and q. Example: If we have propositions p = “Ram is intelligent” and q = “Ram is diligent” the disjunction of p and q is Ram is intelligent or he is diligent. This proposition is false only when Ram is not intelligent and not diligent, true otherwise. Truth Table:</p>
+<p>p q p q T T T T F T F T T F F F</p>
+</section>
+<section><h4>3.4. Exclusive or (Xor)</h4>
+<p>Given two propositions p and q, the proposition exclusive or of p and q denoted by p  q is the proposition that is true whenever only one of the propositions p and q is true, false otherwise. Example: If we have propositions p = “Ram drinks coffee in the morning” and q = “Ram drinks tea in the morning” the exclusive or of p and q is Ram drinks coffee or tea in the morning. Truth Table:</p>
+<p>p q p  q T T F T F T F T T F F F</p>
+</section>
+<section><h4>3.5. Implication</h4>
+<p>Given two propositions p and q, the proposition implication p  q is the proposition that is false when p is true and q is false, true otherwise. Here p is called “hypothesis” or “antecedent” or “premise” and q is called “conclusion” or “consequence”. An implication is sometimes called conditional statement.</p>
+<p>We come across the implication in many places in mathematical reasoning and we use different terminologies to express p  q like: “if p, then q”,  “if p, q”,  “p is sufficient for q”,  “q if p”,  “q when p”,  “a necessary condition for p is q”,  “q unless</p>
+<p>￢p”, “p implies q”, “p only if q”, “a sufficient condition for q is p”, “q whenever p”, “q is necessary for p”, “q follows from p” Example: p = “today is Sunday” q = “it is hot” then the implication can be “if today is Sunday then it is hot today” or “today is Sunday only if it is hot today”. Truth Table:</p>
+<p>p q p  q T T T T F F F T T F F T</p>
+<p>Contrapositive, Inverse and Converse: Some of the related implications formed from p  q are:</p>
+<p> Converse: q  p (if it is hot today then today is Sunday).  Inverse: p  q (if today is not Sunday then it is not hot today).  Contrapositive: q  p (if it is not hot then today is not Sunday). The</p>
+<p>contrapositive q  p of an implication p  q has the same truth value as p  q. Hence, implication and its contrapositive are equivalent. Two compound propositions are equivalent when they always have the same truth value. Exercise: Show that the sentences “if it is hot today then today is Sunday” and “if it is not Sunday then today is not hot” are equivalent.</p>
+</section>
+<section><h4>3.6. Biconditional</h4>
+<p>Given propositions p and q, the biconditional p  q is a proposition that is true when p and q have same truth values. Alternatively p  q is true whenever both p  q and q  p are true (verify using truth table).</p>
+<p>Some of the terminologies used for biconditional are: “p if and only if q”, “if p then q, and conversely”, “p is necessary and sufficient for q”, “p iff q”. Example: For propositions given above in implication, “today is Sunday if and only if it is hot today”. Truth Table:</p>
+<p>p q p  q T T T T F F F T F F F T</p>
+</section>
+<section><h3>4. Precedence of Logical Operators</h3>
+<p>We will generally use parenthesis to specify the order in which logical operators in a compound proposition are to be applied. However, we can use the following precedence table if parentheses are not used. The order of precedence is highest to lowest.</p>
+<p>Operator Precedence  Highest     Lowest</p>
+</section>
+<section><h2>5. Some Examples</h2>
+<p>a) Construct the truth table of the compound proposition (p q)  (p q).</p>
+<p>p q q p q p q (p q)  (p q) T T F T T T T F T T F F F T F F F T F F T T F F b) Let, p = “it rained last night” q = “the sprinkles came on last night” r = “the lawn was wet this morning” Translate the following into English p, r  p and r  p  q. p = “it didn’t rain last night” r  p = “the lawn was wet this morning and it didn’t rain last night” r  p  q = “either the lawn was not wet this morning or it rained last night or the sprinkles came on last night” c) Let p, q and r be the propositions with truth values T, F, T</p>
+<p>respectively. Evaluate the following: r  (p  q) , (p  q)  (r  q) r  (p  q) = F  (T  F) = F  T = T (true) (p  q)  (r  q) =  (T  F)  (F  F) = F  F = F (false)</p>
+</section>
+<section><h3>6. Translating English Sentences to Propositional Logic</h3>
+<p>To translate English sentences to the proposition symbolic form, we follow these steps:</p>
+<p>Restate the given sentence into building block sentences. Give the symbol to each sentence and substitute the symbols using connectives For example, “if it is snowing then I will go to the beach” Restate into “it is snowing” give it symbol p and “I will go to the beach” and give it symbol q then we can write it as p q.</p>
+</section>
+<section><h2>Propositional Equivalences</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>An important type of step used in a mathematical argument is the replacement of a statement with another statement with the same truth value. Because of this, methods that produce propositions with the same truth value as a given compound proposition are used extensively in the construction of mathematical arguments. We begin our discussion with a classification of compound propositions according to their possible truth values. A compound proposition that is always true, no matter what the truth values of the atomic propositions that contain in it, is called a tautology. For example, p  p is always true (verify using truth table). A compound proposition that is always false is called contradiction. For example, p  p is always false (verify using truth table). A compound proposition that is neither a tautology nor a contradiction is called a contingency.</p>
+</section>
+<section><h3>2. Logical Equivalences</h3>
+<p>Compound propositions that have the same truth values in all possible cases are called logically equivalent. We can also define this notion as follows. The compound propositions p and q are logically equivalent, denoted by p  q or p  q, if proposition p  q is a tautology. Some important logical equivalences are given below.</p>
+<p>p  T  p p  F  p</p>
+<p>Identity laws</p>
+<p>p  F  F p  T  T</p>
+<p>Domination laws</p>
+<p>p  p  p p  p  p</p>
+<p>Idempotent laws</p>
+<p>(p)  p Double negation law p  q  q  p p  q  q  p</p>
+<p>Commutative laws</p>
+<p>(p  q)  r  p  (q  r) (p  q)  r  p  (q  r)</p>
+<p>Associative laws</p>
+<p>p  (q  r)  (p  q)  (p  r) p  (q  r)  (p  q)  (p  r)</p>
+<p>Distributive laws</p>
+<p>(p  q)  p  q (p  q)  p  q</p>
+<p>De Morgan’s laws</p>
+<p>p  p  F p  p  T</p>
+<p>Negation laws</p>
+<p>p  (p  q)  p p  (p  q)  p</p>
+<p>Absorption laws</p>
+<p>Other logical equivalences involving implications and biconditionals have been established. These are given below. p →q ⇔ ¬p ∨q p →q ⇔ ¬q → ¬p p ∨q ⇔ ¬p →q p ∧q ⇔ ¬(p → ¬q)</p>
+<p>¬(p →q) ⇔p ∨ ¬q (p →q) ∧(p →r) ⇔p → (q ∧r) (p →r) ∧(q →r) ⇔ (p ∨q) →r (p →q) ∨(p →r) ⇔p → (q ∨r) (p →r) ∨(q →r) ⇔ (p ∧q) →r p ↔q ⇔(p →q) ∧(q →p) p ↔q ⇔ ¬p ↔ ¬q p ↔q ⇔(p ∧q) ∨(¬p ∧ ¬q)</p>
+<p>¬ (p ↔q) ⇔p ↔ ¬q</p>
+</section>
+<section><h3>3. Proving Logical Equivalence</h3>
+<p>One way to determine whether two propositions are equivalent is to use truth table. In particular, the propositions p and q are equivalent if and only if the columns giving their truth values agree. For example, to show that (p →q) ∧(p →¬q) and ¬p are logically equivalent, we use the following truth table:</p>
+<p>p ¬p Q ¬q p →q p → ¬q p →q ∧p → ¬q</p>
+<p>T F T F T F F</p>
+<p>T F F T F T F</p>
+<p>F T T F T T T</p>
+<p>F T F T T T T</p>
+<p>Another way to determine whether two propositions are equivalent is to use symbolic</p>
+<p>derivation. For example, to show that ¬(p ∨(¬ p ∧q) and ¬ p ∧¬q are logically equivalent, we use the following derivation. ¬(p ∨ (¬ p ∧q) ≡ ¬p ∧ ¬(¬ p ∧q) [De Morgan’s law]</p>
+<p>≡ ¬p ∧ [¬(¬ p) ∨ ¬q)] [De Morgan’s law] ≡ ¬p ∧ ( p ∨ ¬q) [Double negation law] ≡ (¬p ∧p) ∨(¬p ∧ ¬q) [Distributive law] ≡F ∨ (¬p ∧ ¬q) [Negation law] ≡ (¬p ∧ ¬q) ∨F [Commutative law] ≡ ¬p ∧ ¬q [Identity law]</p>
+<p>Exercise 1: Use truth table to show that p →q and ￢p ∨q are logically equivalent. Exercise 2: show that (p ∧q) → (p ∨q) is a tautology. Use both truth table and symbolic derivation. Exercise 3: Use symbolic derivation to show that (p →q) ∧(p → ¬q) and ¬p are</p>
+<p>logically equivalent.</p>
+</section>
+<section><h2>Predicates and Quantifiers</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<div class="callout key"><strong>Proposition:</strong> Propositional logic cannot adequately express the meaning of all statements in mathematics and in natural language. We use a more powerful type of logic called predicate logic. To understand predicate logic, we need to introduce the concept of a predicate and quantifiers</div>
+</section>
+<section><h3>2. Predicate</h3>
+<p>Statements involving variables are neither true nor false when the values of the variables are not specified, for example, “x &gt; 3”. We can denote this statement by P(x), where P denotes the predicate and x is variable or subject. The statement P(x) is said to be the value of the propositional function P at x. Once value is assigned to the propositional function then we can tell whether it is true or false. For example, if we put the value of x as 3 and 7 then we can conclude that P(3) is false since 3 is not greater than 3 and P(7) is true since 7 is greater than 3. We can also have statements that involve more than one variable. For instance, consider the statement “x = y + 3”. We can denote this statement by Q(x, y), where x and y are variables and Q is the predicate. When values are assigned to the variables x and y, the statement Q(x, y) has a truth value. For example, Q (1, 2) is false and Q (3, 0) is true. Exercise: Let R(x, y, z) denote the statement “x + y = z”. What are the truth-values of the propositions R (1, 2, 3) and R (0, 0, 1).</p>
+</section>
+<section><h3>3. Quantifiers</h3>
+<p>Quantifiers are the tools that are used to make a propositional function a proposition. Construction of propositions from the predicates using quantifiers is called quantification. The logic involving predicates and quantifiers is called Predicate Logic or Predicate calculus. Here, we study two types of quantifiers: universal quantifier and existential quantifier.</p>
+<p>The variables that appear in the statement can take different possible values and all the possible values that the variable can take forms a domain called “Universe of Discourse” or “Universal set”.</p>
+</section>
+<section><h4>3.1. The Universal Quantifier</h4>
+<p>Universal quantifier, denoted by , is used for universal quantification. The universal quantification of P(x), denoted by x P(x), is a proposition “P(x) is true for all the values of x in the universe of discourse”.</p>
+<p>We can represent the universal quantification by using the English language like: “for all x P(x) holds” or “for every x P(x) holds” or “for each x P(x) holds”. Example: Let P(x) be the statement “x + 1 &gt; x”. What is the truth value of the quantification x P(x), where the universe of discourse consists of all real numbers? Solution: Since P(x) is true for all real numbers x, the quantification x P(x) is true. Exercise: Let Q(x) be the statement “x &lt; 2”. What is the truth value of the quantification x Q(x), where the universe of discourse consists of all real numbers? Note: The universal quantification is the conjunction of all the propositions that are obtained by assigning the value of the variable in the predicate from the universe of</p>
+<p>discourse, that is, P(x1)  P(x2)  P(xn), where x1, x2,…, xn are all the elements in the universe of discourse.</p>
+<p>To show that a statement of the form x P(x) is false, where P(x) is a propositional function, we need only find one value of x in the universe of discourse for which P(x) is false. Such a value of x is called a counterexample to the statement x P(x). For example, suppose that P(x) is “x2 &gt; 0”. To show that the statement x P(x) is false where the universe of discourse consists of all integers, we give a counterexample. We see that x = 0 is a counterexample since x2 = 0 when x = 0 so that x2 is not greater than 0 when x = 0.</p>
+</section>
+<section><h4>3.2. The Existential Quantifier</h4>
+<p>The quantifier, denoted by , is used for existential quantification. The existential quantification of P(x), denoted by x P(x), is a proposition “P(x) is true for some values of x in the universe of discourse”. The other forms of representation include “there exists x such that P(x) is true” or “P(x) is true for at least one x”. Example: Let P(x) denote the statement “x &gt; 3”. What is the truth value of the quantification x P(x), where the universe of discourse consists of all real numbers? Solution: Since “x &gt; 3” is true when x = 4, the existential quantification of P(x), which is x P(x), is true. Exercise 1: Let Q(x) be the statement “x = x + 1”. What is the truth value of the quantification x Q(x), where the universe of discourse consists of all real numbers? Exercise 2: What is the truth value of x P(x) where P(x) is the statement “x2 &gt; 10” and the universe of discourse consists of the positive integers not exceeding 4? Note: The existential quantification is the disjunction of all the propositions that are obtained by assigning the value of the variable in the predicate from the universe of discourse, that is, P(x1)  P(x2)  P(xn), where x1, x2,…, xn are all the elements in the universe of discourse.</p>
+</section>
+<section><h3>4. Precedence of Quantifiers</h3>
+<p>The quantifiers and have higher precedence than all logical operators from propositional calculus. For example, xP(x) Q(x) is the disjunction of xP(x) and Q(x). In other words, it means (xP(x)) Q(x) rather than x(P(x) Q(x)).</p>
+</section>
+<section><h3>5. Binding Variables</h3>
+<p>When the variable is assigned a value or it is quantified using some quantifier, it is called bound variable. If the variable is not bounded then it is called free variable. Examples:</p>
+<p> P(x,y) has two free variables x and y.  P(2, y) has one bound variable 2 and one free variable y.  P(2,y) where y = 4, is bounding the variable y also.  x P(x) has a bound variable x.  x P(x,y) has one bound variable x and one free variable y. Note: Expression with no free variable is a proposition. Expression with at least one free variable is a predicate only.</p>
+</section>
+<section><h3>6. Negation of Quantifies Expression</h3>
+<p>Let P(x) denotes x is lovely and universe of discourse for x is girls in Kathmandu. Then, x P(x) is every girl in Kathmandu is lovely. If we want to negate it the meaning would be like there is a girl in Kathmandu who is not lovely i.e. x P(x). x P(x) is at least a girl in Kathmandu is lovely. The opposite for this (negation) would be no girls in Kathmandu are lovely, that is, x P(x).</p>
+</section>
+<section><h3>7. Translating from English into Logical Expressions</h3>
+<p>Translating sentences in English into logical expressions is a crucial task. There is no “cookbook” approach that can be followed to translate sentences in English into logical expressions. However, we will use some examples to illustrate this translation. Example 1: Express the statement “Every student in this class has studied calculus”. Solution 1: Let C(x) denotes “x has studied calculus”. If the universe of discourse for x consists of the students in the class, we can translate the given statement as x C(x). Solution 2: Let the universe of discourse consists of all people. Let C(x) denotes “x has studied calculus” and S(x) denotes “person x is in this class”. We can translate the given statement as x (S(x) C(x)). Example 2: Express the statement “Some student in this class has visited Mexico”. Solution: Let M(x) denotes “x has visited Mexico”. If the universe of discourse for x consists of the students in the class, we can translate the given statement as x M(x). Exercise 1: Express yourself assuming that universe of discourse consists of all people. Example 3: Express the statement “Every student in this class has visited either Canada or Mexico”. Solution: Let C(x) denotes “x has visited Canada” and M(x) denotes “x has visited Mexico”. If the universe of discourse for x consists of the students in the class, we can translate the given statement as x (C(x) M(x)). Exercise 2: Express yourself assuming that universe of discourse consists of all people. Example 4: Translate “not every integer is even” where the universe of discourse is set of integers. Solution: Let E(x) denotes “x is even”.   xE(x)</p>
+</section>
+<section><h3>8. Nested Quantifiers</h3>
+<p>Quantifiers that occur within the scope of other quantifiers, such as in the statement, x y P(x, y) are called nested quantifiers.</p>
+</section>
+<section><h4>8.1. Order of Quantification</h4>
+<p>Order of quantification goes from the left to right. If we have a quantified proposition involving more than two variables (nested quantifier) then the order must be considered. Example: Let L(x, y) denotes “x loves y” where universe of discourse for x, y is set of all people in the world. Translate x y L(x, y), y x L(x, y), x y L(x, y), y x L(x, y), x y L(x, y) and x y L(x, y) into English. Solution: x y L(x, y): [for all x there is some y such that x loves y i.e. everybody loves someone. This is false when there is someone who doesn’t love any one]</p>
+<p>y x L(x, y):  [for some y all x love y i.e. there is person who is loved by everyone. This is false when there is no person who is loved.] x y L(x, y): [There is some x such that x loves all y i.e. there is someone who loves all the people. This is false when all people do not love some people] y x L(x, y): [for all y there is x who loves y i.e. everyone has someone who loves him/her. When this is false? (Try yourself)] x y L(x, y): [for all x, x loves all the y i.e. everybody loves everyone. When this is false? (Try yourself)] x y L(x, y): [There is some x such that he loves some y i.e. someone loves somebody. When this is false? (Try yourself)]</p>
+</section>
+<section><h4>8.2. Translating from Nested Quantifier into English</h4>
+<details><summary>Example</summary><p>Example 1 Translate into English the statement x y ((x &gt; 0) y &lt; 0) xy &lt; 0) where the universe of discourse for both variables consists of all real numbers. Solution: This statement says that for every real number x and for every real number y, if x &gt; 0 and y &lt; 0, then xy &lt; 0. That is, this statement says that for real numbers x and y, if x is positive and y is negative, then xy is negative. This can be stated more clearly as “The product of a positive real number and a negative real number is a negative real number”. Example 2 Translate the statement x(C(x) y(C(y) F(x, y))) into English, where C(x) is “x has a computer”, F(x, y) is “x and y are friends”, and the universe of discourse for both x and y consists of all students in your school. Solution: The statement says that for every student x in your school x has a computer or there is a student y such that y has a computer and x and y are friends. In other words, every student in your school has a computer or has a friend who has a computer. Example 3 Translate the statement x y z ((F(x, y) F(x, z) (y ≠ z)) F(y, z)) into English, where F(a, b) means a and b are friends and the universe of discourse for x, y, and z consists of all students in your school. Solution: The statement says that there is a student x such that for all students y and all students z other than y, if x and y are friends and x and z are friends, then y and z are not friends. In other words, there is a student none of whose friends are also friends with each other.</p></details>
+</section>
+<section><h4>8.3. Translating from English Sentences into Logical Expressions</h4>
+<details><summary>Example</summary><p>Example 1 Translate “if a person is female and is a parent, then this person is someone’s mother” into logical expression. Universe of discourse is set of all people. Solution: Let F(x) denotes x is female, P(x) denotes x is a parent and M(x, y) denotes x is a mother of y. Then the logical expression for above sentence is x (F(x)  P(x)  y M(x, y)). We can move y all the way to the left, because y does not appear in F(x)  P(x), to obtain an equivalent expression. Hence the equivalent logical expression is x y (F(x)  P(x)  M(x, y)). Example 2 Translate “everyone has exactly one best friend” into logical expression where universe of discourse is set of all people.</p></details>
+<p>8.4.</p>
+</section>
+<section><h4>Negating Nested Quantifiers</h4>
+<p>The negation of the nested quantifier can be done by successively negating the quantifier using the negation rule for single quantifier. For example,  (y x P(x, y)) is y (x P(x, y)) = y x P(x, y).</p>
+</section>
+<section><h2>Rules of Inference</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>To deduce new statements from statements we already have, we use rules of inference which are templates for constructing valid arguments. An argument is called valid if whenever all hypotheses are true, the conclusion is also true. Rules of inference are our basic tools for establishing the truth of statements.</p>
+</section>
+<section><h3>2. Rules of Inference for Propositional Logic</h3>
+<p>To draw conclusion from the given premise (or hypothesis) we must be able to apply some well defined steps that help reaching the conclusion. These steps of reaching the conclusion are provided by the rules of inference. These rules of inferences are given below.</p>
+</section>
+<section><h4>2.1. Rule 1: Modus Ponens (or Law of Detachment)</h4>
+<p>Whenever two propositions p and p  q are both true then we confirm that q is true. We write this rule as</p>
+<p>q</p>
+<p>q p p</p>
+<p></p>
+<p> , This rule is valid rule of inference because the implication [p  (p q)]  q</p>
+<p>is a tautology. Using this notation, the hypotheses are written in a column and the conclusion below a bar. The symbol denotes “therefore”. Hence, modes ponens states that if both an implication and its hypothesis are known to be true, then the conclusion of this implication is true. Example: Suppose that the propositions “Ram is hard working” and “if Ram is hard working, then he is intelligent” are true. Then, by modus ponens, it follows that the conclusion of the implication “Ram is intelligent” is true.</p>
+</section>
+<section><h4>2.2. Rule 2: Hypothetical Syllogism (Transitive Rule)</h4>
+<p>Whenever two propositions p q and q  r are both true then we confirm that implication p  r is true. We write this rule as</p>
+<p>r p</p>
+<p>r q</p>
+<p>q p</p>
+<p> </p>
+<p></p>
+<p></p>
+<p>, This rule is valid rule of inference because the implication [(p q)  (q</p>
+<p>r)]  (p r) is a tautology.</p>
+<p>This rule can be extended to larger numbers of implications as</p>
+<p>s p</p>
+<p>s r</p>
+<p>r q</p>
+<p>q p</p>
+<p> </p>
+<p></p>
+<p></p>
+<p></p>
+<details><summary>Example</summary><p>Example: Suppose that the propositions “if today is Sunday, then today is rainy day” and “if today is rainy day, then it is wet today” are true. Then, by transitivity rule, it follows that “if today is Sunday, then it is wet today” is true.</p></details>
+</section>
+<section><h4>2.3. Rule 3: Addition</h4>
+<p>Due to the tautology p (p  q), rule q p</p>
+<p>p</p>
+<p> </p>
+<p>is a valid rule of inference.</p>
+</section>
+<section><h4>2.4. Rule 4: Simplification</h4>
+<p>Due to the tautology (p  q)  p, rule p</p>
+<p>q p</p>
+<p></p>
+<p> is a valid rule of inference.</p>
+</section>
+<section><h4>2.5. Rule 5: Conjunction</h4>
+<p>Due to the tautology [(p)  (q)] (p  q), rule q p</p>
+<p>q</p>
+<p>p</p>
+<p>  is a valid rule of inference.</p>
+</section>
+<section><h4>2.6. Rule 6: Modes Tollens</h4>
+<p>Due to the tautology [q  (p q)]  p, rule p</p>
+<p>q p</p>
+<p>q</p>
+<p> </p>
+<p></p>
+<p></p>
+<p>is a valid rule of inference.</p>
+</section>
+<section><h4>2.7. Rule 7: Disjunctive Syllogism</h4>
+<p>Due to the tautology [(p  q)  p] q, rule q p</p>
+<p>q p</p>
+<p> </p>
+<p> is a valid rule of inference.</p>
+</section>
+<section><h4>2.8. Rule 8: Constructive Dilemma</h4>
+<p>Due to the tautology [(p q)  (r s)  (p  r)]  (q  s), rule s q r p</p>
+<p>s r q p</p>
+<p>  </p>
+<p>   ) ( ) (</p>
+<p>is a valid rule of inference.</p>
+</section>
+<section><h4>2.9. Rule 9: Destructive Dilemma</h4>
+<p>Due to the tautology [(p q)  (r s)  (q  s)]  (p  r), rule</p>
+<p>r p</p>
+<p>s p</p>
+<p>s r q p</p>
+<p>) ( ) (</p>
+<p>   </p>
+<p>  </p>
+<p>  </p>
+<p>is a valid rule of inference.</p>
+</section>
+<section><h4>2.10. Rule 10: Resolution</h4>
+<p>Due to the tautology [(p  q)  (p  r)] (q  r), rule r q</p>
+<p>r p</p>
+<p>q p</p>
+<p> </p>
+<p> </p>
+<p> is a valid rule of</p>
+<p>inference.</p>
+</section>
+<section><h3>3. Fallacies</h3>
+<p>The fallacies are the arguments that are convincing but not correct. So fallacies produce faulty inferences. So fallacies are contingencies rather than tautologies. Here we talk different fallacies that we may encounter.</p>
+</section>
+<section><h4>3.1. Fallacy of affirming the conclusion</h4>
+<p>This kind of fallacy has the form p</p>
+<p>q p q</p>
+<p></p>
+<p> i.e. [q  (pq)]  p. This is not a tautology</p>
+<p>hence it is a fallacy. Example: If economy of Nepal is poor, then the education system in Nepal will be poor. The education system in Nepal is poor. Therefore, Economy of Nepal is poor.</p>
+<p>In the argument above the conclusion can be false even if both the propositions “If economy of Nepal is poor, then the education system in Nepal will be poor” and “The education system in Nepal is poor” are true. Denoting with symbols we may write (pq) for first proposition and then the second proposition becomes q this takes the form q  (pq)  p, which is not a tautology. Since the education system may not depend on the economy of the country.</p>
+</section>
+<section><h4>3.2. Fallacy of denying the hypothesis</h4>
+<p>This kind of fallacy has the form q</p>
+<p>p</p>
+<p> </p>
+<p></p>
+<p></p>
+<p>q p i.e. [p  (pq)]  q. This is not a</p>
+<p>tautology hence it is a fallacy. Example: If today is Sunday, then it rains today. Today is not Sunday. Therefore, it does not rain today.</p>
+<p>This argument is not true since even if today is not Sunday and it is raining today then the first premise is true and second premise is also true but not the conclusion.</p>
+</section>
+<section><h3>4. Valid Arguments in Propositional Logic</h3>
+<p>An argument consists of premises and conclusion. An argument is called valid if whenever all hypotheses are true, the conclusion is also true. We can conclude that the implication (p1  p2  …  pn)  q is tautology. If all the propositions in the valid argument are true then the conclusion is true.</p>
+<p>Sometime valid argument can lead to incorrect conclusion if one or more of the false premises are used in the argument. For example, suppose “Lagankhel is at Lalitpur” and “if Lagankhel is at Lalitpur, then Baneshwor is at Lalitpur” are the hypotheses and “Baneshwor is at Lalitpur” is conclusion.</p>
+<p>The above argument is a valid argument using the rule modus ponens. However the conclusion of the argument is false since the proposition at the hypothesis “Baneshwor is at Lalitpur” is false that means conclusion may be false here. Example 1: Construct an argument using rules of inference to show that the hypotheses “If it does not rain or if it is not foggy, then the sailing race will be held and the life saving demonstration will go on,” “If the sailing race is held, then the</p>
+<p>trophy will be awarded,’ and “The trophy was not awarded” imply the conclusion “It rained”. Solution: Let p = “It rains”, q = “It is foggy”, r = “the sailing race is held”, s = “Life saving demonstration is done”, and t = “Trophy is awarded”. Then we have to show that the argument</p>
+<p>[((p  q)  (r  s))  (r  t)  t]  p is valid.</p>
+<p>[1] (r  t) [Hypothesis]</p>
+<p>[2] t [Hypothesis]</p>
+<p>[3] r [Modus Tollens using steps 1 and 2]</p>
+<p>[4] ((p  q)  (r  s)) [Hypothesis]</p>
+<p>[5] (p  q)  (r  s) [Implication of Step 4]</p>
+<p>[6] (p  q)  (r  s) [De Morgan’s Law in Step 5]</p>
+<p>[7] p  (r  s) [Simplification using step 6]</p>
+<p>[8] p  r [Simplification using step 7]</p>
+<p>Here our original premises changes to (p  r)  r  [from step 8 and 3]</p>
+<p>[9] r  p [Commutative law in step 8]</p>
+<p>[10]r  p [Addition using step 3]</p>
+<p>[11]p  p [Resolution using steps 9 and 10]</p>
+<p>[12]p [Idempotent law]</p>
+<p>Hence argument is valid. With conclusion “It rained”.</p>
+<details><summary>Example</summary><p>Example 2: For the set of premises “If I play hockey, then I am sore the next day.” “I use the whirlpool if I am sore.” “I did not use the whirlpool”. What relevant conclusion can be drawn? Explain the rules of inference used to draw the conclusion. Solution: Let p = “I play hockey”, q = “I am sore”, r = “I use the whirlpool”</p></details>
+<p>Then the above premises are</p>
+<p>[1] p q</p>
+<p>[2] qr</p>
+<p>[3] r</p>
+<p>Using hypothetical syllogism in premises [1] and [2] we have p r i.e. “if I play hockey, then I use whirlpool”. Using the modus tollens in premise [3] and inferred proposition p r we conclude p is true i.e. p is false. p is false means “ I did not play hockey”.</p>
+</section>
+<section><h3>5. Rules of Inference for Quantified Statements</h3>
+<p>There is a need of other rules to prove assertions that contain open propositions and quantifiers. These rules are given below:</p>
+</section>
+<section><h4>5.1. Universal Instantiation</h4>
+<p>If the proposition of the form x P(x) is supposed to be true then the universal quantifier can be dropped out to get P(c) is true for arbitrary c in the universe of discourse. This can be written as</p>
+<p>c all for c P</p>
+<p>x xP</p>
+<p>), (</p>
+<p>) ( </p>
+<p></p>
+<details><summary>Example</summary><p>Example: In universe of discourse of all man every man is mortal implies ram is mortal where ram is a man.</p></details>
+</section>
+<section><h4>5.2. Universal Generalization</h4>
+<p>If all the instances of c make P(c) true, then x P(x) is true. This can be written as</p>
+<p>) (</p>
+<p>), (</p>
+<p>x xP</p>
+<p>c all for c P</p>
+<p> </p>
+<p>, Here the chosen c must be arbitrary, not a specific element from the</p>
+<p>universe of discourse. This rule is seldom explicitly used.</p>
+</section>
+<section><h4>5.3. Existential Instantiation</h4>
+<p>If the proposition of the form x P(x) is supposed to be true then the there is an element c in the universe of discourse such that P(c) is true. This can be written as</p>
+<p>c some for c P</p>
+<p>x xP</p>
+<p>), (</p>
+<p>) ( </p>
+<p> , Here the element c is not arbitrary; it must be specific such that</p>
+<p>P(x) is true. We generally find difficulty in finding such c.</p>
+</section>
+<section><h4>5.4. Existential Generalization</h4>
+<p>If at least an element c from the universe of discourse makes P(c) true, then x P(x) is</p>
+<p>true. This can be written as ) (</p>
+<p>), (</p>
+<p>x xP</p>
+<p>c some for c P</p>
+<p> </p>
+</section>
+<section><h3>6. Inference with quantified statements</h3>
+<details><summary>Example</summary><p>Example 1: Show that the premises “Everyone in this discrete mathematics class has taken a course in computer science” and “Hari is a student in this class” imply the conclusion “Hari has taken a course in computer science”. Solution: Let D(x) denote “x is in this discrete mathematics class”, and let C(x) denote “x has taken a course in computer science”. Then the premises are x (D(x)  C(x)) and D(Hari). The conclusion is C(Hari). The following steps can be used to establish the conclusion from the premises. [1] x (D(x)  C(x)) Premise [2] D(Hari)  C(Hari) Universal instantiation from [1] [3] D(Hari) Premise [4] C(Hari) Modus ponens from [2] and [3]</p></details>
+<details><summary>Example</summary><p>Example 2: Show that the premises “A student in this class has not read the book”, and “Everyone in this class passed the first exam” imply the conclusion “Someone who passed the first exam has not read this book”. Solution: Let C(x) be “x in this class”, B(x) be “x has read this book”, and P(x) be “x passed the first exam”. The premises are x (C(x)  B(x)) and x(C(x)  P(x)). The conclusion is x (P(x)  B(x)). The following steps can be used to establish the conclusion from the premises. [1] x (C(x)  B(x)) Premise [2] C(a)  B(a) Existential instantiation from [1] [3] C(a) Simplification from [2] [4] x(C(x)  P(x)) Premise [5] C(a)  P(a) Universal instantiation from [4] [6] P(a) Modus ponens from [3] and [5] [7] B(a) Simplification from [2] [8] P(a)  B(a) Conjunction from [6] and [7] [9] x (P(x)  B(x)) Existential generalization from [8]</p></details>
+</section>
+<section><h2>Methods of Proof</h2>
+</section>
+<section><h3>1. Introduction</h3>
+<p>A proof is a valid argument that establishes the truth of a mathematical statement. A proof can use the hypotheses of the theorem, if any, axioms assumed to be true, and previously proven theorems. Using these ingredients and rules of inference, the final step of the proof establishes the truth of the statement being proved.</p>
+</section>
+<section><h4>1.1. Some Terminology</h4>
+<p>A theorem is a statement that can be shown to be true. Theorems can also be referred to as facts or results. In mathematical writing, the term theorem is usually reserved for a statement that is considered at least somewhat important. Less important theorems sometimes are called propositions. We demonstrate that a theorem is true with a proof. A proof is a valid argument that establishes the truth of a theorem. The statements used in a proof can include axioms (or postulates), which are statements we assume to be true, the premises, if any, of the theorem, and previously proven theorems. Axioms may be stated using primitive terms that do not require definition, but all other terms used in theorems and their proofs must be defined. Rules of inference, together with definitions of terms, are used to draw conclusions from other assertions, tying together the steps of a proof. In practice, the final step of a proof is usually just the conclusion of the theorem. However, for clarity, we will often recap the statement of the theorem as the final step of a proof. A less important theorem that is helpful in the proof of other results is called a lemma (plural lemmas or lemmata). Complicated proofs are usually easier to understand when they are proved using a series of lemmas, where each lemma is proved individually. A corollary is a theorem that can be established directly from a theorem that has been proved. A conjecture is a statement that is being proposed to be a true statement, usually on the basis of some partial evidence, a heuristic argument, or the intuition of an expert. When a proof of a conjecture is found, the conjecture becomes a theorem. Many times conjectures are shown to be false, so they are not theorems.</p>
+</section>
+<section><h3>2. Methods of Proving Theorems</h3>
+<p>Here we will discuss most common techniques for proving conditional statements (or implications). In this proof, we need to show that a conditional statement is true. Because of this, we now focus on methods that show that conditional statements are true. Recall that p → q is true unless p is true but q is false. Note that to prove the statement p → q, we need only show that q is true if p is true.</p>
+</section>
+<section><h4>2.1. Direct Proofs</h4>
+<p>The implication p  q can be proved by showing that if p is true, then q must be true. To prove the implication p  q, assume that p is true and use rules of inference and theorems already proved to show that q must also be true. Example: Give a direct proof of the theorem “If n is an odd integer, then n2 is an odd integer.” Proof: Suppose that n is odd integer. Then n = 2k + 1, where k is an integer. It follows that n2 = (2k + 1)2 = 4k2 + 4k + 1 = 2(2k2 + 2k) + 1. Therefore n2 is an odd integer.</p>
+</section>
+<section><h4>2.2. Indirect Proofs</h4>
+<p>Since the implication p  q is equivalent to its contrapositive, q  p, the implication p  q can be proved by showing that its contrapositive, q  p, is true. Example 1: Give an indirect proof of the theorem “If 3n + 2 is odd, then n is odd.” Proof: Assume that n is even. Then n = 2k for some integer k. It follows that 3n + 2 = 3(2k) + 2 = 6k + 2 = 2(3k + 1), so 3n + 2 is even. Because the negation of the conclusion of the implication implies that the hypothesis is false, the original implication is true. Note: To proof a theorem, we first quickly evaluate whether a direct proof looks promising.  If a direct proof does not seem to go anywhere, try the same thing with an indirect proof. See examples below. Example 2: Prove that the sum of two rational numbers is rational. Proof: Here, we first attempt a direct proof. To begin, suppose that r and s are rational numbers. From the definition of rational numbers, it follows that there are integers p and q, with q ≠ 0, such that r = p/q, and integers t and u, with u ≠ 0, such that s = t/u. Then, r + s = p / q + t / u = (pu + qt) / qu. Because q ≠ 0 and u ≠ 0, it follows that qu ≠ 0. Hence, r + s is rational. And, our attempt to find a direct proof is succeeded.</p>
+<details><summary>Example</summary><p>Example 3: Prove that if n is an integer and n2 is odd then n is odd. Proof: We first attempt a direct proof. Suppose that n is an integer and n2 is odd. Then there exists an integer k such that n2 = 2k + 1. This seems to be no obvious approach to show that n is odd because solving for n produced the equation , which is not extremely useful. Now, we next attempt an indirect proof. Suppose that n is even. This implies that there exists an integer k such that n = 2k. To prove the theorem, we need to show that this hypothesis implies the conclusion that n2 is even. Then, n2 = (2k) 2 = 4k2 = 2(2k2), which implies that n2 is also even.</p></details>
+</section>
+<section><h4>2.3. Vacuous and Trivial Proofs</h4>
+<p>If we can show that p is false then the implication p  q is true. This is called vacuous proof. If it is possible to show that q is true regardless of truth value of p then we can say that implication p  q is true. This is called trivial proof. Example 1 (vacuous proof): Show that the proposition P(0) is true, where P(n) is “If n &gt; 1, then n2 &gt; n” and the domain consists of all integers. Solution: Note that P(0) is “If 0 &gt; 1, then 02 &gt; 0.” We can show P(0) using a vacuous proof. Indeed, the hypothesis 0 &gt; 1 is false. This tells us that P(0) is automatically true. Example 2 (trivial proof): Let P(n) be “If a and b are positive integers with a ≥ b, then an ≥ bn,” where the domain consists of all nonnegative integers. Show that P(0) is true. Solution: The proposition P(0) is “If a ≥ b, then a0 ≥ b0.” Because a0 = b0 = 1, the conclusion of the conditional statement “If a ≥ b, then a0 ≥ b0” is true. Hence, this conditional statement, which is P(0), is true.</p>
+</section>
+<section><h4>2.4. Proofs by Contradiction</h4>
+<p>We can use this approach when neither a direct proof nor an indirect proof succeeds. To prove the implication p  q by contradiction, we assume p  q is true. Then, we try to show that the above assumption is false.</p>
+<p>When the assumption is found to be false then implication p  q is true since p  q is equivalent to p  q and negation of p  q is p  q (By De Morgan’s Law), so if our assumption is false then its negation is true. Alternately, contradict the statement and show that this leads to the false conclusion; if this is true then the contradicted statement must be false (since p  F is true only if p is false), hence the statement is true. Example: If a2 is an even number, then a is an even number. Proof: Assume that a2 is an even number and a is an odd number. Since a is an odd number we have a = 2k + 1, for some integer k. so a2 = (2k + 1)2 = 4k2 + 4k + 1 = 2(2k2 + 2k) + 1, here k2 + k is some integer, say l, then a2 = 2l + 1 i.e. a2 is an odd number This contradicts our assumption that is a2 even. Exercise: Give a proof by contradiction of the theorem “If 3n + 2 is odd, then n is odd.”</p>
+</section>
+<section><h4>2.5. Exhaustive Proof and Proof by Cases</h4>
+<p>The implication of the form (p1  p2  …  pn)  q can be proved by using the tautology [(p1  p2  …  pn)  q]  [(p1  q)  (p2  q)  …  (pn  q)] as a rule of inference, that is, we can show every implication (pi  q) true for i =1, 2, …, n. Such an argument is called proof by cases. Example 1: If |x| &gt; 3, then x2 &gt; 9, where x is a real number. Proof: Here we have to consider two cases -x &gt;3 and x &gt; 3 since |x| is an absolute value of x. Since, the implications “if –x &gt; 3, then x2 &gt; 9” and “if x &gt; 3, then x2 &gt; 9” are true, the implication “if |x| &gt; 3, then x2 &gt; 9, where x is a real number” is true.</p>
+<p>Some theorems can be proved by examining a relatively small number of examples. Such proofs are called exhaustive proofs, or proofs by exhaustion because these proofs proceed by exhausting all possibilities. An exhaustive proof is a special type of proof by cases where each case involves checking a single example. Example 2: Prove that (n + 1)3 ≥ 3n if n is a positive integer with n ≤ 4. Solution: We use a proof by exhaustion. We only need verify the inequality (n + 1)3 ≥ 3n when n = 1, 2, 3, and 4. For n = 1, we have (n + 1)3 = 23 = 8 and 3n = 31 = 3; for n = 2, we have (n + 1)3 = 33 = 27 and 3n = 32 = 9; for n = 3, we have (n + 1)3 = 43 = 64 and 3n = 33 = 27; and for n = 4, we have (n + 1)3 = 53 = 125 and 3n = 34 = 81. In each of these four cases, we see that (n + 1)3 ≥ 3n. We have used the method of exhaustion to prove that (n + 1)3 ≥ 3n if n is a positive integer with n ≤ 4.</p>
+</section>
+<section><h4>2.6. Proofs of Equivalence</h4>
+<p>To prove a theorem that is a biconditional, that is, one that is a statement of the form p  q where p and q are propositions, the tautology (p  q)  [(p  q)  (q  p)] can be used. That is, if both the propositions p  q and q  p are proved.</p>
+<details><summary>Example</summary><p>Example: Prove that if n is a positive integer, then n is even if and only if 7n + 4 is even. Proof: Assume n is even then we have an integer k such that n = 2k, so 7n + 4 = 7 * 2k + 4 = 2(7k +2) is even. Hence, by direct proof it is proved that if n is even, then 7n + 4 is even.</p></details>
+<p>Assume n is odd then 7n + 4 = 7(2k + 1) + 4 = 14k +7 + 4 = 2(7k + 5) +1 is odd. Hence, by indirect proof, it is proved that if 7n + 4 is even then n is even.</p>
+</section>
+<section><h3>3. Theorems and Quantifiers</h3>
+<p>Many theorems are stated as propositions that involve quantifiers. Here, we will describe some of the most important methods.</p>
+</section>
+<section><h4>3.1. Existence Proofs</h4>
+<p>A proof of a proposition of the form xP(x) is called an existence proof. There are different ways of proving a theorem of this type. Sometime some element a is found to show P(a) to be true. This is called constructive existence proof. In other method we do not provide a such that P(a) is true but prove that xP(x) is true in different way, this is called nonconstructive existence proof. Example 1 (Constructive): Prove that there are 100 consecutive positive integers that are not perfect squares. Proof: Consider 2500. This is a perfect square of 50. And take 2601. This is a perfect square of 51. In between 2601 and 2500 there are 100 consecutive positive integers. Example 2 (Nonconstructive): Prove that there exist irrational numbers x and y such that xy is a rational. Proof: We know that √2 is irrational. Now, consider the number √2√2. If it is rational, we have two irrational numbers x and y with xy rational, namely x = √2 and y = √2. On the other hand, if √2√2 is irrational, then we can let x = √2√2 and y = √2 so that xy = (√2√2) √2 = √2 (√2√2) = √22 =2. Here, we have not found irrational numbers x and y such that xy is rational. Rather, we have shown that either the pair x = √2, y = √2 or the pair x = √2√2, y = √2 have the desired property, but we do not know which of these two pairs works. Example 3 (Nonconstructive): Show that there exists a value in the set of real numbers such that x5 + 2x3 + x – 7 = 0 Proof: If we take x = 0, then x5 + 2x3 + x – 7 = -7 and if we take x = 2, then x5 + 2x3 + x – 7 = 43. So, there is a number x = c between 0 and 2 such that x5 + 2x3 + x – 7 = 0 because x5 + 2x3 + x – 7 is polynomial and it is continuous everywhere (and hence between 0 and 2 also). [Intermediate Value Theorem: If f(x) is continuous on the interval [a, b] and N is a value between f(a) and f(b), then there exists a number c  (a, b) such that f(c) = N.]</p>
+</section>
+<section><h3>3.2. Uniqueness Proofs</h3>
+<p>To prove the theorem that asserts the existence of unique element with particular property we must show that the element with this property exists and no other elements has this property. There are two parts in this uniqueness proof</p>
+<p> Existence: here we show that the element with desire property exists.  Uniqueness: we show that if y  x, then y does not have the desired property. The above two steps can be proved if we prove the statement x(P(x) y(y  x  P(y))). Example: Show that if a, b, and c are real numbers and a  0, then there is a unique solution of the equation ax + b = c. Proof: From the equation ax + b = c we get the solution as x = (c – b)/a (since a  0, it is possible). This solution is unique because there is no other value for x than (c – b)/a (a real number).</p>
+</section>
+<section><h3>3.3. Proofs by Counter Examples</h3>
+<p>To prove that the statement of the form xP(x) is false, we just need some value of x for which P(x) is false. So while proving for falsity we just look for counter example. Example: Prove or disprove the product of two irrational numbers is irrational. Proof: Here we instantly try to get the product of the irrational to try it. Suppose both the number for product be 2 then we have 2*2 = 2 (not irrational). Hence by counter example it is shown that the product of two irrational numbers is not necessarily irrational.</p>
+</section>
+<section><h3>4. Mistakes in Proofs</h3>
+<p>Among the most common errors are mistakes in arithmetic and basic algebra. Even professional mathematicians make such errors, especially when working with complicated formulae. Whenever you use such computations you should check them as carefully as possible. Each step of a mathematical proof needs to be correct and the conclusion needs to follow logically from the steps that precede it. Many mistakes result from the introduction of steps that do not logically follow from those that precede it. Many incorrect arguments are based on a fallacy called begging the question. This fallacy occurs when one or more steps of a proof are based on the truth of the statement being proved. In other words, this fallacy arises when a statement is proved using itself, or a statement equivalent to it. That is why this fallacy is also called circular reasoning.</p>
+</section>
+</main>
+<footer>Logic and Proof Methods</footer>
+<script src="../../assets/js/notes.js" defer></script>
+</body></html>

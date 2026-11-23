@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notes</title>
+  <link rel="stylesheet" href="../assets/css/notes.css" />
+</head>
+<body>
+  <header class="site">
+    <div class="container">
+      <a href="../index.html">&larr; Back to classroom</a>
+    </div>
+  </header>
+  <main class="container">
+    <h1>Notes</h1>
+    <p>Pick a subject.</p>
+    <div id="grid" class="card-grid"></div>
+  </main>
+  <script>
+    (async () => {
+      const res = await fetch('../subjects.json');
+      const subjects = await res.json();
+      const grid = document.getElementById('grid');
+      subjects.forEach(s => {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = s.href ? s.href : (s.slug + '.html');
+        a.style.setProperty('--accent', s.color);
+        a.innerHTML = '<div class="icon">' + s.icon + '</div><div class="title">' + s.title + '</div>';
+        grid.appendChild(a);
+      });
+    })();
+  </script>
+</body>
+</html>
