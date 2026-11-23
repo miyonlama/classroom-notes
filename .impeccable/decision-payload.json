@@ -1,0 +1,436 @@
+{
+  "title": "Choose the visual world for the hub",
+  "question": "The roll assigned the Study Orrery. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "kind": "assigned",
+      "label": "The Study Orrery",
+      "kicker": "THE ROLL",
+      "lineage": "brass orreries and star atlases used to teach the sky",
+      "thesis": "Subjects orbit a lit moon; choosing one is reading the sky.",
+      "palette": [
+        "#05060b",
+        "#121a35",
+        "#8c7dff",
+        "#ffcc00",
+        "#dbe4ff"
+      ],
+      "materials": [
+        "brass orbital rings",
+        "starfield",
+        "glass glow"
+      ],
+      "viewport": "A dark sky fills the fold. A luminous moon sits right of center; five subject satellites ride fine brass ellipses around it. A left index lists subjects with chapter counts, and the primary action opens the highlighted subject.",
+      "risk": "Reads as a screensaver unless every satellite is an unmistakable link.",
+      "raised": [
+        {
+          "from": "challenger-album",
+          "raise": "Placeholder subjects keep ghost outlines, so missing content is visible."
+        },
+        {
+          "from": "challenger-seed",
+          "raise": "One seed sets ring spacing, glow color, and type scale."
+        },
+        {
+          "from": "challenger-nixie",
+          "raise": "Switching subjects cross-fades the active satellite through a depth change."
+        }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "model-pick",
+      "kind": "pick",
+      "label": "The Lecture Hall Projection",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "university lecture halls and projected slides",
+      "thesis": "The hub is the slide deck projected before class begins.",
+      "palette": [
+        "#101a16",
+        "#e8ece1",
+        "#2f7d58",
+        "#f2c14e"
+      ],
+      "materials": [
+        "chalk dust",
+        "projector bloom",
+        "green board"
+      ],
+      "viewport": "A chalkboard-green field holds a projected title slide. Subject names appear as lecture cards pinned in a row, with one open chapter shown as a live slide.",
+      "risk": "The familiar classroom frame is where most runs in this category land.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "challenger-album",
+      "kind": "challenger",
+      "catalogId": "pop-culture-shelf-sticker-album-spread",
+      "label": "The Sticker Album",
+      "verdict": "competitive",
+      "lineage": "numbered collector albums with ghosted empty slots",
+      "thesis": "Subjects are slots; filled ones shine, empty ones advertise what is missing.",
+      "palette": [
+        "#e9e3d5",
+        "#20242c",
+        "#d94f3d",
+        "#d8c98a"
+      ],
+      "materials": [
+        "matte album paper",
+        "glossy stickers",
+        "ghost outlines"
+      ],
+      "viewport": "A grid of numbered slots on warm paper. Discrete Structure sits glossy and proud; four subjects remain pale outlines with their names printed inside.",
+      "case": "Fuses cleanly to filled versus placeholder content; loses on audience identification with a study tool.",
+      "risk": "Reads as a hobby collection, not a place to study.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "challenger-seed",
+      "kind": "challenger",
+      "catalogId": "generative-parametric-identity",
+      "label": "The Reseeding Mark",
+      "verdict": "competitive",
+      "lineage": "parametric identity systems where one seed drives every surface",
+      "thesis": "A seed generates the mark, palette, and layout; refresh retunes the whole hub.",
+      "palette": [
+        "#0d1117",
+        "#39d0b0",
+        "#f6c453",
+        "#e8eef5"
+      ],
+      "materials": [
+        "flat vector",
+        "parametric SVG",
+        "seed-derived rhythm"
+      ],
+      "viewport": "A live parametric mark anchors the top left; subject tiles inherit its current harmony, and a seed readout sits in the header.",
+      "case": "Fuses to a coherent system; loses because the mechanism distracts from reaching notes.",
+      "risk": "Feels like a design-system demo instead of a study hub.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "challenger-zine",
+      "kind": "challenger",
+      "catalogId": "hand-drawn-zine-explainer",
+      "label": "The Napkin Zine",
+      "verdict": "declined",
+      "lineage": "hand-lettered technical zines and doodled explainers",
+      "thesis": "A friend sketches the subject map on a napkin.",
+      "palette": [
+        "#f4ecd8",
+        "#161616",
+        "#e8b83a",
+        "#2aa9a0"
+      ],
+      "materials": [
+        "marker ink",
+        "highlighter",
+        "paper"
+      ],
+      "viewport": "Marker headline over a doodled map of subjects with arrows and a mascot.",
+      "case": "Loses both axes: students recognize the friendliness, but notes retrieval becomes a comic.",
+      "kept": "Draw-on annotation as a teaching micro-interaction.",
+      "hero": "https://impeccable.style/worlds/cards/hand-drawn-zine-explainer-hero.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    },
+    {
+      "id": "challenger-nixie",
+      "kind": "challenger",
+      "catalogId": "signals-instruments-nixie-laboratory-counter",
+      "label": "The Nixie Counter",
+      "verdict": "declined",
+      "lineage": "nixie-tube laboratory counters",
+      "thesis": "Every subject is a glowing digit bank; counts arrive as visible plasma.",
+      "palette": [
+        "#0a0a0c",
+        "#ff7a18",
+        "#c8c8c8"
+      ],
+      "materials": [
+        "glass tubes",
+        "orange plasma",
+        "steel chassis"
+      ],
+      "viewport": "Banks of orange numerals under engraved subject labels.",
+      "case": "Loses both axes: subjects are not quantities, and students do not identify with lab instrumentation.",
+      "kept": "Depth-true cross-fade on state change.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-nixie-laboratory-counter-hero.webp",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "brand + utility",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "subject index",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "orb + orbits",
+            "x": 4,
+            "y": 2,
+            "w": 6,
+            "h": 6,
+            "accent": true
+          },
+          {
+            "label": "chapter strip",
+            "x": 0,
+            "y": 9,
+            "w": 12,
+            "h": 1
+          }
+        ]
+      }
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": false
+  },
+  "canon": true,
+  "canonCard": {
+    "kind": "canon",
+    "label": "The category standard",
+    "thesis": "What this category ships, executed impeccably.",
+    "palette": [
+      "#ffffff",
+      "#111827",
+      "#2563eb"
+    ],
+    "materials": [
+      "clean grid",
+      "product photography"
+    ],
+    "viewport": "The arrangement a visitor expects, at full craft.",
+    "risk": "Indistinguishable from the competition by design.",
+    "wireframe": {
+      "cols": 12,
+      "rows": 10,
+      "regions": [
+        {
+          "label": "brand + utility",
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 1
+        },
+        {
+          "label": "subject index",
+          "x": 0,
+          "y": 2,
+          "w": 3,
+          "h": 6,
+          "accent": true
+        },
+        {
+          "label": "orb + orbits",
+          "x": 4,
+          "y": 2,
+          "w": 6,
+          "h": 6,
+          "accent": true
+        },
+        {
+          "label": "chapter strip",
+          "x": 0,
+          "y": 9,
+          "w": 12,
+          "h": 1
+        }
+      ]
+    }
+  },
+  "steer": true
+}

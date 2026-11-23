@@ -10,6 +10,9 @@ Static site: dark editorial hub + subject notes pages.
 - `notes/discrete-structure.html` — 6 interactive chapters under `notes/discrete/`
 - Other subjects are placeholders until PDFs are supplied.
 
+## Design system
+`DESIGN.md` and `.impeccable/design.json` record the Lecture Hall Projection system.
+
 ## Deploy
 - Vercel: https://classroom-notes-mocha.vercel.app/ (auto-deploy on push)
 

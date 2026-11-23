@@ -3,9 +3,18 @@
 
   var subjects = [];
   var selected = 0;
-  var nodesWrap = document.getElementById("nodes");
-  var stage = document.querySelector(".stage");
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var query = "";
+
+  var chapters = {
+    "discrete-structure": [
+      "Sets, Relations, and Functions",
+      "Logic and Proof Methods",
+      "Trees and Graphs",
+      "Counting and Discrete Probability",
+      "Number Theory",
+      "Induction and Recursion"
+    ]
+  };
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -13,101 +22,111 @@
     return "notes/" + (s.href ? s.href : (s.slug + ".html"));
   }
 
-  function renderNodes() {
-    nodesWrap.innerHTML = "";
+  function mark(i) {
+    var shapes = [
+      '<circle cx="14" cy="14" r="9"/><circle cx="14" cy="14" r="2" fill="currentColor" stroke="none"/>',
+      '<path d="M14 4L24 23H4Z"/>',
+      '<rect x="5" y="5" width="18" height="18"/>',
+      '<path d="M14 3L25 14L14 25L3 14Z"/>',
+      '<path d="M14 3L23 8V20L14 25L5 20V8Z"/>'
+    ];
+    return '<svg viewBox="0 0 28 28" aria-hidden="true">' + shapes[i % shapes.length] + "</svg>";
+  }
+
+  function visible(s) {
+    var q = query.trim().toLowerCase();
+    if (!q) return true;
+    return (s.title + " " + (s.desc || "")).toLowerCase().indexOf(q) !== -1;
+  }
+
+  function render() {
+    var rail = document.getElementById("rail");
+    var cards = document.getElementById("cards");
+    rail.innerHTML = "";
+    cards.innerHTML = "";
+
     subjects.forEach(function (s, i) {
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "node";
-      b.style.setProperty("--accent", s.color);
-      b.setAttribute("aria-label", s.title);
-      b.innerHTML = '<span class="node-dot"></span><span class="node-label">' + s.title + "</span>";
-      b.addEventListener("click", function () { setSelected(i); });
-      nodesWrap.appendChild(b);
+      if (!visible(s)) return;
+
+      var li = document.createElement("li");
+      var rbtn = document.createElement("button");
+      rbtn.type = "button";
+      rbtn.innerHTML = '<span class="num">' + pad(i + 1) + '</span><span class="name">' + s.title + "</span>";
+      rbtn.addEventListener("click", function () { setSelected(i); });
+      li.appendChild(rbtn);
+      rail.appendChild(li);
+
+      var card = document.createElement("a");
+      card.className = "slide-card";
+      card.href = linkFor(s);
+      card.innerHTML =
+        '<span class="card-num">' + pad(i + 1) + "</span>" +
+        mark(i) +
+        '<span class="card-name">' + s.title + "</span>" +
+        '<span class="card-count">' + (chapters[s.slug] ? chapters[s.slug].length + " chapters" : "Notes") + "</span>";
+      card.addEventListener("mouseenter", function () { setSelected(i); });
+      card.addEventListener("focus", function () { setSelected(i); });
+      cards.appendChild(card);
+    });
+
+    var empty = document.getElementById("empty");
+    var anyVisible = subjects.some(visible);
+    empty.hidden = anyVisible;
+    document.getElementById("live-slide").hidden = !anyVisible;
+
+    if (anyVisible && !visible(subjects[selected])) {
+      var first = subjects.findIndex(visible);
+      if (first !== -1) setSelected(first);
+    }
+    syncActive();
+  }
+
+  function syncActive() {
+    var railButtons = document.querySelectorAll("#rail button");
+    var cards = document.querySelectorAll(".slide-card");
+    railButtons.forEach(function (b, idx) {
+      b.setAttribute("aria-current", subjects.findIndex(visible) === -1 ? "false" : (isSelectedAtVisibleIndex(idx) ? "true" : "false"));
+    });
+    cards.forEach(function (c, idx) {
+      c.setAttribute("aria-current", isSelectedAtVisibleIndex(idx) ? "true" : "false");
     });
   }
 
-  function layout() {
-    if (!stage) return;
-    var w = stage.clientWidth;
-    var h = stage.clientHeight;
-    var nodes = nodesWrap.children;
-    for (var i = 0; i < nodes.length; i++) {
-      var angle = 90 + (i - selected) * 72;
-      var rad = angle * Math.PI / 180;
-      var dx = 0.34 * w * Math.cos(rad);
-      var dy = 0.27 * h * Math.sin(rad);
-      var norm = (Math.sin(rad) + 1) / 2;
-      var scale = 0.72 + 0.28 * norm;
-      var node = nodes[i];
-      node.style.transform =
-        "translate(calc(-50% + " + dx + "px), calc(-50% + " + dy + "px)) scale(" + scale + ")";
-      node.style.opacity = String(0.32 + 0.68 * norm);
-      node.style.zIndex = String(Math.round(norm * 10));
-      node.dataset.active = i === selected ? "true" : "false";
+  function isSelectedAtVisibleIndex(visibleIndex) {
+    var idx = -1;
+    for (var i = 0; i < subjects.length; i++) {
+      if (visible(subjects[i])) {
+        if (idx === visibleIndex) return i === selected;
+        idx++;
+      }
     }
+    return false;
   }
 
   function setSelected(i) {
-    selected = (i + subjects.length) % subjects.length;
-    var s = subjects[selected];
-    document.getElementById("info-index").textContent = pad(selected + 1) + " / " + pad(subjects.length);
-    document.getElementById("info-icon").textContent = s.icon || "◇";
-    document.getElementById("info-icon").style.color = s.color;
-    document.getElementById("info-title").textContent = s.title;
-    document.getElementById("info-desc").textContent = s.desc || "Open notes for this subject.";
-    var link = document.getElementById("info-link");
-    link.href = linkFor(s);
-    layout();
-  }
+    if (i < 0 || i >= subjects.length) return;
+    selected = i;
+    var s = subjects[i];
+    document.getElementById("slide-index").textContent = pad(i + 1);
+    document.getElementById("slide-title").textContent = s.title;
+    document.getElementById("slide-desc").textContent = s.desc || "Open the notes for this subject.";
+    document.getElementById("slide-link").href = linkFor(s);
 
-  function initStars() {
-    var canvas = document.getElementById("stars");
-    if (!canvas) return;
-    var ctx = canvas.getContext("2d");
-    var stars = [];
-    var w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    function resize() {
-      w = window.innerWidth;
-      h = window.innerHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = w + "px";
-      canvas.style.height = h + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      stars = [];
-      var count = Math.floor((w * h) / 9000);
-      for (var i = 0; i < count; i++) {
-        stars.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 1.1 + 0.2,
-          a: Math.random() * 0.5 + 0.1,
-          s: Math.random() * 0.014 + 0.004,
-          p: Math.random() * Math.PI * 2
-        });
-      }
-      draw(0);
+    var list = document.getElementById("chapter-list");
+    list.innerHTML = "";
+    var items = chapters[s.slug] || [];
+    if (!items.length) {
+      var li = document.createElement("li");
+      li.textContent = "Chapters coming soon.";
+      list.appendChild(li);
+    } else {
+      items.forEach(function (name) {
+        var li = document.createElement("li");
+        li.textContent = name;
+        list.appendChild(li);
+      });
     }
-
-    function draw(t) {
-      ctx.clearRect(0, 0, w, h);
-      for (var i = 0; i < stars.length; i++) {
-        var st = stars[i];
-        var alpha = reduced ? st.a : st.a * (0.55 + 0.45 * Math.sin(t * st.s + st.p));
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(200,215,255," + alpha + ")";
-        ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function loop(t) { draw(t); if (!reduced) requestAnimationFrame(loop); }
-
-    window.addEventListener("resize", resize);
-    resize();
-    if (!reduced) requestAnimationFrame(loop);
+    syncActive();
   }
 
   function init() {
@@ -115,41 +134,37 @@
       .then(function (r) { return r.json(); })
       .then(function (data) {
         subjects = data;
-        renderNodes();
+        render();
         setSelected(0);
 
-        document.getElementById("prev").addEventListener("click", function () { setSelected(selected - 1); });
-        document.getElementById("next").addEventListener("click", function () { setSelected(selected + 1); });
-        document.addEventListener("keydown", function (e) {
-          if (e.key === "ArrowLeft") setSelected(selected - 1);
-          if (e.key === "ArrowRight") setSelected(selected + 1);
+        document.getElementById("search").addEventListener("input", function (e) {
+          query = e.target.value;
+          render();
         });
-        window.addEventListener("resize", layout);
-
-        var cardWrap = document.getElementById("cards");
-        if (cardWrap) {
-          subjects.forEach(function (s, i) {
-            var a = document.createElement("a");
-            a.className = "card";
-            a.href = linkFor(s);
-            a.style.setProperty("--accent", s.color);
-            a.innerHTML =
-              '<div class="card-top"><span class="num">0' + (i + 1) + '</span><span class="dot"></span></div>' +
-              '<div class="card-icon">' + (s.icon || "◇") + '</div>' +
-              '<div class="card-title">' + s.title + '</div>' +
-              '<div class="card-meta">OPEN NOTES &rarr;</div>';
-            cardWrap.appendChild(a);
-          });
-        }
+        document.getElementById("search").addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { e.target.value = ""; query = ""; render(); }
+        });
+        document.addEventListener("keydown", function (e) {
+          if (document.activeElement && document.activeElement.tagName === "INPUT") return;
+          if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+          var visibleIdx = -1, count = 0;
+          for (var i = 0; i < subjects.length; i++) if (visible(subjects[i])) count++;
+          if (!count) return;
+          for (var j = 0; j < subjects.length; j++) if (visible(subjects[j]) && j === selected) visibleIdx = j;
+          var step = e.key === "ArrowRight" ? 1 : -1;
+          var pos = visibleIdx === -1 ? 0 : (visibleIdx + step + count) % count;
+          var seen = -1;
+          for (var k = 0; k < subjects.length; k++) {
+            if (visible(subjects[k])) {
+              if (seen === pos) { setSelected(k); break; }
+              seen++;
+            }
+          }
+        });
       })
       .catch(function () {});
-
-    initStars();
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();

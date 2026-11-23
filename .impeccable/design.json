@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T00:00:00Z",
+  "title": "Design System: Classroom Notes",
+  "extensions": {
+    "colorMeta": {
+      "board": { "role": "neutral", "displayName": "Chalkboard", "canonical": "#101a16" },
+      "board-deep": { "role": "neutral", "displayName": "Board Deep", "canonical": "#0b1310" },
+      "chalk": { "role": "neutral", "displayName": "Chalk", "canonical": "#e8ece1" },
+      "chalk-dim": { "role": "neutral", "displayName": "Chalk Dim", "canonical": "#a9b7ac" },
+      "board-green": { "role": "secondary", "displayName": "Board Green", "canonical": "#2f7d58" },
+      "projector-yellow": { "role": "primary", "displayName": "Projector Yellow", "canonical": "#f2c14e" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page headline only." },
+      "headline": { "displayName": "Headline", "purpose": "Active subject title." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and chapter lists." },
+      "label": { "displayName": "Label", "purpose": "Syllabus and tray labels." }
+    },
+    "shadows": [
+      { "name": "action-lift", "value": "0 6px 18px rgba(0,0,0,0.28)", "purpose": "Primary action only." }
+    ],
+    "motion": [
+      { "name": "settle", "value": "cubic-bezier(0.16,1,0.3,1)", "purpose": "Load and active-slide change." }
+    ],
+    "breakpoints": [
+      { "name": "wide", "value": "1100px" },
+      { "name": "mobile", "value": "700px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Opens the active subject's notes.",
+      "html": "<button class=\"ds-btn-primary\">OPEN SUBJECT →</button>",
+      "css": ".ds-btn-primary { background: #f2c14e; color: #0b1310; border: 0; border-radius: 0; padding: 0.8rem 1.2rem; font: 700 0.8rem 'Source Sans 3', sans-serif; letter-spacing: 0.04em; box-shadow: 0 6px 18px rgba(0,0,0,0.28); cursor: pointer; transition: transform 0.18s ease; } .ds-btn-primary:hover { transform: translateY(-2px); } .ds-btn-primary:focus-visible { outline: 2px solid #f2c14e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Slide Card",
+      "kind": "card",
+      "refersTo": "slide-card",
+      "description": "Pinned subject slide; selects and opens a subject.",
+      "html": "<a class=\"ds-slide-card\" href=\"#\"><span class=\"ds-num\">01</span><span class=\"ds-name\">Discrete Structure</span><span class=\"ds-count\">6 chapters</span></a>",
+      "css": ".ds-slide-card { position: relative; display: flex; flex-direction: column; gap: 0.6rem; min-height: 150px; padding: 1rem 0.9rem 0.9rem; border: 1px solid rgba(232,236,225,0.16); background: rgba(11,19,16,0.55); color: #e8ece1; text-decoration: none; } .ds-slide-card::before { content: ''; position: absolute; top: -7px; left: 50%; width: 34px; height: 13px; transform: translateX(-50%) rotate(-2deg); background: rgba(242,193,78,0.55); } .ds-slide-card:hover { border-color: #2f7d58; background: rgba(47,125,88,0.12); transform: translateY(-3px); } .ds-num { color: #f2c14e; font: 400 0.8rem 'Barlow Condensed', sans-serif; } .ds-name { font: 700 1.25rem 'Barlow Condensed', sans-serif; } .ds-count { color: #a9b7ac; font-size: 0.68rem; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "Filters the subject syllabus.",
+      "html": "<input class=\"ds-search\" type=\"search\" placeholder=\"Filter subjects\" />",
+      "css": ".ds-search { background: transparent; border: 0; border-bottom: 1px solid rgba(232,236,225,0.16); color: #e8ece1; padding: 0.2rem 0; caret-color: #f2c14e; } .ds-search:focus { outline: none; border-bottom-color: #f2c14e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lecture Hall Projection",
+    "overview": "The hub behaves like the slide deck projected before a lecture begins. A chalkboard-green field, a projector bloom, pinned subject slides, and a numbered syllabus make the visitor's job obvious: pick a subject and open its notes. One warm accent marks the active choice.",
+    "keyCharacteristics": [
+      "Chalkboard ground with faint dust texture",
+      "Condensed display type against humanist body",
+      "Numbered syllabus paired with pinned slides",
+      "One yellow accent for the active decision"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Yellow appears only on the active choice and its action.", "section": "colors" },
+      { "name": "The Heading Carries It Rule", "body": "No kicker or eyebrow sits above a heading.", "section": "typography" }
+    ],
+    "dos": [
+      "Do keep every surface square.",
+      "Do reserve yellow for the active decision.",
+      "Do use drawn SVG marks with one consistent stroke weight."
+    ],
+    "donts": [
+      "Don't add a kicker above the display headline.",
+      "Don't use emoji or Unicode glyphs as icons.",
+      "Don't introduce rounded corners or gradient text."
+    ]
+  }
+}
