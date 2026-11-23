@@ -4,7 +4,7 @@
   // --- Config: update when Blender frames arrive ---
   const DESKTOP_DIR = "assets/classroom/frames";
   const MOBILE_DIR = "assets/classroom/frames/mobile";
-  const FRAME_COUNT = 1;          // placeholder: single hero frame
+  const FRAME_COUNT = 48;         // Blender-rendered sequence
   const FRAME_EXT = "webp";
   const HERO_URL = "assets/classroom/hero.webp";
   const PAD = 3;
