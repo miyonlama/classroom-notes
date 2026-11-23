@@ -149,15 +149,24 @@ for ri, dy in enumerate(desk_y):
         if ri > 0 and (ri+ci) % 3 != 2:
             student_positions.append((dx, dy+0.55, ri, ci))
 
-# low-poly students
-random.seed(7)
-for idx,(sx,sy,ri,ci) in enumerate(student_positions):
-    c = shirt[idx % len(shirt)]
-    s = skin[idx % len(skin)]
-    box("body_%d" % idx, (sx,sy,1.0), (0.38,0.28,0.55), c)
-    sphere("head_%d" % idx, (sx,sy-0.05,1.42), 0.17, s)
-    # arms on desk
-    box("arm_%d" % idx, (sx,sy-0.32,1.06), (0.5,0.1,0.1), c)
+# five subject books scattered on desks
+book_colors = [
+    (0.31, 0.55, 1.00),  # blue
+    (1.00, 0.42, 0.42),  # red
+    (0.32, 0.80, 0.40),  # green
+    (0.99, 0.77, 0.15),  # yellow
+    (0.80, 0.36, 0.91),  # purple
+]
+desks = [(dx, dy) for dy in [-0.5, 1.2] for dx in [-0.9, 0.8, 2.5]]
+random.seed(11)
+chosen = random.sample(desks, 5)
+for i, (bx, by) in enumerate(chosen):
+    cover = mat("bookcover_%d" % i, book_colors[i], 0.55)
+    box("book_pages_%d" % i, (bx, by, 0.84), (0.42, 0.30, 0.05), white)
+    box("book_cover_%d" % i, (bx, by, 0.875), (0.45, 0.33, 0.02), cover)
+    box("book_spine_%d" % i, (bx - 0.22, by, 0.86), (0.03, 0.33, 0.07), cover)
+    box("book_label_%d" % i, (bx + 0.06, by, 0.888), (0.18, 0.06, 0.004), white)
+print("books on desks:", chosen)
 
 # door frame (north wall gap)
 box("door_frame_l", (2.48,3.5,1.1), (0.08,0.2,2.2), wood_dark)
