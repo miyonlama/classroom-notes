@@ -6,6 +6,16 @@
   var query = "";
 
   var chapters = {
+    "microprocessor-and-computer-architecture": [
+      "Introduction to Microprocessor",
+      "Intel 8085",
+      "Micro-operations",
+      "Control Unit and Central Processing Unit",
+      "Fixed-point Computer Arithmetic",
+      "Input and Output Organization",
+      "Memory Organization",
+      "Pipelining"
+    ],
     "discrete-structure": [
       "Sets, Relations, and Functions",
       "Logic and Proof Methods",
@@ -13,6 +23,16 @@
       "Counting and Discrete Probability",
       "Number Theory",
       "Induction and Recursion"
+    ],
+    "economics": [
+      "Economic Issues and Concepts",
+      "Demand, Supply, and Price",
+      "Consumers' Choice and Indifference Theory",
+      "Production",
+      "Cost and Revenue",
+      "Market Structure",
+      "National Product and its Measurement",
+      "Macroeconomic Policies"
     ]
   };
 
