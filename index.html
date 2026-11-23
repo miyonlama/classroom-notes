@@ -3,43 +3,86 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Classroom Notes Hub</title>
+  <title>Classroom Notes — Learn by Exploring</title>
   <link rel="stylesheet" href="assets/css/hub.css" />
 </head>
 <body>
-  <main id="scroll-container">
-    <section id="stage-wrap">
-      <canvas id="stage" aria-hidden="true"></canvas>
-      <div id="overlay">
-        <h1>Classroom Notes</h1>
-        <p>Scroll to enter the classroom.</p>
-        <a id="enter-btn" href="notes/index.html">Enter</a>
-        <nav id="subject-nav" aria-label="Subjects"></nav>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark"></span>
+      <span>Classroom Notes</span>
+    </div>
+    <div class="top-note">Look deep into nature,<br />and then you will understand<br />everything better.</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">Let's change the<br />world together.</p>
+      <div class="hero-stage">
+        <div class="planet" aria-hidden="true"></div>
+        <h1>Learn <em>by</em> Exploring.</h1>
+      </div>
+      <div class="hero-foot">
+        <span>01 / SUBJECTS</span>
+        <a href="#subjects" class="scroll-cue">Explore the archive <span>&darr;</span></a>
       </div>
     </section>
-    <div id="scroll-spacer" aria-hidden="true"></div>
+
+    <section id="subjects" class="panel-wrap">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-brand"><span class="mark small"></span> Notes Archive</div>
+          <div class="panel-title"><span class="back">&larr;</span> <h2>Articles.</h2></div>
+          <div class="panel-tabs"><span class="active">All Subjects</span><span>Chapters</span></div>
+        </div>
+        <div class="panel-body">
+          <div id="cards" class="cards"></div>
+          <aside class="panel-aside">
+            <span class="aside-label">FROM THE ARCHIVE</span>
+            <p>Five subjects. One place. Pick a book and start reading.</p>
+            <a href="notes/index.html" class="round-btn" aria-label="Open notes">&darr;</a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <p>Planets, genes, space<br />and robots.</p>
+    </section>
+
+    <section class="feature-wrap">
+      <div class="feature">
+        <div class="feature-label">02 / FEATURED</div>
+        <h3>Discrete Structure</h3>
+        <p>Sets, logic, graphs, counting, number theory and induction — six chapters recreated as interactive pages.</p>
+        <a href="notes/discrete-structure.html">Open subject &rarr;</a>
+      </div>
+    </section>
   </main>
 
-  <noscript>
-    <div class="noscript-hero">
-      <h1>Classroom Notes</h1>
-      <p>JavaScript is required for the 3D scroll experience.</p>
-      <a href="notes/index.html">Enter notes</a>
-    </div>
-  </noscript>
+  <footer class="footer">
+    <span>NOTES / 2026</span>
+    <span>Built for learning.</span>
+  </footer>
 
-  <script src="assets/js/scrubber.js" defer></script>
   <script>
     (async () => {
       const res = await fetch('subjects.json');
       const subjects = await res.json();
-      const nav = document.getElementById('subject-nav');
-      subjects.forEach(s => {
+      const wrap = document.getElementById('cards');
+      subjects.forEach((s, i) => {
         const a = document.createElement('a');
+        a.className = 'card';
         a.href = 'notes/' + (s.href ? s.href : (s.slug + '.html'));
-        a.textContent = s.icon + ' ' + s.title;
         a.style.setProperty('--accent', s.color);
-        nav.appendChild(a);
+        a.innerHTML =
+          '<div class="card-top"><span class="num">0' + (i+1) + '</span><span class="dot"></span></div>' +
+          '<div class="card-icon">' + s.icon + '</div>' +
+          '<div class="card-title">' + s.title + '</div>' +
+          '<div class="card-meta">OPEN NOTES &rarr;</div>';
+        wrap.appendChild(a);
       });
     })().catch(() => {});
   </script>
