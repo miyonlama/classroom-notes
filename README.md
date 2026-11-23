@@ -3,7 +3,7 @@
 Static site: dark editorial hub + subject notes pages.
 
 ## Hub
-`index.html` uses `subjects.json` to render subject cards. No 3D, no build step.
+`index.html` uses `subjects.json` for an animated orb selector (rings, starfield, < > arrows, keyboard) and subject cards. No 3D, no build step.
 
 ## Notes
 - `notes/index.html` — subject list

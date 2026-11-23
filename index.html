@@ -8,25 +8,66 @@
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
   <header class="topbar">
-    <div class="brand">
-      <span class="mark"></span>
-      <span>Classroom Notes</span>
-    </div>
+    <div class="brand"><span class="mark"></span><span>Classroom Notes</span></div>
     <div class="top-note">Look deep into nature,<br />and then you will understand<br />everything better.</div>
   </header>
 
   <main>
     <section class="hero">
       <p class="eyebrow">Let's change the<br />world together.</p>
-      <div class="hero-stage">
-        <div class="planet" aria-hidden="true"></div>
-        <h1>Learn <em>by</em> Exploring.</h1>
+
+      <div class="selector">
+        <div class="stage">
+          <div class="rings" aria-hidden="true">
+            <svg viewBox="0 0 700 500" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="ringA" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8ea9ff" stop-opacity="0.05" />
+                  <stop offset="45%" stop-color="#b9ccff" stop-opacity="0.9" />
+                  <stop offset="100%" stop-color="#6a4bff" stop-opacity="0.08" />
+                </linearGradient>
+                <linearGradient id="ringB" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#ff9de2" stop-opacity="0.04" />
+                  <stop offset="50%" stop-color="#cbb8ff" stop-opacity="0.75" />
+                  <stop offset="100%" stop-color="#4a78ff" stop-opacity="0.05" />
+                </linearGradient>
+              </defs>
+              <ellipse class="ring r1" cx="350" cy="250" rx="250" ry="92" fill="none" stroke="url(#ringA)" stroke-width="1.4" />
+              <ellipse class="ring r2" cx="350" cy="250" rx="300" ry="130" fill="none" stroke="url(#ringB)" stroke-width="1" transform="rotate(-18 350 250)" />
+              <ellipse class="ring r3" cx="350" cy="250" rx="205" ry="62" fill="none" stroke="rgba(180,200,255,0.22)" stroke-width="0.8" transform="rotate(24 350 250)" />
+              <circle cx="350" cy="250" r="168" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.7" stroke-dasharray="2 7" />
+            </svg>
+          </div>
+
+          <div class="orb-wrap">
+            <div class="orb-glow"></div>
+            <div class="orb"></div>
+            <div class="orb-shine"></div>
+          </div>
+
+          <div class="nodes" id="nodes"></div>
+        </div>
+
+        <div class="selector-info">
+          <div class="info-index" id="info-index">01 / 05</div>
+          <div class="info-icon" id="info-icon">◇</div>
+          <h1 id="info-title">Discrete Structure</h1>
+          <p id="info-desc">Sets, logic, graphs, counting, number theory and induction.</p>
+          <a id="info-link" class="open-btn" href="notes/discrete-structure.html">Open subject <span>&rarr;</span></a>
+          <div class="hint">Click a node or use &larr; &rarr; to explore</div>
+        </div>
       </div>
+
       <div class="hero-foot">
         <span>01 / SUBJECTS</span>
-        <a href="#subjects" class="scroll-cue">Explore the archive <span>&darr;</span></a>
+        <div class="controls">
+          <button id="prev" type="button" aria-label="Previous subject">&lsaquo;</button>
+          <a href="#subjects" class="scroll-cue">Explore the archive <span>&darr;</span></a>
+          <button id="next" type="button" aria-label="Next subject">&rsaquo;</button>
+        </div>
       </div>
     </section>
 
@@ -48,9 +89,7 @@
       </div>
     </section>
 
-    <section class="quote">
-      <p>Planets, genes, space<br />and robots.</p>
-    </section>
+    <section class="quote"><p>Planets, genes, space<br />and robots.</p></section>
 
     <section class="feature-wrap">
       <div class="feature">
@@ -62,29 +101,8 @@
     </section>
   </main>
 
-  <footer class="footer">
-    <span>NOTES / 2026</span>
-    <span>Built for learning.</span>
-  </footer>
+  <footer class="footer"><span>NOTES / 2026</span><span>Built for learning.</span></footer>
 
-  <script>
-    (async () => {
-      const res = await fetch('subjects.json');
-      const subjects = await res.json();
-      const wrap = document.getElementById('cards');
-      subjects.forEach((s, i) => {
-        const a = document.createElement('a');
-        a.className = 'card';
-        a.href = 'notes/' + (s.href ? s.href : (s.slug + '.html'));
-        a.style.setProperty('--accent', s.color);
-        a.innerHTML =
-          '<div class="card-top"><span class="num">0' + (i+1) + '</span><span class="dot"></span></div>' +
-          '<div class="card-icon">' + s.icon + '</div>' +
-          '<div class="card-title">' + s.title + '</div>' +
-          '<div class="card-meta">OPEN NOTES &rarr;</div>';
-        wrap.appendChild(a);
-      });
-    })().catch(() => {});
-  </script>
+  <script src="assets/js/hub.js" defer></script>
 </body>
 </html>
