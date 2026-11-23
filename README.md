@@ -12,7 +12,6 @@ Static site: dark editorial hub + subject notes pages.
 
 ## Deploy
 - Vercel: https://classroom-notes-mocha.vercel.app/ (auto-deploy on push)
-- GitHub Pages: https://miyonlama.github.io/classroom-notes/
 
 ## Regenerate Discrete Structure pages
 Place PDFs in `assets/pdfs/` and run:
