@@ -185,8 +185,8 @@
           }
         },
         onError: function (e) {
-          var msg = "This video cannot be embedded.";
-          if (e.data === 2 || e.data === 5 || e.data === 100) msg = "Video unavailable or removed.";
+          var msg = "This video cannot be embedded (error " + e.data + ").";
+          if (e.data === 2 || e.data === 5 || e.data === 100) msg = "Video unavailable or removed (error " + e.data + ").";
           setStatus(msg, true);
           updateToggle(false);
         }
