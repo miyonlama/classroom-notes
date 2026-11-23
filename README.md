@@ -10,8 +10,9 @@ Static site: dark editorial hub + subject notes pages.
 - `notes/discrete-structure.html` — 6 interactive chapters under `notes/discrete/`
 - Other subjects are placeholders until PDFs are supplied.
 
-## Deploy (GitHub Pages)
-Push to `master`. Pages serves the root automatically.
+## Deploy
+- Vercel: https://classroom-notes-mocha.vercel.app/ (auto-deploy on push)
+- GitHub Pages: https://miyonlama.github.io/classroom-notes/
 
 ## Regenerate Discrete Structure pages
 Place PDFs in `assets/pdfs/` and run:
