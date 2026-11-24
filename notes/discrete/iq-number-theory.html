@@ -61,17 +61,31 @@
         <article class="iq-card">
           <h3 class="iq-question">What does “congruent modulo” mean? Determine whether 20 ≡ 8 (mod 6) and whether 25 ≡ 17 (mod 5).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q8) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Definition.</b> For integers a, b and positive integer m, a ≡ b (mod m) means m divides a − b, equivalently a and b have the same remainder on division by m.</p>
+            <p>For 20 ≡ 8 (mod 6): 20 − 8 = 12 = 2·6, so the congruence holds.</p>
+            <p>For 25 ≡ 17 (mod 5): 25 − 17 = 8, which is not divisible by 5, so the congruence is false. Indeed 25 ≡ 0 and 17 ≡ 2 (mod 5).</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain trial division with an example. Using trial division, show that 101 is prime.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q9) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Trial division.</b> To test whether n is prime, divide n by each prime p ≤ √n. If none divides n then n is prime, because any composite factorisation n = ab must have one factor at most √n.</p>
+            <p><b>Example.</b> 91 is composite: √91 ≈ 9.5 and 91 = 7 × 13.</p>
+            <p><b>For 101:</b> √101 ≈ 10.05, so test the primes 2, 3, 5, 7. 101 is odd; its digit sum is 2, so 3 does not divide it; it does not end in 0 or 5; and 101 = 7·14 + 3. No prime up to √101 divides 101, so <b>101 is prime</b>.</p>
+          </div>
         </article>
         <article class="iq-card">
-          <h3 class="iq-question">What is arithmetic modulo m? Using the definitions of addition and multiplication in Zₘ, compute 7 + 119 and 7 × 119.</h3>
+          <h3 class="iq-question">What is arithmetic modulo m? Using the definitions of addition and multiplication in Zₘ, compute 7 +₁₁ 9 and 7 ×₁₁ 9.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q9) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>In Zₘ the elements are the residue classes {0, 1, …, m − 1}. Addition and multiplication are performed on representatives and the result reduced modulo m: [a]ₘ + [b]ₘ = [a + b]ₘ and [a]ₘ · [b]ₘ = [ab]ₘ. These operations are well defined because replacing a representative by an equivalent one changes results by a multiple of m.</p>
+            <p>Working modulo 11:</p>
+            <ul><li>7 +₁₁ 9 = 16, and 16 = 11 + 5, so the answer is <b>5</b>.</li>
+            <li>7 ×₁₁ 9 = 63, and 63 = 5·11 + 8, so the answer is <b>8</b>.</li></ul>
+            <p>Z₁₁ is a field because 11 is prime: every nonzero class has a multiplicative inverse.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove that √2 is irrational.</h3>
@@ -90,27 +104,54 @@
         <article class="iq-card">
           <h3 class="iq-question">Solve the system of congruences using the Chinese Remainder Theorem: x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q8) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Use the Chinese Remainder Theorem with M = 3·5·7 = 105 and pairwise coprime moduli.</p>
+            <ol><li>For mod 3: M₁ = 35, and 35 ≡ 2 (mod 3). Since 2·2 ≡ 1 (mod 3), the inverse is 2; contribution 2·35·2 = 140.</li>
+            <li>For mod 5: M₂ = 21 ≡ 1 (mod 5), inverse 1; contribution 3·21·1 = 63.</li>
+            <li>For mod 7: M₃ = 15 ≡ 1 (mod 7), inverse 1; contribution 2·15·1 = 30.</li></ol>
+            <p>Sum = 140 + 63 + 30 = 233, and 233 − 2·105 = 23. Hence x ≡ <b>23 (mod 105)</b>. Check: 23 = 7·3 + 2, 23 = 4·5 + 3, 23 = 3·7 + 2. The solution is unique modulo 105.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain how the Chinese Remainder Theorem can be used to perform computations on large integers and give an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q9) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>The Chinese Remainder Theorem represents an integer x by its residues modulo several pairwise coprime moduli m₁, …, mₖ. Since reduction is a ring homomorphism, (x + y) mod mᵢ = (x mod mᵢ) + (y mod mᵢ) and similarly for products. Large integers can therefore be added or multiplied componentwise on small residues, then recovered uniquely modulo M = m₁⋯mₖ.</p>
+            <p><b>Example.</b> With moduli 9, 10, 11 (pairwise coprime, M = 990), 1234 has residues (1, 4, 2): its digit sum is 10, so 1234 ≡ 1 (mod 9), its last digit gives 4, and the alternating sum 4 − 3 + 2 − 1 = 2 gives mod 11. Also 56 has residues (2, 6, 1). Adding componentwise, their sum has residues (3, 0, 3), which reconstructs to 300 (mod 990). This agrees with 1234 + 56 = 1290 = 990 + 300.</p>
+            <p>This is used in modular arithmetic libraries and cryptography: computations stay on small numbers while the modulus M can be enormous.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Find the multiplicative inverse of 6 in Z₂₅ using the extended Euclidean algorithm.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q6) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Apply the Euclidean algorithm to 25 and 6: 25 = 4·6 + 1. Hence 1 = 25 − 4·6, so −4·6 ≡ 1 (mod 25).</p>
+            <p>Since −4 ≡ 21 (mod 25), the multiplicative inverse of 6 in Z₂₅ is <b>21</b>. Check: 6·21 = 126 = 5·25 + 1 ≡ 1 (mod 25). The inverse exists because gcd(6, 25) = 1.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Compute the following values: 8 mod 8, −9 mod 4, 7 mod 17, 6 mod 7, and −8 mod 3.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q9) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Reduce each value to the least nonnegative residue in the relevant range:</p>
+            <ul><li>8 mod 8 = <b>0</b>, since 8 = 1·8 + 0.</li>
+            <li>−9 mod 4: add 12 to reach 3, so −9 ≡ <b>3</b> (mod 4).</li>
+            <li>7 mod 17 = <b>7</b>, already in range.</li>
+            <li>6 mod 7 = <b>6</b>, already in range.</li>
+            <li>−8 mod 3: add 9 to reach 1, so −8 ≡ <b>1</b> (mod 3).</li></ul>
+            <p>Rule: a mod m is the remainder r with 0 ≤ r &lt; m and a = qm + r, even when a is negative (choose q negative enough).</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the division algorithm. Add the integers 13,578 and 45,730 using the Chinese Remainder Theorem.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q1) &middot; <b>Marks:</b> 2+8</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Division algorithm.</b> For integers a and b &gt; 0 there exist unique integers q and r with a = bq + r and 0 ≤ r &lt; b; q is the quotient and r the remainder.</p>
+            <p><b>Adding with CRT.</b> Choose pairwise coprime moduli 9, 10, 11, whose product is 990.</p>
+            <ul><li>13,578 has residues (6, 8, 4): digit sum 24 → 6 mod 9; last digit 8; and alternating sum 8 − 7 + 5 − 3 + 1 = 4 mod 11.</li>
+            <li>45,730 has residues (1, 0, 3): digit sum 19 → 1 mod 9; last digit 0; alternating sum 0 − 3 + 7 − 5 + 4 = 3 mod 11.</li></ul>
+            <p>Add componentwise to get (7, 8, 7). Solving x ≡ 7 (mod 9), x ≡ 8 (mod 10), x ≡ 7 (mod 11) gives x ≡ 898 (mod 990). Direct addition confirms 13,578 + 45,730 = 59,308 = 59·990 + <b>898</b>, so the residue reconstruction agrees with the ordinary sum.</p>
+          </div>
         </article>
 
         <aside class="revision-tracker" data-page="discrete/iq-number-theory.html">

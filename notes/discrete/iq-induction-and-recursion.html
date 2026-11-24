@@ -61,57 +61,113 @@
         <article class="iq-card">
           <h3 class="iq-question">What is a linear nonhomogeneous recurrence relation of degree k with constant coefficients? Find all solutions of the recurrence relation aₙ = 4aₙ₋₁ + n². Also find the solution of the relation with initial condition a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q2) &middot; <b>Marks:</b> 10</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A linear nonhomogeneous recurrence of degree k has the form aₙ = c₁aₙ₋₁ + ⋯ + cₖaₙ₋ₖ + f(n) with f(n) ≠ 0; the corresponding homogeneous relation sets f(n) = 0.</p>
+            <p>For aₙ = 4aₙ₋₁ + n² the homogeneous solution is A·4ⁿ. Try a particular solution pn² + qn + r. Substituting gives pn² + qn + r = 4[p(n − 1)² + q(n − 1) + r] + n². Comparing coefficients: p = 4p + 1 so p = −1/3; q = −8p + 4q so q = −8/9; r = 4p − 4q + 4r so r = −20/27.</p>
+            <p>Thus aₙ = A·4ⁿ − (1/3)n² − (8/9)n − 20/27. Using a₁ = 1 gives 4A − 53/27 = 1, hence A = 20/27 and aₙ = (20·4ⁿ − 9n² − 24n − 20)/27. Check: a₁ = 1 and a₂ = 8 = 4·1 + 2².</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Use mathematical induction to show that the sum of the first n positive integers is n(n + 1)/2.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q7) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Let P(n) be the statement 1 + 2 + ⋯ + n = n(n + 1)/2.</p>
+            <p><b>Basis step.</b> P(1) says 1 = 1·2/2 = 1, which is true.</p>
+            <p><b>Inductive hypothesis.</b> Assume P(k): 1 + 2 + ⋯ + k = k(k + 1)/2 for an arbitrary positive integer k.</p>
+            <p><b>Inductive step.</b> Add k + 1 to both sides: 1 + ⋯ + k + (k + 1) = k(k + 1)/2 + (k + 1) = (k + 1)(k/2 + 1) = (k + 1)(k + 2)/2. This is exactly P(k + 1).</p>
+            <p>By the principle of mathematical induction, P(n) holds for every positive integer n.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Use mathematical induction to prove that the sum of the first n odd positive integers is n². Statement: Let P(n) be the proposition that the sum of the first n odd positive integers is n², written as 1 + 3 + 5 + ⋯ + (2n − 1) = n². Prove the basis step P(1), assume P(k), and prove P(k + 1).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q7), 2080.2 (Q2), 2082 (Q6) &middot; <b>Marks:</b> 5, 4+6</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Statement.</b> Let P(n) be the proposition that the sum of the first n odd positive integers is n², that is 1 + 3 + 5 + ⋯ + (2n − 1) = n².</p>
+            <p><b>Step 1 — Basis.</b> For n = 1 the left side is the first odd integer 1 and the right side is 1² = 1. Since LHS = RHS, P(1) is true.</p>
+            <p><b>Step 2 — Inductive hypothesis.</b> Assume P(k) for an arbitrary positive integer k: 1 + 3 + ⋯ + (2k − 1) = k².</p>
+            <p><b>Step 3 — Inductive step.</b> The (k + 1)-st odd integer is 2(k + 1) − 1 = 2k + 1. Add it to both sides of the hypothesis: [1 + 3 + ⋯ + (2k − 1)] + (2k + 1) = k² + 2k + 1 = (k + 1)². This is P(k + 1), so it is true whenever P(k) is.</p>
+            <p><b>Conclusion.</b> Both steps hold, so by mathematical induction P(n) is true for all positive integers n.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a recursively defined function? Suppose f is defined recursively by f(0) = 3 and f(n + 1) = 2f(n) + 3. Find f(1), f(2), f(3), and f(4).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q8) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A <b>recursive definition</b> specifies the value of a function at small inputs directly (the basis) and gives larger values in terms of earlier ones (the recursive step).</p>
+            <p>Here f(0) = 3 and f(n + 1) = 2f(n) + 3. Computing successively:</p>
+            <ul><li>f(1) = 2f(0) + 3 = 2·3 + 3 = <b>9</b></li>
+            <li>f(2) = 2f(1) + 3 = 18 + 3 = <b>21</b></li>
+            <li>f(3) = 2f(2) + 3 = 42 + 3 = <b>45</b></li>
+            <li>f(4) = 2f(3) + 3 = 90 + 3 = <b>93</b></li></ul>
+            <p>The closed form is f(n) = 6·2ⁿ − 3: check n = 0 gives 3, and 2(6·2ⁿ − 3) + 3 = 6·2ⁿ⁺¹ − 3, matching the recurrence.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define the ceiling function and the floor function with examples. How can mathematical induction be used to prove the correctness of a recursive algorithm? Illustrate with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q2) &middot; <b>Marks:</b> 10</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>⌊x⌋ is the greatest integer ≤ x and ⌈x⌉ is the least integer ≥ x. For example ⌊2.3⌋ = 2, ⌈2.3⌉ = 3, and both equal k when x = k is an integer.</p>
+            <p>Induction proves correctness of a recursive algorithm by matching its recursion. For Power(a, n): <b>basis</b> n = 0, the code returns 1 = a⁰. <b>Inductive hypothesis</b>: assume Power(a, k) returns aᵏ. <b>Step</b>: for n = k + 1 the code computes a·Power(a, k) = a·aᵏ = aᵏ⁺¹ by the hypothesis. Hence the algorithm returns aⁿ for all n ≥ 0.</p>
+            <p>The same pattern works for factorial, list length, and tree traversal algorithms: the base case handles the smallest input and the recursive call supplies the inductive hypothesis.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define a randomized algorithm and give an example. Solve the recurrence relation aₙ = −4aₙ₋₁ − 4aₙ₋₂ for n ≥ 2 with initial conditions a₀ = 0 and a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q1) &middot; <b>Marks:</b> 3+7</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A <b>randomized algorithm</b> makes random choices during execution. Example: randomized quicksort picks the pivot uniformly at random, so no fixed input forces its worst case; another example is a randomized primality test.</p>
+            <p>For aₙ = −4aₙ₋₁ − 4aₙ₋₂ with a₀ = 0, a₁ = 1, the characteristic equation is r² + 4r + 4 = (r + 2)² = 0, a repeated root r = −2. The general solution is aₙ = (A + Bn)(−2)ⁿ.</p>
+            <p>From a₀ = 0 we get A = 0. From a₁ = 1 we get B(−2) = 1, so B = −1/2. Therefore aₙ = −(n/2)(−2)ⁿ = <b>n(−2)ⁿ⁻¹</b>. Check: a₂ = −4·1 − 4·0 = −4, and the formula gives 2·(−2)¹ = −4.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What are the uses of randomized algorithms? Solve the recurrence relation aₙ = 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ with initial conditions a₀ = 2, a₁ = 5, and a₂ = 15.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q2) &middot; <b>Marks:</b> 2+8</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Randomized algorithms are used for symmetry breaking, avoiding adversarial worst cases (randomized quicksort), large-number primality testing, load balancing, and Monte Carlo simulation.</p>
+            <p>For aₙ = 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ the characteristic equation r³ − 6r² + 11r − 6 = (r − 1)(r − 2)(r − 3) has distinct roots 1, 2, 3, so aₙ = A + B·2ⁿ + C·3ⁿ.</p>
+            <p>The initial conditions give A + B + C = 2, A + 2B + 3C = 5, A + 4B + 9C = 15. Subtracting consecutive equations gives B + 2C = 3 and B + 3C = 5, hence C = 2, B = −1, A = 1. Thus aₙ = <b>1 − 2ⁿ + 2·3ⁿ</b>. Check n = 2: 1 − 4 + 18 = 15. Check n = 3: the recurrence gives 6·15 − 11·5 + 6·2 = 90 − 55 + 12 = 47, and the formula gives 1 − 8 + 54 = 47, so they agree.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove by mathematical induction that 1³ + 2³ + 3³ + ⋯ + n³ is a perfect square.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q5) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Claim: 1³ + 2³ + ⋯ + n³ = [n(n + 1)/2]², a perfect square.</p>
+            <p><b>Basis.</b> n = 1: 1³ = 1 = [1·2/2]².</p>
+            <p><b>Hypothesis.</b> Assume 1³ + ⋯ + k³ = [k(k + 1)/2]².</p>
+            <p><b>Step.</b> Add (k + 1)³: the sum becomes k²(k + 1)²/4 + (k + 1)³ = (k + 1)²[k²/4 + k + 1] = (k + 1)²(k + 2)²/4 = [(k + 1)(k + 2)/2]², which is the formula at k + 1.</p>
+            <p>Hence the sum of the first n cubes is always the square of the n-th triangular number.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain structural induction and recursive definitions with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q12) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Structural induction</b> proves a property of recursively defined objects (strings, trees, lists) by proving it for the basis objects and showing that if it holds for the components used in a recursive step, it holds for the object built from them.</p>
+            <p><b>Recursive definition example.</b> The set of well-formed bit strings: the empty string is a basis element, and if u is a string then 0u and 1u are strings. Define length L(λ) = 0 and L(xu) = 1 + L(u).</p>
+            <p><b>Proof example.</b> Claim L(u) counts bits. Basis: L(λ) = 0, correct. Step: if L(u) is correct, then L(0u) = 1 + L(u) counts the added leading bit, and likewise for 1u. By structural induction the claim holds for every string. This mirrors ordinary induction but follows the structure of the definition.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Solve the recurrence relation aₙ = aₙ₋₁ + aₙ₋₂ with initial conditions a₀ = 0 and a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q7) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>This is the <b>Fibonacci recurrence</b>. The characteristic equation is r² − r − 1 = 0 with roots α = (1 + √5)/2 and β = (1 − √5)/2.</p>
+            <p>The general solution is aₙ = Aαⁿ + Bβⁿ. From a₀ = 0 we get A + B = 0, and from a₁ = 1 we get Aα + Bβ = 1. Solving gives A = 1/√5 and B = −1/√5, hence Binet’s formula aₙ = (αⁿ − βⁿ)/√5.</p>
+            <p>The first terms are 0, 1, 1, 2, 3, 5, 8, 13, 21. The closed form is an integer despite the irrational ingredients, because the βⁿ term is the conjugate that cancels the irrational part.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove the correctness of the following recursive algorithm for computing aⁿ using induction: Power(a, n) { if (n == 0) return 1; else return a * Power(a, n - 1); }</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q10) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>The algorithm Power(a, n) returns 1 when n = 0 and otherwise returns a × Power(a, n − 1). We prove by induction on n ≥ 0 that the returned value equals aⁿ.</p>
+            <p><b>Basis.</b> n = 0: the function returns 1, and a⁰ = 1.</p>
+            <p><b>Inductive hypothesis.</b> Assume Power(a, k) returns aᵏ for some k ≥ 0.</p>
+            <p><b>Inductive step.</b> For n = k + 1 the function calls Power(a, k), which by the hypothesis returns aᵏ, and multiplies by a, giving a · aᵏ = aᵏ⁺¹ = aⁿ. The recursion terminates because n decreases by 1 each call and reaches 0.</p>
+            <p>Therefore the algorithm is correct for every nonnegative integer n.</p>
+          </div>
         </article>
 
         <aside class="revision-tracker" data-page="discrete/iq-induction-and-recursion.html">
