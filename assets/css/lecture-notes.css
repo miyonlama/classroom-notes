@@ -389,7 +389,7 @@ html[data-theme="study"] .projector-wash {
   margin-left: 0.5rem;
   padding: 0.1rem 0.4rem;
   border: 1px solid var(--board-green);
-  color: var(--board-green);
+  color: var(--chalk-dim);
   font-family: "Source Sans 3", sans-serif;
   font-size: 0.7rem;
   letter-spacing: 0.08em;
