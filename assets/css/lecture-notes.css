@@ -409,7 +409,11 @@ html[data-theme="study"] .projector-wash {
 @media (max-width: 900px) {
   .doc-shell { grid-template-columns: 1fr; }
   .doc-shell.syllabus-collapsed { grid-template-columns: 1fr; }
-  .doc-shell.syllabus-collapsed .syllabus { display: none; }
+  /* Keep the nav in the layout as a zero-height box: display:none would take
+     the fixed contents button inside it down with the rail. */
+  .doc-shell.syllabus-collapsed .syllabus {
+    display: block; height: 0; padding: 0; border: 0;
+  }
   .syllabus {
     position: sticky; top: 0; height: auto; overflow: visible;
     border-right: 0; border-bottom: 1px solid var(--line); padding: 1.2rem 0;
@@ -419,8 +423,12 @@ html[data-theme="study"] .projector-wash {
   .chapter-rail a { white-space: nowrap; border: 1px solid var(--line); padding: 0.5rem 0.8rem; }
   .reading { padding: 2.5rem 5vw 3rem; }
   .folio { left: 1rem; top: 2.6rem; font-size: 2.1rem; }
-  .syllabus-toggle { top: 8.8rem; left: 1rem; }
-  .doc-shell:not(.syllabus-collapsed) .syllabus-toggle { top: 8.8rem; left: auto; right: 1rem; }
+  .syllabus-toggle,
+  .doc-shell:not(.syllabus-collapsed) .syllabus-toggle {
+    top: auto; bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    left: auto; right: 1rem;
+    width: 44px; height: 44px;
+  }
   .index-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
@@ -428,8 +436,6 @@ html[data-theme="study"] .projector-wash {
   .crumb { display: none; }
   .reading { padding: 2rem 1.25rem 2.5rem; }
   .folio { position: static; display: block; margin-bottom: 0.5rem; }
-  .syllabus-toggle { left: 0.75rem; }
-  .doc-shell:not(.syllabus-collapsed) .syllabus-toggle { right: 0.75rem; }
   .index-grid { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -499,3 +505,7 @@ html[data-theme="study"] .projector-wash {
 .exam-hits li { font-size: 0.9rem; color: var(--chalk); padding: 0.2rem 0; }
 .worked-steps { margin: 0.8rem 0 0; padding-left: 1.3rem; }
 .worked-steps li { padding: 0.25rem 0; }
+
+@media (max-width: 600px) {
+  .topic-table { display: block; overflow-x: auto; }
+}

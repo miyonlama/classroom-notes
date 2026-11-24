@@ -28,6 +28,12 @@ assert(css.indexOf(".doc-shell:not(.syllabus-collapsed) .syllabus-toggle {") !==
   "open sidebar must move the toggle clear of the first chapter row");
 assert(css.indexOf("left: calc(300px - 3.1rem)") !== -1,
   "open toggle must sit inside the rail edge");
+assert(/@media \(max-width: 900px\)[\s\S]*?\.doc-shell\.syllabus-collapsed \.syllabus \{\s*display: block; height: 0;/.test(css),
+  "collapsed mobile rail must keep the fixed contents button in the layout");
+assert(css.indexOf("bottom: calc(1rem + env(safe-area-inset-bottom, 0px))") !== -1,
+  "mobile contents button must dock clear of the chapter rail and folio");
+assert(css.indexOf(".topic-table { display: block; overflow-x: auto; }") !== -1,
+  "mobile tables must scroll inside the reading column");
 var notesJs = fs.readFileSync(path.join(root, "assets/js/lecture-notes.js"), "utf8");
 assert(notesJs.indexOf("function updateStickyRail") !== -1 &&
   notesJs.indexOf("76 - (window.scrollY") !== -1,
