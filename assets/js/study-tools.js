@@ -79,4 +79,6 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
+  window.__CN_REINIT = window.__CN_REINIT || {};
+  window.__CN_REINIT["study-tools"] = init;
 })();

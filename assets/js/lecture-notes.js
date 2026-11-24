@@ -96,7 +96,7 @@
     apply();
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  function init() {
     initSyllabusToggle();
     document.querySelectorAll(".chapter-rail a").forEach(function (a, i) {
       a.addEventListener("mouseenter", function () { show(i); });
@@ -106,5 +106,10 @@
       a.addEventListener("mouseenter", function () { show(i); });
       a.addEventListener("focus", function () { show(i); });
     });
-  });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+  window.__CN_REINIT = window.__CN_REINIT || {};
+  window.__CN_REINIT["lecture-notes"] = init;
 })();

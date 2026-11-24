@@ -17,7 +17,7 @@
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function init() {
     document.querySelectorAll(".codeblock").forEach(block => {
       const btn = block.querySelector(".copy-btn");
       if (!btn) return;
@@ -34,5 +34,10 @@
         });
       });
     });
-  });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+  window.__CN_REINIT = window.__CN_REINIT || {};
+  window.__CN_REINIT.notes = init;
 })();
