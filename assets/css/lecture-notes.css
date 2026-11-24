@@ -373,3 +373,66 @@ html[data-theme="study"] .projector-wash {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Structured topic notes */
+.priority-mark {
+  display: inline-block;
+  margin-left: 0.6rem;
+  color: var(--yellow);
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.exam-mark {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--board-green);
+  color: var(--board-green);
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.topic-table {
+  width: 100%;
+  max-width: 70ch;
+  margin: 1.2rem 0 2rem;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.topic-table th,
+.topic-table td {
+  border: 1px solid var(--line);
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+.topic-table th {
+  background: var(--board-deep);
+  color: var(--yellow);
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.exam-hits {
+  max-width: 70ch;
+  margin: 1.6rem 0 2.4rem;
+  border: 1px solid var(--cue-line);
+  background: var(--cue-bg);
+  padding: 1rem 1.2rem;
+}
+.exam-hits h2 {
+  font-family: "Source Sans 3", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin: 0 0 0.7rem;
+}
+.exam-hits ul { margin: 0; padding-left: 1.2rem; }
+.exam-hits li { font-size: 0.9rem; color: var(--chalk); padding: 0.2rem 0; }
+.worked-steps { margin: 0.8rem 0 0; padding-left: 1.3rem; }
+.worked-steps li { padding: 0.25rem 0; }
