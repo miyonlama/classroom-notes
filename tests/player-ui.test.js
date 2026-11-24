@@ -40,8 +40,15 @@ assert(
   "collapsed play mark must be centered"
 );
 
+var buttonStart = css.indexOf(".yt-player button {");
+var buttonEnd = css.indexOf("}", buttonStart);
+assert(buttonStart !== -1 && buttonEnd !== -1, "player button rule missing");
+assert(
+  css.slice(buttonStart, buttonEnd).indexOf("transform 160ms cubic-bezier(0.16, 1, 0.3, 1)") !== -1,
+  "press-feedback transition must be on .yt-player button, not anywhere in the file"
+);
+
 [
-  "transform 160ms cubic-bezier(0.16, 1, 0.3, 1)",
   ".yt-player button:active { transform: scale(0.97); }",
   ".yt-player button:active { transform: none; background: rgba(242, 193, 78, 0.12); }"
 ].forEach(function (needle) {
