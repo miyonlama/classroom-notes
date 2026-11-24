@@ -14,6 +14,10 @@ colors:
   glass-sheen: "rgba(255, 255, 255, 0.12)"
   study-dust: "rgba(26, 26, 26, 0.08)"
   study-wash: "rgba(184, 66, 46, 0.08)"
+  truth-true: "#7fdca0"
+  truth-false: "#ff8a80"
+  study-truth-true: "#166a43"
+  study-truth-false: "#b8422e"
 typography:
   display:
     fontFamily: "Barlow Condensed, sans-serif"
@@ -114,6 +118,8 @@ Depth comes from tone and a single soft shadow, not ornament. Every surface is s
 - **Board Deep** (#0b1310): Slides, panels, and the chalk tray.
 - **Chalk** (#e8ece1): Headlines and primary text.
 - **Chalk Dim** (#a9b7ac): Secondary text and inactive labels.
+
+**Truth Colors.** Green `#7fdca0` and red `#ff8a80` mark true and false values in logic notes. In LIGHT they shift to `#166a43` and `#b8422e` for contrast. They never carry meaning elsewhere.
 
 **The One Voice Rule.** Yellow appears only on the active choice and its action. If a screen has more than one yellow element, all but one are the same decision.
 
