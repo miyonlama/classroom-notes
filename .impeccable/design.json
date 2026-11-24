@@ -63,6 +63,10 @@
       "caption": {
         "displayName": "Caption",
         "purpose": "Chapter labels and card numbers."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Code and inline notation."
       }
     },
     "shadows": [

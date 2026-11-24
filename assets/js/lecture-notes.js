@@ -52,6 +52,7 @@
   function pad(n) { return String(n).padStart(2, "0"); }
 
   function show(i) {
+    if (!document.getElementById("chapter-title")) return;
     var c = chapters[i];
     if (!c) return;
     document.getElementById("folio").textContent = pad(i + 1);

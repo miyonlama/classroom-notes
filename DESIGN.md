@@ -42,6 +42,11 @@ typography:
     fontSize: "0.8rem"
     fontWeight: 400
     lineHeight: 1.55
+  mono:
+    fontFamily: "ui-monospace, Consolas, monospace"
+    fontSize: "0.9rem"
+    fontWeight: 400
+    lineHeight: 1.5
   label:
     fontFamily: "Source Sans 3, sans-serif"
     fontSize: "0.7rem"

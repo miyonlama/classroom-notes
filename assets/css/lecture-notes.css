@@ -152,6 +152,76 @@ a { color: inherit; }
   color: var(--chalk-dim); font-size: 0.7rem; letter-spacing: 0.04em;
 }
 
+/* Chapter reading pages */
+.chapter-reading { max-width: 100%; }
+.chapter-reading h1 { font-size: clamp(2.8rem, 5vw, 3.6rem); }
+.chapter-reading .source-line {
+  color: var(--chalk-dim); font-size: 0.8rem; margin: 0 0 2.2rem;
+  padding-bottom: 1rem; border-bottom: 1px solid var(--line);
+}
+.chapter-reading .source-line a { color: var(--yellow); text-underline-offset: 4px; }
+.chapter-reading section {
+  max-width: 70ch;
+  border-top: 1px solid var(--line);
+  padding: 1.6rem 0 0.4rem;
+  margin-top: 1.4rem;
+}
+.chapter-reading section:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+.chapter-reading h2 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.1rem; font-weight: 700; line-height: 1.05;
+  letter-spacing: -0.02em; margin: 0 0 1rem;
+}
+.chapter-reading h3 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.35rem; font-weight: 700; line-height: 1.1;
+  margin: 1.6rem 0 0.6rem;
+}
+.chapter-reading h4 {
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--yellow);
+  margin: 1.4rem 0 0.5rem;
+}
+.chapter-reading p { max-width: 70ch; color: var(--chalk); margin: 0 0 1rem; }
+.chapter-reading .callout {
+  margin: 1.4rem 0; max-width: 70ch;
+  border: 1px solid rgba(47,125,88,0.6);
+  background: rgba(47,125,88,0.08);
+  padding: 1rem 1.25rem;
+}
+.chapter-reading .callout.key {
+  border-color: rgba(242,193,78,0.5);
+  background: rgba(242,193,78,0.06);
+}
+.chapter-reading .callout strong {
+  display: block; color: var(--yellow); font-size: 0.7rem;
+  letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.chapter-reading details {
+  max-width: 70ch; border: 1px solid var(--line);
+  background: rgba(11,19,16,0.7); padding: 0.9rem 1.1rem; margin: 1.2rem 0;
+}
+.chapter-reading summary { cursor: pointer; font-weight: 700; color: var(--chalk); }
+.chapter-reading details p { margin: 0.8rem 0 0; }
+.chapter-reading code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9em; color: var(--yellow);
+}
+.chapter-nav {
+  max-width: 70ch; margin-top: 3rem; padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; gap: 1rem;
+  font-size: 0.8rem; letter-spacing: 0.08em;
+}
+.chapter-nav a { color: var(--yellow); text-decoration: none; }
+.chapter-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+@media (max-width: 600px) {
+  .chapter-reading h2 { font-size: 2.1rem; }
+  .chapter-nav { flex-direction: column; }
+}
+
 @media (max-width: 900px) {
   .doc-shell { grid-template-columns: 1fr; }
   .syllabus { border-right: 0; border-bottom: 1px solid var(--line); padding: 1.2rem 0; }
