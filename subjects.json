@@ -1,6 +1,6 @@
 [
   {"slug":"microprocessor-and-computer-architecture","title":"Microprocessor and Computer Architecture","color":"#4f8cff","icon":"◇","href":"microprocessor-and-computer-architecture.html","desc":"8085, micro-operations, CPU, arithmetic, I/O, memory and pipelining."},
-  {"slug":"discrete-structure","title":"Discrete Structure","color":"#f2c14e","icon":"◇","href":"discrete-structure.html","desc":"Sets, logic, graphs, counting, number theory and induction. Six interactive chapters."},
+  {"slug":"discrete-structure","title":"Discrete Structure","color":"#f2c14e","icon":"◇","href":"discrete/sets-relations-functions.html","desc":"Sets, logic, graphs, counting, number theory and induction. Six interactive chapters."},
   {"slug":"object-oriented-programming","title":"Object-Oriented Programming","color":"#51cf66","icon":"◇","href":"object-oriented-programming.html","desc":"Classes, objects, inheritance and polymorphism. Content coming soon."},
   {"slug":"basic-statistics","title":"Basic Statistics","color":"#cc5de8","icon":"◇","href":"basic-statistics.html","desc":"Descriptive statistics, probability and inference. Content coming soon."},
   {"slug":"economics","title":"Economics","color":"#ff6b6b","icon":"◇","href":"economics.html","desc":"Microeconomics and macroeconomics, from demand and supply to national policy."}

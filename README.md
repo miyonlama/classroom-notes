@@ -7,7 +7,7 @@ Static site: dark editorial hub + subject notes pages.
 
 ## Notes
 - `notes/index.html` — subject list
-- `notes/discrete-structure.html` — 6 interactive chapters under `notes/discrete/`
+- `notes/discrete/sets-relations-functions.html` — chapter 1; the six chapters are under `notes/discrete/`. `notes/discrete-structure.html` redirects here.
 - Other subjects are placeholders until PDFs are supplied.
 
 ## Design system
