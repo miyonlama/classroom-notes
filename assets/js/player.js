@@ -50,11 +50,6 @@
     return { videoId: videoId, playlistId: playlistId, index: index };
   }
 
-  function parseId(url) {
-    var source = parseSource(url);
-    return source ? source.videoId : null;
-  }
-
   function fmt(seconds) {
     if (!isFinite(seconds) || seconds < 0) seconds = 0;
     var m = Math.floor(seconds / 60);
@@ -159,7 +154,7 @@
     urlInput.addEventListener("input", function () {
       if (loadTimer) clearTimeout(loadTimer);
       var value = urlInput.value.trim();
-      if (!parseId(value) || value === lastLoadedUrl) return;
+      if (!parseSource(value) || value === lastLoadedUrl) return;
       loadTimer = setTimeout(loadFromInput, 700);
     });
     document.getElementById("yt-load").addEventListener("click", loadFromInput);
@@ -217,9 +212,9 @@
 
   function loadFromInput() {
     var url = document.getElementById("yt-url").value.trim();
-    var id = parseId(url);
-    if (!id) {
-      setStatus("That is not a YouTube video URL.", true);
+    var source = parseSource(url);
+    if (!source) {
+      setStatus("That is not a YouTube video or playlist URL.", true);
       return;
     }
     state.url = url;
@@ -232,41 +227,54 @@
     setStatus("Ready — press play", false);
     saveState();
     if (player && player.loadVideoById) {
-      player.loadVideoById(id, 0);
+      if (source.playlistId && player.loadPlaylist) {
+        player.loadPlaylist({
+          list: source.playlistId,
+          listType: "playlist",
+          index: source.index - 1
+        });
+      } else if (source.videoId) {
+        player.loadVideoById(source.videoId, 0);
+      }
       if (state.muted) player.mute(); else player.unMute();
       player.setVolume(state.volume);
       setTimeout(function () { if (state.url === url) applyVideoData(player); }, 500);
     } else {
-      createPlayer(id);
+      createPlayer(source.videoId, source.playlistId, source.index);
     }
   }
 
-  function createPlayer(id) {
+  function createPlayer(id, playlistId, index) {
     if (!window.YT || !window.YT.Player) {
-      injectApi(function () { createPlayer(id); });
+      injectApi(function () { createPlayer(id, playlistId, index); });
       return;
     }
     var host = document.getElementById("yt-host");
     if (!host) return;
-    player = new window.YT.Player(host, {
+    var playerVars = {
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      modestbranding: 1,
+      playsinline: 1,
+      rel: 0,
+      origin: window.location.origin
+    };
+    if (playlistId) {
+      playerVars.list = playlistId;
+      playerVars.listType = "playlist";
+      playerVars.index = Math.max(0, (index || 1) - 1);
+    }
+    var options = {
       width: "1",
       height: "1",
-      videoId: id,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        disablekb: 1,
-        modestbranding: 1,
-        playsinline: 1,
-        rel: 0,
-        origin: window.location.origin
-      },
+      playerVars: playerVars,
       events: {
         onReady: function (e) {
           e.target.setVolume(state.volume);
           if (state.muted) e.target.mute(); else e.target.unMute();
           if (state.time > 0) e.target.seekTo(state.time, true);
-          setStatus(state.title || ("YouTube · " + id), false);
+          setStatus(state.title || ("YouTube · " + (id || "playlist")), false);
           applyVideoData(e.target);
           var readyDuration = e.target.getDuration && e.target.getDuration();
           if (readyDuration > 0) document.getElementById("yt-seek").max = String(Math.floor(readyDuration));
@@ -289,7 +297,9 @@
           updateToggle(false);
         }
       }
-    });
+    };
+    if (id) options.videoId = id;
+    player = new window.YT.Player(host, options);
   }
 
   function injectApi(cb) {
@@ -313,12 +323,11 @@
   function toggle() {
     if (!player || !player.playVideo) {
       var typed = document.getElementById("yt-url").value.trim();
-      var source = state.url || typed;
-      var id = parseId(source);
-      if (id) {
+      var source = parseSource(state.url || typed);
+      if (source) {
         if (!state.url) { state.url = typed; lastLoadedUrl = typed; saveState(); }
         pendingPlay = true;
-        createPlayer(id);
+        createPlayer(source.videoId, source.playlistId, source.index);
       }
       return;
     }
@@ -353,7 +362,7 @@
     // Restore the URL for convenience, but do not load the old video on a
     // fresh page load. Playback continuity is handled by the site router,
     // which never reloads this player.
-    if (parseId(state.url)) setStatus("Ready — press play", false);
+    if (parseSource(state.url)) setStatus("Ready — press play", false);
     window.addEventListener("pagehide", saveState);
   }
 
