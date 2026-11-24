@@ -114,7 +114,7 @@
   }
 
   function isSelectedAtVisibleIndex(visibleIndex) {
-    var idx = -1;
+    var idx = 0;
     for (var i = 0; i < subjects.length; i++) {
       if (visible(subjects[i])) {
         if (idx === visibleIndex) return i === selected;
