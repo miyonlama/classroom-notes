@@ -62,95 +62,116 @@
           <h3 class="iq-question">What does “congruent modulo” mean? Determine whether 20 ≡ 8 (mod 6) and whether 25 ≡ 17 (mod 5).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Definition.</b> For integers a, b and positive integer m, a ≡ b (mod m) means m divides a − b, equivalently a and b have the same remainder on division by m.</p>
-            <p>For 20 ≡ 8 (mod 6): 20 − 8 = 12 = 2·6, so the congruence holds.</p>
-            <p>For 25 ≡ 17 (mod 5): 25 − 17 = 8, which is not divisible by 5, so the congruence is false. Indeed 25 ≡ 0 and 17 ≡ 2 (mod 5).</p>
+            <p><b>[5 marks] Definition.</b> For integers a, b and a positive integer m, we write a ≡ b (mod m), read “a is congruent to b modulo m”, exactly when m divides a − b. Equivalently, a and b leave the same remainder when divided by m. The number m is called the modulus.</p>
+            <p><b>Why the two definitions agree.</b> Write a = q₁m + r₁ and b = q₂m + r₂ with 0 ≤ r₁, r₂ &lt; m. Then a − b = (q₁ − q₂)m + (r₁ − r₂). The difference a − b is divisible by m precisely when r₁ − r₂ is, and since |r₁ − r₂| &lt; m this happens exactly when r₁ = r₂.</p>
+            <p><b>First check: 20 ≡ 8 (mod 6).</b> Compute 20 − 8 = 12 = 2·6, which is divisible by 6. Hence the congruence is true. Equivalently, 20 = 3·6 + 2 and 8 = 1·6 + 2 share remainder 2.</p>
+            <p><b>Second check: 25 ≡ 17 (mod 5).</b> Compute 25 − 17 = 8, which is not divisible by 5. Hence the congruence is false. The remainders confirm it: 25 = 5·5 + 0 gives remainder 0, while 17 = 3·5 + 2 gives remainder 2.</p>
+            <p><b>Properties.</b> Congruence modulo m is an equivalence relation: reflexive since a − a = 0; symmetric since a − b = km gives b − a = (−k)m; transitive since (a − b) + (b − c) = a − c. Its classes are the residue classes 0, 1, …, m − 1, which form the ring Zₘ. Addition, subtraction and multiplication respect congruence, so computations can be done on remainders alone.</p>
+            <p><b>Notation caution.</b> The three vertical bars in a ≡ b (mod m) differ from the equality sign: equality requires the integers themselves to match, while congruence only requires their difference to be a multiple of m. Writing “20 = 8 (mod 6)” is an abuse of notation unless it is understood as congruence; the correct symbol is ≡.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain trial division with an example. Using trial division, show that 101 is prime.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q9) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Trial division.</b> To test whether n is prime, divide n by each prime p ≤ √n. If none divides n then n is prime, because any composite factorisation n = ab must have one factor at most √n.</p>
-            <p><b>Example.</b> 91 is composite: √91 ≈ 9.5 and 91 = 7 × 13.</p>
-            <p><b>For 101:</b> √101 ≈ 10.05, so test the primes 2, 3, 5, 7. 101 is odd; its digit sum is 2, so 3 does not divide it; it does not end in 0 or 5; and 101 = 7·14 + 3. No prime up to √101 divides 101, so <b>101 is prime</b>.</p>
+            <p><b>[5 marks] Trial division.</b> To decide whether an integer n &gt; 1 is prime, test whether any prime p divides n. It is enough to test primes p ≤ √n: if n = ab with a ≤ b then a ≤ √n, so any proper factorisation must have a factor no larger than √n. If no such prime divides n, then n is prime.</p>
+            <p><b>Example of a composite.</b> Let n = 91. Since √91 ≈ 9.54, test 2, 3, 5, 7. It is odd, its digit sum 10 is not divisible by 3, it does not end in 0 or 5, but 91 = 7·13. Hence 91 is composite and the smallest prime factor is 7.</p>
+            <p><b>Testing 101.</b> Since √101 ≈ 10.05, the primes to try are 2, 3, 5 and 7. 101 is odd, so 2 fails. Its digit sum is 2, so 3 fails. It does not end in 0 or 5, so 5 fails. Finally 101 = 7·14 + 3, so 7 fails. No prime ≤ √101 divides 101, therefore <b>101 is prime</b>.</p>
+            <p><b>Verification via divisibility rules.</b> Divisibility by 2 depends on the last digit being even; by 3 on the digit sum being a multiple of 3; by 5 on the last digit being 0 or 5. These rules quickly eliminate 2, 3 and 5 for 101, leaving only division by 7 as a real computation.</p>
+            <p><b>Efficiency.</b> Trial division takes O(√n) divisions in the worst case, which is fine for small numbers but slow for cryptographic sizes. Faster tests such as Miller–Rabin use modular exponentiation, and the extended Euclidean algorithm is then used to compute inverses in the same modular arithmetic.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is arithmetic modulo m? Using the definitions of addition and multiplication in Zₘ, compute 7 +₁₁ 9 and 7 ×₁₁ 9.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q9) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>In Zₘ the elements are the residue classes {0, 1, …, m − 1}. Addition and multiplication are performed on representatives and the result reduced modulo m: [a]ₘ + [b]ₘ = [a + b]ₘ and [a]ₘ · [b]ₘ = [ab]ₘ. These operations are well defined because replacing a representative by an equivalent one changes results by a multiple of m.</p>
-            <p>Working modulo 11:</p>
-            <ul><li>7 +₁₁ 9 = 16, and 16 = 11 + 5, so the answer is <b>5</b>.</li>
-            <li>7 ×₁₁ 9 = 63, and 63 = 5·11 + 8, so the answer is <b>8</b>.</li></ul>
-            <p>Z₁₁ is a field because 11 is prime: every nonzero class has a multiplicative inverse.</p>
+            <p><b>[5 marks] Residue classes.</b> Arithmetic modulo m works with the m residue classes 0, 1, …, m − 1, written Zₘ. Every integer is replaced by its remainder on division by m. The operations are defined by [a] + [b] = [a + b] and [a]·[b] = [ab], followed by reduction to the least nonnegative residue. These definitions are well defined: replacing a by a + km changes a + b by km and ab by kmb, both multiples of m, so the result class is unchanged.</p>
+            <p><b>Addition in Z₁₁.</b> The expression 7 +₁₁ 9 means add normally to get 16, then reduce: 16 = 1·11 + 5, so 7 +₁₁ 9 = <b>5</b>. The subscript 11 records the modulus in which the computation happens.</p>
+            <p><b>Multiplication in Z₁₁.</b> The expression 7 ×₁₁ 9 means multiply normally to get 63, then reduce: 63 = 5·11 + 8, so 7 ×₁₁ 9 = <b>8</b>.</p>
+            <p><b>Algebraic laws.</b> Addition and multiplication in Zₘ are associative, commutative and distributive, with additive identity 0 and multiplicative identity 1. Every class has an additive inverse (−a ≡ m − a), but a nonzero class has a multiplicative inverse only when gcd(a, m) = 1. Since 11 is prime, every nonzero element of Z₁₁ is invertible, so Z₁₁ is a field.</p>
+            <p><b>Checking the results by congruence.</b> 7 + 9 = 16 ≡ 5 (mod 11) and 7·9 = 63 ≡ 8 (mod 11). These computations can be used inside larger modular problems, such as the Chinese Remainder Theorem, because reduction commutes with addition and multiplication.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove that √2 is irrational.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q7), 2082 (Q2) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Method: Proof by Contradiction (Indirect Proof)</b></p>
-            <p><b>Step 1 — State the assumption.</b> Assume the opposite of what we need to prove: suppose √2 is a rational number.</p>
-            <p><b>Step 2 — Define the rational number.</b> By the definition of rational numbers, write √2 in its simplest form as √2 = a/b, where a and b are integers, b ≠ 0, and a and b have no common factor other than 1, that is gcd(a, b) = 1 (they are coprime).</p>
-            <p><b>Step 3 — Algebraic manipulation.</b> Square both sides: 2 = a²/b². Multiply both sides by b²: a² = 2b² — Equation 1.</p>
-            <p><b>Step 4 — Deduce that a is even.</b> From Equation 1, a² is an integer multiplied by 2, so a² is even. If the square of an integer is even, the integer itself is even. Hence a is even, and we may write a = 2k for some integer k.</p>
-            <p><b>Step 5 — Deduce that b is even.</b> Substitute a = 2k into Equation 1: (2k)² = 2b², so 4k² = 2b², and dividing by 2 gives 2k² = b². By the same logic as Step 4, b² is even, so b is even.</p>
-            <p><b>Step 6 — State the contradiction.</b> Both a and b are even, so they share a common factor of 2. This contradicts Step 2, where a and b were chosen coprime with gcd(a, b) = 1.</p>
-            <p><b>Conclusion.</b> The assumption leads to a logical impossibility, so it is false. Therefore √2 is irrational.</p>
+            <p><b>[5 marks] Method: Proof by Contradiction (Indirect Proof).</b> Assume the opposite of what we need to prove: suppose √2 is a rational number.</p>
+            <p><b>Step 1 — define the rational number.</b> By the definition of rational numbers, √2 can be written in simplest form as √2 = a/b, where a and b are integers, b ≠ 0, and a and b have no common factor other than 1, that is gcd(a, b) = 1 (they are coprime).</p>
+            <p><b>Step 2 — algebraic manipulation.</b> Square both sides: 2 = a²/b². Multiply both sides by b² to obtain a² = 2b² — Equation 1.</p>
+            <p><b>Step 3 — deduce that a is even.</b> From Equation 1, a² is an integer multiplied by 2, so a² is even. If the square of an integer is even, the integer itself is even: were a odd, a = 2k + 1 would give a² = 2(2k² + 2k) + 1, odd. Hence a is even and we may write a = 2k for some integer k.</p>
+            <p><b>Step 4 — deduce that b is even.</b> Substitute a = 2k into Equation 1: (2k)² = 2b², so 4k² = 2b². Dividing by 2 gives 2k² = b². By the same logic as Step 3, b² is even, so b is even.</p>
+            <p><b>Step 5 — state the contradiction.</b> Both a and b are even, so they share the common factor 2. This contradicts Step 1, where a and b were chosen coprime with gcd(a, b) = 1.</p>
+            <p><b>Conclusion.</b> Because the assumption leads to a logical impossibility, the assumption is false. Therefore √2 is irrational.</p>
+            <p><b>Why lowest terms matters.</b> The contradiction depends on choosing a and b with gcd(a, b) = 1. If we did not reduce the fraction, both numerator and denominator could legitimately be even and no contradiction would appear. The same argument proves √p irrational for any prime p, since p | a² implies p | a, then p | b, contradicting coprimality.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Solve the system of congruences using the Chinese Remainder Theorem: x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Use the Chinese Remainder Theorem with M = 3·5·7 = 105 and pairwise coprime moduli.</p>
-            <ol><li>For mod 3: M₁ = 35, and 35 ≡ 2 (mod 3). Since 2·2 ≡ 1 (mod 3), the inverse is 2; contribution 2·35·2 = 140.</li>
-            <li>For mod 5: M₂ = 21 ≡ 1 (mod 5), inverse 1; contribution 3·21·1 = 63.</li>
-            <li>For mod 7: M₃ = 15 ≡ 1 (mod 7), inverse 1; contribution 2·15·1 = 30.</li></ol>
-            <p>Sum = 140 + 63 + 30 = 233, and 233 − 2·105 = 23. Hence x ≡ <b>23 (mod 105)</b>. Check: 23 = 7·3 + 2, 23 = 4·5 + 3, 23 = 3·7 + 2. The solution is unique modulo 105.</p>
+            <p><b>[5 marks] Setup.</b> Solve x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7). The moduli 3, 5, 7 are pairwise coprime, so the Chinese Remainder Theorem guarantees a unique solution modulo M = 3·5·7 = 105.</p>
+            <p><b>Step 1 — partial products.</b> M₁ = M/3 = 35, M₂ = M/5 = 21, M₃ = M/7 = 15. Each Mᵢ is divisible by the other two moduli, so it is congruent to 0 modulo them and nonzero modulo its own modulus.</p>
+            <p><b>Step 2 — modular inverses.</b> For modulus 3: 35 ≡ 2 (mod 3) and 2·2 ≡ 1 (mod 3), so the inverse y₁ = 2. For modulus 5: 21 ≡ 1 (mod 5) and 1·1 ≡ 1, so y₂ = 1. For modulus 7: 15 ≡ 1 (mod 7) and 1·1 ≡ 1, so y₃ = 1.</p>
+            <p><b>Step 3 — combine.</b> x ≡ a₁M₁y₁ + a₂M₂y₂ + a₃M₃y₃ = 2·35·2 + 3·21·1 + 2·15·1 = 140 + 63 + 30 = 233 modulo 105. Since 233 = 2·105 + 23, we get x ≡ <b>23 (mod 105)</b>.</p>
+            <p><b>Verification.</b> 23 = 7·3 + 2 gives remainder 2 mod 3; 23 = 4·5 + 3 gives remainder 3 mod 5; 23 = 3·7 + 2 gives remainder 2 mod 7. All three congruences hold. The solution set is {23 + 105t | t ∈ ℤ}, and any two solutions differ by a multiple of 105 because the moduli are coprime.</p>
+            <p><b>Deriving the reconstruction formula.</b> Each term Mᵢyᵢ is congruent to 1 modulo mᵢ and to 0 modulo every other modulus. Multiplying by the desired residue aᵢ makes it congruent to aᵢ modulo mᵢ and to 0 elsewhere. Summing the three terms therefore reproduces all three required congruences at once, and reducing modulo M gives the least nonnegative representative.</p>
+            <p><b>Checking uniqueness.</b> If x and y both satisfy the system, then x − y is divisible by 3, by 5 and by 7. Since these are pairwise coprime, their product 105 divides x − y, so x ≡ y (mod 105). Thus the solution is unique modulo M and the answer 23 is the only representative between 0 and 104.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain how the Chinese Remainder Theorem can be used to perform computations on large integers and give an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q9) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>The Chinese Remainder Theorem represents an integer x by its residues modulo several pairwise coprime moduli m₁, …, mₖ. Since reduction is a ring homomorphism, (x + y) mod mᵢ = (x mod mᵢ) + (y mod mᵢ) and similarly for products. Large integers can therefore be added or multiplied componentwise on small residues, then recovered uniquely modulo M = m₁⋯mₖ.</p>
-            <p><b>Example.</b> With moduli 9, 10, 11 (pairwise coprime, M = 990), 1234 has residues (1, 4, 2): its digit sum is 10, so 1234 ≡ 1 (mod 9), its last digit gives 4, and the alternating sum 4 − 3 + 2 − 1 = 2 gives mod 11. Also 56 has residues (2, 6, 1). Adding componentwise, their sum has residues (3, 0, 3), which reconstructs to 300 (mod 990). This agrees with 1234 + 56 = 1290 = 990 + 300.</p>
-            <p>This is used in modular arithmetic libraries and cryptography: computations stay on small numbers while the modulus M can be enormous.</p>
+            <p><b>[5 marks] The theorem.</b> If m₁, …, mₖ are pairwise coprime with product M, then the map x mod M ↦ (x mod m₁, …, x mod mₖ) is a bijection from Z_M onto the product ring Z_m₁ × ⋯ × Z_mₖ. Because reduction is a ring homomorphism, addition and multiplication can be performed componentwise on the residues, and the result can be reconstructed uniquely modulo M.</p>
+            <p><b>Method for large integers.</b> Choose small coprime moduli whose product exceeds the size of the answers of interest. Replace each large integer by its vector of residues. Add or multiply the vectors componentwise, reducing each coordinate modulo its own modulus. Finally apply the CRT reconstruction formula to recover the result modulo M. Each intermediate number stays small even when M is enormous.</p>
+            <p><b>Worked example.</b> With moduli 9, 10, 11 (pairwise coprime, M = 990), 1234 has residues (1, 4, 2): digit sum 10 gives 1 mod 9, last digit 4 gives 4 mod 10, and alternating sum 4 − 3 + 2 − 1 = 2 gives 2 mod 11. Also 56 has residues (2, 6, 1). Adding componentwise gives (1+2 mod 9, 4+6 mod 10, 2+1 mod 11) = (3, 0, 3).</p>
+            <p><b>Reconstruction.</b> The vector (3, 0, 3) corresponds to 300 modulo 990: 300 = 33·9 + 3, 300 = 30·10 + 0 and 300 = 27·11 + 3. Direct arithmetic gives 1234 + 56 = 1290 = 990 + 300, agreeing with the residue calculation.</p>
+            <p><b>Applications and limits.</b> This residue number system allows parallel, carry-free arithmetic and is used in cryptography and signal processing. Multiplication works the same way, but comparisons, division and sign detection are awkward because the residue vector does not encode magnitude ordering. The moduli must be coprime, or a common factor would make reconstruction ambiguous.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Find the multiplicative inverse of 6 in Z₂₅ using the extended Euclidean algorithm.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q6) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Apply the Euclidean algorithm to 25 and 6: 25 = 4·6 + 1. Hence 1 = 25 − 4·6, so −4·6 ≡ 1 (mod 25).</p>
-            <p>Since −4 ≡ 21 (mod 25), the multiplicative inverse of 6 in Z₂₅ is <b>21</b>. Check: 6·21 = 126 = 5·25 + 1 ≡ 1 (mod 25). The inverse exists because gcd(6, 25) = 1.</p>
+            <p><b>[5 marks] Condition for existence.</b> An element a in Zₘ has a multiplicative inverse exactly when gcd(a, m) = 1. Here gcd(6, 25) = 1 because 25 = 5² and 6 shares no factor 5, so the inverse of 6 exists and is unique modulo 25.</p>
+            <p><b>Euclidean algorithm.</b> Divide 25 by 6: 25 = 4·6 + 1. The remainder is 1 already, so the next division gives 6 = 6·1 + 0 and the gcd is 1.</p>
+            <p><b>Back substitution.</b> Rearrange the first equation: 1 = 25 − 4·6. Reducing modulo 25 drops the 25 term and gives 1 ≡ −4·6 (mod 25). Since −4 ≡ 21 (mod 25), the inverse is <b>21</b>.</p>
+            <p><b>Verification.</b> 6·21 = 126 = 5·25 + 1 ≡ 1 (mod 25), confirming that 21 is indeed the multiplicative inverse. Any other inverse differs from 21 by a multiple of 25, so 21 is the unique representative in {0, 1, …, 24}.</p>
+            <p><b>Interpreting the Bezout coefficients.</b> The identity 1 = 25 − 4·6 says that the coefficient of 6 is −4, which is the inverse in the integers; reducing it into the standard range gives 21. The same extended Euclidean computation solves every modular inverse problem, including the case where the modulus is a large prime.</p>
+            <p><b>Why gcd = 1 is essential.</b> If d = gcd(a, m) &gt; 1 then a·x ≡ 1 (mod m) would imply d divides the left-hand side, so d would divide 1, a contradiction. Hence no inverse exists. The extended Euclidean algorithm always produces the Bezout identity ax + my = gcd(a, m); when the gcd is 1 the coefficient x is automatically the inverse.</p>
+            <p><b>General pattern.</b> For any modulus m and integer a coprime to m, run Euclid on (a, m), back-substitute to express 1 as ax + my, then reduce x into {0, …, m − 1}. Here that gave −4 → 21. Inverting modulo a prime is especially important in cryptography, where decryption often requires the inverse of an exponent modulo p − 1.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Compute the following values: 8 mod 8, −9 mod 4, 7 mod 17, 6 mod 7, and −8 mod 3.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q9) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Reduce each value to the least nonnegative residue in the relevant range:</p>
-            <ul><li>8 mod 8 = <b>0</b>, since 8 = 1·8 + 0.</li>
-            <li>−9 mod 4: add 12 to reach 3, so −9 ≡ <b>3</b> (mod 4).</li>
-            <li>7 mod 17 = <b>7</b>, already in range.</li>
-            <li>6 mod 7 = <b>6</b>, already in range.</li>
-            <li>−8 mod 3: add 9 to reach 1, so −8 ≡ <b>1</b> (mod 3).</li></ul>
-            <p>Rule: a mod m is the remainder r with 0 ≤ r &lt; m and a = qm + r, even when a is negative (choose q negative enough).</p>
+            <p><b>[5 marks] Definition.</b> For an integer a and positive integer m, a mod m is the unique remainder r with a = qm + r and 0 ≤ r &lt; m. For negative a, choose q negative enough to make r nonnegative. Each calculation below exhibits q and r.</p>
+            <ul><li><b>8 mod 8:</b> 8 = 1·8 + 0, so the remainder is <b>0</b>. In general m mod m = 0 for every positive m.</li>
+            <li><b>−9 mod 4:</b> take q = −3, then −9 = (−3)·4 + 3, so the remainder is <b>3</b>. Equivalently −9 + 3·4 = 3.</li>
+            <li><b>7 mod 17:</b> 7 = 0·17 + 7, so the remainder is <b>7</b>, already in the allowed range.</li>
+            <li><b>6 mod 7:</b> 6 = 0·7 + 6, so the remainder is <b>6</b>. Any positive integer smaller than the modulus is its own remainder.</li>
+            <li><b>−8 mod 3:</b> take q = −3, then −8 = (−3)·3 + 1, so the remainder is <b>1</b>. Equivalently −8 + 3·3 = 1.</li></ul>
+            <p><b>Pattern for negatives.</b> To compute −a mod m when a is positive, find a mod m = r; if r = 0 the answer is 0, otherwise the answer is m − r. For −9 with r = 1 this gives 4 − 1 = 3; for −8 with r = 2 it gives 3 − 2 = 1. The results agree with the direct computations.</p>
+            <p><b>Congruence form.</b> Each result r satisfies −9 ≡ 3 (mod 4) and −8 ≡ 1 (mod 3), since the differences are multiples of the moduli. These remainders are the canonical representatives of the corresponding residue classes.</p>
+            <p><b>Summary table.</b> The five answers in order are 0, 3, 7, 6, 1. Check each by confirming that a − r is a multiple of m: 8 − 0 = 8 = 1·8; −9 − 3 = −12 = −3·4; 7 − 7 = 0; 6 − 6 = 0; −8 − 1 = −9 = −3·3. Every difference is a whole multiple of the modulus and every remainder lies in the required range, so all five results are correct.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the division algorithm. Add the integers 13,578 and 45,730 using the Chinese Remainder Theorem.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q1) &middot; <b>Marks:</b> 2+8</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Division algorithm.</b> For integers a and b &gt; 0 there exist unique integers q and r with a = bq + r and 0 ≤ r &lt; b; q is the quotient and r the remainder.</p>
-            <p><b>Adding with CRT.</b> Choose pairwise coprime moduli 9, 10, 11, whose product is 990.</p>
-            <ul><li>13,578 has residues (6, 8, 4): digit sum 24 → 6 mod 9; last digit 8; and alternating sum 8 − 7 + 5 − 3 + 1 = 4 mod 11.</li>
-            <li>45,730 has residues (1, 0, 3): digit sum 19 → 1 mod 9; last digit 0; alternating sum 0 − 3 + 7 − 5 + 4 = 3 mod 11.</li></ul>
-            <p>Add componentwise to get (7, 8, 7). Solving x ≡ 7 (mod 9), x ≡ 8 (mod 10), x ≡ 7 (mod 11) gives x ≡ 898 (mod 990). Direct addition confirms 13,578 + 45,730 = 59,308 = 59·990 + <b>898</b>, so the residue reconstruction agrees with the ordinary sum.</p>
+            <p><b>[10 marks] Part (a) — 2 marks: division algorithm.</b> For integers a and b with b &gt; 0 there exist unique integers q and r such that a = bq + r and 0 ≤ r &lt; b. Here q is the quotient and r the remainder. Existence follows from repeated subtraction of b; uniqueness follows because two representations would give b(q₁ − q₂) = r₂ − r₁ with |r₂ − r₁| &lt; b, forcing q₁ = q₂ and r₁ = r₂.</p>
+            <p><b>Part (b) — 8 marks: adding with the CRT.</b> Choose the pairwise coprime moduli 9, 10 and 11, whose product is M = 990. Represent each integer by its triple of residues.</p>
+            <p><b>Residues of 13,578.</b> Mod 9: digit sum 1 + 3 + 5 + 7 + 8 = 24, and 24 ≡ 6, so 13,578 ≡ 6 (mod 9). Mod 10: last digit 8. Mod 11: alternating sum 8 − 7 + 5 − 3 + 1 = 4, so 13,578 ≡ 4 (mod 11). The vector is (6, 8, 4).</p>
+            <p><b>Residues of 45,730.</b> Mod 9: digit sum 4 + 5 + 7 + 3 + 0 = 19, and 19 ≡ 1. Mod 10: last digit 0. Mod 11: alternating sum 0 − 3 + 7 − 5 + 4 = 3. The vector is (1, 0, 3).</p>
+            <p><b>Componentwise addition.</b> Add the vectors modulo their respective moduli: (6+1 mod 9, 8+0 mod 10, 4+3 mod 11) = (7, 8, 7). This is the residue vector of the sum, because reduction modulo m respects addition.</p>
+            <p><b>Reconstruction.</b> Solve x ≡ 7 (mod 9), x ≡ 8 (mod 10), x ≡ 7 (mod 11). The first two combine to x ≡ 88 (mod 90), since 88 mod 9 = 7 and 88 mod 10 = 8. Writing x = 88 + 90t and reducing mod 11 gives 88 + 90t ≡ 0 + 2t ≡ 7 (mod 11), so 2t ≡ 7 and t ≡ 7·6 ≡ 42 ≡ 9 (mod 11). Taking t = 9 gives x = 88 + 810 = <b>898</b> modulo 990.</p>
+            <p><b>Verification against ordinary addition.</b> 13,578 + 45,730 = 59,308. Dividing by 990 gives 59·990 = 58,410 with remainder 898. Thus 59,308 ≡ 898 (mod 990), exactly the reconstructed value. The residue computation avoided handling five-digit carries but produced the same answer modulo 990.</p>
+            <p><b>Limit of the method.</b> The CRT recovers the sum only modulo M = 990. If the true sum exceeded 990, the residue vector cannot distinguish it from its remainder; extra bounds or larger moduli are needed to pin down the exact integer. For very large M the technique is nevertheless powerful because each coordinate stays small and the computations can run in parallel.</p>
+            <p><b>Why the digit tests work.</b> For modulus 9, 10ᵏ ≡ 1 (mod 9) for every k, so a decimal number is congruent to the sum of its digits; this gives the digit-sum test used above. For modulus 11, 10 ≡ −1 (mod 11), so powers of 10 alternate in sign and the number is congruent to the alternating sum of its digits taken from the right. These shortcuts replace long division with a few additions.</p>
+            <p><b>Choosing better moduli.</b> The product 990 is convenient but small. A cryptosystem would use moduli that are large primes, perhaps hundreds of digits each, giving a modulus M far larger than any expected answer; then reconstruction modulo M recovers the exact integer. The same componentwise addition and multiplication apply regardless of the size of the moduli.</p>
           </div>
         </article>
 
