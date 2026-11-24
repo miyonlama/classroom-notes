@@ -1,0 +1,45 @@
+{
+  "title": "Choose the notes page layout",
+  "question": "How should the Discrete Structure reading page be arranged?",
+  "options": [
+    {
+      "id": "outline-transcript",
+      "kind": "assigned",
+      "label": "Projected Outline & Transcript",
+      "kicker": "THE ROLL",
+      "lineage": "lecture outline projected beside a transcript",
+      "thesis": "A numbered chapter outline on the left, a calm reading column on the right.",
+      "palette": ["#101a16", "#e8ece1", "#2f7d58", "#f2c14e"],
+      "materials": ["chalkboard", "projector bloom", "numbered margin"],
+      "viewport": "Masthead at top with brand and breadcrumb. Left rail lists six chapters as a numbered syllabus. Right column opens on the selected chapter with a readable measure and one highlighted slide number in the margin.",
+      "risk": "The outline can feel like navigation chrome if chapter labels are too quiet.",
+      "html": ".impeccable/mocks/decision/outline-transcript.html"
+    },
+    {
+      "id": "slide-tabs",
+      "kind": "dealt",
+      "label": "Lecture Slide Tabs",
+      "lineage": "projected slide deck with tabbed chapters",
+      "thesis": "Six numbered slide tabs run across the top; one reading pane holds the open chapter.",
+      "palette": ["#101a16", "#e8ece1", "#2f7d58", "#f2c14e"],
+      "materials": ["slide tabs", "projector wash", "chalk rules"],
+      "viewport": "Masthead above a horizontal row of six chapter tabs. The active tab is lit yellow. Below, a single reading column carries the chapter title, opening paragraph, and a definition callout.",
+      "risk": "Tabs compete with the reading column when the chapter names wrap.",
+      "html": ".impeccable/mocks/decision/slide-tabs.html"
+    },
+    {
+      "id": "index-cards",
+      "kind": "dealt",
+      "label": "Index-Card Stack",
+      "lineage": "numbered index cards on a lecture desk",
+      "thesis": "Six chapter cards sit in a row; the open card expands into the reading surface.",
+      "palette": ["#101a16", "#e8ece1", "#2f7d58", "#f2c14e"],
+      "materials": ["index cards", "tape tabs", "chalk dust"],
+      "viewport": "Masthead, then a row of six small numbered cards with taped tabs. Beneath them, the active card opens into a wide reading panel with a chapter list and an example block.",
+      "risk": "Cards can turn the page into a gallery instead of a document.",
+      "html": ".impeccable/mocks/decision/index-cards.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "buildPath": { "value": "code", "toggle": true }
+}

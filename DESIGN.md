@@ -15,6 +15,12 @@ typography:
     fontWeight: 700
     lineHeight: 0.92
     letterSpacing: "-0.04em"
+  reading-display:
+    fontFamily: "Barlow Condensed, sans-serif"
+    fontSize: "clamp(2.8rem, 5vw, 3.6rem)"
+    fontWeight: 700
+    lineHeight: 1
+    letterSpacing: "-0.03em"
   headline:
     fontFamily: "Barlow Condensed, sans-serif"
     fontSize: "2.1rem"
@@ -26,6 +32,16 @@ typography:
     fontSize: "16px"
     fontWeight: 400
     lineHeight: 1.5
+  brand:
+    fontFamily: "Barlow Condensed, sans-serif"
+    fontSize: "1.35rem"
+    fontWeight: 700
+    lineHeight: 1
+  caption:
+    fontFamily: "Source Sans 3, sans-serif"
+    fontSize: "0.8rem"
+    fontWeight: 400
+    lineHeight: 1.55
   label:
     fontFamily: "Source Sans 3, sans-serif"
     fontSize: "0.7rem"

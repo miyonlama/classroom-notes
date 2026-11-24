@@ -4,28 +4,90 @@
   "title": "Design System: Classroom Notes",
   "extensions": {
     "colorMeta": {
-      "board": { "role": "neutral", "displayName": "Chalkboard", "canonical": "#101a16" },
-      "board-deep": { "role": "neutral", "displayName": "Board Deep", "canonical": "#0b1310" },
-      "chalk": { "role": "neutral", "displayName": "Chalk", "canonical": "#e8ece1" },
-      "chalk-dim": { "role": "neutral", "displayName": "Chalk Dim", "canonical": "#a9b7ac" },
-      "board-green": { "role": "secondary", "displayName": "Board Green", "canonical": "#2f7d58" },
-      "projector-yellow": { "role": "primary", "displayName": "Projector Yellow", "canonical": "#f2c14e" }
+      "board": {
+        "role": "neutral",
+        "displayName": "Chalkboard",
+        "canonical": "#101a16"
+      },
+      "board-deep": {
+        "role": "neutral",
+        "displayName": "Board Deep",
+        "canonical": "#0b1310"
+      },
+      "chalk": {
+        "role": "neutral",
+        "displayName": "Chalk",
+        "canonical": "#e8ece1"
+      },
+      "chalk-dim": {
+        "role": "neutral",
+        "displayName": "Chalk Dim",
+        "canonical": "#a9b7ac"
+      },
+      "board-green": {
+        "role": "secondary",
+        "displayName": "Board Green",
+        "canonical": "#2f7d58"
+      },
+      "projector-yellow": {
+        "role": "primary",
+        "displayName": "Projector Yellow",
+        "canonical": "#f2c14e"
+      }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Page headline only." },
-      "headline": { "displayName": "Headline", "purpose": "Active subject title." },
-      "body": { "displayName": "Body", "purpose": "Descriptions and chapter lists." },
-      "label": { "displayName": "Label", "purpose": "Syllabus and tray labels." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page headline only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Active subject title."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Descriptions and chapter lists."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Syllabus and tray labels."
+      },
+      "reading-display": {
+        "displayName": "Reading Display",
+        "purpose": "Chapter titles in reading surfaces."
+      },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "Wordmark in mastheads."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Chapter labels and card numbers."
+      }
     },
     "shadows": [
-      { "name": "action-lift", "value": "0 6px 18px rgba(0,0,0,0.28)", "purpose": "Primary action only." }
+      {
+        "name": "action-lift",
+        "value": "0 6px 18px rgba(0,0,0,0.28)",
+        "purpose": "Primary action only."
+      }
     ],
     "motion": [
-      { "name": "settle", "value": "cubic-bezier(0.16,1,0.3,1)", "purpose": "Load and active-slide change." }
+      {
+        "name": "settle",
+        "value": "cubic-bezier(0.16,1,0.3,1)",
+        "purpose": "Load and active-slide change."
+      }
     ],
     "breakpoints": [
-      { "name": "wide", "value": "1100px" },
-      { "name": "mobile", "value": "700px" }
+      {
+        "name": "wide",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile",
+        "value": "700px"
+      }
     ]
   },
   "components": [
@@ -64,8 +126,16 @@
       "One yellow accent for the active decision"
     ],
     "rules": [
-      { "name": "The One Voice Rule", "body": "Yellow appears only on the active choice and its action.", "section": "colors" },
-      { "name": "The Heading Carries It Rule", "body": "No kicker or eyebrow sits above a heading.", "section": "typography" }
+      {
+        "name": "The One Voice Rule",
+        "body": "Yellow appears only on the active choice and its action.",
+        "section": "colors"
+      },
+      {
+        "name": "The Heading Carries It Rule",
+        "body": "No kicker or eyebrow sits above a heading.",
+        "section": "typography"
+      }
     ],
     "dos": [
       "Do keep every surface square.",
