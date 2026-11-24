@@ -62,42 +62,61 @@
           <h3 class="iq-question">Explain direct proof, indirect proof, and proof by contradiction. Use a direct proof to show: “If n is an odd integer, then n² is an odd integer.” Also use an indirect proof to show: “If n is an integer and n² is odd, then n is odd.”</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q1) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Direct proof.</b> To prove p → q, assume p and derive q by algebra and known facts. <b>Indirect proof</b> proves p → q by proving the contrapositive ¬q → ¬p. <b>Proof by contradiction</b> assumes ¬p together with the premises and derives a contradiction.</p>
-            <p><b>Direct: n odd ⇒ n² odd.</b> Write n = 2k + 1. Then n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1, which is twice an integer plus 1, hence odd.</p>
-            <p><b>Indirect: n² odd ⇒ n odd.</b> Prove the contrapositive: if n is even then n = 2k, so n² = 4k² = 2(2k²) is even. Therefore an n with n² odd cannot be even, so it must be odd.</p>
+            <p><b>[10 marks] Three proof methods.</b> A direct proof of p → q assumes p and derives q using definitions, algebra and previously established facts. An indirect proof, also called proof by contrapositive, proves the equivalent statement ¬q → ¬p instead. A proof by contradiction assumes p and ¬q together, then derives an impossibility, showing that p → q must hold. All three establish the same implication but choose a different starting point.</p>
+            <p><b>Direct proof — statement.</b> Prove that if n is an odd integer then n² is odd. The direct method starts by writing n in the defining form of an odd integer and computing.</p>
+            <p><b>Direct proof — algebra.</b> Let n = 2k + 1 for some integer k. Then n² = (2k + 1)² = 4k² + 4k + 1 = 2(2k² + 2k) + 1. Since 2k² + 2k is an integer, n² has the form 2t + 1 with t = 2k² + 2k, so n² is odd. Every step is an equality, so the conclusion follows without any extra assumption.</p>
+            <p><b>Indirect proof — statement.</b> Prove that if n² is odd then n is odd. A direct approach has little to work with, because an odd square does not give a convenient algebraic form. Use the contrapositive instead: prove that if n is not odd, that is even, then n² is not odd, that is even.</p>
+            <p><b>Indirect proof — algebra.</b> Let n = 2k. Then n² = 4k² = 2(2k²), which is even. We have proved ¬q → ¬p, where p is “n² is odd” and q is “n is odd”. Since a statement and its contrapositive are logically equivalent, p → q follows: an n whose square is odd cannot be even, so it is odd.</p>
+            <p><b>Proof by contradiction — method.</b> To prove p, assume ¬p and derive a statement known to be false, such as r ∧ ¬r or 0 = 1. The contradiction shows the assumption ¬p is impossible, hence p is true. This method is especially useful for irrationality and nonexistence results where no direct construction is available.</p>
+            <p><b>Proof by contradiction — example.</b> Prove √2 is irrational. Suppose √2 = a/b in lowest terms with gcd(a, b) = 1. Squaring gives a² = 2b², so a² is even and therefore a = 2k. Substituting gives 4k² = 2b², so b² = 2k² and b is even. Then 2 divides both a and b, contradicting gcd(a, b) = 1. Hence √2 is irrational.</p>
+            <p><b>Choosing a method.</b> Use a direct proof when the hypothesis gives an explicit form to compute with, as with the odd integer 2k + 1. Use the contrapositive when the negation of the conclusion is cleaner than the conclusion itself, as with “even” replacing “not odd”. Use contradiction when the assumption of the negation unlocks a contradiction with a known fact, as with coprimality.</p>
+            <p><b>Common errors.</b> Proving the converse instead of the implication, assuming what is to be proved, and deriving a contradiction from a false premise rather than from ¬p all invalidate a proof. Each method must end by explicitly connecting the established result back to the original statement.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a tautology? Show that (p ∧ q) → (p ∨ q) is a tautology.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>tautology</b> is a compound proposition true for every assignment of truth values to its variables.</p>
-            <p>Test (p ∧ q) → (p ∨ q). An implication is false only when its antecedent is true and consequent false. If p ∧ q is true then both p and q are true, so p ∨ q is true; there is no row with true antecedent and false consequent.</p>
+            <p><b>[5 marks] Definition.</b> A tautology is a compound proposition that is true for every possible assignment of truth values to its variables. A contradiction is false on every row, and a contingency is true on some rows and false on others. Tautologies are the logical laws: they hold because of the form of the statement, not because of the meaning of the variables.</p>
+            <p><b>Claim.</b> (p ∧ q) → (p ∨ q) is a tautology. An implication is false in exactly one situation: antecedent true and consequent false. So we only need to check whether that situation can arise.</p>
+            <p><b>Reasoning without a table.</b> Suppose p ∧ q is true. Then p is true and q is true, by the definition of conjunction. Hence p ∨ q is true. It is impossible for the antecedent to be true while the consequent is false, so the implication is never false.</p>
             <table class="topic-table"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>p ∨ q</th><th>(p ∧ q) → (p ∨ q)</th></tr></thead><tbody>
             <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
             <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
             <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
             <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
             </tbody></table>
-            <p>The last column is all true, so the formula is a tautology.</p>
+            <p><b>Reading the table.</b> Row 1 has both conjunction and disjunction true. Rows 2 and 3 have a false conjunction, so the implication is true vacuously. Row 4 has both false. The final column is T on all four rows, which confirms the claim.</p>
+            <p><b>Related tautologies.</b> p ∨ ¬p is the law of the excluded middle, ¬(p ∧ ¬p) is the law of noncontradiction, and p → p is the law of identity. Tautologies are the formulas used as rules of inference: modus ponens is the tautology ((p ∧ (p → q)) → q).</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Give four examples of sentences that are not propositions. Assume the premises: (i) All over-smart persons are stupid. (ii) Children of stupid persons are naughty. (iii) John is over-smart. (iv) Sam is a child of John. Using rules of inference, show that Sam is naughty.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q1) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p>A proposition is a declarative sentence with a definite truth value. Questions, commands, exclamations, open sentences, and paradoxes are not propositions: “Is it raining?”, “Close the door!”, “What a lovely day!”, “x + 2 = 5” (truth depends on x), and “This sentence is false”.</p>
-            <p>Let O(x) = “x is over-smart”, S(x) = “x is stupid”, N(x) = “x is naughty”, C(x, y) = “x is a child of y”. The premises are:</p>
-            <ol><li>∀x(O(x) → S(x))</li><li>∀y∀x((S(y) ∧ C(x, y)) → N(x))</li><li>O(John)</li><li>C(Sam, John)</li></ol>
-            <p>From (1) and (3), universal instantiation and modus ponens give S(John). From (2) with y = John and x = Sam we get (S(John) ∧ C(Sam, John)) → N(Sam). Both antecedents hold, so by modus ponens N(Sam): Sam is naughty.</p>
+            <p><b>[10 marks] Propositions and non-propositions.</b> A proposition is a declarative sentence with a definite truth value, either true or false but not both. Sentences that are questions, commands, exclamations, open sentences with free variables, or self-referential paradoxes are not propositions because no truth value can be assigned to them.</p>
+            <p><b>Four examples.</b> (i) “Is it raining?” is a question and has no truth value. (ii) “Close the door!” is a command. (iii) “What a lovely day!” is an exclamation. (iv) “x + 2 = 5” is an open sentence whose truth depends on the free variable x; once x is fixed, it becomes a proposition. A fifth classic case is “This sentence is false”, which is neither stably true nor stably false.</p>
+            <p><b>Symbolisation.</b> Let O(x) mean “x is over-smart”, S(x) mean “x is stupid”, N(x) mean “x is naughty” and C(x, y) mean “x is a child of y”. Premise (i) becomes ∀x(O(x) → S(x)). Premise (ii) becomes ∀y∀x((S(y) ∧ C(x, y)) → N(x)). Premise (iii) is O(John) and premise (iv) is C(Sam, John).</p>
+            <p><b>Derivation, step 1.</b> From ∀x(O(x) → S(x)) instantiate x = John to obtain O(John) → S(John). Premise (iii) supplies O(John). Modus ponens then yields S(John): John is stupid.</p>
+            <p><b>Derivation, step 2.</b> From ∀y∀x((S(y) ∧ C(x, y)) → N(x)) instantiate y = John and x = Sam to obtain (S(John) ∧ C(Sam, John)) → N(Sam). This is the conditional that transfers stupidity from a parent to a child.</p>
+            <p><b>Derivation, step 3.</b> Step 1 gives S(John) and premise (iv) gives C(Sam, John). Conjoining them gives S(John) ∧ C(Sam, John). Modus ponens on this conjunction and the conditional from step 2 yields N(Sam).</p>
+            <p><b>Conclusion.</b> Sam is naughty. The derivation used only universal instantiation, conjunction and modus ponens, all truth-preserving rules, so the conclusion follows logically from the four premises.</p>
+            <p><b>Formal proof layout.</b> Write the proof as a numbered list: (1) ∀x(O(x) → S(x)) premise; (2) O(John) → S(John) from (1); (3) O(John) premise; (4) S(John) from (2),(3) modus ponens; (5) ∀y∀x((S(y) ∧ C(x,y)) → N(x)) premise; (6) (S(John) ∧ C(Sam,John)) → N(Sam) from (5); (7) C(Sam,John) premise; (8) S(John) ∧ C(Sam,John) from (4),(7); (9) N(Sam) from (6),(8) modus ponens.</p>
+            <p><b>Why symbolisation matters.</b> English can hide the scope of quantifiers and the direction of implications. Writing the premises formally exposes exactly which rules are needed and makes the proof checkable line by line.</p>
+            <p><b>Checking the inference.</b> The argument is valid, but its premises need not be true in reality: the conclusion only follows if all four premises hold. Validity concerns the form of the argument, not the truth of the premises. If one premise failed, for instance if John were not over-smart, the derivation would no longer go through. This distinction between validity and soundness is central to logic: a sound argument is valid and has true premises.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Show by direct proof that the sum of two even numbers is even.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Let the two even numbers be a and b. By definition a = 2k and b = 2m for some integers k and m.</p>
-            <p>Then a + b = 2k + 2m = 2(k + m). Since k + m is an integer, a + b is twice an integer, and therefore even. The argument uses only the definition of evenness, so it holds for every pair of even integers.</p>
+            <p><b>[5 marks] Statement.</b> For all integers a and b, if a and b are even then a + b is even. The direct method begins by expressing each hypothesis in its defining algebraic form.</p>
+            <p><b>Step 1 — definitions.</b> a is even means a = 2k for some integer k. Likewise b is even means b = 2m for some integer m. The integers k and m need not be distinct or positive.</p>
+            <p><b>Step 2 — substitution.</b> a + b = 2k + 2m. Factor out the common 2: a + b = 2(k + m).</p>
+            <p><b>Step 3 — closure.</b> Since k and m are integers, k + m is an integer; call it t. Then a + b = 2t, which matches the definition of an even integer. Therefore a + b is even.</p>
+            <p><b>Conclusion and scope.</b> The argument used only the definition of evenness and closure of the integers under addition, so it applies to all even integers, including negatives and zero. The companion facts follow similarly: odd + odd = (2k+1) + (2m+1) = 2(k+m+1) is even, and odd + even = 2(k+m)+1 is odd. Together these three rules describe parity under addition completely.</p>
+            <p><b>Alternative form.</b> The same result follows from modular arithmetic: if a ≡ 0 (mod 2) and b ≡ 0 (mod 2), then a + b ≡ 0 + 0 ≡ 0 (mod 2), so the sum is even. Modular addition is a homomorphism from ℤ to Z₂, which is the abstract reason the parity rules work. A worked numeric instance: 14 = 2·7 and 20 = 2·10, so 14 + 20 = 34 = 2·17 is even.</p>
+            <p><b>Common mistake.</b> Writing “even + even = even” without showing why is not a proof: it restates the claim. A direct proof must exhibit the defining form 2k and 2m and show explicitly that the sum has the defining form 2t. That is what the substitution and factoring steps above accomplish.</p>
           </div>
         </article>
         <article class="iq-card">
@@ -108,34 +127,42 @@
             <li>Open the door.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Use ¬(∀x P(x)) ≡ ∃x ¬P(x), ¬(∃x P(x)) ≡ ∀x ¬P(x), and ¬(p → q) ≡ p ∧ ¬q.</p>
-            <ol><li>He has not passed the exam.</li>
-            <li>Some dogs are not loyal.</li>
-            <li>No medicine has side effects. (Equivalently: every medicine has no side effects.)</li>
-            <li>You study and you will not pass the exam.</li>
-            <li>“Open the door” is a command, not a proposition, so it has no truth value and no logical negation. Only declarative sentences can be negated.</li></ol>
+            <p><b>[5 marks] Rules used.</b> Negating a universal gives an existential and vice versa: ¬(∀x P(x)) ≡ ∃x ¬P(x) and ¬(∃x P(x)) ≡ ∀x ¬P(x). Negating an implication uses ¬(p → q) ≡ p ∧ ¬q. Negating a conjunction or disjunction uses De Morgan’s laws. Applying these rules mechanically avoids changing the intended meaning.</p>
+            <p><b>(a) “He has passed the exam.”</b> Negation: “He has not passed the exam.” This is the simple denial of a proposition; no quantifier is involved, so no logical equivalence beyond double negation is needed.</p>
+            <p><b>(b) “All dogs are loyal.”</b> Formal form ∀x(D(x) → L(x)). Its negation is ∃x(D(x) ∧ ¬L(x)): “Some dog is not loyal.” Note that “No dog is loyal” would be far stronger and is not equivalent.</p>
+            <p><b>(c) “Some medicine has side effects.”</b> Formal form ∃x(M(x) ∧ S(x)). Its negation is ∀x(M(x) → ¬S(x)): “No medicine has side effects”, equivalently “Every medicine has no side effects”.</p>
+            <p><b>(d) “If you study then you will pass the exam.”</b> With p = “you study” and q = “you will pass”, the negation is p ∧ ¬q: “You study and you will not pass the exam.” The common mistake is to negate this as “If you do not study you will not pass”, which is the inverse and not equivalent.</p>
+            <p><b>(e) “Open the door.”</b> This is an imperative, not a declarative sentence. It has no truth value, so it is not a proposition and cannot be negated in logic. Only statements that are true or false admit negation; commands, questions and exclamations do not.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Using a direct proof, show that the sum of the squares of even numbers is even.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q7) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Let the even numbers be 2k and 2m with k, m ∈ ℤ. Their squares are (2k)² = 4k² and (2m)² = 4m².</p>
-            <p>The sum is 4k² + 4m² = 2(2k² + 2m²). Because 2k² + 2m² is an integer, the sum is twice an integer and hence even.</p>
-            <p>This is stronger than needed: the sum of squares of any two integers with the same parity is even, since 4 divides each square here.</p>
+            <p><b>[5 marks] Statement.</b> The sum of the squares of any two even integers is even. A direct proof starts from the definition of an even integer and computes the sum.</p>
+            <p><b>Step 1 — write the hypotheses.</b> Let the even integers be 2k and 2m with k, m ∈ ℤ. Their squares are (2k)² = 4k² and (2m)² = 4m².</p>
+            <p><b>Step 2 — add.</b> (2k)² + (2m)² = 4k² + 4m². Factor out 2: 4k² + 4m² = 2(2k² + 2m²).</p>
+            <p><b>Step 3 — conclude.</b> The bracket 2k² + 2m² is an integer, so the sum equals twice an integer and is therefore even. In fact it is a multiple of 4, a stronger statement than required.</p>
+            <p><b>Worked check.</b> Take the even numbers 4 and 6: 4² + 6² = 16 + 36 = 52 = 4·13, which is even. Take −2 and 8: 4 + 64 = 68 = 4·17. The result also extends to any number of even integers, since a sum of multiples of 4 is a multiple of 4.</p>
+            <p><b>Why the square is a multiple of 4.</b> For any integer k, (2k)² = 4k², so the square of an even integer always carries a factor 4. This is stronger than merely being even and explains why the sum of two such squares is divisible by 4. Contrast an odd square: (2k+1)² = 4k² + 4k + 1 = 4(k² + k) + 1, which always leaves remainder 1 on division by 4. Hence squares are either 0 or 1 modulo 4, never 2 or 3.</p>
+            <p><b>Generalisation.</b> The sum of squares of n even integers is 4(k₁² + ⋯ + kₙ²), a multiple of 4. This fact is used in number theory, for example to show that no integer congruent to 3 modulo 4 can be written as a sum of two squares, since the possible residues of two squares are 0, 1 or 2 modulo 4 but never 3.</p>
+            <p><b>Note on the method.</b> A direct proof was possible here because the hypothesis “even” supplies an explicit representation 2k. When a hypothesis does not give such a form, the contrapositive or a contradiction argument is usually more effective.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">List any five rules of inference.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q12) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Five standard rules of inference:</p>
-            <ol><li><b>Modus ponens:</b> from p and p → q infer q.</li>
-            <li><b>Modus tollens:</b> from ¬q and p → q infer ¬p.</li>
-            <li><b>Hypothetical syllogism:</b> from p → q and q → r infer p → r.</li>
-            <li><b>Disjunctive syllogism:</b> from p ∨ q and ¬p infer q.</li>
-            <li><b>Resolution:</b> from p ∨ q and ¬p ∨ r infer q ∨ r.</li></ol>
-            <p>Each rule is a tautology when read as “(all premises) → conclusion”, so any application preserves truth.</p>
+            <p><b>[5 marks] Rules of inference.</b> A rule of inference is a valid argument form: when all premises are true, the conclusion must be true. Each rule corresponds to a tautology whose premises form the antecedent and the conclusion the consequent.</p>
+            <ol><li><b>Modus ponens.</b> From p and p → q infer q. Example: “If it rains the ground is wet; it rains; therefore the ground is wet.”</li>
+            <li><b>Modus tollens.</b> From ¬q and p → q infer ¬p. Example: “If it rains the ground is wet; the ground is not wet; therefore it did not rain.”</li>
+            <li><b>Hypothetical syllogism.</b> From p → q and q → r infer p → r. Chaining conditionals yields a longer conditional.</li>
+            <li><b>Disjunctive syllogism.</b> From p ∨ q and ¬p infer q. Eliminating one option leaves the other.</li>
+            <li><b>Resolution.</b> From p ∨ q and ¬p ∨ r infer q ∨ r. This is the rule underlying automated theorem proving.</li></ol>
+            <p><b>Further rules.</b> Addition infers p ∨ q from p; simplification infers p from p ∧ q; conjunction infers p ∧ q from p and q; universal instantiation infers P(c) from ∀x P(x); universal generalisation infers ∀x P(x) when c is arbitrary.</p>
+            <p><b>Validity check.</b> For each rule, form the implication from the conjunction of premises to the conclusion and inspect its truth table: no row has all premises true and conclusion false. A rule that fails this test is a fallacy, such as affirming the consequent: from q and p → q infer p.</p>
+            <p><b>Worked validity check for modus ponens.</b> The associated formula ((p ∧ (p → q)) → q) is a tautology. The only rows to inspect are those with p true; among them p → q is true exactly when q is true, so the antecedent p ∧ (p → q) is true only on the row where q is true. No counterexample row exists.</p>
+            <p><b>Worked counterexample for a fallacy.</b> Affirming the consequent has formula ((q ∧ (p → q)) → p). Take p false and q true: then q is true and p → q is true, so the antecedent holds while the conclusion p is false. One such row is enough to show the argument form is invalid, even if many particular arguments of that shape happen to have true conclusions.</p>
           </div>
         </article>
         <article class="iq-card">
@@ -143,29 +170,44 @@
             <li>Students who study hard and do their homework get good marks in exams.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>proposition</b> is a declarative sentence that is either true or false, but not both. Predicate logic adds variables and quantifiers: ∀x for “every x” and ∃x for “some x”.</p>
-            <p>Let K(x) = “x is kind-hearted”, S(x) = “x studies hard”, H(x) = “x does homework”, and G(x) = “x gets good marks”.</p>
-            <ol><li>∃x K(x) — at least one kind-hearted person exists.</li>
-            <li>∀x((S(x) ∧ H(x)) → G(x)) — every student who studies hard and does homework gets good marks.</li></ol>
-            <p>The universal statement uses an implication, not a conjunction: it is vacuously true for people who fail the antecedent.</p>
+            <p><b>[5 marks] Propositions.</b> A proposition is a declarative sentence that is either true or false, but not both. Predicate logic extends propositional logic by allowing variables and quantifiers: ∀x means “for every x” and ∃x means “there exists an x”. A predicate P(x) becomes a proposition once x is quantified or assigned a value.</p>
+            <p><b>Predicates used.</b> Let K(x) mean “x is kind-hearted”, S(x) mean “x studies hard”, H(x) mean “x does their homework” and G(x) mean “x gets good marks”.</p>
+            <p><b>(a) Some kind-hearted people still exist.</b> ∃x K(x). The existential quantifier asserts at least one object satisfies the predicate. With the domain fixed as people, the formula is exactly the English claim.</p>
+            <p><b>(b) Students who study hard and do their homework get good marks.</b> ∀x((S(x) ∧ H(x)) → G(x)). The universal quantifier ranges over students; the antecedent is the conjunction of the two habits and the consequent is the outcome.</p>
+            <p><b>Why implication, not conjunction.</b> ∀x(S(x) ∧ H(x) ∧ G(x)) would assert that every student in the domain studies hard, does homework and gets good marks, which is much stronger. The implication makes the claim vacuously true for students who fail the antecedent, matching the English meaning.</p>
+            <p><b>Scope note.</b> If the universe of discourse were all people rather than students, add a student predicate T(x): ∀x((T(x) ∧ S(x) ∧ H(x)) → G(x)). Declaring the domain in advance keeps formulas short but must be done consistently.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Using a direct proof, show that the sum of an odd number and an even number is odd.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q10) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Write the odd number as 2k + 1 and the even number as 2m, with k, m ∈ ℤ.</p>
-            <p>Their sum is (2k + 1) + 2m = 2(k + m) + 1. Since k + m is an integer, the sum has the form 2t + 1 with t = k + m, so it is odd.</p>
-            <p>This confirms the general parity rules: odd + even is odd, odd + odd and even + even are even.</p>
+            <p><b>[5 marks] Statement.</b> The sum of an odd integer and an even integer is odd. The direct proof uses the defining algebraic forms of odd and even.</p>
+            <p><b>Step 1 — definitions.</b> Write the odd integer as 2k + 1 and the even integer as 2m, where k and m are integers. Every odd integer has this form and every even integer has that form, so no generality is lost.</p>
+            <p><b>Step 2 — add.</b> (2k + 1) + 2m = 2k + 2m + 1 = 2(k + m) + 1.</p>
+            <p><b>Step 3 — conclude.</b> Since k + m is an integer, the sum has the shape 2t + 1 with t = k + m, which is precisely the definition of an odd integer. Hence odd + even is odd.</p>
+            <p><b>Completing the parity table.</b> The same technique gives even + even = 2(k + m) (even) and odd + odd = 2(k + m + 1) (even). For products, even × anything is even and odd × odd is odd: (2k+1)(2m+1) = 4km + 2k + 2m + 1 = 2(2km + k + m) + 1. These rules are used constantly in number theory proofs.</p>
+            <p><b>Numeric illustrations.</b> Take 7 (odd) and 10 (even): 7 + 10 = 17 = 2·8 + 1, odd. Take −3 and 4: 1 = 2·0 + 1, odd. The representation works for negative integers too, since k and m may be negative: −3 = 2(−2) + 1.</p>
+            <p><b>Modular view.</b> Reducing modulo 2, an odd integer is congruent to 1 and an even integer to 0. Hence odd + even ≡ 1 + 0 ≡ 1 (mod 2), which is odd. This is the same proof compressed into the arithmetic of Z₂, the two-element field. It generalises smoothly to sums of many integers: the parity of a sum is the sum of the parities modulo 2.</p>
+            <p><b>Contrast with the converse.</b> If a sum is odd, one summand is odd and the other even; they cannot both be odd or both even. This converse is proved by the same parity table, but it is a separate statement and must not be assumed in a direct proof of the forward direction.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Why do we need quantifiers? List any three rules of inference. Prove that √2 is irrational using proof by contradiction.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q2) &middot; <b>Marks:</b> 2+3+5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Quantifiers say how many objects a predicate covers. Without them “x is good” has no fixed truth value; ∀x and ∃x turn it into a proposition, and they let us formalise “every”, “some”, and “none” precisely.</p>
-            <p>Three rules of inference: modus ponens (p, p → q ⊢ q), universal instantiation (∀x P(x) ⊢ P(c)), and modus tollens (¬q, p → q ⊢ ¬p).</p>
-            <p><b>Proof that √2 is irrational.</b> Suppose √2 = a/b in lowest terms with gcd(a, b) = 1. Squaring gives a² = 2b², so a² is even and hence a = 2k. Then 4k² = 2b² gives b² = 2k², so b is even too. Both a and b share the factor 2, contradicting gcd(a, b) = 1. The assumption fails, so √2 is irrational.</p>
+            <p><b>[10 marks] Part (a) — 2 marks: why quantifiers are needed.</b> A predicate such as “x is good” contains a free variable, so it has no truth value until x is specified. Quantifiers bind the variable and turn the predicate into a proposition: ∀x says every object satisfies it, ∃x says at least one does. Without quantifiers we could not formalise “every”, “some” or “none”, nor express statements about whole collections.</p>
+            <p><b>Part (b) — 3 marks: three rules of inference.</b> Modus ponens: from p and p → q infer q. Universal instantiation: from ∀x P(x) infer P(c) for any element c of the domain. Modus tollens: from ¬q and p → q infer ¬p. Each is a tautology read as a rule, so applying it cannot lead from true premises to a false conclusion.</p>
+            <p><b>Part (c) — 5 marks: proof that √2 is irrational.</b> Use proof by contradiction. Assume the negation of the claim, namely that √2 is rational.</p>
+            <p><b>Step 1 — state the assumption.</b> Suppose √2 is rational. Then by definition it can be written as a fraction a/b in simplest form, where a and b are integers, b ≠ 0, and gcd(a, b) = 1.</p>
+            <p><b>Step 2 — algebraic manipulation.</b> From √2 = a/b, square both sides to get 2 = a²/b², then multiply by b² to obtain a² = 2b² (Equation 1).</p>
+            <p><b>Step 3 — a is even.</b> Equation 1 says a² is twice an integer, so a² is even. If the square of an integer is even the integer itself is even, hence a = 2k for some integer k.</p>
+            <p><b>Step 4 — b is even.</b> Substitute a = 2k into Equation 1: (2k)² = 2b², so 4k² = 2b² and therefore b² = 2k². By the same argument b² is even, so b is even.</p>
+            <p><b>Step 5 — contradiction.</b> Both a and b are even, so 2 divides both, contradicting gcd(a, b) = 1 from the choice of a/b in lowest terms.</p>
+            <p><b>Conclusion.</b> The assumption leads to a logical impossibility and must be false, so √2 is irrational. This proof depends on the fact that the square of an even number is even and that an odd square is odd; those parity facts are themselves proved by writing the integer as 2k or 2k + 1.</p>
+            <p><b>Why the lowest-terms condition is essential.</b> Every rational number can be written as a fraction of integers, but the requirement gcd(a, b) = 1 is what makes the final contradiction possible. Without it we could write √2 = 2/√2, which is not a fraction of integers, or use a non-reduced representation where both numerator and denominator share factors. Choosing the reduced form forces the contradiction with 2 | a and 2 | b.</p>
+            <p><b>Step-by-step justification of parity.</b> If a² = 2b² then a² is even. If a were odd, a = 2k + 1 and a² = 4k² + 4k + 1 = 2(2k² + 2k) + 1, which is odd. This contradicts a² even, so a must be even. The same argument applies to b² = 2k². These two short subproofs are what make the contradiction watertight.</p>
+            <p><b>Generalisation.</b> The same technique proves that √p is irrational for every prime p: from p = a²/b² we get p | a, then a = pk, then p | b, contradicting gcd(a, b) = 1. Proof by contradiction is the standard tool whenever assuming rationality exposes a divisibility conflict.</p>
           </div>
         </article>
 

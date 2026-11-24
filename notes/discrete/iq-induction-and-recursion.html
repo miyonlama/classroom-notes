@@ -62,111 +62,158 @@
           <h3 class="iq-question">What is a linear nonhomogeneous recurrence relation of degree k with constant coefficients? Find all solutions of the recurrence relation aₙ = 4aₙ₋₁ + n². Also find the solution of the relation with initial condition a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q2) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p>A linear nonhomogeneous recurrence of degree k has the form aₙ = c₁aₙ₋₁ + ⋯ + cₖaₙ₋ₖ + f(n) with f(n) ≠ 0; the corresponding homogeneous relation sets f(n) = 0.</p>
-            <p>For aₙ = 4aₙ₋₁ + n² the homogeneous solution is A·4ⁿ. Try a particular solution pn² + qn + r. Substituting gives pn² + qn + r = 4[p(n − 1)² + q(n − 1) + r] + n². Comparing coefficients: p = 4p + 1 so p = −1/3; q = −8p + 4q so q = −8/9; r = 4p − 4q + 4r so r = −20/27.</p>
-            <p>Thus aₙ = A·4ⁿ − (1/3)n² − (8/9)n − 20/27. Using a₁ = 1 gives 4A − 53/27 = 1, hence A = 20/27 and aₙ = (20·4ⁿ − 9n² − 24n − 20)/27. Check: a₁ = 1 and a₂ = 8 = 4·1 + 2².</p>
+            <p><b>[10 marks] Definitions.</b> A linear recurrence relation of degree k expresses aₙ as a linear combination of the k preceding terms. It is homogeneous when no extra term appears, aₙ = c₁aₙ₋₁ + ⋯ + cₖaₙ₋ₖ, and nonhomogeneous when a function f(n) ≠ 0 is added: aₙ = c₁aₙ₋₁ + ⋯ + cₖaₙ₋ₖ + f(n). Here “linear” means each term appears only to the first power, with constant coefficients cᵢ.</p>
+            <p><b>Solution structure.</b> The general solution of a nonhomogeneous recurrence is the sum of the general solution of the associated homogeneous recurrence and one particular solution of the full equation. The homogeneous part contains arbitrary constants, one per degree; the particular part is any single sequence satisfying the nonhomogeneous equation.</p>
+            <p><b>Homogeneous solution.</b> For aₙ = 4aₙ₋₁ + n² the homogeneous equation is aₙ = 4aₙ₋₁, whose solution is aₙ^(h) = A·4ⁿ. This follows because each term is four times the previous one, so the sequence is geometric with ratio 4.</p>
+            <p><b>Choosing a particular solution.</b> The nonhomogeneous term is the polynomial n², so try a particular solution of the same degree: pₙ = pn² + qn + r. Substituting pₙ and pₙ₋₁ = p(n−1)² + q(n−1) + r into the recurrence gives pn² + qn + r = 4[p(n−1)² + q(n−1) + r] + n².</p>
+            <p><b>Expanding and matching coefficients.</b> The right side is 4pn² − 8pn + 4p + 4qn − 4q + 4r + n² = (4p + 1)n² + (−8p + 4q)n + (4p − 4q + 4r). Equating coefficients with the left side gives p = 4p + 1, q = −8p + 4q and r = 4p − 4q + 4r.</p>
+            <p><b>Solving the coefficient equations.</b> From p = 4p + 1 we get −3p = 1, so p = −1/3. From q = −8p + 4q we get −3q = −8p = 8/3, so q = −8/9. From r = 4p − 4q + 4r we get −3r = 4p − 4q = −4/3 + 32/9 = (−12 + 32)/9 = 20/9, so r = −20/27.</p>
+            <p><b>Applying the initial condition.</b> The general solution is aₙ = A·4ⁿ − (1/3)n² − (8/9)n − 20/27. Using a₁ = 1 gives 4A − 1/3 − 8/9 − 20/27 = 1. The three fractions sum to (9 + 24 + 20)/27 = 53/27, so 4A = 1 + 53/27 = 80/27 and A = 20/27.</p>
+            <p><b>Final closed form.</b> aₙ = (20·4ⁿ − 9n² − 24n − 20)/27. Check n = 1: (80 − 9 − 24 − 20)/27 = 27/27 = 1. Check n = 2 by recurrence: a₂ = 4·1 + 4 = 8, while the formula gives (320 − 36 − 48 − 20)/27 = 216/27 = 8. Check n = 3 by recurrence: a₃ = 4·8 + 9 = 41, and the formula gives (1280 − 81 − 72 − 20)/27 = 1107/27 = 41.</p>
+            <p><b>Remark on the method.</b> If f(n) were of the form c·sⁿ and s were also a root of the characteristic equation, the trial particular solution would need an extra factor n, just as repeated homogeneous roots require (A + Bn)rⁿ. Recognising the form of f(n) is the main judgement call in this method.</p>
+            <p><b>Long-term behaviour.</b> The dominant term is (20/27)·4ⁿ, so aₙ grows like 4ⁿ for large n. The polynomial correction −(1/3)n² − (8/9)n − 20/27 becomes negligible compared with the exponential term. A closed form is valuable precisely because it exposes this asymptotic behaviour, which would be hard to infer by iterating the recurrence.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Use mathematical induction to show that the sum of the first n positive integers is n(n + 1)/2.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q7) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Let P(n) be the statement 1 + 2 + ⋯ + n = n(n + 1)/2.</p>
-            <p><b>Basis step.</b> P(1) says 1 = 1·2/2 = 1, which is true.</p>
-            <p><b>Inductive hypothesis.</b> Assume P(k): 1 + 2 + ⋯ + k = k(k + 1)/2 for an arbitrary positive integer k.</p>
-            <p><b>Inductive step.</b> Add k + 1 to both sides: 1 + ⋯ + k + (k + 1) = k(k + 1)/2 + (k + 1) = (k + 1)(k/2 + 1) = (k + 1)(k + 2)/2. This is exactly P(k + 1).</p>
-            <p>By the principle of mathematical induction, P(n) holds for every positive integer n.</p>
+            <p><b>[5 marks] Statement.</b> Let P(n) be the claim 1 + 2 + ⋯ + n = n(n + 1)/2 for every positive integer n. Induction proves P(n) for all n by establishing a base case and showing that truth at k implies truth at k + 1.</p>
+            <p><b>Basis step.</b> For n = 1 the left side is the single term 1 and the right side is 1·2/2 = 1, so P(1) is true.</p>
+            <p><b>Inductive hypothesis.</b> Assume P(k) holds for an arbitrary positive integer k: 1 + 2 + ⋯ + k = k(k + 1)/2. The hypothesis is assumed, not proved; it is the input to the next step.</p>
+            <p><b>Inductive step.</b> Add the next term k + 1 to both sides: 1 + 2 + ⋯ + k + (k + 1) = k(k + 1)/2 + (k + 1). Factor out k + 1: (k + 1)(k/2 + 1) = (k + 1)(k + 2)/2. This is exactly the formula P(k + 1), so P(k) ⇒ P(k + 1).</p>
+            <p><b>Conclusion.</b> Since P(1) is true and the implication P(k) ⇒ P(k + 1) holds for every positive k, the principle of mathematical induction gives P(n) for all n ≥ 1.</p>
+            <p><b>Direct check.</b> For n = 5 the sum is 15 and the formula gives 5·6/2 = 15. The expression n(n+1)/2 is the n-th triangular number, which also counts the number of pairs (i, j) with 1 ≤ i ≤ j ≤ n, giving a combinatorial proof of the same identity.</p>
+            <p><b>Why the induction is legitimate.</b> The principle of mathematical induction is an axiom of the natural numbers: any set of positive integers containing 1 and closed under the successor operation contains all positive integers. Here the set is {n : P(n) is true}; the basis puts 1 in it and the inductive step shows that k in the set forces k + 1 in the set. No finite verification could establish infinitely many cases, which is why the implication step is essential.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Use mathematical induction to prove that the sum of the first n odd positive integers is n². Statement: Let P(n) be the proposition that the sum of the first n odd positive integers is n², written as 1 + 3 + 5 + ⋯ + (2n − 1) = n². Prove the basis step P(1), assume P(k), and prove P(k + 1).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q7), 2080.2 (Q2), 2082 (Q6) &middot; <b>Marks:</b> 5, 4+6</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Statement.</b> Let P(n) be the proposition that the sum of the first n odd positive integers is n², that is 1 + 3 + 5 + ⋯ + (2n − 1) = n².</p>
-            <p><b>Step 1 — Basis.</b> For n = 1 the left side is the first odd integer 1 and the right side is 1² = 1. Since LHS = RHS, P(1) is true.</p>
-            <p><b>Step 2 — Inductive hypothesis.</b> Assume P(k) for an arbitrary positive integer k: 1 + 3 + ⋯ + (2k − 1) = k².</p>
-            <p><b>Step 3 — Inductive step.</b> The (k + 1)-st odd integer is 2(k + 1) − 1 = 2k + 1. Add it to both sides of the hypothesis: [1 + 3 + ⋯ + (2k − 1)] + (2k + 1) = k² + 2k + 1 = (k + 1)². This is P(k + 1), so it is true whenever P(k) is.</p>
-            <p><b>Conclusion.</b> Both steps hold, so by mathematical induction P(n) is true for all positive integers n.</p>
+            <p><b>[5 marks, also worth 4+6 in another paper] Statement.</b> Let P(n) be the proposition that the sum of the first n odd positive integers is n², written 1 + 3 + 5 + ⋯ + (2n − 1) = n². The question appeared with different mark splits, but the proof is the same.</p>
+            <p><b>Step 1 — basis (5 marks).</b> For n = 1 the left-hand side is the first odd integer, which is 1. The right-hand side is 1² = 1. Since LHS = RHS, P(1) is true.</p>
+            <p><b>Step 2 — inductive hypothesis (4 marks).</b> Assume P(k) is true for some arbitrary positive integer k: 1 + 3 + 5 + ⋯ + (2k − 1) = k². This assumption is used once, in the next step.</p>
+            <p><b>Step 3 — inductive step (6 marks).</b> We must prove P(k + 1): that the sum of the first k + 1 odd positive integers is (k + 1)². The (k + 1)-th odd positive integer is 2(k + 1) − 1 = 2k + 1.</p>
+            <p><b>Adding the next term.</b> Add 2k + 1 to both sides of the hypothesis: [1 + 3 + 5 + ⋯ + (2k − 1)] + (2k + 1) = k² + (2k + 1). The left side is now the sum of the first k + 1 odd integers.</p>
+            <p><b>Completing the square.</b> k² + 2k + 1 = (k + 1)². Hence the sum of the first k + 1 odd positive integers is (k + 1)², which is P(k + 1). It is true whenever P(k) is true.</p>
+            <p><b>Conclusion.</b> By the principle of mathematical induction, since the base case is true and the inductive step is true, P(n) is true for all positive integers n.</p>
+            <p><b>Numeric verification.</b> For n = 4, 1 + 3 + 5 + 7 = 16 = 4²; adding the next odd number 9 gives 25 = 5². This concrete instance shows exactly the transition the inductive step proves in general.</p>
+            <p><b>Alternative form of the step.</b> One may write the k + 1 case as (k + 1)² = k² + 2k + 1. The term 2k + 1 is precisely the next odd integer, so adding it to the assumed sum k² produces (k + 1)² without any further algebra. Recognising that consecutive squares differ by the next odd number is the key insight behind the whole proof.</p>
+            <p><b>Connection to the first n integers.</b> Splitting the integers 1 to 2n into odds and evens gives 1 + 3 + ⋯ + (2n−1) = n² and 2 + 4 + ⋯ + 2n = n(n+1). Adding them recovers 1 + 2 + ⋯ + 2n = n² + n(n+1) = n(2n+1) = (2n)(2n+1)/2, the standard formula with n replaced by 2n. The two induction results are consistent.</p>
+            <p><b>Geometric interpretation.</b> A square of side n can be built from a square of side k by adding an L-shaped border of 2k + 1 unit squares. That border corresponds exactly to the next odd number, giving a visual version of the inductive step. This is why the sum of the first n odd numbers is n² and why the difference of consecutive squares is odd.</p>
+            <p><b>Exam presentation.</b> A full-credit answer states P(n) explicitly, verifies P(1) by substitution, assumes P(k) for an arbitrary k, derives P(k+1) using the (k+1)-th odd integer 2k+1, and closes with the induction principle. Labelling these parts makes the structure clear to a marker and prevents the common error of verifying several numerical cases in place of a general step.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a recursively defined function? Suppose f is defined recursively by f(0) = 3 and f(n + 1) = 2f(n) + 3. Find f(1), f(2), f(3), and f(4).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>recursive definition</b> specifies the value of a function at small inputs directly (the basis) and gives larger values in terms of earlier ones (the recursive step).</p>
-            <p>Here f(0) = 3 and f(n + 1) = 2f(n) + 3. Computing successively:</p>
-            <ul><li>f(1) = 2f(0) + 3 = 2·3 + 3 = <b>9</b></li>
-            <li>f(2) = 2f(1) + 3 = 18 + 3 = <b>21</b></li>
-            <li>f(3) = 2f(2) + 3 = 42 + 3 = <b>45</b></li>
-            <li>f(4) = 2f(3) + 3 = 90 + 3 = <b>93</b></li></ul>
-            <p>The closed form is f(n) = 6·2ⁿ − 3: check n = 0 gives 3, and 2(6·2ⁿ − 3) + 3 = 6·2ⁿ⁺¹ − 3, matching the recurrence.</p>
+            <p><b>[5 marks] Definition.</b> A recursive definition specifies a function by giving its value at one or more smallest inputs, the basis clauses, and a rule expressing f(n + 1) in terms of earlier values, the recursive clause. The recursion must eventually reach a basis clause, otherwise the function is not defined at any input.</p>
+            <p><b>Given definition.</b> f(0) = 3 is the basis and f(n + 1) = 2f(n) + 3 is the recursive step. Each value depends only on the immediately preceding value, so the sequence can be computed successively.</p>
+            <p><b>Computing the requested values.</b> f(1) = 2f(0) + 3 = 2·3 + 3 = <b>9</b>. f(2) = 2f(1) + 3 = 18 + 3 = <b>21</b>. f(3) = 2f(2) + 3 = 42 + 3 = <b>45</b>. f(4) = 2f(3) + 3 = 90 + 3 = <b>93</b>.</p>
+            <p><b>Finding a closed form.</b> The recurrence f(n+1) + 3 = 2(f(n) + 3) shows that g(n) = f(n) + 3 satisfies g(n+1) = 2g(n) with g(0) = 6. Hence g(n) = 6·2ⁿ and f(n) = 6·2ⁿ − 3. Check n = 0 gives 3, and 2(6·2ⁿ − 3) + 3 = 6·2ⁿ⁺¹ − 3, matching the recurrence.</p>
+            <p><b>Why recursion matters.</b> Recursive definitions mirror induction: the basis clause corresponds to the base case and the recursive clause to the inductive step. Proofs about recursively defined functions therefore use induction on n, with the recursive clause supplying the hypothesis.</p>
+            <p><b>Inductive check of the closed form.</b> Claim f(n) = 6·2ⁿ − 3. Basis: 6·2⁰ − 3 = 3 = f(0). Step: if f(k) = 6·2ᵏ − 3 then f(k+1) = 2(6·2ᵏ − 3) + 3 = 6·2ᵏ⁺¹ − 3. Hence the closed form is proved by induction, not merely guessed from the first four values.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define the ceiling function and the floor function with examples. How can mathematical induction be used to prove the correctness of a recursive algorithm? Illustrate with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q2) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p>⌊x⌋ is the greatest integer ≤ x and ⌈x⌉ is the least integer ≥ x. For example ⌊2.3⌋ = 2, ⌈2.3⌉ = 3, and both equal k when x = k is an integer.</p>
-            <p>Induction proves correctness of a recursive algorithm by matching its recursion. For Power(a, n): <b>basis</b> n = 0, the code returns 1 = a⁰. <b>Inductive hypothesis</b>: assume Power(a, k) returns aᵏ. <b>Step</b>: for n = k + 1 the code computes a·Power(a, k) = a·aᵏ = aᵏ⁺¹ by the hypothesis. Hence the algorithm returns aⁿ for all n ≥ 0.</p>
-            <p>The same pattern works for factorial, list length, and tree traversal algorithms: the base case handles the smallest input and the recursive call supplies the inductive hypothesis.</p>
+            <p><b>[10 marks] Part (a) — 3 marks: floor and ceiling.</b> The floor ⌊x⌋ is the greatest integer less than or equal to x, and the ceiling ⌈x⌉ is the least integer greater than or equal to x. For x = 2.3, ⌊2.3⌋ = 2 and ⌈2.3⌉ = 3; for a negative value, ⌊−0.5⌋ = −1 and ⌈−0.5⌉ = 0. When x is an integer both functions return x, and otherwise ⌈x⌉ = ⌊x⌋ + 1. Their graphs are staircases with jumps at integer arguments.</p>
+            <p><b>Part (b) — 7 marks: induction and recursive algorithm correctness.</b> To prove a recursive algorithm correct, match the proof to the recursion. The base case of the induction proves correctness on the smallest input, and the inductive step assumes the recursive call returns the correct value for a smaller input and shows the returned expression then equals the desired answer.</p>
+            <p><b>Algorithm.</b> Power(a, n) { if (n == 0) return 1; else return a * Power(a, n - 1); }. The claim is that for every integer n ≥ 0 the algorithm returns aⁿ.</p>
+            <p><b>Basis step.</b> For n = 0 the condition n == 0 is true, so the algorithm returns 1. Since a⁰ = 1 for every nonzero a, the claim holds at the base.</p>
+            <p><b>Inductive hypothesis.</b> Assume that for some k ≥ 0 the call Power(a, k) returns aᵏ. This is justified because the proof is by induction on the argument.</p>
+            <p><b>Inductive step.</b> For n = k + 1 the condition is false, so the algorithm computes a × Power(a, k). By the hypothesis Power(a, k) returns aᵏ, hence the product is a·aᵏ = aᵏ⁺¹ = aⁿ, which is the desired answer.</p>
+            <p><b>Termination.</b> Each recursive call reduces n by 1 and n is a nonnegative integer, so after finitely many calls n reaches 0 and the base case is hit. Without this observation correctness of the returned value would not imply that the algorithm ever returns.</p>
+            <p><b>Conclusion.</b> The basis and inductive step establish correctness for all n ≥ 0, and termination guarantees the result is produced. The same pattern proves correctness of factorial, list length, binary search and tree traversal algorithms: base case, inductive hypothesis from the recursive call, and a step that combines them into the required result.</p>
+            <p><b>Illustrating the recursion.</b> To compute Power(2, 4) the calls are Power(2,4) → 2·Power(2,3) → 2·(2·Power(2,2)) → 2·(2·(2·Power(2,1))) → 2·(2·(2·(2·Power(2,0)))). The base returns 1 and the multiplications unwind to 16 = 2⁴. Each level of this chain corresponds to one application of the inductive step.</p>
+            <p><b>Why the hypothesis applies.</b> Strong induction is not needed here: the recursive call uses only n − 1, not an arbitrary smaller value, so ordinary induction on n suffices. If an algorithm called itself with several smaller arguments, as a tree traversal does, structural induction on the size of the input would be the appropriate proof principle.</p>
+            <p><b>Role of the zero exponent.</b> The base case depends on the convention a⁰ = 1 for a ≠ 0. If a = 0 and n = 0 the expression 0⁰ is undefined by convention, so the statement should be read for nonzero a or with the explicit convention that the algorithm returns 1 at n = 0 regardless.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define a randomized algorithm and give an example. Solve the recurrence relation aₙ = −4aₙ₋₁ − 4aₙ₋₂ for n ≥ 2 with initial conditions a₀ = 0 and a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q1) &middot; <b>Marks:</b> 3+7</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>randomized algorithm</b> makes random choices during execution. Example: randomized quicksort picks the pivot uniformly at random, so no fixed input forces its worst case; another example is a randomized primality test.</p>
-            <p>For aₙ = −4aₙ₋₁ − 4aₙ₋₂ with a₀ = 0, a₁ = 1, the characteristic equation is r² + 4r + 4 = (r + 2)² = 0, a repeated root r = −2. The general solution is aₙ = (A + Bn)(−2)ⁿ.</p>
-            <p>From a₀ = 0 we get A = 0. From a₁ = 1 we get B(−2) = 1, so B = −1/2. Therefore aₙ = −(n/2)(−2)ⁿ = <b>n(−2)ⁿ⁻¹</b>. Check: a₂ = −4·1 − 4·0 = −4, and the formula gives 2·(−2)¹ = −4.</p>
+            <p><b>[10 marks] Part (a) — 3 marks: randomized algorithms.</b> A randomized algorithm uses random choices in its execution, so its behaviour or running time depends on a random number generator. Randomized quicksort chooses the pivot at random, which makes bad pivots unlikely for any input; a randomized primality test uses random bases; and random sampling estimates quantities too large to compute exactly.</p>
+            <p><b>Part (b) — 7 marks: recurrence.</b> Solve aₙ = −4aₙ₋₁ − 4aₙ₋₂ with a₀ = 0 and a₁ = 1. The characteristic equation is r² + 4r + 4 = (r + 2)² = 0, a repeated root r = −2.</p>
+            <p><b>Form of the solution.</b> For a repeated root r the general solution is aₙ = (A + Bn)rⁿ, not merely A rⁿ, because a second linearly independent solution is needed. Here aₙ = (A + Bn)(−2)ⁿ. The extra factor n is the standard adjustment for repeated roots.</p>
+            <p><b>Finding the constants.</b> From a₀ = 0 we get (A + 0)·1 = 0, so A = 0. From a₁ = 1 we get (0 + B)(−2) = −2B = 1, hence B = −1/2.</p>
+            <p><b>Closed form.</b> aₙ = −(n/2)(−2)ⁿ = n(−2)ⁿ⁻¹. The simplification uses −(−2)ⁿ/2 = (−2)ⁿ/(−2) = (−2)ⁿ⁻¹.</p>
+            <p><b>Verification.</b> a₀ = 0 by the formula since the factor n vanishes. a₁ = 1·(−2)⁰ = 1. For n = 2 the recurrence gives −4·1 − 4·0 = −4 and the formula gives 2·(−2)¹ = −4. For n = 3 the recurrence gives −4·(−4) − 4·1 = 16 − 4 = 12 and the formula gives 3·(−2)² = 12.</p>
+            <p><b>Behaviour.</b> The magnitude grows like n·2ⁿ while the sign alternates because of (−2)ⁿ⁻¹. Closed forms reveal such growth patterns, which are not obvious from the recurrence alone, and make large terms computable without iterating all earlier ones.</p>
+            <p><b>Why the repeated-root form works.</b> With a double root r, the two sequences rⁿ and n·rⁿ are linearly independent solutions of the homogeneous recurrence. Linearity means their combination (A + Bn)rⁿ is also a solution, and two initial conditions determine A and B uniquely. If only A·rⁿ were used, the two initial conditions would generally be impossible to satisfy, which shows the factor n is necessary.</p>
+            <p><b>Verifying the closed form algebraically.</b> Substitute a_{k−1} = (k−1)(−2)ᵏ⁻² and a_{k−2} = (k−2)(−2)ᵏ⁻³ into the right side: −4(k−1)(−2)ᵏ⁻² − 4(k−2)(−2)ᵏ⁻³. Factor (−2)ᵏ⁻³ and simplify the bracket: −4(k−1)(−2) − 4(k−2) = 8(k−1) − 4(k−2) = 8k − 8 − 4k + 8 = 4k. Thus the right side is 4k(−2)ᵏ⁻³ = k(−2)²(−2)ᵏ⁻³ = k(−2)ᵏ⁻¹, which is exactly aₖ. The closed form therefore satisfies the recurrence identically, not just at the checked values.</p>
+            <p><b>Probabilistic interpretation.</b> A Las Vegas randomized algorithm, such as randomized quicksort, always returns the correct answer but has a random running time; the expected number of comparisons is O(n log n). A Monte Carlo algorithm has a fixed running time but a small probability of error, which can be reduced by repetition. This distinction matters when presenting randomized algorithms as an example in a theory question.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What are the uses of randomized algorithms? Solve the recurrence relation aₙ = 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ with initial conditions a₀ = 2, a₁ = 5, and a₂ = 15.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q2) &middot; <b>Marks:</b> 2+8</p>
           <div class="iq-solution" data-solution="done">
-            <p>Randomized algorithms are used for symmetry breaking, avoiding adversarial worst cases (randomized quicksort), large-number primality testing, load balancing, and Monte Carlo simulation.</p>
-            <p>For aₙ = 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ the characteristic equation r³ − 6r² + 11r − 6 = (r − 1)(r − 2)(r − 3) has distinct roots 1, 2, 3, so aₙ = A + B·2ⁿ + C·3ⁿ.</p>
-            <p>The initial conditions give A + B + C = 2, A + 2B + 3C = 5, A + 4B + 9C = 15. Subtracting consecutive equations gives B + 2C = 3 and B + 3C = 5, hence C = 2, B = −1, A = 1. Thus aₙ = <b>1 − 2ⁿ + 2·3ⁿ</b>. Check n = 2: 1 − 4 + 18 = 15. Check n = 3: the recurrence gives 6·15 − 11·5 + 6·2 = 90 − 55 + 12 = 47, and the formula gives 1 − 8 + 54 = 47, so they agree.</p>
+            <p><b>[10 marks] Part (a) — 2 marks: uses.</b> Randomized algorithms break symmetry in distributed protocols, avoid adversarial worst cases in quicksort and hashing, estimate large quantities by Monte Carlo sampling, and provide fast probabilistic primality tests in cryptography. Their analysis usually gives bounds on expected running time or on the probability of error.</p>
+            <p><b>Part (b) — 8 marks: recurrence.</b> Solve aₙ = 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ with a₀ = 2, a₁ = 5, a₂ = 15.</p>
+            <p><b>Characteristic polynomial.</b> Substitute aₙ = rⁿ and divide by rⁿ⁻³: r³ − 6r² + 11r − 6 = 0. Factor by testing r = 1: 1 − 6 + 11 − 6 = 0, so (r − 1) is a factor. Division gives r² − 5r + 6 = (r − 2)(r − 3), hence the roots are 1, 2, 3, all distinct.</p>
+            <p><b>General solution.</b> With distinct roots the solution is aₙ = A·1ⁿ + B·2ⁿ + C·3ⁿ = A + B·2ⁿ + C·3ⁿ. Three initial conditions determine the three constants.</p>
+            <p><b>Setting up the equations.</b> n = 0 gives A + B + C = 2. n = 1 gives A + 2B + 3C = 5. n = 2 gives A + 4B + 9C = 15.</p>
+            <p><b>Solving.</b> Subtracting the first equation from the second gives B + 2C = 3. Subtracting the second from the third gives 2B + 6C = 10, or B + 3C = 5. Subtracting these two results gives C = 2, then B = 3 − 2·2 = −1, and finally A = 2 − (−1) − 2 = 1.</p>
+            <p><b>Closed form.</b> aₙ = 1 − 2ⁿ + 2·3ⁿ. Check n = 0: 1 − 1 + 2 = 2. n = 1: 1 − 2 + 6 = 5. n = 2: 1 − 4 + 18 = 15. n = 3 by recurrence: 6·15 − 11·5 + 6·2 = 90 − 55 + 12 = 47, and the formula gives 1 − 8 + 54 = 47.</p>
+            <p><b>Growth.</b> The dominant term is 2·3ⁿ, since 3 is the largest root. For large n the sequence behaves like 2·3ⁿ, which explains why the terms grow quickly. Knowing the closed form makes such asymptotic statements immediate and allows direct computation of distant terms.</p>
+            <p><b>Why a degree-three recurrence needs three conditions.</b> Each linearly independent root contributes one arbitrary constant, so three roots require three initial values. With only a₀ and a₁ the constant C would remain undetermined. This matches the general principle that a recurrence of degree k needs k starting values to define a unique sequence.</p>
+            <p><b>Checking the recurrence identity directly.</b> Using aₙ = 1 − 2ⁿ + 2·3ⁿ, compute 6aₙ₋₁ − 11aₙ₋₂ + 6aₙ₋₃ = 6(1 − 2ⁿ⁻¹ + 2·3ⁿ⁻¹) − 11(1 − 2ⁿ⁻² + 2·3ⁿ⁻²) + 6(1 − 2ⁿ⁻³ + 2·3ⁿ⁻³). The constant terms give 6 − 11 + 6 = 1. The powers of 2 give −6·2ⁿ⁻¹ + 11·2ⁿ⁻² − 6·2ⁿ⁻³ = 2ⁿ⁻³(−24 + 22 − 6) = −8·2ⁿ⁻³ = −2ⁿ. The powers of 3 give 12·3ⁿ⁻¹ − 22·3ⁿ⁻² + 12·3ⁿ⁻³ = 3ⁿ⁻³(108 − 66 + 12) = 54·3ⁿ⁻³ = 2·3ⁿ. Summing yields 1 − 2ⁿ + 2·3ⁿ = aₙ, confirming the formula for every n ≥ 3.</p>
+            <p><b>Factoring the polynomial.</b> Rational root testing is a quick way to factor r³ − 6r² + 11r − 6: any integer root divides the constant term 6, so try ±1, ±2, ±3, ±6. Finding r = 1 leaves a quadratic, which factors by inspection. This is the degree-three analogue of the familiar quadratic formula approach.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove by mathematical induction that 1³ + 2³ + 3³ + ⋯ + n³ is a perfect square.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Claim: 1³ + 2³ + ⋯ + n³ = [n(n + 1)/2]², a perfect square.</p>
-            <p><b>Basis.</b> n = 1: 1³ = 1 = [1·2/2]².</p>
-            <p><b>Hypothesis.</b> Assume 1³ + ⋯ + k³ = [k(k + 1)/2]².</p>
-            <p><b>Step.</b> Add (k + 1)³: the sum becomes k²(k + 1)²/4 + (k + 1)³ = (k + 1)²[k²/4 + k + 1] = (k + 1)²(k + 2)²/4 = [(k + 1)(k + 2)/2]², which is the formula at k + 1.</p>
-            <p>Hence the sum of the first n cubes is always the square of the n-th triangular number.</p>
+            <p><b>[5 marks] Claim.</b> 1³ + 2³ + ⋯ + n³ = [n(n + 1)/2]², which is a perfect square because it is the square of the n-th triangular number.</p>
+            <p><b>Basis step.</b> For n = 1 the left side is 1³ = 1 and the right side is [1·2/2]² = 1² = 1, so P(1) holds.</p>
+            <p><b>Inductive hypothesis.</b> Assume 1³ + ⋯ + k³ = [k(k + 1)/2]² = k²(k + 1)²/4 for some k ≥ 1.</p>
+            <p><b>Inductive step.</b> Add (k + 1)³ to both sides. The new left side is the sum up to k + 1. The right side becomes k²(k + 1)²/4 + (k + 1)³ = (k + 1)²[k²/4 + k + 1] = (k + 1)²(k² + 4k + 4)/4 = (k + 1)²(k + 2)²/4 = [(k + 1)(k + 2)/2]², which is P(k + 1).</p>
+            <p><b>Conclusion.</b> The base case and inductive step hold, so the identity is true for all n ≥ 1. Consequently the sum of the first n cubes is always a perfect square.</p>
+            <p><b>Numeric check.</b> For n = 3, 1 + 8 + 27 = 36 = 6² and the triangular number 3·4/2 = 6. For n = 4, adding 64 gives 100 = 10², and 4·5/2 = 10. These checks illustrate the step from k to k + 1.</p>
+            <p><b>Combinatorial interpretation.</b> The triangular number T(n) = n(n + 1)/2 = C(n + 1, 2) counts unordered pairs from n + 1 objects, and the identity says the sum of the first n cubes equals [C(n + 1, 2)]², the square of that triangular number. For n = 3 the sum is 36 and C(4,2) = 6, giving 6². This links two families of figurate numbers and complements the induction proof with a counting viewpoint.</p>
+            <p><b>Algebraic check of the step.</b> Expanding (k + 1)²(k + 2)²/4 gives (k² + 2k + 1)(k² + 4k + 4)/4, and expanding the earlier form (k+1)²[k²/4 + k + 1] gives the same polynomial. Both expressions equal [(k+1)(k+2)/2]², so the factoring in the inductive step is correct for every k, not only for the tested values.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain structural induction and recursive definitions with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q12) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Structural induction</b> proves a property of recursively defined objects (strings, trees, lists) by proving it for the basis objects and showing that if it holds for the components used in a recursive step, it holds for the object built from them.</p>
-            <p><b>Recursive definition example.</b> The set of well-formed bit strings: the empty string is a basis element, and if u is a string then 0u and 1u are strings. Define length L(λ) = 0 and L(xu) = 1 + L(u).</p>
-            <p><b>Proof example.</b> Claim L(u) counts bits. Basis: L(λ) = 0, correct. Step: if L(u) is correct, then L(0u) = 1 + L(u) counts the added leading bit, and likewise for 1u. By structural induction the claim holds for every string. This mirrors ordinary induction but follows the structure of the definition.</p>
+            <p><b>[5 marks] Recursive definitions.</b> A set of objects can be defined by giving basic objects and rules for building new ones from existing ones. For bit strings: the empty string λ is a basis element, and if u is a string then 0u and 1u are strings. Define length by L(λ) = 0 and L(xu) = 1 + L(u) for x ∈ {0, 1}.</p>
+            <p><b>Structural induction.</b> To prove a property P for every object of such a recursively defined set, prove P for the basic objects and prove that if P holds for the components used in a construction rule, then P holds for the object built from them. This mirrors ordinary induction but follows the shape of the definition rather than the integer n.</p>
+            <p><b>Worked proof.</b> Claim: L(u) equals the number of bits in u. Basis: L(λ) = 0 and λ has no bits. Step: suppose L(u) is the length of u; then L(0u) = 1 + L(u), which is one more than the length of u, exactly the length of 0u; the same holds for 1u. By structural induction the claim holds for every bit string.</p>
+            <p><b>Tree example.</b> A rooted binary tree is either a single leaf or a root with two binary subtrees. Defining height accordingly, a structural induction proves that the number of leaves is one more than the number of internal nodes in a full binary tree: the basis has one leaf and no internal nodes, and joining two trees adds one internal node while leaf counts add.</p>
+            <p><b>Why it works.</b> Every object of a recursively defined set is built by finitely many applications of the construction rules starting from basis elements. Proving the basis and preserving the property through each rule therefore covers every object. The method is the natural proof technique for strings, lists, formulas and trees, just as ordinary induction is for the natural numbers.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Solve the recurrence relation aₙ = aₙ₋₁ + aₙ₋₂ with initial conditions a₀ = 0 and a₁ = 1.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q7) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>This is the <b>Fibonacci recurrence</b>. The characteristic equation is r² − r − 1 = 0 with roots α = (1 + √5)/2 and β = (1 − √5)/2.</p>
-            <p>The general solution is aₙ = Aαⁿ + Bβⁿ. From a₀ = 0 we get A + B = 0, and from a₁ = 1 we get Aα + Bβ = 1. Solving gives A = 1/√5 and B = −1/√5, hence Binet’s formula aₙ = (αⁿ − βⁿ)/√5.</p>
-            <p>The first terms are 0, 1, 1, 2, 3, 5, 8, 13, 21. The closed form is an integer despite the irrational ingredients, because the βⁿ term is the conjugate that cancels the irrational part.</p>
+            <p><b>[5 marks] Recognition.</b> With a₀ = 0 and a₁ = 1 this is the Fibonacci recurrence, generating 0, 1, 1, 2, 3, 5, 8, 13, 21, …. Each term is the sum of the two preceding terms, so the sequence grows exponentially.</p>
+            <p><b>Characteristic equation.</b> Substituting aₙ = rⁿ into aₙ = aₙ₋₁ + aₙ₋₂ and dividing by rⁿ⁻² gives r² = r + 1, or r² − r − 1 = 0. The roots are α = (1 + √5)/2 ≈ 1.618 and β = (1 − √5)/2 ≈ −0.618, the golden ratio and its conjugate.</p>
+            <p><b>General solution.</b> Since the roots are distinct, aₙ = Aαⁿ + Bβⁿ. The initial conditions give A + B = 0 and Aα + Bβ = 1. From B = −A we get A(α − β) = 1; since α − β = √5, A = 1/√5 and B = −1/√5.</p>
+            <p><b>Binet’s formula.</b> aₙ = (αⁿ − βⁿ)/√5. Despite involving irrational numbers, the result is always an integer: the βⁿ term is the conjugate of αⁿ and cancels the irrational part when the two are subtracted and divided by √5.</p>
+            <p><b>Checks and use.</b> For n = 0 the formula gives (1 − 1)/√5 = 0; for n = 1 it gives (α − β)/√5 = 1. For n = 2, α² = α + 1 and β² = β + 1, so (α² − β²)/√5 = (α − β)/√5 = 1, matching a₂. The closed form permits computation of the n-th Fibonacci number in O(log n) time by exponentiation and shows that aₙ ≈ αⁿ/√5 for large n, so growth is exponential with base the golden ratio.</p>
+            <p><b>Why the irrational parts cancel.</b> α and β are conjugates: they are the two roots of the same quadratic with rational coefficients. Expanding αⁿ and βⁿ gives expressions of the form pₙ + qₙ√5 and pₙ − qₙ√5 for integers pₙ, qₙ. Their difference is 2qₙ√5, and dividing by √5 gives the integer 2qₙ. This explains how a formula built from irrational numbers always returns an integer.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Prove the correctness of the following recursive algorithm for computing aⁿ using induction: Power(a, n) { if (n == 0) return 1; else return a * Power(a, n - 1); }</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q10) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>The algorithm Power(a, n) returns 1 when n = 0 and otherwise returns a × Power(a, n − 1). We prove by induction on n ≥ 0 that the returned value equals aⁿ.</p>
-            <p><b>Basis.</b> n = 0: the function returns 1, and a⁰ = 1.</p>
-            <p><b>Inductive hypothesis.</b> Assume Power(a, k) returns aᵏ for some k ≥ 0.</p>
-            <p><b>Inductive step.</b> For n = k + 1 the function calls Power(a, k), which by the hypothesis returns aᵏ, and multiplies by a, giving a · aᵏ = aᵏ⁺¹ = aⁿ. The recursion terminates because n decreases by 1 each call and reaches 0.</p>
-            <p>Therefore the algorithm is correct for every nonnegative integer n.</p>
+            <p><b>[5 marks] Algorithm.</b> Power(a, n) { if (n == 0) return 1; else return a * Power(a, n - 1); }. The claim to prove is that for every integer n ≥ 0 the value returned equals aⁿ.</p>
+            <p><b>Basis step.</b> When n = 0 the test n == 0 succeeds and the function returns 1. Since a⁰ = 1, the algorithm is correct on the smallest input.</p>
+            <p><b>Inductive hypothesis.</b> Assume that for some k ≥ 0 the call Power(a, k) returns aᵏ. The recursive call in the algorithm always receives a smaller argument, so the induction hypothesis applies to it.</p>
+            <p><b>Inductive step.</b> For n = k + 1 the test fails, so the function evaluates a × Power(a, k). By the hypothesis this is a·aᵏ = aᵏ⁺¹ = aⁿ, matching the definition of the power. Thus correctness at k implies correctness at k + 1.</p>
+            <p><b>Termination and conclusion.</b> Each call decreases n by 1 and n is a nonnegative integer, so the recursion must reach n = 0 after finitely many steps. By induction the returned value is aⁿ for every n ≥ 0, and termination guarantees a value is returned. The same argument proves correctness of recursive definitions for factorial, list reversal and tree traversal, where the base case and the recursive clause map directly onto the basis and step of the induction.</p>
+            <p><b>Iterative comparison.</b> An iterative version would loop from 1 to n multiplying by a; its correctness is proved by maintaining the invariant that after j iterations the accumulator holds aʲ. The recursive proof and the invariant proof are structurally identical: both establish a base state and show one step preserves the desired relationship.</p>
           </div>
         </article>
 
