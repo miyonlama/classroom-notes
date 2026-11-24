@@ -63,106 +63,143 @@
           <figure class="iq-figure"><img src="/assets/images/iq-2078-q3.jpg" alt="Diagram from the past question paper" /><figcaption>Weighted graph from the 2078 paper — find the minimum spanning tree.</figcaption></figure>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q3) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>spanning tree</b> of a connected graph is a subtree containing every vertex and n − 1 edges for n vertices; it is acyclic and connected. A <b>minimum spanning tree (MST)</b> is a spanning tree of least total edge weight.</p>
-            <p><b>Kruskal’s algorithm</b> sorts edges by weight and adds an edge whenever it joins two different components, skipping edges that would close a cycle.</p>
-            <p>For the figure, the edges in increasing order are: ab 7, eg 8, ce 10, dg 11, fg 13, df 15, bf 17, ac 18, cd 19. Select ab 7, eg 8, ce 10, dg 11, fg 13; df 15 is skipped because d and f are already connected. Add bf 17 to join the last component. The MST is {ab, eg, ce, dg, fg, bf} with total weight 7 + 8 + 10 + 11 + 13 + 17 = <b>66</b>.</p>
+            <p><b>[10 marks] Definitions.</b> A spanning tree of a connected undirected graph G = (V, E) is a subgraph T = (V, E′) that contains every vertex of G, is connected, and contains no cycle. Because a tree on n vertices has exactly n − 1 edges, |E′| = |V| − 1. A weighted graph assigns a number to each edge; a minimum spanning tree (MST) is a spanning tree whose total edge weight is as small as possible. An MST need not be unique when weights tie, but its total weight is unique.</p>
+            <p><b>Kruskal’s algorithm.</b> Sort all edges into nondecreasing order of weight. Begin with each vertex as its own component. Scan the sorted list and add an edge exactly when its endpoints lie in different components; discard it if they already lie in the same component, since adding it would close a cycle. Stop when n − 1 edges have been chosen. A union–find structure tracks the components efficiently.</p>
+            <p><b>Edges of the figure in order.</b> ab 7, eg 8, ce 10, dg 11, fg 13, df 15, bf 17, ac 18, cd 19. There are 7 vertices, so the tree must contain 6 edges.</p>
+            <table class="topic-table"><thead><tr><th>Edge</th><th>Weight</th><th>Decision</th><th>Reason</th></tr></thead><tbody>
+            <tr><td>ab</td><td>7</td><td>keep</td><td>joins a and b, different components</td></tr>
+            <tr><td>eg</td><td>8</td><td>keep</td><td>joins e and g</td></tr>
+            <tr><td>ce</td><td>10</td><td>keep</td><td>joins c to the component {e, g}</td></tr>
+            <tr><td>dg</td><td>11</td><td>keep</td><td>joins d to {c, e, g}</td></tr>
+            <tr><td>fg</td><td>13</td><td>keep</td><td>joins f to the growing component</td></tr>
+            <tr><td>df</td><td>15</td><td>skip</td><td>d and f already connected; would make a cycle</td></tr>
+            <tr><td>bf</td><td>17</td><td>keep</td><td>joins {a, b} to {c, d, e, f, g}</td></tr>
+            <tr><td>ac</td><td>18</td><td>skip</td><td>a and c already connected</td></tr>
+            <tr><td>cd</td><td>19</td><td>skip</td><td>c and d already connected</td></tr>
+            </tbody></table>
+            <p><b>Result.</b> The MST is {ab, eg, ce, dg, fg, bf} with total weight 7 + 8 + 10 + 11 + 13 + 17 = <b>66</b>. Following the edges gives the path a–b–f–g–e–c and the branch g–d, which reaches all seven vertices with no cycle.</p>
+            <p><b>Why greedy works.</b> The cut property says that the lightest edge crossing any cut between two components is safe to add: every spanning tree must contain some edge crossing that cut, and choosing the lightest cannot increase the minimum total. Kruskal repeatedly applies this property, which proves optimality.</p>
+            <p><b>Alternative.</b> Prim’s algorithm grows a single tree from a starting vertex by adding the cheapest edge leaving the current tree. It also yields an MST of total 66 here, possibly with a different set of edges if ties occur.</p>
+            <p><b>Why df is the critical skip.</b> Edge df has weight 15 and seems cheap, but by the time it is considered the path d–g–f already exists with total 11 + 13 = 24. Adding df would create the cycle d–g–f–d and would replace no edge of smaller weight. The decision to skip it is what makes the algorithm greedy yet optimal: a cheap edge can still be rejected when its endpoints are already connected by even cheaper edges.</p>
+            <p><b>Counting check.</b> Seven vertices require six edges and the chosen set has exactly six. Following from a the edges reach b; from b the edge bf reaches f; from f the edge fg reaches g; from g the edges ge and gd reach e and d; from e the edge ec reaches c. Every vertex is visited once in this traversal, confirming the subgraph is connected, acyclic and spanning.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a graph? Explain a simple graph and a pseudograph with examples.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q11) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>graph</b> G = (V, E) consists of a set V of vertices and a set E of edges joining pairs of vertices. Edges may be directed or undirected.</p>
-            <p>A <b>simple graph</b> is undirected with no loops and no parallel edges: each edge joins two distinct vertices and at most one edge joins a given pair. Example: the triangle with V = {a, b, c}, E = {ab, bc, ca}.</p>
-            <p>A <b>pseudograph</b> allows loops (an edge from a vertex to itself) and multiple edges between the same pair. Example: vertices {a, b} with a loop at a and two distinct edges joining a and b. A multigraph allows parallel edges but no loops.</p>
+            <p><b>[5 marks] Graph.</b> A graph G = (V, E) consists of a nonempty set V of vertices and a set E of edges, each edge joining two vertices (or, in a directed graph, going from one vertex to another). Graphs model networks: vertices may be people, cities or processors and edges may be friendships, roads or communication links.</p>
+            <p><b>Simple graph.</b> A simple graph is undirected with no loops and no parallel edges: every edge joins two distinct vertices and at most one edge joins a given pair. Its edges are therefore two-element subsets of V. Example: V = {a, b, c} with E = {ab, bc, ca}, the triangle, in which every vertex has degree 2.</p>
+            <p><b>Pseudograph.</b> A pseudograph permits loops (edges joining a vertex to itself) and parallel edges (several edges with the same endpoints). Example: vertices {a, b} with a loop at a and two distinct edges between a and b. The loop contributes 2 to the degree of a in the usual convention, and a pseudograph is the most general undirected form.</p>
+            <p><b>Multigraph.</b> A multigraph allows parallel edges but no loops, sitting between the two cases. Directed versions are called digraphs, and directed multigraphs allow parallel directed edges.</p>
+            <p><b>Degree and checks.</b> The degree deg(v) counts edges incident with v; in a simple graph with n vertices the maximum degree is n − 1 and the sum of degrees is 2|E|. The triangle satisfies 2 + 2 + 2 = 6 = 2·3, confirming the handshaking lemma. Simple graphs are preferred when self-interactions and duplicates carry no meaning, because they keep algorithms and counting formulas clean.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is an Euler path? Compare it with a Hamiltonian path.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q12) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>An <b>Euler path</b> is a trail that uses every edge exactly once; vertices may repeat. An <b>Euler circuit</b> is an Euler path that starts and ends at the same vertex.</p>
-            <p>A <b>Hamiltonian path</b> visits every vertex exactly once; edges between those vertices may be unused. A Hamiltonian cycle returns to the start.</p>
-            <p>Example: a square a–b–c–d–a with diagonal a–c. Degrees of a and c are 3 (odd), b and d are 2; hence an Euler path exists from a to c, for example a–b–c–d–a–c. The boundary a–b–c–d–a is a Hamiltonian cycle that omits the diagonal.</p>
-            <p>The tests are different in kind: Euler depends on edge degrees; Hamiltonicity has no simple degree criterion.</p>
+            <p><b>[5 marks] Euler path.</b> An Euler path in an undirected graph is a trail that traverses every edge exactly once; vertices may be visited repeatedly. An Euler circuit is an Euler path that begins and ends at the same vertex. A connected graph has an Euler circuit iff every vertex has even degree, and an Euler path iff exactly zero or two vertices have odd degree.</p>
+            <p><b>Hamiltonian path.</b> A Hamiltonian path visits every vertex exactly once; edges not on the path are simply unused. A Hamiltonian cycle returns to the starting vertex after visiting all others once. No simple degree criterion characterises Hamiltonian graphs; deciding existence is much harder than the Euler test.</p>
+            <p><b>Worked example.</b> Take a square a–b–c–d–a with diagonal a–c. Degrees are deg(a) = 3, deg(c) = 3, deg(b) = deg(d) = 2. Exactly two vertices are odd, so an Euler path exists from a to c: a–b–c–d–a–c uses each of the five edges once. Meanwhile a–b–c–d–a is a Hamiltonian cycle, since it visits all four vertices once while omitting the diagonal.</p>
+            <p><b>Key differences.</b> Euler concerns edges and is controlled by parity of degrees; Hamiltonian concerns vertices and has no comparable criterion. An Euler path may revisit vertices, while a Hamiltonian path may not. A graph can have one without the other: the star K₁,₃ has no Euler path (four odd vertices) but does have a Hamiltonian path from one leaf through the centre to another leaf.</p>
+            <p><b>Applications.</b> Euler trails model route inspection problems such as a postman covering every street; Hamiltonian cycles model the travelling salesman problem of visiting every city once. The different objectives lead to very different algorithms.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State necessary and sufficient conditions for a graph to have an Euler path and for it to have an Euler circuit. Find gcd(12, 18) using the extended Euclidean algorithm.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q3) &middot; <b>Marks:</b> 4+6</p>
           <div class="iq-solution" data-solution="done">
-            <p>A connected undirected graph has an <b>Euler circuit</b> iff every vertex has even degree. It has an <b>Euler path</b> that is not a circuit iff exactly two vertices have odd degree; the path starts at one and ends at the other. With more than two odd vertices no Euler path exists.</p>
-            <p><b>Extended Euclidean algorithm for gcd(12, 18):</b> 18 = 1·12 + 6, then 12 = 2·6 + 0, so the last nonzero remainder is gcd(12, 18) = 6. Back-substituting, 6 = 18 − 1·12, giving the Bezout coefficients 1 for 18 and −1 for 12.</p>
+            <p><b>[10 marks] Part (a) — 4 marks: Euler conditions.</b> Let G be a connected undirected graph. It has an Euler circuit if and only if every vertex has even degree. It has an Euler path that is not a circuit if and only if exactly two vertices have odd degree; the path starts at one odd vertex and ends at the other. If more than two vertices are odd, no Euler path exists.</p>
+            <p><b>Why the condition holds.</b> In a trail, every time the walk enters an intermediate vertex it must leave it, so incident edges at that vertex are used in pairs. Hence all intermediate vertices have even degree. Only the start and end of an open trail can have odd degree. Conversely, the pairing argument can be turned into an algorithm (Hierholzer’s method) that produces the trail whenever the degree condition holds.</p>
+            <p><b>Examples.</b> A triangle has three vertices of degree 2, so it has an Euler circuit. The path a–b–c has two vertices of degree 1, so it has an Euler path from a to c. The star with centre and three leaves has four odd vertices, so it has no Euler path. Connectivity is also required: an isolated vertex with degree 0 cannot be reached by a trail using other edges.</p>
+            <p><b>Part (b) — 6 marks: gcd(12, 18) by extended Euclid.</b> The Euclidean algorithm applies repeated division with remainder until the remainder is zero: 18 = 1·12 + 6, then 12 = 2·6 + 0. The last nonzero remainder is 6, so gcd(12, 18) = 6.</p>
+            <p><b>Back substitution.</b> From the first equation, 6 = 18 − 1·12. Expressing 6 as a linear combination of 18 and 12 gives Bezout coefficients 1 and −1: gcd(12, 18) = 1·18 + (−1)·12 = 6. These coefficients are unique only up to adding multiples of 18/gcd and 12/gcd.</p>
+            <p><b>Checking the result.</b> 6 divides 12 (12 = 2·6) and 6 divides 18 (18 = 3·6), so it is a common divisor. Any common divisor of 12 and 18 divides 18 − 12 = 6, so no larger common divisor exists. This confirms that the last nonzero remainder is indeed the greatest common divisor.</p>
+            <p><b>Why the algorithm is efficient.</b> Each step replaces the pair (a, b) with (b, a mod b), and the remainder is less than half the larger number after at most one step. The number of divisions is therefore logarithmic in the size of the inputs, unlike trial division, which is linear in the smaller number.</p>
+            <p><b>Connection to modular inverses.</b> The extended algorithm solves ax + my = gcd(a, m). When gcd(a, m) = 1, the coefficient x is the inverse of a in Zₘ, the same computation used in number theory questions about multiplicative inverses. For example 25 = 4·6 + 1 gives 1 = 25 − 4·6, so the inverse of 6 in Z₂₅ is −4 ≡ 21.</p>
+            <p><b>Independence of the two parts.</b> The Euler condition and the gcd computation are separate tasks sharing only the idea of extracting structure from a finite object: parity of degrees in one case, remainders in the other. A full answer should keep them distinct, assigning four marks to the graph condition and six to the extended algorithm.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Write Dijkstra’s algorithm to find the shortest path between two nodes in a weighted graph (no negative weights).</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q12) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Dijkstra’s algorithm solves the single-source shortest-path problem when all edge weights are nonnegative.</p>
-            <ol><li>Set d(source) = 0 and d(v) = ∞ for all other vertices; mark none as settled.</li>
-            <li>Repeatedly pick an unsettled vertex u of least tentative distance d(u) and mark it settled.</li>
-            <li>For each neighbour v of u with weight w, relax: if d(u) + w &lt; d(v), set d(v) = d(u) + w and record u as the predecessor of v.</li>
-            <li>Stop when all vertices are settled (or when the target is settled) and reconstruct the path backwards through predecessors.</li></ol>
-            <p>Nonnegative weights are essential: relaxing an edge into an already settled vertex could otherwise improve it later. With a binary heap the running time is O((|V| + |E|) log |V|).</p>
+            <p><b>[5 marks] Problem.</b> Given a weighted graph with nonnegative edge weights, a source s and a target t, find a path from s to t of minimum total weight. Dijkstra’s algorithm maintains a tentative distance d(v) for each vertex and repeatedly settles the vertex whose tentative distance is smallest.</p>
+            <p><b>Algorithm.</b> (1) Set d(s) = 0 and d(v) = ∞ for all other vertices; set all predecessors to undefined and mark no vertex settled. (2) Choose an unsettled vertex u with minimum d(u) and mark it settled. (3) For each neighbour v of u with edge weight w, relax the edge: if d(u) + w &lt; d(v), set d(v) = d(u) + w and pred(v) = u. (4) Repeat step 2 until all vertices are settled or until the target is settled. (5) Follow predecessors backwards from t to s and reverse the list to obtain the path.</p>
+            <p><b>Why settled vertices are final.</b> Suppose u is the unsettled vertex of least d(u). Any alternate route to u must pass through some other unsettled vertex x with d(x) ≥ d(u), and adding a nonnegative edge weight cannot produce a route shorter than d(u). Hence d(u) is the true shortest distance and can be fixed.</p>
+            <p><b>Need for nonnegative weights.</b> If a negative edge could appear later, a settled vertex might later be improved, breaking the argument. Graphs with negative weights require Bellman–Ford instead. Zero-weight edges are harmless.</p>
+            <p><b>Cost and data structure.</b> With a simple scan of all vertices the running time is O(|V|²); with a binary heap it is O((|V| + |E|) log |V|). The algorithm is used in routing protocols and map navigation, where link costs are distances or delays and are always nonnegative.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Describe preorder, inorder, and postorder traversals of a tree with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Traversal visits every node of a rooted tree in a fixed order: root, left subtree, right subtree.</p>
-            <ul><li><b>Preorder:</b> visit the root, then the left subtree, then the right subtree.</li>
-            <li><b>Inorder:</b> visit the left subtree, the root, then the right subtree.</li>
-            <li><b>Postorder:</b> visit the left subtree, the right subtree, then the root.</li></ul>
-            <p>Example: root A with children B and C, and B with children D and E. Preorder: A, B, D, E, C. Inorder: D, B, E, A, C. Postorder: D, E, B, C, A. Preorder is used to copy a tree and to print prefix expressions; postorder gives postfix expressions.</p>
+            <p><b>[5 marks] Traversals.</b> A traversal visits every node of a rooted tree exactly once in a systematic order. For a node N with left subtree L and right subtree R, the three depth-first orders are: preorder — visit N, then L, then R; inorder — visit L, then N, then R; postorder — visit L, then R, then N. Each can be written recursively by applying the same rule to each subtree.</p>
+            <p><b>Example tree.</b> Let A be the root with children B and C, and let B have children D and E. Then the preorder visit is A, B, D, E, C; the inorder visit is D, B, E, A, C; the postorder visit is D, E, B, C, A. In all three every one of the five nodes appears exactly once.</p>
+            <p><b>Reading the orders.</b> In preorder a node always precedes its descendants, so the first item is the root. In postorder a node always follows its descendants, so the last item is the root. In inorder, for a binary search tree, the visit is in sorted key order because all left-subtree keys are smaller and all right-subtree keys are larger.</p>
+            <p><b>Level order.</b> A fourth common traversal visits nodes level by level from left to right using a queue. For the example tree it gives A, B, C, D, E. This is useful for finding the shallowest solution in a search tree.</p>
+            <p><b>Applications.</b> Preorder copies a tree and writes prefix expressions; inorder yields infix expressions and sorted output for search trees; postorder yields postfix expressions and is used when deleting nodes, since children must be processed before their parent. Each order corresponds to a different way of linearising a hierarchical structure.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain the incidence-matrix representation of a graph with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q11) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>An <b>incidence matrix</b> of an undirected graph has one row per vertex and one column per edge, with entry 1 when the vertex is an endpoint of that edge and 0 otherwise (2 for a loop, under the usual convention).</p>
-            <p>Example: V = {a, b, c}, edges e₁ = ab, e₂ = bc, e₃ = ca. Ordering rows a, b, c and columns e₁, e₂, e₃ gives:</p>
-            <p>a: 1 0 1; b: 1 1 0; c: 0 1 1.</p>
-            <p>Each column sums to 2 and each row sums to the degree of its vertex. Incidence matrices suit edge-focused algorithms; adjacency matrices suit quick tests of whether two vertices are joined.</p>
+            <p><b>[5 marks] Definition.</b> For an undirected graph with vertex set V = {v₁, …, vₙ} and edge set E = {e₁, …, eₘ}, the incidence matrix B is n × m. Entry bᵢⱼ is 1 when vertex vᵢ is an endpoint of edge eⱼ, 0 otherwise; a loop is recorded as 2 in the corresponding entry. Every column of a non-loop edge therefore contains exactly two 1s.</p>
+            <p><b>Worked example.</b> Let V = {a, b, c} with e₁ = ab, e₂ = bc, e₃ = ca. Ordering rows a, b, c and columns e₁, e₂, e₃ gives row a = (1, 0, 1), row b = (1, 1, 0), row c = (0, 1, 1), so the matrix is [1 0 1; 1 1 0; 0 1 1]. Each column has two 1s, as required.</p>
+            <p><b>Reading degrees.</b> The sum of row i equals the degree of vertex vᵢ. Here each row sums to 2, matching the triangle in which every vertex has degree 2. The total number of 1s in the matrix equals 2|E| = 6, the handshaking lemma in matrix form.</p>
+            <p><b>Comparison with adjacency matrix.</b> An adjacency matrix is n × n with aᵢⱼ = 1 when vᵢ and vⱼ are joined; it answers “are i and j adjacent?” in one lookup but uses O(n²) space. An incidence matrix is n × m and is preferable for sparse graphs where m is much smaller than n², and when algorithms process edges directly, as in spanning-tree and flow computations.</p>
+            <p><b>Further properties.</b> For a connected graph the incidence matrix has rank n − 1, a fact used in algebraic graph theory. For a directed graph each column carries a −1 at the tail and a +1 at the head, and the incidence matrix then represents the network’s flow conservation equations.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define tree traversal. Explain preorder traversal with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q12) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Tree traversal</b> is a systematic visit of every node exactly once. In <b>preorder</b> the root is processed before its subtrees: visit the root, then traverse the left subtree in preorder, then the right subtree in preorder.</p>
-            <p>Example: root r has left child s and right child t; s has child u. The preorder visit is r, s, u, t. The root r comes first and each descendant follows its parent before that parent’s siblings.</p>
-            <p>Preorder is natural for copying a tree: the first node of a subtree is always its root, so the sequence can rebuild the original structure. It also produces prefix (Polish) notation for expression trees.</p>
+            <p><b>[5 marks] Tree traversal.</b> Traversal is the systematic visit of every node of a tree exactly once. Because a rooted tree is recursive — a root together with subtrees — traversal is naturally recursive: process the root and then recurse into its subtrees in a chosen order.</p>
+            <p><b>Preorder.</b> Visit the root first, then traverse each subtree in preorder from left to right. In pseudocode: PREORDER(node) — if node is null return; visit node; for each child from left to right call PREORDER(child). The root therefore precedes all descendants, and within each subtree the same rule applies.</p>
+            <p><b>Worked example.</b> Let root r have left child s and right child t, and let s have child u. Calling PREORDER(r) visits r, then recurses on s and visits s, then recurses on s’s child u and visits u, then returns to r’s second child t and visits t. The visit sequence is <b>r, s, u, t</b>.</p>
+            <p><b>Structural property.</b> In a preorder sequence, the first element is the root of the whole tree; immediately after it comes the preorder of the first subtree, then that of the second, and so on. This prefix property allows a tree to be reconstructed from its preorder sequence together with information about subtree sizes or from preorder plus inorder.</p>
+            <p><b>Uses.</b> Preorder is used to make a copy of a tree, to print a directory structure with folders before their contents, and to output prefix (Polish) notation of an expression tree, where an operator is written before its operands. Its recursive structure mirrors the recursive definition of a tree, making both the algorithm and its correctness proof straightforward.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Differentiate between a graph and a tree. State necessary conditions for two graphs to be isomorphic and give an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q3) &middot; <b>Marks:</b> 2+8</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>graph</b> is any collection of vertices and edges; it may contain cycles and may be disconnected. A <b>tree</b> is a connected graph with no cycles. Equivalently, a tree on n vertices has exactly n − 1 edges, and there is a unique path between any two of its vertices.</p>
-            <p>Two graphs are <b>isomorphic</b> when there is a bijection f between their vertex sets such that uv is an edge exactly when f(u)f(v) is an edge. Necessary conditions are equal vertex and edge counts and the same multiset of degrees; these are not sufficient in general.</p>
-            <p>Example: the 4-cycle a–b–c–d–a and the square 1–2–3–4–1 are isomorphic under a↦1, b↦2, c↦3, d↦4.</p>
+            <p><b>[10 marks] Part (a) — 2 marks: graph versus tree.</b> A graph is any set of vertices joined by edges; it may contain cycles and may be disconnected. A tree is a connected graph with no cycles. Equivalently, a tree on n vertices has exactly n − 1 edges and a unique path between every pair of vertices. Every tree is a graph, but not every graph is a tree.</p>
+            <p><b>Part (b) — 8 marks: graph isomorphism.</b> Two graphs G = (V, E) and H = (W, F) are isomorphic if there exists a bijection f : V → W such that uv ∈ E if and only if f(u)f(v) ∈ F. The bijection renames vertices while preserving adjacency exactly; isomorphic graphs are the same abstract structure drawn differently.</p>
+            <p><b>Necessary conditions.</b> Isomorphic graphs must have the same number of vertices, the same number of edges, the same degree sequence (the multiset of vertex degrees), the same number of connected components, and the same counts of cycles of each length. These are easy to compute but not sufficient in general: two non-isomorphic graphs can share all of them.</p>
+            <p><b>Worked positive example.</b> The 4-cycle a–b–c–d–a and the square 1–2–3–4–1 are isomorphic under f(a) = 1, f(b) = 2, f(c) = 3, f(d) = 4. Every edge of the first maps to an edge of the second, and every edge of the second comes from one in the first; the vertex and edge counts are both 4, and every degree is 2.</p>
+            <p><b>Worked verification method.</b> To prove two graphs are not isomorphic, find an invariant that differs: a vertex of degree 3 in one but none in the other, a triangle in one but none in the other, or a different number of components. For example a path on four vertices and a star with three leaves both have four vertices and three edges, but the path has two vertices of degree 1 and two of degree 2, while the star has three of degree 1 and one of degree 3, so they are not isomorphic.</p>
+            <p><b>Practical search.</b> To find an isomorphism, match vertices of equal degree, then extend the partial bijection edge by edge, backtracking when a required adjacency fails. The problem is computationally hard in general, but easy for small graphs with few repeated degrees.</p>
+            <p><b>Why isomorphism matters.</b> It identifies when two drawings represent the same network: two wiring diagrams, two molecular structures or two social networks may look different yet be structurally identical. Classifying graphs up to isomorphism is the goal of much of graph enumeration.</p>
+            <p><b>Worked matching strategy.</b> Suppose two graphs each have six vertices with degrees 3, 3, 2, 2, 1, 1. Match the two degree-3 vertices first; a degree-3 vertex must map to a degree-3 vertex because isomorphism preserves degree. Then check which degree-2 and degree-1 vertices are adjacent to them. If one graph has its two degree-3 vertices adjacent and the other does not, the graphs are not isomorphic, regardless of identical degree sequences. Degree is a local invariant; adjacency between distinguished vertices is a stronger invariant.</p>
+            <p><b>Self-isomorphism.</b> A graph may have several isomorphisms to itself, called automorphisms. The four-cycle has eight automorphisms (four rotations and four reflections), whereas an asymmetric graph has only the identity. The number of automorphisms measures how much symmetry the structure has and is used when counting distinct labelled graphs.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain how Kruskal’s algorithm works and illustrate with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Kruskal’s algorithm builds a minimum spanning tree by greedily adding the cheapest edge that does not create a cycle.</p>
-            <ol><li>Sort all edges by nondecreasing weight.</li><li>Start with n isolated components, one per vertex.</li><li>Scan the sorted edges and add an edge iff its endpoints lie in different components; merge those components.</li><li>Stop after n − 1 edges have been chosen.</li></ol>
-            <p>Example: vertices {1, 2, 3, 4} with edges 1–2 (1), 2–3 (2), 3–4 (3), 1–4 (4), 1–3 (5). Choose 1–2, 2–3, 3–4; edge 1–4 is skipped because 1 and 4 are already connected. The MST has total weight 1 + 2 + 3 = 6.</p>
-            <p>Cycle detection is efficiently done with a union–find structure; sorting dominates at O(|E| log |E|).</p>
+            <p><b>[5 marks] Algorithm.</b> Kruskal’s algorithm builds a minimum spanning tree of a connected weighted graph. Sort the edges by increasing weight. Start with every vertex as a separate component. Scan the sorted edges and add an edge whenever its endpoints lie in different components, merging those components; skip an edge whose endpoints are already connected, since it would create a cycle. Stop after n − 1 edges have been added.</p>
+            <p><b>Cycle detection.</b> Use a union–find (disjoint-set) structure: FIND(x) returns the representative of x’s component and UNION joins two components. An edge (u, v) is accepted exactly when FIND(u) ≠ FIND(v). Path compression and union by rank make each operation nearly constant time, so sorting the edges dominates at O(|E| log |E|).</p>
+            <p><b>Worked example.</b> Let V = {1, 2, 3, 4} and edges 1–2 (1), 2–3 (2), 3–4 (3), 1–4 (4), 1–3 (5). Sorted order is already given. Choose 1–2 (components {1,2}), then 2–3 (components {1,2,3}), then 3–4 (all connected). Edge 1–4 is skipped because 1 and 4 are connected; edge 1–3 is skipped for the same reason.</p>
+            <p><b>Result.</b> The spanning tree has edges {1–2, 2–3, 3–4} and total weight 1 + 2 + 3 = <b>6</b>. It is a path 1–2–3–4 with three edges for four vertices, and no cycle.</p>
+            <p><b>Optimality.</b> The cut property guarantees safety: for any cut, the lightest edge crossing it belongs to some minimum spanning tree, so greedily taking it cannot rule out an optimal solution. Repeating this over the growing components produces an MST. Prim’s algorithm is the alternative greedy strategy, growing one tree rather than merging several.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Write Dijkstra’s algorithm to find the shortest path from a source node to a goal node.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q10) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Initialise d(source) = 0, all other distances to ∞, and keep predecessors empty. At each step extract the unsettled vertex u with smallest d(u). For every outgoing edge (u, v) of weight w ≥ 0, relax: if d(u) + w &lt; d(v), update d(v) and set pred(v) = u.</p>
-            <p>Mark u settled after extraction, because with nonnegative weights no later route through another vertex can reduce d(u). Stop as soon as the goal node is extracted: its distance is final at that moment. Follow predecessors from the goal back to the source and reverse the list to obtain the path.</p>
-            <p>A priority queue gives O((|V| + |E|) log |V|). With negative edges the algorithm can fail; use Bellman–Ford instead.</p>
+            <p><b>[5 marks] Setup.</b> For a weighted connected graph with nonnegative weights, start at source s and compute shortest distances to all vertices, keeping predecessor links so paths can be recovered. Initialise d(s) = 0, d(v) = ∞ for v ≠ s, and pred(v) = undefined for all v.</p>
+            <p><b>Main loop.</b> While unsettled vertices remain, select the one u with the smallest d(u) and mark it settled. For every edge (u, v) of weight w, relax: if d(u) + w &lt; d(v), replace d(v) by d(u) + w and set pred(v) = u. Each relaxation corresponds to finding a better route through u.</p>
+            <p><b>Early termination.</b> If only the path to a specific goal g is wanted, stop as soon as g is selected as the minimum-distance unsettled vertex. At that moment d(g) is final: any other route would have to pass through an unsettled vertex whose distance is at least d(g), and nonnegative weights cannot reduce it. Continuing is unnecessary.</p>
+            <p><b>Path reconstruction.</b> Starting at g, repeatedly set g = pred(g) until the source is reached, collecting vertices; reverse the collected list to write the path from source to goal. The sum of the weights along it equals d(g).</p>
+            <p><b>Correctness and limits.</b> The algorithm is correct because settling a vertex in nondecreasing distance order means its value can never improve later, which requires all weights to be ≥ 0. With a binary heap the time is O((|V| + |E|) log |V|). Negative edges require Bellman–Ford; negative cycles make shortest paths undefined.</p>
           </div>
         </article>
         <article class="iq-card">
@@ -170,33 +207,48 @@
           <figure class="iq-figure"><img src="/assets/images/iq-2081-q1.jpg" alt="Diagram from the past question paper" /><figcaption>Weighted graph from the 2081 paper — generate the minimum spanning tree.</figcaption></figure>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q1) &middot; <b>Marks:</b> 5+5</p>
           <div class="iq-solution" data-solution="done">
-            <p>Graphs G = (V, E) and H = (W, F) are <b>isomorphic</b> if a bijection f : V → W exists with uv ∈ E exactly when f(u)f(v) ∈ F. Isomorphic graphs are the same abstract graph drawn differently.</p>
-            <p><b>Kruskal on the figure.</b> Edges by weight: 1–2 (1), 3–6 (2), 4–5 (6), 1–3 (9), 5–6 (9), 2–3 (10), 3–4 (11), 1–6 (14), 2–4 (15). Select 1–2, 3–6, 4–5, 1–3 and 5–6. After these five edges all six vertices are connected; later edges would close cycles and are skipped. The minimum spanning tree is {1–2, 3–6, 4–5, 1–3, 5–6} with total weight 1 + 2 + 6 + 9 + 9 = <b>27</b>.</p>
+            <p><b>[10 marks] Part (a) — 5 marks: isomorphism.</b> Graphs G = (V, E) and H = (W, F) are isomorphic when a bijection f : V → W satisfies uv ∈ E ⇔ f(u)f(v) ∈ F. The bijection is a relabelling of vertices that preserves adjacency in both directions. Necessary conditions are equal vertex counts, equal edge counts and identical degree sequences, but these alone do not prove isomorphism.</p>
+            <p><b>Example.</b> The cycle a–b–c–d–a and the square 1–2–3–4–1 are isomorphic via a↦1, b↦2, c↦3, d↦4: the four edges map one-to-one and all degrees are 2. A path on four vertices and a three-leaf star are not isomorphic, because their degree sequences (1,1,2,2) and (1,1,1,3) differ.</p>
+            <p><b>Part (b) — 5 marks: Kruskal on the figure.</b> The vertices are 1 to 6 and the edges by increasing weight are 1–2 (1), 3–6 (2), 4–5 (6), 1–3 (9), 5–6 (9), 2–3 (10), 3–4 (11), 1–6 (14), 2–4 (15). Six vertices require five edges in a spanning tree.</p>
+            <p><b>Decisions.</b> Keep 1–2 (1), joining 1 and 2. Keep 3–6 (2). Keep 4–5 (6). Keep 1–3 (9), joining {1,2} to {3,6}. Keep 5–6 (9), joining {4,5} to {1,2,3,6}; at this point all six vertices are connected and we have five edges. Every later edge (2–3, 3–4, 1–6, 2–4) connects vertices already in one component and is skipped.</p>
+            <p><b>Result.</b> The minimum spanning tree is {1–2, 3–6, 4–5, 1–3, 5–6} with total weight 1 + 2 + 6 + 9 + 9 = <b>27</b>. Its structure is the path 2–1–3–6–5–4, which visits all six vertices exactly once as a tree.</p>
+            <p><b>Verification.</b> The five edges are acyclic and connect six vertices, so they form a spanning tree. Since each chosen edge was the lightest crossing its component cut, the cut property guarantees the total is minimal.</p>
+            <p><b>Checking a tempting alternative.</b> Edge 2–3 has weight 10 and would be considered after 1–3 (weight 9). At that point 2 and 3 are already connected through 2–1–3, so adding 2–3 would create a cycle and is rejected. Similarly 3–4 (11) is rejected because 3 and 4 are linked through 3–6–5–4. The two edges of weight 9 are both accepted because they join different components at the moment they are scanned; ties do not cause a problem here.</p>
+            <p><b>What the two parts share.</b> Isomorphism asks whether two graphs have the same structure under a relabelling of vertices; the MST computation finds a cheapest spanning structure inside one graph. Both problems depend on the adjacency relation, and both are answered by inspecting the edge set systematically rather than by relying on a drawing.</p>
+            <p><b>Checking the cut decisions explicitly.</b> After keeping 1–2 and 3–6, the components are {1,2}, {3,6}, {4}, {5}. Edge 4–5 (6) creates {4,5}. Edge 1–3 (9) merges {1,2} with {3,6}. Edge 5–6 (9) then merges {4,5} with {1,2,3,6}, leaving no separate components. The next edge 2–3 (10) joins vertices already inside the single component, so the stopping condition has been reached before it is processed.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain any two representations of a graph.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Adjacency matrix.</b> An n × n matrix A with aᵢⱼ = 1 when vertex i is adjacent to j, else 0; symmetric for an undirected graph. Testing adjacency takes O(1), but storing a sparse graph wastes O(n²) space.</p>
-            <p><b>Adjacency list.</b> Each vertex keeps a list of its neighbours. Example: for edges ab, ac, bc the lists are a: b, c; b: a, c; c: a, b. This uses O(|V| + |E|) space and makes neighbour iteration fast.</p>
-            <p>A third option, the incidence matrix, indexes edges against vertices and is convenient when algorithms process edges explicitly.</p>
+            <p><b>[5 marks] Representation 1: adjacency matrix.</b> For a graph with n vertices, the adjacency matrix A is n × n with aᵢⱼ = 1 when vᵢ and vⱼ are adjacent and 0 otherwise. For an undirected graph A is symmetric and its diagonal is 0 unless loops are present. The degree of vᵢ is the sum of row i. Testing adjacency takes O(1), but the matrix uses O(n²) space even for a sparse graph.</p>
+            <p><b>Worked example.</b> For edges ab, ac, bc with vertex order a, b, c, the matrix is [0 1 1; 1 0 1; 1 1 0]. Each row sums to 2, the degree of every vertex in the triangle. Powers of A count walks: the (i, j) entry of A² is the number of length-two walks from vᵢ to vⱼ.</p>
+            <p><b>Representation 2: adjacency list.</b> Each vertex stores a list of its neighbours. For the same graph the lists are a: b, c; b: a, c; c: a, b. The structure uses O(|V| + |E|) space, which is far better for sparse graphs, and iterating over all neighbours of a vertex takes time proportional to its degree.</p>
+            <p><b>Comparison.</b> Matrices are best when the graph is dense or adjacency queries dominate; lists are best when the graph is sparse or algorithms scan neighbourhoods, as in breadth-first search and Dijkstra’s algorithm. Lists are easier to update when edges are inserted or deleted.</p>
+            <p><b>Third option.</b> An incidence matrix indexes vertices against edges, with 1 when a vertex is an endpoint of an edge. It uses O(|V||E|) space and is convenient when the algorithm processes edges explicitly, such as in spanning-tree and network-flow computations. The three representations encode identical information; the choice is about efficiency, not meaning.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define cut vertices and cut edges. How do you determine whether a graph has an Euler path?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q11) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>cut vertex</b> (articulation point) is a vertex whose removal increases the number of connected components. A <b>cut edge</b> (bridge) is an edge whose removal disconnects the graph. In a tree every non-leaf vertex is a cut vertex and every edge is a cut edge.</p>
-            <p>To decide whether an Euler path exists: first check that all nonzero-degree vertices lie in one connected component. If zero vertices have odd degree, an Euler circuit exists; if exactly two have odd degree, an Euler path exists between them; otherwise none exists. This degree test follows because every time the trail enters a vertex it must leave it, pairing incident edges, except at the two endpoints.</p>
+            <p><b>[5 marks] Cut vertex.</b> A cut vertex, or articulation point, of a connected graph is a vertex whose removal increases the number of connected components. A cut edge, or bridge, is an edge whose removal disconnects the graph. In the path a–b–c, vertex b is a cut vertex and both edges are cut edges; in a triangle no vertex or edge is a cut vertex or cut edge.</p>
+            <p><b>Testing for cut vertices.</b> A depth-first search computes discovery times and low values. A root is a cut vertex if it has more than one child in the DFS tree; a non-root vertex v is a cut vertex if it has a child u with low(u) ≥ discovery(v), meaning u’s subtree has no back edge to an ancestor of v. An edge is a bridge exactly when low(child) &gt; discovery(parent). Both tests run in linear time.</p>
+            <p><b>Euler path condition.</b> Ignoring isolated vertices, the graph must be connected and the number of odd-degree vertices must be 0 or 2. With zero odd vertices an Euler circuit exists starting anywhere; with two odd vertices an Euler path exists starting at one and ending at the other. The reason is that an intermediate vertex is entered and left in pairs, so its incident edges must pair up.</p>
+            <p><b>Example.</b> The path a–b–c–d has two odd vertices a and d and hence an Euler path a–b–c–d. The triangle has zero odd vertices and hence an Euler circuit. A star with three leaves has four odd vertices and hence no Euler path, even though it is connected; every internal vertex of a potential trail would need paired edges.</p>
+            <p><b>Distinction.</b> Cut vertices and bridges concern connectivity under deletion, while Euler paths concern using every edge once. They are independent properties: a tree has many cut vertices and bridges but an Euler path only when at most two vertices are odd.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the necessary and sufficient conditions for an Euler path and an Euler circuit, and give an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q4) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>For a connected undirected graph: an <b>Euler circuit</b> exists iff every vertex has even degree. An <b>Euler path</b> exists iff the number of odd-degree vertices is 0 or 2; with two odd vertices the path must start at one and end at the other.</p>
-            <p><b>Example.</b> The path graph a–b–c has deg(a) = deg(c) = 1 and deg(b) = 2, so exactly two vertices are odd and a–b–c is an Euler path using both edges once. The triangle with vertices x, y, z has all degrees 2, so x–y–z–x is an Euler circuit. A star with three leaves has four odd vertices, so it has no Euler path.</p>
+            <p><b>[5 marks] Conditions.</b> Let G be a connected undirected graph. G has an Euler circuit if and only if every vertex has even degree. G has an Euler path that is not a circuit if and only if exactly two vertices have odd degree; the path starts at one odd vertex and ends at the other. More than two odd vertices makes an Euler path impossible, and a disconnected graph cannot have one covering all edges.</p>
+            <p><b>Why parity controls the trail.</b> Each time a trail enters an intermediate vertex it must leave by a different edge, so the edges incident with an intermediate vertex are consumed in pairs. Only the two endpoints may have an unpaired incident edge. Conversely, Hierholzer’s algorithm splices closed circuits together whenever all degrees are even, producing an Euler circuit; starting from an odd vertex and adding one edge to the other odd vertex reduces to that case.</p>
+            <p><b>Example 1.</b> The path a–b–c has deg(a) = 1, deg(b) = 2, deg(c) = 1. Exactly two vertices are odd, so a–b–c is an Euler path using both edges once.</p>
+            <p><b>Example 2.</b> The triangle x–y–z–x has all degrees equal to 2, so x–y–z–x is an Euler circuit. Adding a diagonal would make two vertices odd and turn the circuit into a path problem.</p>
+            <p><b>Example 3.</b> The star with centre c and leaves a, b, d has degrees 3, 1, 1, 1: four odd vertices, so no Euler path exists. This shows that connectivity alone is not enough; the parity condition is decisive.</p>
           </div>
         </article>
         <article class="iq-card">
@@ -204,7 +256,10 @@
           <figure class="iq-figure"><img src="/assets/images/iq-2082-q8.png" alt="Diagram from the past question paper" /><figcaption>Weighted graph from the 2082 paper — shortest path from a to z.</figcaption></figure>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Dijkstra from a.</b> Edges: ab 2, ac 3, bd 5, be 2, ce 5, de 1, dz 2, ez 4.</p>
+            <p><b>[5 marks] Graph data.</b> Edges: ab 2, ac 3, bd 5, be 2, ce 5, de 1, dz 2, ez 4. The graph is undirected with six vertices and all weights nonnegative, so Dijkstra’s algorithm applies from source a to goal z.</p>
+            <p><b>Initialisation.</b> d(a) = 0 and all other distances are ∞. Settle a: relax ab to d(b) = 2 and ac to d(c) = 3.</p>
+            <p><b>Settling b and c.</b> Settle b (distance 2): relax bd to 7 and be to 4. Settle c (distance 3): the route through c to e would give 3 + 5 = 8, which does not improve d(e) = 4.</p>
+            <p><b>Settling e and d.</b> Settle e (distance 4): relax de to d(d) = min(7, 4 + 1) = 5 and ez to d(z) = 8. Settle d (distance 5): relax dz to d(z) = min(8, 5 + 2) = 7. Settle z with final distance 7.</p>
             <table class="topic-table"><thead><tr><th>Settled</th><th>d(b)</th><th>d(c)</th><th>d(d)</th><th>d(e)</th><th>d(z)</th></tr></thead><tbody>
             <tr><td>a (0)</td><td>2</td><td>3</td><td>∞</td><td>∞</td><td>∞</td></tr>
             <tr><td>b (2)</td><td>—</td><td>3</td><td>7</td><td>4</td><td>∞</td></tr>
@@ -212,24 +267,33 @@
             <tr><td>e (4)</td><td>—</td><td>—</td><td>5</td><td>—</td><td>8</td></tr>
             <tr><td>d (5)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>7</td></tr>
             </tbody></table>
-            <p>Vertex z is settled last with d(z) = 7. Predecessors give z ← d ← e ← b ← a, so the shortest path is <b>a → b → e → d → z</b> with length 2 + 2 + 1 + 2 = 7. The alternatives a–b–d–z (9) and a–c–e–d–z (11) are longer.</p>
+            <p><b>Path reconstruction.</b> pred(z) = d, pred(d) = e, pred(e) = b, pred(b) = a. Reading backwards gives z ← d ← e ← b ← a, so the shortest path is <b>a → b → e → d → z</b> with length 2 + 2 + 1 + 2 = <b>7</b>. Competing routes a–b–d–z cost 9 and a–c–e–d–z cost 11, confirming the result.</p>
+            <p><b>Why the predecessor chain is valid.</b> Each predecessor was recorded when a strict improvement d(u) + w &lt; d(v) was found. Following pred links must terminate at the source, because d decreases along each link: d(pred(v)) + w = d(v) with w &gt; 0, so d(pred(v)) &lt; d(v). The chain cannot form a cycle, and reversing it produces a legitimate path from a to z whose weight equals the recorded distance.</p>
+            <p><b>Checking every settled value.</b> d(b) = 2 is the direct edge; d(c) = 3 is the direct edge and cannot be improved via b because no b–c edge exists; d(e) = 4 comes via a–b–e and beats the route a–c–e costing 8; d(d) = 5 comes via a–b–e–d and beats a–b–d costing 7; d(z) = 7 comes via a–b–e–d–z and beats a–b–e–z costing 8. Each value is final when its vertex is settled.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define a spanning tree and a minimum spanning tree. How do you traverse a tree?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q11) &middot; <b>Marks:</b> 2+3</p>
           <div class="iq-solution" data-solution="done">
-            <p>A <b>spanning tree</b> of a connected graph G is a subgraph that contains every vertex of G, is connected, and has no cycles; it therefore has exactly |V| − 1 edges. A <b>minimum spanning tree</b> minimises the sum of edge weights among all spanning trees.</p>
-            <p>Tree traversal means visiting every node once in a systematic order. <b>Preorder</b> visits root, left subtree, right subtree; <b>inorder</b> visits left subtree, root, right subtree; <b>postorder</b> visits left, right, root; <b>level order</b> visits nodes level by level using a queue. For a root A with children B, C and B with child D, preorder is A, B, D, C and postorder is D, B, C, A.</p>
+            <p><b>[2 marks] Definitions.</b> A spanning tree of a connected graph G is a subgraph that includes every vertex of G, is connected, and has no cycles; it has exactly |V| − 1 edges. A minimum spanning tree is a spanning tree with the least possible total edge weight in a weighted graph.</p>
+            <p><b>Equivalent characterisations.</b> A tree on n vertices is connected and acyclic, has n − 1 edges, and offers a unique path between any two vertices. Adding any edge to a spanning tree creates exactly one cycle; removing any edge disconnects it. These properties make trees the backbone of network design.</p>
+            <p><b>[3 marks] Traversals.</b> Tree traversal visits each node once in a fixed order. Preorder visits root, left subtree, right subtree; inorder visits left subtree, root, right subtree; postorder visits left subtree, right subtree, root; level order visits nodes by increasing depth using a queue.</p>
+            <p><b>Worked example.</b> Let root A have children B and C, and B have child D. Preorder gives A, B, D, C; inorder gives D, B, A, C; postorder gives D, B, C, A; level order gives A, B, C, D. Each sequence contains all four nodes exactly once, with the root first in preorder and last in postorder.</p>
+            <p><b>Uses.</b> Traversals support copying a tree, evaluating expression trees, searching binary search trees and printing hierarchical data. Kruskal’s and Prim’s algorithms construct minimum spanning trees, which model cheap network layouts such as laying cable between buildings.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is connectivity in a graph? Discuss bipartite and planar graphs.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q12) &middot; <b>Marks:</b> 1+4</p>
           <div class="iq-solution" data-solution="done">
-            <p>A graph is <b>connected</b> when there is a path between every pair of vertices; otherwise its maximal connected parts are its components. A directed graph is strongly connected when each vertex can reach every other along directed paths.</p>
-            <p>A graph is <b>bipartite</b> if its vertices split into two disjoint sets X and Y with every edge joining X to Y. Equivalently, it contains no cycle of odd length. Examples: any path, any even cycle, and the cube graph; the triangle K₃ is not bipartite.</p>
-            <p>A graph is <b>planar</b> if it can be drawn in the plane with no crossing edges. K₄ is planar; K₃,₃ and K₅ are not. Euler’s formula for a connected planar graph is |V| − |E| + |F| = 2, and a simple planar graph satisfies |E| ≤ 3|V| − 6 for |V| ≥ 3.</p>
+            <p><b>[1 mark] Connectivity.</b> A graph is connected when there is a path between every pair of vertices; otherwise its maximal connected subgraphs are its components. A directed graph is strongly connected when each vertex can reach every other along directed paths.</p>
+            <p><b>[4 marks] Bipartite graphs.</b> A graph is bipartite if its vertices can be split into two disjoint sets X and Y so that every edge joins a vertex of X to one of Y; no edge lies inside either part. An equivalent condition is that the graph contains no cycle of odd length, which can be tested by a two-colouring breadth-first search: colour a start vertex, colour its neighbours with the opposite colour, and report failure if an edge joins two vertices of the same colour.</p>
+            <p><b>Bipartite examples.</b> Any path, any even cycle, the cube graph and the complete bipartite graph K₃,₃ are bipartite. The triangle K₃ and the pentagon C₅ are not, since they contain odd cycles. Bipartite graphs model matchings, such as pairing job applicants with posts.</p>
+            <p><b>Planar graphs.</b> A graph is planar if it can be drawn in the plane with edges meeting only at common endpoints. The drawing divides the plane into faces; for a connected planar graph Euler’s formula states |V| − |E| + |F| = 2. A simple planar graph with at least three vertices satisfies |E| ≤ 3|V| − 6, which gives a quick nonplanarity test.</p>
+            <p><b>Planar examples.</b> K₄ is planar: draw a triangle and place the fourth vertex inside, joining it to the three corners. K₅ and K₃,₃ are the two fundamental nonplanar graphs; Kuratowski’s theorem says a graph is planar exactly when it contains no subdivision of either. Planarity matters for circuit layout and map colouring, where crossing edges are not allowed.</p>
+            <p><b>[1 mark for connectivity, 4 marks for bipartite and planar.] The two conditions are independent.</b> A graph can be connected but nonplanar, as K₅ shows, or planar but disconnected, as two disjoint triangles show. Bipartiteness likewise says nothing about planarity: K₃,₃ is bipartite but not planar, while K₄ is planar but not bipartite. Each property captures a different structural constraint.</p>
+            <p><b>Using Euler’s formula.</b> For a connected planar drawing of a tree, |E| = |V| − 1 and there is one face, the unbounded outside, so |V| − (|V| − 1) + 1 = 2. For K₄, |V| = 4 and |E| = 6, so |F| = 2 − 4 + 6 = 4 faces. These counts help decide whether a proposed drawing is complete and are the starting point for the four-colour theorem.</p>
           </div>
         </article>
 
