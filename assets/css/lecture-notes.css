@@ -296,7 +296,7 @@ html[data-theme="study"] .projector-wash {
    first chapter label. Collapsed: it stays in the left margin. */
 .doc-shell:not(.syllabus-collapsed) .syllabus-toggle {
   top: 5rem;
-  left: calc(300px - 2.1rem);
+  left: calc(300px - 3.1rem);
 }
 .doc-shell.syllabus-collapsed .syllabus-toggle { visibility: visible; }
 .syllabus-toggle svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; }

@@ -96,8 +96,40 @@
     apply();
   }
 
+  // Slide the rail up into the space the header leaves behind, then stop at
+  // the viewport top. Height grows with it so the rail always fills the screen.
+  function updateStickyRail() {
+    var rail = document.querySelector(".syllabus");
+    if (!rail) return;
+    if (window.matchMedia && window.matchMedia("(max-width: 900px)").matches) {
+      rail.style.top = "";
+      rail.style.height = "";
+      return;
+    }
+    var top = Math.max(0, 76 - (window.scrollY || document.documentElement.scrollTop || 0));
+    rail.style.top = top + "px";
+    rail.style.height = "calc(100vh - " + top + "px)";
+  }
+
+  function initStickyRail() {
+    if (!window.__CN_RAIL_SCROLL) {
+      window.__CN_RAIL_SCROLL = true;
+      window.addEventListener("scroll", function () {
+        if (window.__CN_RAIL_TICK) return;
+        window.__CN_RAIL_TICK = true;
+        requestAnimationFrame(function () {
+          window.__CN_RAIL_TICK = false;
+          updateStickyRail();
+        });
+      }, { passive: true });
+      window.addEventListener("resize", updateStickyRail);
+    }
+    updateStickyRail();
+  }
+
   function init() {
     initSyllabusToggle();
+    initStickyRail();
     document.querySelectorAll(".chapter-rail a").forEach(function (a, i) {
       a.addEventListener("mouseenter", function () { show(i); });
       a.addEventListener("focus", function () { show(i); });

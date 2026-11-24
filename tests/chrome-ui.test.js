@@ -26,6 +26,12 @@ var sidebarRule = css.slice(css.indexOf(".syllabus {"), css.indexOf(".reading {"
 assert(sidebarRule.indexOf("position: sticky") !== -1, "chapter list must stay visible while scrolling");
 assert(css.indexOf(".doc-shell:not(.syllabus-collapsed) .syllabus-toggle {") !== -1,
   "open sidebar must move the toggle clear of the first chapter row");
+assert(css.indexOf("left: calc(300px - 3.1rem)") !== -1,
+  "open toggle must sit inside the rail edge");
+var notesJs = fs.readFileSync(path.join(root, "assets/js/lecture-notes.js"), "utf8");
+assert(notesJs.indexOf("function updateStickyRail") !== -1 &&
+  notesJs.indexOf("76 - (window.scrollY") !== -1,
+  "rail must slide up into the header gap and stop at the viewport top");
 assert(css.indexOf("rgba(242,193,78,0.6)") === -1, "folio still hardcodes dark-theme gold");
 assert(css.indexOf("color: var(--yellow); opacity: 0.6") !== -1, "folio must follow the theme");
 
