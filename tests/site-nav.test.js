@@ -75,7 +75,7 @@ function walk(dir) {
   });
 }
 walk(root);
-assert.strictEqual(pages.length, 18, "expected 18 pages, got " + pages.length);
+assert.strictEqual(pages.length, 19, "expected 19 pages, got " + pages.length);
 pages.forEach(function (p) {
   if (path.relative(root, p).replace(/\\/g, "/") === "notes/discrete-structure.html") return;
   var s = fs.readFileSync(p, "utf8");
