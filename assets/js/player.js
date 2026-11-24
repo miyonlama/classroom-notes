@@ -37,10 +37,22 @@
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
   }
 
+  function parseSource(url) {
+    if (!url || typeof url !== "string") return null;
+    var v = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    var l = url.match(/[?&]list=([A-Za-z0-9_-]{10,})/);
+    var i = url.match(/[?&]index=(\d+)/);
+    var videoId = v ? v[1] : null;
+    var playlistId = l ? l[1] : null;
+    if (!videoId && !playlistId) return null;
+    var index = i ? parseInt(i[1], 10) : 1;
+    if (!isFinite(index) || index < 1) index = 1;
+    return { videoId: videoId, playlistId: playlistId, index: index };
+  }
+
   function parseId(url) {
-    if (!url) return null;
-    var m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    return m ? m[1] : null;
+    var source = parseSource(url);
+    return source ? source.videoId : null;
   }
 
   function fmt(seconds) {
