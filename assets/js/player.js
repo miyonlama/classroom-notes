@@ -2,6 +2,7 @@
   "use strict";
 
   var KEY = "classroom-notes-yt-player";
+  var ART_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%232f7d58'/%3E%3Cpath d='M26 20l22 12-22 12Z' fill='%23f2c14e'/%3E%3C/svg%3E";
   var state = { url: "", time: 0, volume: 70, muted: false, title: "" };
   var player = null;
   var pendingPlay = false;
@@ -10,6 +11,7 @@
   var lastLoadedUrl = "";
   var loadTimer = null;
   var titleTimer = null;
+  var lastQueueIndex = -1;
 
   var icons = {
     play: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5Z"/></svg>',
@@ -17,7 +19,9 @@
     mute: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2Z"/><path d="M11 6l4 4M15 6l-4 4"/></svg>',
     sound: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2Z"/><path d="M11 5.5c1.2.7 1.2 3.3 0 4"/></svg>',
     close: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>',
-    chevron: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg>'
+    chevron: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg>',
+    prev: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="3" width="2" height="10"/><path d="M13 3L6 8l7 5Z"/></svg>',
+    next: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><rect x="11" y="3" width="2" height="10"/><path d="M3 3l7 5-7 5Z"/></svg>'
   };
 
   function loadState() {
@@ -71,12 +75,61 @@
     saveState();
   }
 
+  function escapeHtml(value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function setMeta(data) {
+    if (!data) return;
+    if (data.title) setTitle(data.title);
+    if (data.author) {
+      var author = document.getElementById("yt-author");
+      if (author) author.textContent = data.author;
+    }
+    if (data.video_id) {
+      var art = document.getElementById("yt-art");
+      if (art) art.src = "https://i.ytimg.com/vi/" + data.video_id + "/mqdefault.jpg";
+    }
+    renderQueue();
+  }
+
+  function renderQueue() {
+    var list = document.getElementById("yt-queue-list");
+    if (!list) return;
+    var source = parseSource(state.url);
+    var current = 0;
+    if (player && typeof player.getPlaylistIndex === "function") {
+      var idx = player.getPlaylistIndex();
+      if (typeof idx === "number" && isFinite(idx) && idx >= 0) current = idx;
+    } else if (source && source.playlistId) {
+      current = Math.max(0, source.index - 1);
+    }
+    if (!source || !source.playlistId) {
+      list.innerHTML = '<li class="yt-queue__empty">Paste a playlist link to see upcoming tracks.</li>';
+      return;
+    }
+    var html = "";
+    for (var n = current; n < current + 4; n++) {
+      var isCurrent = n === current;
+      var label = isCurrent ? (state.title || "Now playing") : "Track " + String(n + 1).padStart(2, "0");
+      html += '<li class="yt-queue__item' + (isCurrent ? " is-current" : "") + '" data-index="' + n + '">' +
+        '<span class="yt-queue__no">' + String(n + 1).padStart(2, "0") + '</span>' +
+        '<span class="yt-queue__thumb" aria-hidden="true"></span>' +
+        '<span class="yt-queue__text"><b>' + escapeHtml(label) + '</b><small>' +
+        (isCurrent ? "Now playing" : "Up next") + '</small></span>' +
+        '</li>';
+    }
+    list.innerHTML = html;
+  }
+
   function applyVideoData(p) {
     if (!p || !p.getVideoData) return;
     var url = state.url;
     var data = p.getVideoData();
     if (data && data.title) {
-      setTitle(data.title);
+      setMeta(data);
       return;
     }
     // getVideoData() is often empty right after loadVideoById. Ask YouTube
@@ -88,12 +141,12 @@
         return r.json();
       })
       .then(function (d) {
-        if (d && d.title && state.url === url) setTitle(d.title);
+        if (d && d.title && state.url === url) setMeta({ title: d.title });
       })
       .catch(function () {
         fetch("https://noembed.com/embed?url=" + encodeURIComponent(url))
           .then(function (r) { return r.json(); })
-          .then(function (d) { if (d && d.title && state.url === url) setTitle(d.title); })
+          .then(function (d) { if (d && d.title && state.url === url) setMeta({ title: d.title }); })
           .catch(function () {});
       });
     if (titleTimer) clearInterval(titleTimer);
@@ -102,7 +155,7 @@
       tries++;
       var latest = p.getVideoData ? p.getVideoData() : null;
       if (latest && latest.title && state.url === url) {
-        setTitle(latest.title);
+        setMeta(latest);
         clearInterval(titleTimer);
         titleTimer = null;
       } else if (tries >= 8) {
@@ -127,22 +180,44 @@
       '<div class="yt-player__host" id="yt-host"></div>' +
       '<div class="yt-player__head">' +
         '<span class="yt-player__mark" aria-hidden="true"></span>' +
-        '<span class="yt-player__label">Music</span>' +
-        '<span class="yt-player__status" id="yt-status">Paste a YouTube URL</span>' +
-        '<button id="yt-head-toggle" type="button" aria-label="Play or pause">' + icons.play + '</button>' +
         '<button id="yt-expand" class="yt-player__expand" type="button" aria-label="Expand player">' + icons.chevron + '</button>' +
       '</div>' +
-      '<div class="yt-player__body">' +
-        '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
-        '<button id="yt-load" class="yt-player__load" type="button">LOAD</button>' +
-        '<input id="yt-seek" class="yt-player__seek" type="range" min="0" max="100" value="0" aria-label="Seek" />' +
-        '<span class="yt-player__time" id="yt-time">00:00 / 00:00</span>' +
-        '<input id="yt-volume" class="yt-player__volume" type="range" min="0" max="100" value="70" aria-label="Volume" />' +
-        '<button id="yt-mute" type="button" aria-label="Mute">' + icons.sound + '</button>' +
-        '<button id="yt-close" class="yt-player__close" type="button" aria-label="Stop and clear">' + icons.close + '</button>' +
+      '<div class="yt-player__deck">' +
+        '<img id="yt-art" class="yt-player__art" alt="" />' +
+        '<div class="yt-player__meta">' +
+          '<span class="yt-player__label">Music</span>' +
+          '<span class="yt-player__status" id="yt-status">Paste a YouTube URL</span>' +
+          '<span class="yt-player__author" id="yt-author"></span>' +
+        '</div>' +
+        '<div class="yt-player__progress">' +
+          '<input id="yt-seek" class="yt-player__seek" type="range" min="0" max="100" value="0" aria-label="Seek" />' +
+          '<span class="yt-player__time" id="yt-time">00:00 / 00:00</span>' +
+        '</div>' +
+        '<div class="yt-player__transport">' +
+          '<button id="yt-prev" type="button" aria-label="Previous track">' + icons.prev + '</button>' +
+          '<button id="yt-head-toggle" type="button" aria-label="Play or pause">' + icons.play + '</button>' +
+          '<button id="yt-next" type="button" aria-label="Next track">' + icons.next + '</button>' +
+          '<input id="yt-volume" class="yt-player__volume" type="range" min="0" max="100" value="70" aria-label="Volume" />' +
+          '<button id="yt-mute" type="button" aria-label="Mute">' + icons.sound + '</button>' +
+          '<button id="yt-close" class="yt-player__close" type="button" aria-label="Stop and clear">' + icons.close + '</button>' +
+        '</div>' +
+        '<div class="yt-player__link">' +
+          '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
+          '<button id="yt-load" class="yt-player__load" type="button">LOAD</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="yt-player__queue">' +
+        '<p class="yt-player__queue-title">Up next</p>' +
+        '<ol id="yt-queue-list" class="yt-player__queue-list"></ol>' +
       '</div>';
     document.body.appendChild(root);
 
+    var art = document.getElementById("yt-art");
+    art.src = ART_PLACEHOLDER;
+    art.onerror = function () {
+      art.onerror = null;
+      art.src = ART_PLACEHOLDER;
+    };
     document.getElementById("yt-url").value = state.url;
     document.getElementById("yt-volume").value = String(state.volume);
     updateMuteIcon();
@@ -158,6 +233,17 @@
       loadTimer = setTimeout(loadFromInput, 700);
     });
     document.getElementById("yt-load").addEventListener("click", loadFromInput);
+    document.getElementById("yt-queue-list").addEventListener("click", function (e) {
+      var item = e.target.closest ? e.target.closest(".yt-queue__item") : null;
+      if (!item || !player || !player.playVideoAt) return;
+      player.playVideoAt(Number(item.getAttribute("data-index")));
+    });
+    document.getElementById("yt-prev").addEventListener("click", function () {
+      if (player && player.previousVideo) player.previousVideo();
+    });
+    document.getElementById("yt-next").addEventListener("click", function () {
+      if (player && player.nextVideo) player.nextVideo();
+    });
     document.getElementById("yt-head-toggle").addEventListener("click", function (e) {
       e.stopPropagation();
       toggle();
@@ -185,10 +271,14 @@
     document.getElementById("yt-close").addEventListener("click", function () {
       if (player && player.stopVideo) player.stopVideo();
       state.url = ""; state.time = 0; state.title = ""; lastLoadedUrl = "";
+      lastQueueIndex = -1;
       document.getElementById("yt-url").value = "";
+      document.getElementById("yt-author").textContent = "";
+      document.getElementById("yt-art").src = ART_PLACEHOLDER;
       document.getElementById("yt-seek").max = "100";
       document.getElementById("yt-seek").value = "0";
       document.getElementById("yt-time").textContent = "00:00 / 00:00";
+      renderQueue();
       updateToggle(false);
       setStatus("Paste a YouTube URL", false);
       document.getElementById("yt-player").classList.remove("is-open");
@@ -225,6 +315,8 @@
     document.getElementById("yt-seek").value = "0";
     document.getElementById("yt-player").classList.add("is-open");
     setStatus("Ready — press play", false);
+    lastQueueIndex = -1;
+    renderQueue();
     saveState();
     if (player && player.loadVideoById) {
       if (source.playlistId && player.loadPlaylist) {
@@ -275,6 +367,7 @@
           if (state.muted) e.target.mute(); else e.target.unMute();
           if (state.time > 0) e.target.seekTo(state.time, true);
           setStatus(state.title || ("YouTube · " + (id || "playlist")), false);
+          renderQueue();
           applyVideoData(e.target);
           var readyDuration = e.target.getDuration && e.target.getDuration();
           if (readyDuration > 0) document.getElementById("yt-seek").max = String(Math.floor(readyDuration));
@@ -343,6 +436,13 @@
       var cur = player.getCurrentTime() || 0;
       var dur = player.getDuration() || 0;
       state.time = cur;
+      if (player.getPlaylistIndex) {
+        var currentIndex = player.getPlaylistIndex();
+        if (currentIndex !== lastQueueIndex) {
+          lastQueueIndex = currentIndex;
+          renderQueue();
+        }
+      }
       document.getElementById("yt-time").textContent = fmt(cur) + " / " + fmt(dur);
       var seek = document.getElementById("yt-seek");
       if (dur > 0) {
@@ -365,6 +465,7 @@
     state.title = "";
     lastLoadedUrl = "";
     saveState();
+    renderQueue();
     if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
     if (parseSource(restoredUrl)) setStatus("Ready — press play", false);
     window.addEventListener("pagehide", saveState);
