@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Number Theory — Discrete Structure</title>
+  <title>Number Theory, Discrete Structure</title>
   <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
   <link rel="stylesheet" href="/assets/css/player.css" />
 </head>
@@ -39,350 +39,192 @@
         <span class="folio" aria-hidden="true">05</span>
         <h1>Number Theory</h1>
         <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Number Theory.pdf" download>Download original PDF</a>.</p>
+
         <aside class="cue-block">
           <h2>Recall cues</h2>
           <ol>
-      <li>What does divisibility mean, and how does the division algorithm work?</li>
-      <li>How is modular arithmetic expressed with congruences?</li>
-      <li>Why do integer representations and algorithms matter?</li>
+            <li>What does congruent modulo m really assert?</li>
+            <li>How do gcd and lcm follow from prime factorizations?</li>
+            <li>When does a linear congruence have an inverse?</li>
           </ol>
         </aside>
 
-<section><h2>Number Theory</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>The part of mathematics devoted to the study of the set of integers and their properties is known as number theory.</p>
-</section>
-<section><h3>2. Divisibility and Modular Arithmetic</h3>
-<p>Division of an integer by a positive integer produces a quotient and a remainder. Working with these remainders leads to modular arithmetic.</p>
-</section>
-<section><h4>2.1. Division</h4>
-<p>If a and b are integers with a ≠ 0, we say that a divides b if there is an integer c such</p>
-<p>that b = ac, or equivalently, if bis an integer. When a divides b we say</p>
-<p>that a is a  a</p>
-<p>factor or divisor of b, and that b is a multiple of a. The notation a | b denotes that a</p>
-<p>divides b. We write a ∤ b when a does not divide b.</p>
-<p>discourse is the set of integers.</p>
-<details><summary>Example</summary><p>Example 1: Determine whether 3 | 7 and whether 3 | 12. Solution: We see that 3 ∤ 7, because 7/3 is not an integer. On the other hand, 3 | 12 because 12/3 = 4.</p></details>
-<details><summary>Example</summary><p>Example 2: Let n and d be positive integers. How many positive integers not exceeding n are divisible by d? Solution: The positive integers divisible by d are all the integers of the form dk, where k is a positive integer. Hence, the number of positive integers divisible by d that do</p></details>
-<p>not exceed n equals the number of integers k with 0 &lt; dk ≤ n, or with 0 &lt; k ≤ n/d. Therefore, there are ⎣n/d⎦ positive integers not exceeding n that are divisible by d.</p>
-<p>Exercise 1: How many positive integers not exceeding 30 are divisible by 7?</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 1: Let a, b, and c be integers, where a ≠ 0. Then</div>
-<p>(i) if a | b and a | c, then a | (b + c); (ii) if a | b, then a | bc for all integers c; (iii)if a | b and b | c, then a | c. Proof: Here, we used direct proof to prove (i), (ii), and (iii) of this theorem.  (i)</p>
-<p>Suppose that a | b and a | c. Then, from the definition of divisibility, it follows that there are integers s and t with b = as and c = at. Hence, b + c = as + at =  a(s + t). Therefore, a divides b + c. (ii) Suppose a | b. Then, from the definition of divisibility, it follows that there is</p>
-<p>an integer s such that b = as. Multiplying both sides by an integer c, we get bc = asc = a(sc). Since, s and c are integers which makes sc also an integer. Therefore, a divides bc. (iii)Suppose that a | b and b | c. Then, from the definition of divisibility, it follows</p>
-<p>that there are integers s and t with b = as and c = bt. Then, c = bt = ast = a(st). Since, s and t are integers which makes st also an integer. Therefore, a divides c.</p>
-<div class="callout key"><strong>Corollary:</strong> Corollary 1: If a, b, and c are integers, where a ≠ 0, such that a | b and a | c, then a |</div>
-<p>b + nc whenever m and n are integers. Proof: Here, we also use direct proof. By part (ii) of Theorem 1 we see that a | mb and</p>
-<p>a | nc whenever m and n are integers. By part (i) of Theorem 1 it follows that a | mb + nc.</p>
-</section>
-<section><h4>2.2. The Division Algorithm</h4>
-<p>When an integer is divided by a positive integer, there is a quotient and a remainder,</p>
-<p>as the division algorithm shows.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 2: The Division Algorithm: Let a be an integer and d a positive integer. Then there are unique integers q and r, with 0 ≤ r &lt; d, such that a = dq + r.  Here, d is called the divisor, a is called the dividend, q is called the quotient, and r is  called the remainder. This notation is used to express the quotient and remainder are  q = a div d and r = a mod d.</div>
-<details><summary>Example</summary><p>Example 3: What are the quotient and remainder when 101 is divided by 11? Solution: We have 101 = 11. 9 + 2. Hence, the quotient when 101 is divided by 11 is  9 = 101 div 11, and the remainder is 2 = 101 mod 11.</p></details>
-<details><summary>Example</summary><p>Example 4: What are the quotient and remainder when −11 is divided by 3?  Solution: We have −11 = 3(−4) + 1.Hence, the quotient when −11 is divided by 3 is  −4 = −11 div 3, and the remainder is 1 = −11 mod 3.</p></details>
-<p>Exercise 2: What are the quotient and remainder when 30 is divided by 7 and −17 is divided by 4?</p>
-</section>
-<section><h4>2.3. Modular Arithmetic</h4>
-<p>In some situations we care only about the remainder of an integer when it is divided by some specified positive integer.</p>
-<details><summary>Example</summary><p>Example 5: What time it will be (on a 24-hour clock) 50 hours from 11:00? Solution: (11 + 50) Mod 24 = 13. Hence, the time will be 13:00.</p></details>
-<p>Congruent Modulo: If a and b are integers and m is a positive integer, then a is congruent to b modulo m if m divides a – b. We use the notation a ≡ b (mod m) to indicate that a is congruent to b modulo m. We say that a ≡ b (mod m) is a congruence and that m is its modulus (plural moduli). If a and b are not congruent modulo m, we write a ≡ b (mod m).</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 3: Let a and b be integers, and let m be a positive integer. Then a ≡ b (mod m) if and only if a mod m = b mod m. Note: a ≡ b (mod m) if and only if a and b have the same remainder when divided by m.</div>
-<details><summary>Example</summary><p>Example 6: Determine whether 16 is congruent to 4 modulo 6 and whether 23 and 13 are congruent modulo 6. Solution: Because 6 divides 16 − 4 = 12, we see that 16 ≡ 4 (mod 6). However, because 23 − 13 = 10 is not divisible by 6, we see that 23 ≡ 13 (mod 6).</p></details>
-<div class="callout key"><strong>Theorem:</strong> Theorem 4: Let m be a positive integer. The integers a and b are congruent modulo m if and only if there is an integer k such that a = b + km. Proof: If a ≡ b (mod m), by the definition of congruence, we know that m | (a − b).</div>
-<p>This means that there is an integer k such that a − b = km, so that a = b + km. Conversely, if there is an integer k such that a = b + km, then km = a − b. Hence, m divides a − b, so that a ≡ b (mod m).</p>
-<p>Congruent Class: The set of all integers congruent to an integer a modulo m is called the congruence class of a modulo m.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 5: Let m be a positive integer. If a ≡ b (mod m) and c ≡ d (mod m), then a + c ≡ b + d (mod m) and ac ≡ bd (mod m). Proof: We use a direct proof. Because a ≡ b (mod m) and c ≡ d (mod m), by Theorem 4 there are integers s and t with a = b + sm and c = d + tm. Hence, a + c = (b + sm) + (d + tm) = (b + d) + m(s + t) and ac = (b + sm)(d + tm) = bd + m(bt + ds + stm). Hence, a + c ≡ b + d (mod m) and ac ≡ bd (mod m).</div>
-<details><summary>Example</summary><p>Example 7: If 7 ≡ 2 (mod 5) and 11 ≡ 1 (mod 5), it follows from Theorem 5 that 18 ≡ 3 (mod 5) and 77 ≡ 2 (mod 5).</p></details>
-<div class="callout key"><strong>Corollary:</strong> Corollary 2: Let m be a positive integer and let a and b be integers. Then (a + b) mod m = ((a mod m) + (b mod m)) mod m and ab mod m = ((a mod m)(b mod m)) mod m. Proof: By the definitions of mod m and of congruence modulo m, we know that a ≡ (a</div>
-<p>mod m) (mod m) and b ≡ (b mod m) (mod m). Hence, Theorem 5 tells us that  a + b ≡ (a mod m) + (b mod m) (mod m) and ab ≡ (a mod m)(b mod m) (mod m). Hence using Theorem 3, (a + b) mod m = ((a mod m) + (b mod m)) mod m and ab mod m = ((a mod m)(b mod m)) mod m.</p>
-</section>
-<section><h4>2.4. Arithmetic Modulo m</h4>
-<p>We can define arithmetic operations on Zm, the set of nonnegative integers less than m, that is, the set {0, 1, ….., m – 1}. In particular, we define addition of these  integers, denoted by +m by a +m b = (a + b) mod m, where the addition on the right hand side of this equation is the ordinary addition of integers, and we define  multiplication of these integers, denoted by ∙m by a ∙m b = (a ∙ b) mod m, where the</p>
-<p>multiplication on the right-hand side of this equation is the ordinary multiplication of Integers. The operations +m and ∙m are called addition and multiplication modulo m and when we use these operations, we are said to be doing arithmetic modulo m.</p>
-<details><summary>Example</summary><p>Example 8: Use the definition of addition and multiplication in Zm to find 7 +11 9 and 7 ∙11 9. Solution: Using the definition of addition modulo 11, we find that 7 +11 9 = (7 + 9) mod 11 = 16 mod 11 = 5, and 7 ∙11 9 = (7 ∙ 9) mod 11 = 63 mod 11 = 8.</p></details>
-</section>
-<section><h3>3. Integer Representations and Algorithms</h3>
-</section>
-<section><h4>3.1. Representation of Integers</h4>
-<p>Integers can be expressed using any integer greater than one as a base. In everyday life we use decimal notation (base 10) to represent integers. However, it is often convenient to use bases other than 10. For example, binary is expressed using base 2, octal is expressed using base 8, and hexadecimal is expressed using base 16. Binary, octal, and hexadecimals are especially used in computers science. Given a base b and an integer n, we can construct the base b representation of this integer.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 6: Let b be an integer greater than 1. Then if n is a positive integer, it can be expressed uniquely in the form n = akbk + ak – 1bk – 1 + …….. +a1b + a0, where k is a nonnegative integer, a0, a1, ……, ak are nonnegative integers less than b, and ak ≠ 0. This theorem is called the base b expansion of n. The base b expansion of n is denoted by (akak−1 ….. a1a0)b. For instance, base 10 expansion of 245 is 2.102 + 4.101 + 5.100 and is denoted by (245)10. Typically, the subscript 10 is omitted for base 10 expansions of integers because base 10, or decimal expansions, are commonly used to represent integers.</div>
-<p>Binary Expansions: Choosing 2 as the base gives binary expansions of integers. In binary notation each digit is either a 0 or a 1. In other words, the binary expansion of an integer is just a bit string. Binary expansions are used by computers to represent and do arithmetic with integers.</p>
-<details><summary>Example</summary><p>Example 9: What is the decimal expansion of the integer that has (101011111)2 as its binary expansion?</p></details>
-<p>Octal Expansions: Choosing 8 as the base gives octal expansions of integers. In octal digits used are 0, 1, 2, 3, 4, 5, 6, and 7. Example 10: What is the decimal expansion of the number with octal expansion (7016)8? Solution: Using the definition of a base b expansion with b = 8 tells us that (7016)8 = 7.83 + 0.82 + 1.81 + 6.80 = 3598.</p>
-<p>Hexadecimal Expansions: Choosing 16 as the base gives hexadecimal expansions of integers. In hexadecimal digits used are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, and F where the letters A through F represent the digits corresponding to the numbers 10 through 15 (in decimal notation).</p>
-<details><summary>Example</summary><p>Example 11: What is the decimal expansion of the number with hexadecimal expansion (2AE0B)16? Solution: Using the definition of a base b expansion with b = 16 tells us that (2AE0B)16 = 2.164 + 10.163 + 14.162 + 0.161 + 11.160 = 175627.</p></details>
-<p>Base Conversion: To convert an integer to a base b expansion, first we divide n by b to obtain a quotient and remainder, that is, n = bq0 +a0, 0 ≤ a0 &lt; b. The remainder, a0, is the rightmost digit in the base b expansion of n. Next, divide q0 by b to obtain</p>
-<p>q0 = bq1 + a1, 0 ≤ a1 &lt; b.</p>
-<p>Unit 4: Number Theory and Matrices</p>
-<p>We see that a1 is the second digit from the right in the base b expansion of n.  Continue this process, successively dividing the quotients by b, obtaining additional  base b digits as the remainders. This process terminates when we obtain a quotient  equal to zero. It produces the base b digits of n from the right to the left.</p>
-<details><summary>Example</summary><p>Example 12: Find the octal expansion of (12345)10. Solution: First, divide 12345 by 8 to obtain</p></details>
-<p>12345 = 8.1543 + 1. Successively dividing quotients by 8 gives</p>
-<p>1543 = 8.192 + 7, 192 = 8.24 + 0, 24 = 8.3 + 0, 3 = 8.0 + 3. Hence, (12345)10 = (30071)8.</p>
-<details><summary>Example</summary><p>Example 13: Find the hexadecimal expansion of (177130)10. Solution: First divide 177130 by 16 to obtain</p></details>
-<p>177130 = 16.11070 + 10. Successively dividing quotients by 16 gives</p>
-<p>11070 = 16.691 + 14, 691 = 16.43 + 3, 43 = 16.2 + 11, 2 = 16.0 + 2. Hence, (177130)10 = (2B3EA)16.</p>
-<details><summary>Example</summary><p>Example 14: Find the binary expansion of (241)10. Solution: First divide 241 by 2 to obtain 241 = 2.120 + 1. Successively dividing quotients by 2 gives</p></details>
-<p>120 = 2.60 + 0, 60 = 2.30 + 0, 30 = 2.15 + 0, 15 = 2.7 + 1, 7 = 2.3 + 1, 3 = 2.1 + 1, 1 = 2.0 + 1. Hence, (241)10 = (11110001)2.</p>
-<p>Conversion between Binary, Octal, and Hexadecimal Expansions: Conversion between binary and octal and between binary and hexadecimal expansions is extremely easy because each octal digit corresponds to a block of three binary digits and each hexadecimal digit corresponds to a block of four binary digits.</p>
-<details><summary>Example</summary><p>Example 15: Find the octal expansion of (11111010111100)2. Solution: To convert (11111010111100)2 into octal notation we group the binary  digits into blocks of three, adding initial zeros at the start of the leftmost block if  necessary. These blocks from left to right are 011, 111, 010, 111, and 100,  corresponding to 3, 7, 2, 7, and 4 respectively. Hence, (11111010111100)2 =  (37274)8.</p></details>
-<details><summary>Example</summary><p>Example 16: Find hexadecimal expansion of (11111010111100)2.  Solution: To convert (11111010111100)2 into hexadecimal notation we group the  binary digits into blocks of four, adding initial zeros at the start of the leftmost block  if necessary. These blocks from left to right are 0011, 1110, 1011, and 1100,</p></details>
-<p>corresponding to the hexadecimal digits 3, E, B, and C, respectively. Consequently, (11111010111100)2 = (3EBC)16.</p>
-<details><summary>Example</summary><p>Example 17: Find binary expansions of (763)8. Solution: To convert (763)8 into binary notation, we replace each octal digit by a  block of three binary digits. These blocks are 111, 110, and 011. Hence, (763)8 = (111110011)2.</p></details>
-<details><summary>Example</summary><p>Example 18: Find binary expansion of (A5D)16. Solution: To convert (A5D)16 into binary notation, we replace each hexadecimal digit by a block of four binary digits. These blocks are 1010, 0101, and 1101. Hence, (A5D)16 = (101001011101)2.</p></details>
-</section>
-<section><h4>3.2. Algorithms for Integer Operations</h4>
-<p>The algorithms for performing operations with integers using their binary expansions are extremely important in computer arithmetic.</p>
-<p>3.2.1. Addition Algorithm Suppose (an−1an−2 …… a1a0)2 and (bn−1bn−2 ….. b1b0)2 are binary expansions of the integers a and b respectively (putting bits equal to 0 at the beginning of one of these expansions if necessary). We start with adding their rightmost bits. This gives</p>
-<p>a0 + b0 = c0.2 + s0, where s0 is the rightmost bit in the binary expansion of addition and c0 is the carry, which is either 0 or 1. Then add the next pair of bits and the carry,  a1 + b1 + c0 = c1.2 + s1, where s1 is the next bit (from the right) in the addition, and c1 is the carry.  Continue this process, adding the corresponding bits in the two binary expansions and  the carry, to determine the next bit from the right in the addition. At the last stage, add  an−1, bn−1, and cn−2 to obtain cn−1. 2 + sn−1. The leading bit of the sum is sn = cn−1. This  procedure produces the binary expansion of the sum as (snsn−1sn−2 …. s1s0)2.</p>
-<details><summary>Example</summary><p>Example 19: Add a = (1110)2 and b = (1011)2. Solution: Following the procedure specified in the algorithm, first note that a0 + b0 = 0 + 1 = 0.2 + 1, so that c0 = 0 and s0 = 1. Then, because a1 + b1 + c0 = 1 + 1 + 0 = 1.2 + 0, it follows that c1 = 1 and s1 = 0. Continuing, a2 + b2 + c1 = 1 + 0 + 1 = 1.2 + 0, so that c2 = 1 and s2 = 0. Finally, because a3 + b3 + c2 = 1 + 1 + 1 = 1.2 + 1, follows that c3 = 1 and s3 = 1. This means that s4 = c3 = 1. Therefore, s = a + b = (1</p></details>
-<p>1001)2. This can be shown as given below.</p>
-<p>1 1 1 (Carry) 1 1 1 0</p>
-<p>+ 1 0 1 1</p>
-<p>1 1 0 0 1</p>
-<p>Algorithm:</p>
-<p>procedure add(a, b: positive integers)</p>
-<p>{the binary expansions of a and b are (an−1an−2 …… a1a0)2 and (bn−1bn−2 ….. b1b0)2, respectively}</p>
-<p>c := 0 for j := 0 to n − 1</p>
-<p>d := ⎣(aj + bj + c) / 2⎦ sj := aj + bj + c − 2d c := d sn := c return (s0, s1, …, sn) {the sum is (snsn−1 …s0)2}</p>
-<p>3.2.2. Multiplication Algorithm Suppose (an−1an−2 …… a1a0)2 and (bn−1bn−2 ….. b1b0)2 are binary expansions of the integers a and b respectively (putting bits equal to 0 at the beginning of one of these expansions if necessary). Now, multiplication is given by (an−1an−2 …… a1a0)2(b020 + b121 + … +bn−12n−1) = (an−1an−2 …… a1a0)2b020 + (an−1an−2</p>
-<p>…… a1a0)2b121 + … + (an−1an−2 …… a1a0)2bn-12n-1 We first note that (an−1an−2 …… a1a0)2bj = (an−1an−2 …… a1a0)2 if bj = 1 and (an−1an−2 …… a1a0)2bj = 0 if bj = 0. Each time we multiply a term by 2, we shift its binary expansion one place to the left and add a zero at the tail end of the expansion. Consequently, we can obtain (an−1an−2 …… a1a0)2bj2j by shifting the binary expansion of abj j places to the left, adding j zero bits at the tail end of this binary expansion. Finally, we obtain multiplication by adding the n integers (an−1an−2 …… a1a0)2bj 2j, j = 0, 1, 2, …, n − 1.</p>
-<details><summary>Example</summary><p>Example 20: Find the product of a = (110)2 and b = (101)2. Solution: Here (110)2b0.20 = (110)2.1.20 = (110)2, (110)2b1.21 = (110)2.0.21 = (0000)2, and (110)2b2.22 = (110)2.1.22 = (11000)2. To find the product, add (110)2, (0000)2, and (11000)2. Carrying out these additions using addition algorithm shows that ab = (1 1110)2. This can be shown as given below.</p></details>
-<p>1 1 0 ×1 0 1 1 1 0</p>
-<p>0 0 0 1 1 0 1 1 1 1 0</p>
-<p>Algorithm:</p>
-<p>procedure multiply(a, b: positive integers)</p>
-<p>{the binary expansions of a and b are (an−1an−2 …… a1a0)2 and (bn−1bn−2 ….. b1b0)2, respectively}</p>
-<p>for j := 0 to n − 1</p>
-<p>if bj = 1 then cj := (an−1an−2 …… a1a0)2 shifted j places else cj := 0 {c0, c1, . . . , cn−1 are the partial products} p := 0</p>
-<p>for j := 0 to n − 1</p>
-<p>p := p + cj return p {p is the value of multiplication} 3.2.3. Algorithm for div and mod</p>
-<p>Given integers a and d, d &gt; 0, we can find q = a div d and r = a mod d using algorithm given below. In this algorithm, when a is positive we subtract d from a as many times as necessary until what is left is less than d. The number of times we perform this subtraction is the quotient and what is left over after all these subtractions is the remainder. This algorithm also covers the case where a is negative. This algorithm finds the quotient q and remainder r when |a| is divided by d. Then, when a &lt; 0 and r &gt; 0, it uses these to find the quotient −(q + 1) and remainder d − r when a is divided by d.</p>
-<p>Algorithm:</p>
-<p>procedure division algorithm(a: integer, d: positive integer) q := 0 r := |a| while r ≥ d</p>
-<p>r := r − d q := q + 1 if a &lt; 0 and r &gt; 0 then</p>
-<p>r := d − r q := −(q + 1) return (q, r) {q = a div d is the quotient, r = a mod d is the remainder}</p>
-<details><summary>Example</summary><p>Example 21: Find div and mod when 11 is divided by 4 using division algorithm. Solution: Given, a = 11 and d = 4. Using division algorithm q = 0, r = |a| = |11| = 11 Here, r = 11 is greater than d = 4. So, r = r – d = 11 – 4 = 7</p></details>
-<p>q = q + 1 = 0 + 1 = 1 Again, r = 7 is greater than d = 4. So, r = r – d = 7 – 4 = 3</p>
-<p>q = q + 1 = 1 + 1 = 2 Hence, 11 div 4 = q = 2 and 11 mod 4 = r = 3.</p>
-<details><summary>Example</summary><p>Example 22: Find div and mod when -11 is divided by 4 using division algorithm. Solution: Given, a = 11 and d = 4. Using division algorithm q = 0, r = |a| = |-11| = 11 Here, r = 11 is greater than d = 4. So, r = r – d = 11 – 4 = 7</p></details>
-<p>q = q + 1 = 0 + 1 = 1 Again, r = 7 is greater than d = 4. So, r = r – d = 7 – 4 = 3</p>
-<p>q = q + 1 = 1 + 1 = 2 Now, we have a &lt; 0 and r &gt; 0. So, r = d – r = 4 – 3 = 1</p>
-<p>q = − (q + 1) = - (2 + 1) = -3 Hence, -11 div 4 = q = -3 and 11 mod 4 = r = 1.</p>
-</section>
-<section><h3>4. Primes and Greatest Common Divisor</h3>
-</section>
-<section><h4>4.1. Primes</h4>
-<p>One important concept based on divisibility is that of a prime number. A prime is an</p>
-<p>integer greater than 1 that is divisible by no positive integers other than 1 and itself. Every integer greater than 1 is divisible by at least two integers, because a positive integer is divisible by 1 and by itself. Positive integers that have exactly two different</p>
-<p>positive integer factors are called primes. Prime numbers are prominently used in cryptography.</p>
-<p>An integer p greater than 1 is called prime if the only positive factors of p are 1 and p. A positive integer that is greater than 1 and is not prime is called composite.</p>
-<details><summary>Example</summary><p>Example 23: The integer 11 is prime because its only positive factors are 1 and 11, whereas the integer 15 is composite because it is divisible by 3.</p></details>
-<div class="callout key"><strong>Theorem:</strong> Theorem 7: The Fundamental Theorem of Arithmetic: Every integer greater than 1 can be written uniquely as a prime or as the product of two or more primes where the prime factors are written in order of nondecreasing size.</div>
-<details><summary>Example</summary><p>Example 24: The prime factorizations of 200, 641, 999, and 512 are given by 200 = 2.2.2.5.5 = 23.52, 641 = 641, 999 = 3.3.3.37 = 33.37, 512 = 2.2.2.2.2.2.2.2.2 = 29.</p></details>
-<div class="callout key"><strong>Theorem:</strong> Theorem 8: If n is a composite integer, then n has a prime divisor less than or equal to √n. Proof: If n is composite, by the definition of a composite integer, we know that it has a factor a with 1 &lt; a &lt; n. Hence, by the definition of a factor of a positive integer, we have n = ab, where b is a positive integer greater than 1.We will show that a ≤ √n or b ≤ √n. If a &gt; √n and b &gt;√n, then ab &gt; √n.√n = n, which is a contradiction. Consequently, a ≤ √n or b ≤ √n. Because both a and b are divisors of n, we see that n has a positive divisor not exceeding √n. This divisor is either prime or, by the fundamental theorem of arithmetic, has a prime divisor less than itself. In either case, n has a prime divisor less than or equal to √n.</div>
-<p>Trial Division: An integer is prime if it is not divisible by any prime less than or equal to its square root. This algorithm is known as trial division. To use trial division we divide n by all primes not exceeding √n and conclude that n is prime if it is not divisible by any of these primes.</p>
-<details><summary>Example</summary><p>Example 25: Show that 101 is prime. Solution: The only primes not exceeding √101 are 2, 3, 5, and 7. Because 101 is not divisible by 2, 3, 5, or 7, it follows that 101 is prime.</p></details>
-<p>Prime Factorization: Prime factorization is the process of breaking a number down into the set of prime numbers which multiply together to result in the original number. For example, prime factorization 24 is 2.2.2.3 = 23.3. Consider the problem of finding the prime factorization of n. Begin by dividing n by successive primes, starting with the smallest prime, 2. If n has a prime factor, then by Theorem 8 a prime factor p not exceeding √n will be found. So, if prime factor not exceeding √n is not found, then n is prime. Otherwise, if a prime factor p is found, continue by factoring n/p. Note that n/p has no prime factors less than p. Again, if n/p has no prime factor greater than or equal to p and not exceeding its square root, then it is prime. Otherwise, if it has a prime factor q, continue by factoring n/(pq). This procedure is continued until the factorization has been reduced to a prime.</p>
-<details><summary>Example</summary><p>Example 26: Find the prime factorization of 7007. Solution: To find the prime factorization of 7007, first perform divisions of 7007 by successive primes, beginning with 2. None of the primes 2, 3, and 5 divides 7007.</p></details>
-<p>However, 7 divides 7007, with 7007/7 = 1001. Next, divide 1001 by successive primes, beginning with 7. It is immediately seen that 7 also divides 1001, because 1001/7 = 143. Continue by dividing 143 by successive primes, beginning with 7. Although 7 does not divide 143, 11 does divide 143, and 143/11 = 13. Because 13 is prime, the procedure is completed. It follows that 7007 = 7.1001 = 7.7.143 = 7.7.11.13. Consequently, the prime factorization of 7007 is 7.7.11.13 = 72. 11.13.</p>
-</section>
-<section><h4>4.2. Greatest Common Divisors and Least Common Multiples The</h4>
-<p>largest integer that divides both of two integers is called the greatest common divisor (GCD) of these integers. Let a and b be integers, not both zero. The largest integer d such that d | a and d | b is called the greatest common divisor of a and b. The greatest common divisor of a and  b is denoted by gcd(a, b).</p>
-<p>One way to find the greatest common divisor of two integers is to find all the positive common divisors of both integers and then take the largest divisor.</p>
-<details><summary>Example</summary><p>Example 27: What is the greatest common divisor of 24 and 36?  Solution: The positive common divisors of 24 and 36 are 1, 2, 3, 4, 6, and 12. Hence,  gcd(24, 36) = 12.</p></details>
-<details><summary>Example</summary><p>Example 28: What is the greatest common divisor of 17 and 22?  Solution: The integers 17 and 22 have no positive common divisors other than 1, so  that gcd(17, 22) = 1.</p></details>
-<p>Relatively Prime: The integers a and b are relatively prime if their greatest common divisor is 1. The integers 17 and 22 are relatively prime, because gcd(17, 22) = 1.</p>
-<p>Pairwise Relatively Prime: The integers a1, a2, …, an are pairwise relatively prime if gcd(ai, aj ) = 1 whenever 1 ≤ i &lt; j ≤ n.</p>
-<details><summary>Example</summary><p>Example 29: Determine whether the integers 10, 17, and 21 are pairwise relatively prime and whether the integers 10, 19, and 24 are pairwise relatively prime.  Solution: Because gcd(10, 17) = 1, gcd(10, 21) = 1, and gcd(17, 21) = 1, we conclude  that 10, 17, and 21 are pairwise relatively prime. Because gcd(10, 24) = 2 &gt; 1, we see that 10, 19, and 24 are not pairwise relatively prime.</p></details>
-<p>Using Prime Factorization to Find GCD: We can also use prime factorization to find the greatest common divisor of two positive integers. Suppose that the prime factorizations of the positive integers a and b are</p>
-<p>a = p1</p>
-<p>a1p2</p>
-<p>a2 …pn</p>
-<p>an, b = p1</p>
-<p>b1p2</p>
-<p>b2 …pnbn where each exponent is a nonnegative integer, and where all primes occurring in the prime factorization of either a or b are included in both factorizations, with zero exponents if necessary. Then gcd(a, b) is given by gcd(a, b) = p1</p>
-<p>min(a1, b1)p2</p>
-<p>min(a2, b2) …pnmin(an, bn) where min(x, y) represents the minimum of the two numbers x and y.</p>
-<details><summary>Example</summary><p>Example 30: Because the prime factorizations of 120 and 500 are 120 = 23.3.5 and 500 = 22.53, the greatest common divisor is gcd(120, 500) = 2min(3, 2)3min(1, 0)5min(1, 3) = 223051 = 20. Least Common Multiple: The least common multiple (LCM) of the positive integers a and b is the smallest positive integer that is divisible by both a and b. The least common multiple of a and b is denoted by lcm(a, b).</p></details>
-<p>Using Prime Factorization to Find LCM: Suppose that the prime factorizations of the positive integers a and b are</p>
-<p>a = p1</p>
-<p>a1p2</p>
-<p>a2 …pn</p>
-<p>an, b = p1</p>
-<p>b1p2</p>
-<p>b2 …pnbn Then the least common multiple of a and b is given by lcm(a, b) lcm(a, b) = p1</p>
-<p>max(a1, b1)p2</p>
-<p>max(a2, b2) … pnmax(an, bn) where max(x, y) denotes the maximum of the two numbers x and y. This formula is valid because a common multiple of a and b has at least max(ai, bi) factors of pi in its prime factorization, and the least common multiple has no other prime factors besides those in a and b.</p>
-<details><summary>Example</summary><p>Example 31: Because the prime factorizations of 120 and 500 are 120 = 23.3.5 and 500 = 22.53, the least common multiple is lcm(120, 500) = 2max(3, 2)3max(1, 0)5max(1, 3) = 233153 = 3000.</p></details>
-<div class="callout key"><strong>Theorem:</strong> Theorem 9: Let a and b be positive integers. Then ab = gcd(a, b).lcm(a, b).</div>
-</section>
-<section><h4>4.3. The Euclidean Algorithm</h4>
-<p>Using prime factorization to find greatest common divisor is not efficient because it is time-consuming to find prime factorizations. Euclidean algorithm is a more efficient method of finding the greatest common divisor. This algorithm has been known since ancient times. It is named after the ancient Greek mathematician Euclid (325 B.C.E. – 265 B.C.E.) who included a description of this algorithm in his book The Elements.</p>
-<div class="callout key"><strong>Lemma:</strong> Lemma 1: Let a = bq + r, where a, b, q, and r are integers. Then gcd(a, b) = gcd(b, r). Proof: So suppose that d divides both a and b. Then it follows that d also divides r = a – bq =1.a + (-q).b (using corollary 1). Hence, any common divisor of a and b is also a common divisor of b and r.</div>
-<p>Likewise, suppose that d divides both b and r. Then d also divides a = bq + r = q.b +1.r (using corollary 1). Hence, any common divisor of b and r is also a common divisor of a and b. Consequently, gcd(a, b) = gcd(b, r).</p>
-<p>To find gcd of positive integers a and b with a ≥ b. Let r0 = a and r1 = b. When we successively apply the division algorithm, we obtain r0 = r1q1 + r2 0 ≤ r2 &lt; r1, r1 = r2q2 + r3 0 ≤ r3 &lt; r2,</p>
-<p>…….. rn−2 = rn−1qn−1 + rn 0 ≤ rn &lt; rn−1, rn−1 = rnqn. Eventually a remainder of zero occurs in this sequence of successive divisions, because the sequence of remainders a = r0 &gt; r1 &gt; r2 &gt; … ≥ 0 cannot contain more  than a terms. Furthermore, it follows from Lemma 1 that</p>
-<p>gcd(a, b) = gcd(r0, r1) = gcd(r1, r2) = …. = gcd(rn−2, rn−1) = gcd(rn−1, rn) = gcd(rn, 0) = rn. Hence, the greatest common divisor is the last nonzero remainder in the sequence of divisions.</p>
-<details><summary>Example</summary><p>Example 32: Use Euclidean algorithm to find the greatest common divisor of 414 and 662. Solution: Successive uses of the division algorithm give: 662 = 414.1 + 248 414 = 248.1 + 166 248 = 166.1 + 82 166 = 82.2 + 2</p></details>
-<p>82 = 2.41. Hence, gcd(414, 662) = 2, because 2 is the last non-zero remainder.</p>
-<p>Exercise 3: Use Euclidean algorithm to find gcd(26, 91).</p>
-<p>Algorithm:</p>
-<p>procedure gcd(a, b: positive integers) x := a y := b while y ≠ 0</p>
-<p>r := x mod y</p>
-<p>x := y y := r return x{gcd(a, b) is x}</p>
-</section>
-<section><h4>4.4. GCDs as Linear Combinations</h4>
-<p>Greatest common divisor of two integers a and b can be expressed in the form sa + tb, where s and t are integers. In other words, gcd(a, b) can be expressed as a linear combination with integer coefficients of a and b. For example, gcd(6, 14) = 2 = (−2).6 + 1.14.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 10 (Bézout’s Theorem): If a and b are positive integers, then there exist integers s and t such that gcd(a, b) = sa + tb.</div>
-<p>If a and b are positive integers, then integers s and t such that gcd(a, b) = sa + tb are called Bézout coefficients of a and b (after Étienne Bézout, a French mathematician of the eighteenth century). Also, the equation gcd(a, b) = sa + tb is called Bézout’s identity.</p>
-<p>A general method to find a linear combination of two integers equal to their greatest common divisor proceeds by working backward through the divisions of the Euclidean algorithm, so this method requires a forward pass and a backward pass through the steps of the Euclidean algorithm.</p>
-<details><summary>Example</summary><p>Example 33: Express gcd(252, 198) = 18 as a linear combination of 252 and 198. Solution: To show that gcd(252, 198) = 18, the Euclidean algorithm uses these divisions: 252 = 1.198 + 54 198 = 3.54 + 36 54 = 1.36 + 18 36 = 2.18. Using the next-to-last division (the third division), we can express gcd(252, 198) = 18 as a linear combination of 54 and 36. We find that</p></details>
-<p>18 = 54 – 1.36 The second division tells us that 36 = 198 – 3.54 Substituting this expression for 36 into the previous equation, we can express 18 as a linear combination of 54 and 198.We have</p>
-<p>18 = 54 − 1.36 = 54 – 1. (198 – 3.54) = 4.54 – 1.198 The first division tells us that 54 = 252 – 1.198 Substituting this expression for 54 into the previous equation, we can express 18 as a linear combination of 252 and 198.We conclude that</p>
-<p>18 = 4. (252 – 1.198) – 1.198 = 4.252 – 5.198</p>
-<p>Extended Euclidean Algorithm: Extended Euclidean algorithm can be used to express gcd(a, b) as a linear combination of a and b using a single pass through the steps of the Euclidean algorithm. In this algorithm, we set s0 = 1, s1 = 0, t0 = 0, and t1 = 1 and let sj = sj−2 − qj−1sj−1 and tj = tj−2 − qj−1tj−1 for j = 2, 3, …, n, where the qj are the quotients in the divisions used  when the Euclidean algorithm finds gcd(a, b). We continue this calculation for one step beyond the last step of the Euclidean algorithm. It can be shown that gcd(a, b) =  sna + tnb. The main advantage of the extended Euclidean algorithm is that it uses one  pass through the steps of the Euclidean algorithm to find Bézout coefficients of a and  b.</p>
-<details><summary>Example</summary><p>Example 34: Express gcd(252, 198) = 18 as a linear combination of 252 and 198 using Extended Euclidean algorithm.</p></details>
-<p>Exercise 4: Use the Extended Euclidean algorithm to express gcd(26, 91) as a linear combination of 26 and 91.</p>
-</section>
-<section><h3>5. Solving Congruencies</h3>
-</section>
-<section><h4>5.1. Linear Congruencies</h4>
-<p>A congruence of the form ax ≡ b (mod m), where m is a positive integer, a and b are integers, and x is a variable, is called a linear congruence. Such congruences arise throughout number theory and its applications.</p>
-<p>Solving linear congruence ax ≡ b (mod m) is to find all integers x that satisfy this congruence. One method uses an integer asuch that</p>
-<p>aa ≡ 1 (mod m), if such an</p>
-<p>integer exists. Such an integer a is said to be an inverse of a modulo m.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 11: If a and m are relatively prime integers and m &gt; 1, then an inverse of a modulo m exists. Furthermore, this inverse is unique modulo m. (That is, there is a unique positive integer aless than m that is an inverse of a modulo m and every other inverse of a modulo m is congruent to amodulo m.)</div>
-<p>Using inspection to find an inverse of a modulo m is easy when m is small. To find this inverse, we look for a multiple of a that exceeds a multiple of m by 1. For example, to find an inverse of 3 modulo 7, we can find j.3 for j = 1, 2, …, 6, stopping when we find a multiple of 3 that is one more than a multiple of 7. So, 5.3 ≡ 1 (mod 7), so 5 is an inverse of 3 modulo 7. We can design a more efficient algorithm to find an inverse of a modulo m when</p>
-<p>gcd(a,m) = 1 using the steps of the Euclidean algorithm. By reversing these steps, we can find a linear combination sa + tm = 1 where s and t are integers called Bézout coefficients. Reducing both sides of this equation modulo m tells us that s is an inverse of a modulo m.</p>
-<details><summary>Example</summary><p>Example 35: Find an inverse of 3 modulo 7 by first finding Bézout coefficients of 3 and 7. Solution: Because gcd(3, 7) = 1, Theorem 11 tells us that an inverse of 3 modulo 7 exists. The Euclidean algorithm ends quickly when used to find the greatest common divisor of 3 and 7: 7 = 2.3 + 1 3 = 3.1 From this equation we see that −2.3 + 1.7 = 1 This shows that −2 and 1 are Bézout coefficients of 3 and 7.We see that −2 is an inverse of 3 modulo 7. Note that every integer congruent to −2 modulo 7 is also an inverse of 3, such as 5, −9, 12, and so on.</p></details>
-<p>Exercise 5: Find an inverse of 34 modulo 89.</p>
-<p>Remember: Once we have an inverse a of a modulo m, we can solve the congruence ax ≡ b (mod m) by multiplying both sides of the linear congruence by a.</p>
-<details><summary>Example</summary><p>Example 36: What are the solutions of the linear congruence 3x ≡ 4 (mod 7)? Solution: By Example 35 we know that −2 is an inverse of 3 modulo 7. Multiplying both sides of the congruence by −2 shows that</p></details>
-<p>−2.3x ≡ −2.4 (mod 7) Because −6 ≡ 1 (mod 7) and −8 ≡ 6 (mod 7), it follows that if x is a solution, then x ≡ −8 ≡ 6 (mod 7). We need to determine whether every x with x ≡ 6 (mod 7) is a solution. Assume that x ≡ 6 (mod 7). Then, 3x ≡ 3.6 = 18 ≡ 4 (mod 7), which shows that all such x satisfy the congruence. We conclude that the solutions to the congruence are the integers x such that x ≡ 6 (mod 7), namely, 6, 13, 20, …. and −1, −8, −15, . . . .</p>
-<p>Exercise 6: What are the solutions of the linear congruence 4x ≡ 5 (mod 9)?</p>
-</section>
-<section><h4>5.2. The Chinese Remainder Theorem</h4>
-<p>The Chinese remainder theorem, named after the Chinese heritage of problems involving systems of linear congruences, states that when the moduli of a system of linear congruences are pairwise relatively prime, there is a unique solution of the system modulo the product of the moduli. Theorem 12: Let m1,m2, . . . , mn be pairwise relatively prime positive integers greater than one and a1, a2, …., an arbitrary integers. Then the system  x ≡ a1 (mod m1), x ≡ a2 (mod m2),</p>
-<p>……. x ≡ an (mod mn) has a unique solution modulo m = m1m2 …… mn. (That is, there is a solution x with  0 ≤ x &lt;m, and all other solutions are congruent modulo m to this solution.)  To find the solution using this theorem, first we compute m = m1m2 …… mn. Then  we compute Mk = m/mk for k = 1, 2, … , n. After that, we find inverse of Mk, say yk such that Mkyk ≡ 1 (mod mk).</p>
-<p>Now, we construct the solution using</p>
-<p>x = a1M1y1 + a2M2y2 + … +anMnyn.</p>
-<p>is a solution to the system of congruences, and x mod m is the unique solution  modulo m. Example 37: Solve the system of following congruences using Chinese Remainder theorem. x ≡ 2 (mod 3) x ≡ 3 (mod 5) x ≡ 2 (mod 7) Solution: To solve the system of given congruences, first we calculate m = m1.m2.m3 = 3.5.7 = 105, M1 = m/m1 = 105/3 = 35, M2 = m/m2 = 105/5 = 21, and M3 = m/m3 = 105/7 = 15. We see that y1 = 2 is an inverse of M1 = 35 modulo 3, because 35.2 ≡ 1 (mod 3); y2 =  1 is an inverse of M2 = 21 modulo 5, because 21 ≡ 1 (mod 5); and y3 = 1 is an inverse  of M3 = 15 (mod 7), because 15 ≡ 1 (mod 7). Here, a1 = 2, a2 = 3, and a3 = 2. The solutions to this system are those x such that</p>
-<p>x = a1M1y1 + a2M2y2 + a3M3y3 = 2.35.2 + 3.21.1 + 2.15.1 = 233 Hence, x ≡ 223 (mod 105) x ≡ 23 (mod 105) It follows that 23 is the smallest positive integer that is a simultaneous solution. We conclude that 23 is the smallest positive integer that leaves a remainder of 2 when divided by 3, a remainder of 3 when divided by 5, and a remainder of 2 when divided by 7.</p>
-<p>Exercise 7: Solve the system of following congruences using Chinese Remainder theorem. x ≡ 3 (mod 5) x ≡ 1 (mod 7) x ≡ 6 (mod 8)</p>
-</section>
-<section><h4>5.3. Computer Arithmetic with Large Integers</h4>
-<p>Suppose that m1, m2 ,…, mn are pairwise relatively prime moduli and let m be their product. By the Chinese remainder theorem, we can show that an integer a with 0 ≤ a &lt; m can be uniquely represented by the n-tuple consisting of its remainders upon division by mi, i = 1, 2, …., n. That is, we can uniquely represent a by (a mod m1, a mod m2, …, a mod mn).</p>
-<details><summary>Example</summary><p>Example 38: What are the pairs used to represent the nonnegative integers less than 12 when they are represented by the ordered pair where the first component is the remainder of the integer upon division by 3 and the second component is the remainder of the integer upon division by 4?</p></details>
-<p>using their remainders upon division by mi, i = 1, 2, …, n. Once we have  computed the value of each component in the result, we recover its value by solving a  system of n congruences modulo mi, i = 1, 2, …, n.</p>
-<details><summary>Example</summary><p>Example 39: Find sum of 123,684 and 413,456 using moduli 99, 98, 97, and 95. Solution: By the Chinese remainder theorem, every nonnegative integer less than 99.98.97.95 = 89,403,930 can be represented uniquely by its remainders when divided by these four moduli. So, we represent 123,684 as (33, 8, 9, 89), because 123,684 mod 99 = 33; 123,684 mod 98 = 8; 123,684 mod 97 = 9; and 123,684 mod 95 = 89. Similarly, we represent 413,456 as (32, 92, 42, 16).</p></details>
-<p>To find the sum of 123,684 and 413,456, we work with these 4-tuples instead of these two integers directly. We add the 4-tuples componentwise and reduce each  component with respect to the appropriate modulus. This yields (33, 8, 9, 89) + (32,  92, 42, 16) = (65 mod 99, 100 mod 98, 51 mod 97, 105 mod 95) = (65, 2, 51, 10). To  find the sum, that is, the integer represented by (65, 2, 51, 10), we need to solve the  system of congruences x ≡ 65 (mod 99) x ≡ 2 (mod 98) x ≡ 51 (mod 97) x ≡ 10 (mod 95) It can be shown that 537,140 is the unique nonnegative solution of this system less than 89,403,930. Consequently, 537,140 is the sum.</p>
-<p>Remember: In this example, we restricted all our computations to integers less than</p>
-<p>100 which is much quicker than doing arithmetic with larger integers.</p>
-</section>
-<section><h2>Matrices</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>A matrix is a rectangular array of numbers. A matrix with m rows and n columns is called an m × n matrix. The plural of matrix is matrices. A matrix with the same number of rows as columns is called square. Two matrices are equal if they have the same number of rows and the same number of columns and the corresponding entries in every position are equal. For example, the matrix A given below is a 3 × 2 matrix. ⎡ ⎢ A = ⎢ ⎢ ⎣</p>
-<p>2.</p>
-</section>
-<section><h3>Zero-One</h3>
-</section>
-<section><h3>Matrices</h3>
-<p>7 1 0 2 1 5 ⎤ ⎥ ⎥ ⎥ ⎦</p>
-<p>A matrix whose all entries are either 0 or 1 is called a zero–one matrix. Algorithms using these structures are based on Boolean arithmetic with zero–one matrices. This arithmetic is based on the Boolean operations ∧ and ∨, which operate on pairs of bits, defined by</p>
-<p>1 1 2 1 if b b b1 ∧ b2 = ⎧ = =</p>
-<p>⎨ ⎩ 0 otherw ise</p>
-<p>b1 ∨ b2 = ⎩⎨⎧ = =</p>
-<p>1 1 1 2 1 if b or b</p>
-<p>0 otherw</p>
-<p>ise</p>
-<p>Join and Meet: Let A = [aij] and B = [bij] be m × n zero–one matrices. Then the join of A and B is the zero–one matrix with (i, j)th entry aij ∨ bij . The join of A and B is denoted by A ∨ B. The meet of A and B is the zero–one matrix with (i, j)th entry aij ∧ bij . The meet of A and B is denoted by A ∧ B.</p>
-<details><summary>Example</summary><p>Example 40: Find the join and meet of the zero-one matrices. 1 0 1and B =</p></details>
-<p>A = ⎥</p>
-<p>⎦⎤</p>
-<p>⎢</p>
-<p>⎣</p>
-<p>⎡0 1 0 ⎡ ⎢ ⎣ 0 1 0 1 1 0</p>
-<p>⎤ ⎥ ⎦ Solution: The join of A and B is 1 0 0 1 1</p>
-<p>0= ∨ ∨ ∨</p>
-<p>A ∨ B = ⎥</p>
-<p>⎦⎤</p>
-<p>⎢</p>
-<p>⎣</p>
-<p>⎡∨ ∨ ∨</p>
-<p>⎡ ⎢ 0 1 1 1 0 0</p>
-<p>⎣ The meet of A and B is 1 0 0 1 1</p>
-<p>0=</p>
-<p>1 1 1 1 1 0</p>
-<p>⎤ ⎥ ⎦</p>
-<p>∧ ∧ ∧</p>
-<p>A ∧ B = ⎥</p>
-<p>⎦⎤</p>
-<p>⎢</p>
-<p>⎣</p>
-<p>⎡∧ ∧ ∧</p>
-<p>⎡ ⎢ 0 1 1 1 0 0</p>
-<p>⎣ 0 0 0 0 1 0</p>
-<p>⎤ ⎥ ⎦</p>
-<p>Boolean Product: Let A = [aij] be an m × k zero–one matrix and B = [bij] be a k × n zero–one matrix. Then the Boolean product of A and B, denoted by A ʘ B, is the m × n matrix with (i, j)th entry cij where cij = (ai1 ∧ b1j ) ∨ (ai2 ∧ b2j ) ∨ …∨ (aik ∧ bkj )</p>
-<p>A =</p>
-<p>⎡ ⎢ ⎢ ⎢ ⎣</p>
-<p>1 0 0 1 1 0 ⎤ ⎥ ⎥ ⎥</p>
-<p>⎦ and B =</p>
-<p>⎡ ⎢ ⎣ 1 1 0 0</p>
-<p>1 1</p>
-<p>⎤ ⎥</p>
-<p>⎦</p>
-<p>(1 1) (0 0) (1 1) (0 1) (1 0) (0 1) ∧ ∨ ∧ ∧ ∨ ∧</p>
-<p>∧ ∨ ∧</p>
-<p>⎥⎥</p>
-<p>⎥</p>
-<p>⎦⎤ A ʘ B =</p>
-<p>⎢⎢</p>
-<p>⎢</p>
-<p>⎣</p>
-<p>⎡∧ ∨ ∧ ∧ ∨ ∧ ∧ ∨ ∧ (0 1) (1 0) (0 1) (1 1) (0 0) (1 1)</p>
-<p>∧ ∨ ∧ ∧ ∨ ∧ ∧ ∨ ∧ (1 1) (0 0) (1 1) (0 1) (1 0) (0 1) 1 0 1 0 0 0</p>
-<p>= ∨ ∨ ∨ ⎡ ⎤ ⎢</p>
-<p>⎥ 0 0 0 1 0 1 ∨ ∨ ∨ ⎢</p>
-<p>⎥</p>
-<p>⎢</p>
-<p>⎥ 1 0 1 0 (0 0 ∨</p>
-<p>∨ ∨ ⎣</p>
-<p>⎦</p>
-<p>= ⎡ ⎢ ⎢ ⎢</p>
-<p>⎣ 1 1 0 0 1 1 1 1</p>
-<p>0 ⎤ ⎥ ⎥</p>
-<p>⎥ ⎦</p>
-<p>Boolean Power: Let A be a square zero–one matrix and let r be a positive integer. The rth Boolean power of A is the Boolean product of r factors of A. The rth Boolean product of A is denoted by A[r]. Hence A[r] = A ʘ A ʘ A ʘ …. ʘ A (r times) We also define A[0] to be In.</p>
-<details><summary>Example</summary><p>Example 42: Find A[3] of the matrix A given below</p></details>
-<p>A = ⎡ ⎢ ⎢ ⎢</p>
-<p>⎣ 0 0 1 1 0 0 1 1</p>
-<p>0 ⎤ ⎥ ⎥</p>
-<p>⎥ ⎦</p>
-<p>A[2] = A ʘ A = ⎡ ⎢ ⎢ ⎢ ⎣ 0 0 1 1 0 0 1 1 0</p>
-<p>⎤ ⎥ ⎥ ⎥ ⎦</p>
-<p>ʘ ⎡ ⎢ ⎢ ⎢ ⎣ 0 0 1 1 0 0 1 1 0</p>
-<p>⎤ ⎥ ⎥ ⎥ ⎦ = ⎡ ⎢ ⎢ ⎢</p>
-<p>⎣ 1 1 0 0 0 1 1 0 1</p>
-<p>⎤ ⎥ ⎥ ⎥ ⎦</p>
-<p>A[3] = A[2] ʘ A = ⎡ ⎢ ⎢ ⎢</p>
-<p>⎣ 1 1 0 0 0 1 1 0 1</p>
-<p>⎤ ⎥ ⎥ ⎥ ⎦ ʘ ⎡ ⎢ ⎢ ⎢ ⎣ 0 0 1 1 0 0 1 1</p>
-<p>0</p>
-<p>⎤ ⎥ ⎥ ⎥ ⎦</p>
-<p>= ⎡ ⎢ ⎢ ⎢ ⎣ 1 0 11 1 0 1 1 1</p>
-<p>⎤ ⎥</p>
-<p>⎥ ⎥ ⎦</p>
-</section>
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the chapter.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM n</span> times the topic appears in the nine past papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Chinese Remainder Theorem, 3: 2080.1 Q8, 2080.2 Q9, 2082 Q1.</li>
+            <li>Congruences and arithmetic modulo m, 2: 2078 Q8, 2079 Q9.</li>
+            <li>Euclidean algorithm and inverses, 2: 2079 Q3, 2081 Q6.</li>
+            <li>Boolean matrices, 2: 2080.2 Q2, 2081 Q3.</li>
+            <li>Trial division and primes, 1: 2078 Q9.</li>
+            <li>Division algorithm, 1: 2082 Q1.</li>
+          </ul>
+        </aside>
 
-        <section class="recall-block">
-          <h2>Summary &amp; recall</h2>
-          <p>Number theory studies integers under divisibility and congruence, with algorithms for representation and arithmetic.</p>
-          <details><summary>Can you explain what a ≡ b (mod m) means in your own words?</summary><p>Number theory studies integers under divisibility and congruence, with algorithms for representation and arithmetic.</p></details>
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Divisibility and Modular Arithmetic <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 1–6 of the chapter PDF.</p>
+
+          <h3>1. Divisibility <span class="priority-mark">★★★</span></h3>
+          <p>For integers a ≠ 0 and b, a divides b when b = ac for some integer c, written <strong>a | b</strong>. Then a is a factor or divisor of b and b is a multiple of a. Quantifier form: ∃c(ac = b).</p>
+          <table class="topic-table">
+            <thead><tr><th>Result</th><th>Statement</th></tr></thead>
+            <tbody>
+              <tr><td>Theorem 1(i)</td><td>a | b ∧ a | c → a | (b + c)</td></tr>
+              <tr><td>Theorem 1(ii)</td><td>a | b → a | bc for every integer c</td></tr>
+              <tr><td>Theorem 1(iii)</td><td>a | b ∧ b | c → a | c</td></tr>
+              <tr><td>Corollary 1</td><td>a | mb + nc for all integers m, n when a | b and a | c</td></tr>
+            </tbody>
+          </table>
+          <p>Theorem 1 is proved by direct proof: write b = as and c = at, then b + c = a(s + t). The number of positive integers not exceeding n that are divisible by d is <strong>⌊n/d⌋</strong>.</p>
+
+          <h3>2. Division algorithm <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 1</span></h3>
+          <p><strong>Theorem 2:</strong> for integer a and positive integer d there are unique integers q and r with <strong>0 ≤ r &lt; d</strong> and <strong>a = dq + r</strong>. Here d is divisor, a dividend, q quotient, r remainder; q = a div d and r = a mod d.</p>
+          <p>For positive d, a div d = ⌊a/d⌋ and a mod d = a − d⌊a/d⌋. The remainder cannot be negative, and d | a exactly when the remainder is 0.</p>
+          <details><summary>Two worked divisions</summary>
+            <ol class="worked-steps">
+              <li>101 = 11·9 + 2, so 101 div 11 = 9 and 101 mod 11 = 2.</li>
+              <li>−11 = 3(−4) + 1, so −11 div 3 = −4 and −11 mod 3 = 1.</li>
+            </ol>
+          </details>
+
+          <h3>3. Congruences and arithmetic modulo m <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
+          <p>a is congruent to b modulo m when m | (a − b), written <strong>a ≡ b (mod m)</strong>. Equivalently a and b have the same remainder on division by m.</p>
+          <table class="topic-table">
+            <thead><tr><th>Result</th><th>Statement</th></tr></thead>
+            <tbody>
+              <tr><td>Theorem 3</td><td>a ≡ b (mod m) iff a mod m = b mod m</td></tr>
+              <tr><td>Theorem 4</td><td>a ≡ b (mod m) iff a = b + km for some integer k</td></tr>
+              <tr><td>Theorem 5</td><td>a ≡ b, c ≡ d → a + c ≡ b + d and ac ≡ bd (mod m)</td></tr>
+              <tr><td>Corollary 2</td><td>(a + b) mod m = ((a mod m) + (b mod m)) mod m</td></tr>
+            </tbody>
+          </table>
+          <p>The congruence class of a modulo m is the set of all integers congruent to a. On Zₘ = {0, 1, …, m − 1}, define a +ₘ b = (a + b) mod m and a ·ₘ b = (a · b) mod m.</p>
+          <details><summary>Clock and Z₁₁ examples</summary>
+            <ol class="worked-steps">
+              <li>50 hours after 11:00: (11 + 50) mod 24 = 13, so 13:00.</li>
+              <li>7 +₁₁ 9 = 16 mod 11 = 5; 7 ·₁₁ 9 = 63 mod 11 = 8.</li>
+              <li>16 ≡ 4 (mod 6) since 6 | 12; 23 ≢ 13 (mod 6) since 6 ∤ 10.</li>
+            </ol>
+          </details>
         </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Integer Representations and Algorithms <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 7–11 of the chapter PDF.</p>
+
+          <h3>1. Base b expansions <span class="priority-mark">★★★</span></h3>
+          <p><strong>Theorem 6:</strong> for b &gt; 1, every positive integer n has a unique expansion n = aₖbᵏ + … + a₁b + a₀ with 0 ≤ aᵢ &lt; b and aₖ ≠ 0. Written (aₖ … a₀)_b.</p>
+          <table class="topic-table">
+            <thead><tr><th>Base</th><th>Digits</th><th>Worked example</th></tr></thead>
+            <tbody>
+              <tr><td>2 (binary)</td><td>0, 1; a bit string</td><td>(10101111)₂ = 351</td></tr>
+              <tr><td>8 (octal)</td><td>0–7</td><td>(7016)₈ = 3598</td></tr>
+              <tr><td>16 (hexadecimal)</td><td>0–9, A–F</td><td>(2AE0B)₁₆ = 175627</td></tr>
+            </tbody>
+          </table>
+          <p>Conversion to base b uses repeated division; remainders give digits from right to left. Octal groups three binary digits, hexadecimal groups four.</p>
+          <details><summary>Conversions</summary>
+            <ol class="worked-steps">
+              <li>12345 = 8·1543 + 1, 1543 = 8·192 + 7, 192 = 8·24 + 0, 24 = 8·3 + 0, 3 = 8·0 + 3 → (30071)₈.</li>
+              <li>241 → (11110001)₂; 177130 → (2B3EA)₁₆.</li>
+              <li>(111101011100)₂ groups as 011 110 101 111 100 → (37274)₈.</li>
+              <li>(A5D)₁₆ = 1010 0101 1101 → (101001011101)₂.</li>
+            </ol>
+          </details>
+
+          <h3>2. Algorithms for binary arithmetic <span class="priority-mark">★★★</span></h3>
+          <ul>
+            <li><strong>Addition:</strong> add rightmost bits with carry: aⱼ + bⱼ + c = 2d + sⱼ, set c = d. Example (1110)₂ + (1011)₂ = (11001)₂.</li>
+            <li><strong>Multiplication:</strong> form partial products a·bⱼ·2ʲ, then add. Example (110)₂ × (101)₂ = (11110)₂.</li>
+            <li><strong>div and mod:</strong> repeatedly subtract d from |a|, count as q; if a &lt; 0 and r &gt; 0 return −(q + 1) and d − r.</li>
+          </ul>
+          <details><summary>div/mod algorithm trace</summary>
+            <ol class="worked-steps">
+              <li>11 div 4: r = 11 → 7 → 3, q = 0 → 1 → 2, so q = 2, r = 3.</li>
+              <li>−11 div 4: start r = 11 → 7 → 3 with q = 2, then a &lt; 0 and r &gt; 0 gives r = 3 − 4 = −1, q = −(2 + 1) = −3.</li>
+            </ol>
+          </details>
+        </section>
+
+        <section class="topic-part" data-part="3">
+          <h2>Part 3 · Primes, GCD, and Congruences <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 12–17 of the chapter PDF.</p>
+
+          <h3>1. Primes and factorization <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 1</span></h3>
+          <p>A prime is an integer greater than 1 with exactly two positive divisors, 1 and itself. n is composite iff some a satisfies a | n and 1 &lt; a &lt; n.</p>
+          <ul>
+            <li><strong>Fundamental Theorem of Arithmetic:</strong> every integer &gt; 1 is uniquely a product of primes in nondecreasing order. 200 = 2³·5², 999 = 3³·37.</li>
+            <li><strong>Theorem 8:</strong> a composite n has a prime divisor ≤ √n.</li>
+            <li><strong>Trial division:</strong> n is prime if no prime ≤ √n divides it. 101 is prime since 2, 3, 5, 7 do not divide it.</li>
+            <li><strong>Prime factorization:</strong> 7007 = 7·7·11·13 = 7²·11·13.</li>
+          </ul>
+
+          <h3>2. GCD, LCM, and the Euclidean algorithm <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
+          <p>gcd(a, b) is the largest integer dividing both; lcm(a, b) the smallest positive multiple of both. From prime factorizations, gcd uses min exponents and lcm uses max exponents. Theorem 9: ab = gcd(a, b) · lcm(a, b).</p>
+          <details><summary>Factorization and Euclidean examples</summary>
+            <ol class="worked-steps">
+              <li>120 = 2³·3·5, 500 = 2²·5³ → gcd = 2²·5 = 20, lcm = 2³·3·5³ = 3000.</li>
+              <li>Euclidean: 662 = 414·1 + 248, 414 = 248·1 + 166, 248 = 166·1 + 82, 166 = 82·2 + 2, 82 = 2·41 → gcd(414, 662) = 2.</li>
+              <li>Lemma 1: if a = bq + r then gcd(a, b) = gcd(b, r), because common divisors divide r = a − bq and conversely.</li>
+            </ol>
+          </details>
+
+          <h3>3. Bézout coefficients <span class="priority-mark">★★★</span></h3>
+          <p><strong>Bézout's Theorem:</strong> for positive a, b there exist integers s, t with gcd(a, b) = sa + tb. Find them by back-substitution through the Euclidean divisions, or by the extended Euclidean algorithm in one forward pass.</p>
+          <details><summary>gcd(252, 198) = 18 = 4·252 − 5·198</summary>
+            <ol class="worked-steps">
+              <li>252 = 1·198 + 54; 198 = 3·54 + 36; 54 = 1·36 + 18; 36 = 2·18.</li>
+              <li>18 = 54 − 36 = 54 − (198 − 3·54) = 4·54 − 198.</li>
+              <li>Substitute 54 = 252 − 198: 18 = 4·252 − 5·198.</li>
+            </ol>
+          </details>
+
+          <h3>4. Linear congruences and CRT <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 3</span></h3>
+          <p>A linear congruence has the form ax ≡ b (mod m). If gcd(a, m) = 1 then a has a unique inverse modulo m, found from Bézout coefficients sa + tm = 1; multiply both sides by s.</p>
+          <details><summary>Solve 3x ≡ 4 (mod 7)</summary>
+            <ol class="worked-steps">
+              <li>7 = 2·3 + 1, so 1 = −2·3 + 1·7 and −2 is an inverse of 3 modulo 7.</li>
+              <li>Multiply: −6x ≡ −8 (mod 7), so x ≡ 6 (mod 7).</li>
+              <li>Solutions are x = 6, 13, 20, … and −1, −8, −15, ….</li>
+            </ol>
+          </details>
+          <p><strong>Chinese Remainder Theorem:</strong> for pairwise relatively prime moduli m₁, …, mₙ, the system x ≡ aᵢ (mod mᵢ) has a unique solution modulo m = m₁…mₙ. Compute Mₖ = m/mₖ, find yₖ with Mₖyₖ ≡ 1 (mod mₖ), then x = Σ aₖMₖyₖ.</p>
+          <details><summary>x ≡ 2 (mod 3), x ≡ 3 (mod 5), x ≡ 2 (mod 7)</summary>
+            <ol class="worked-steps">
+              <li>m = 105; M₁ = 35, M₂ = 21, M₃ = 15.</li>
+              <li>Inverses: y₁ = 2, y₂ = 1, y₃ = 1.</li>
+              <li>x = 2·35·2 + 3·21·1 + 2·15·1 = 233 ≡ 23 (mod 105).</li>
+            </ol>
+          </details>
+          <p>CRT also represents large integers by n-tuples of remainders. Adding 123,684 and 413,456 modulo 99, 98, 97, 95 gives componentwise (65, 2, 51, 10), which solves back to 537,140.</p>
+        </section>
+
+        <section class="topic-part" data-part="4">
+          <h2>Part 4 · Matrices <span class="priority-mark">★★</span></h2>
+          <p class="source-line">Page 18 of the chapter PDF.</p>
+
+          <h3>1. Zero-one matrices and Boolean operations <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
+          <p>An m × n matrix is a rectangular array; square means m = n. A zero-one matrix has only 0 and 1 entries and uses Boolean arithmetic.</p>
+          <table class="topic-table">
+            <thead><tr><th>Operation</th><th>Definition</th></tr></thead>
+            <tbody>
+              <tr><td>Join A ∨ B</td><td>Entry aᵢⱼ ∨ bᵢⱼ</td></tr>
+              <tr><td>Meet A ∧ B</td><td>Entry aᵢⱼ ∧ bᵢⱼ</td></tr>
+              <tr><td>Boolean product A ⊙ B</td><td>cᵢⱼ = (aᵢ₁ ∧ b₁ⱼ) ∨ … ∨ (aᵢₖ ∧ bₖⱼ)</td></tr>
+              <tr><td>Boolean power A^[r]</td><td>A ⊙ … ⊙ A (r factors); A^[0] = Iₙ</td></tr>
+            </tbody>
+          </table>
+          <p>The Boolean product mirrors ordinary multiplication with OR replacing addition and AND replacing multiplication. Zero-one matrices represent relations, so these operations compute unions, intersections, composites, and powers of relations.</p>
+        </section>
+
         <aside class="revision-tracker" data-page="discrete/number-theory.html">
           <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
           <button class="revision-btn" type="button">Mark as reviewed</button>

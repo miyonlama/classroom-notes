@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Induction and Recursion — Discrete Structure</title>
+  <title>Induction and Recursion, Discrete Structure</title>
   <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
   <link rel="stylesheet" href="/assets/css/player.css" />
 </head>
@@ -39,167 +39,198 @@
         <span class="folio" aria-hidden="true">06</span>
         <h1>Induction and Recursion</h1>
         <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Induction and Recursion.pdf" download>Download original PDF</a>.</p>
+
         <aside class="cue-block">
           <h2>Recall cues</h2>
           <ol>
-      <li>What are the two steps of mathematical induction?</li>
-      <li>When do you need strong induction instead of ordinary induction?</li>
-      <li>How does a recursively defined function differ from an inductive proof?</li>
+            <li>What are the two steps of an induction proof?</li>
+            <li>How does strong induction differ from ordinary induction?</li>
+            <li>What makes a definition recursive rather than explicit?</li>
           </ol>
         </aside>
 
-<section><h2>Mathematical Induction</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>Mathematical induction is an extremely important proof technique. Many theorems assert that P(n) is true for all positive integers n, where P(n) is a propositional function. Mathematical induction is a technique for proving theorems of this kind. In other words, mathematical induction can be used to prove statements of the form ∀n P(n), where the domain is the set of positive integers.</p>
-<details><summary>Proof</summary><p>Proofs using mathematical induction have two parts. First, they show that the statement holds for the positive integer 1. Second, they show that if the statement holds for a positive integer then it must also hold for the next larger integer. Mathematical induction is based on the rule of inference that tells us that if P(1) and ∀k(P(k) → P(k + 1)) are true for the domain of positive integers, then ∀nP (n) is true.</p></details>
-</section>
-<section><h3>2. Mathematical Induction</h3>
-<p>Mathematical induction is used to prove propositions of the form ∀nP(n), where the universe of discourse is the set of positive integers. A proof by mathematical induction has two parts, a basis step, where we show that P(1) is true, and an inductive step, where we show that for all positive integers k, if P(k) is true, then P(k + 1) is true.</p>
-<p>To complete the inductive step of a proof using the principle of mathematical induction, we assume that P(k) is true for an arbitrary positive integer k and show that under this assumption, P(k + 1) must also be true. The assumption that P(k) is true is called the inductive hypothesis. Once we complete both steps in a proof by mathematical induction, we have shown that P(n) is true for all positive integers, that is, we have shown that ∀nP (n) is true where the quantification is over the set of positive integers. In the inductive step, we show that ∀k(P(k) → P(k + 1)) is true, where again, the domain is the set of positive integers. Expressed as a rule of inference, this proof technique can be stated as (P (1) ∧ ∀k(P(k) → P(k + 1))) → ∀nP (n), when the domain is the set of positive integers.</p>
-<p>Hence, the first thing we do to prove that P(n) is true for all positive integers n is to show that P(1) is true. Then we assume that P(k) is true and show that under this assumption P(k + 1) is also true.</p>
-</section>
-<section><h3>3. Examples of Proof by Mathematical Induction</h3>
-</section>
-<section><h4>3.1. Proving Summation Formulae</h4>
-<p>We can use mathematical induction to prove several summation formulae.</p>
-<p>Mathematical induction is particularly well suited for proving that such formulae are valid.</p>
-<details><summary>Example</summary><p>Example 1: Use mathematical induction to show that the sum of first n positive</p></details>
-<p>integers is</p>
-<p>n(n +1).</p>
-<p>2</p>
-<p>=</p>
-<p>n(n +1). 2</p>
-<p>Basis Step: Since P(1) = 1 = 1(1+1), P(1) is true.2</p>
-<p>Inductive Step: For inductive hypothesis we assume that P(k) is true for an arbitrary</p>
-<p>positive integer k. Hence, P(k) = 1 + 2 + 3 + … + k =</p>
-<p>k(k +1). 2</p>
-<p>Using this hypothesis we show that P(k + 1) must also be true. Now, P (k + 1) = 1 + 2</p>
-<p>+ 3 + … + k + (k + 1) = k(k +1)+ (k + 1) = 2 k(k +1) + 2(k +1)= 2 (k +1)(k + 2). 2</p>
-<p>This last equation shows that P(k + 1) is true under the assumption that P(k) is true. This completes the inductive step. We have completed the basis step and the inductive step, so by mathematical</p>
-<p>induction we know that P(n) is true for all positive integers n. That is, we have proven</p>
-<p>that 1 + 2 + … + n =</p>
-<p>n(n +1)for all positive</p>
-<p>integers n.  2</p>
-<details><summary>Example</summary><p>Example 2: Use mathematical induction to prove that the sum of the first n odd positive integers is n2.</p></details>
-<p>Using this hypothesis we show that P(k + 1) must also be true. Now, P (k + 1) = 1 + 3 + 5 +… + (2k – 1) + (2k + 1) = k2 + (2k + 1) = (k + 1)2. This last equation shows that P(k + 1) is true under the assumption that P(k) is true. This completes the inductive step. We have completed the basis step and the inductive step, so by mathematical</p>
-<p>induction we know that P(n) is true for all positive integers n. That is, we have proven that 1 + 3 + 5 +… + (2n – 1) = n2 for all positive integers n.</p>
-<p>Exercise 1: Prove that 1.1! + 2.2! + … + n.n! = (n+1)! –1, whenever n is a positive integer.</p>
-<details><summary>Example</summary><p>Example 3: Use mathematical induction to show 1 + 2 + 22 + ….. + 2n = 2n + 1 – 1. Solution: Let P(n) be the proposition that 1 + 2 + 22 + ….. + 2n = 2n + 1 – 1.  Basis Step: Since P(0) = 1 = 20 + 1 – 1, P(1) is true. Inductive Step: For inductive hypothesis we assume that P(k) is true for an arbitrary</p></details>
-<p>nonnegative integer k. Hence, P(k) = 1 + 2 + 22 + ….. + 2k = 2k + 1 – 1.  Using this hypothesis we show that P(k + 1) must also be true. Now, P (k + 1) = 1 + 2  + 22 + …..</p>
-<p>+ 2k + 2k + 1 = 2k + 1 – 1 + 2k + 1 = 2. 2k + 1 – 1 = 2k + 2 – 1.  This last equation shows that P(k + 1) is true under the assumption that P(k) is true.  This completes the inductive step. We have completed the basis step and the inductive step, so by mathematical induction we know that P(n) is true for all nonnegative integers n. That is, we have proven that 1 + 2 + 22 + ….. + 2n = 2n + 1 – 1 for all nonnegative integers n.</p>
-<p>Exercise 2: Use mathematical induction to prove that 2 - 2.7 + 2.72 -… +2(-7)n =  1 (</p>
-<p>7)+1 − −nwhenever n is a nonnegative integer.</p>
-<p>4 Exercise 3: Use mathematical induction to prove that a + ar + ar2 + ….. + arn =  n</p>
-<p>ar a</p>
-<p>r −</p>
-<p>−1 .</p>
-</section>
-<section><h4>3.2. Proving Inequalities</h4>
-<p>Mathematical induction can also be used to prove a variety of inequalities that hold for all positive integers greater than a particular positive integer.</p>
-<details><summary>Example</summary><p>Example 4: Use mathematical induction to prove the inequality n &lt; 2n for all positive integers n. Solution: Let P(n) be the proposition that n &lt; 2n. Basis Step: P(1) is true, because 1 &lt; 21 = 2. Inductive Step: For inductive hypothesis we assume that P(k) is true for an arbitrary positive integer k. Hence, P(k) is the statement that k &lt; 2k.</p></details>
-<p>Using this hypothesis we show that P(k + 1) must also be true. Now, using the hypothesis, we can write that k + 1 &lt; 2k + 1 ≤ 2k + 2k = 2.2k = 2k + 1.  This last equation shows that P(k + 1) is true under the assumption that P(k) is true.  This completes the inductive step. We have completed the basis step and the inductive step, so by mathematical</p>
-<p>induction we know that P(n) is true for all positive integers n. That is, we have proven that n &lt; 2n for all positive integers n.</p>
-<p>Exercise 4: Use mathematical induction to prove that 2n &lt; n! for every integer n with n ≥ 4.</p>
-</section>
-<section><h4>3.3. Proving Divisibility Results</h4>
-<p>We can also use mathematical induction to prove divisibility results about integers.</p>
-<details><summary>Example</summary><p>Example 5: Use mathematical induction to prove that n3 − n is divisible by 3 whenever n is a positive integer. Solution: Let P(n) be the proposition that n3 − n is divisible by 3. Basis Step: P(1) is true, because 13 - 1 = 0 is divisible by 3. Inductive Step: For inductive hypothesis we assume that P(k) is true for an arbitrary positive integer k. Hence, P(k) is the statement that k3 − k is divisible by 3.  Using this hypothesis we show that P(k + 1) must also be true. Now,  (k + 1)3 – (k + 1) = k3 + 3k2</p></details>
-<p>+ 3k + 1 – k – 1 = (k3 – k) + 3(k2 + k) This last equation shows that P(k + 1) is true because using inductive hypothesis the  first term k3 − k is divisible by 3 and the second term is also divisible by 3 because it  is 3 times an integer. This completes the inductive step. We have completed the basis step and the inductive step, so by mathematical</p>
-<p>induction we know that P(n) is true for all positive integers n. That is, we have proven that n3 − n is divisible by 3 for all positive integers n.</p>
-<p>Exercise 5: Use mathematical induction to prove that 7n+2 + 82n+1 is divisible by 57  for every nonnegative integer n.</p>
-</section>
-<section><h2>Strong Induction and Well Ordering</h2>
-</section>
-<section><h3>1. Strong Induction</h3>
-<p>Strong induction can often be used when we cannot easily prove a result using mathematical induction.</p>
-<p>The basis step of a proof by strong induction is the same as a proof of the same result using mathematical induction. That is, in a strong induction proof that P(n) is true for all positive integers n, the basis step shows that P(1) is true.</p>
-<p>However, the inductive steps in these two proof methods are different. In a proof by mathematical induction, the inductive step shows that if the inductive hypothesis P(k) is true, then P(k + 1) is also true. In a proof by strong induction, the inductive step shows that if P(j) is true for all positive integers not exceeding k, then P(k + 1) is true. That is, for the inductive hypothesis we assume that P(j) is true for j = 1, 2, . . . , k. Hence, in the inductive step, we show that the conditional statement [P(1) ∧ P(2) ∧</p>
-<p>· · · ∧ P(k)] → P(k + 1) is true for all positive integers k. Strong induction is sometimes called the second principle of mathematical induction or complete induction. When the terminology “complete induction” is used, the principle of mathematical induction is called incomplete induction, although nothing is incomplete about the principle of mathematical induction.</p>
-<details><summary>Example</summary><p>Example 1: Show that if n is an integer greater than 1, then n can be written as the product of primes.</p></details>
-<p>Using this hypothesis we show that P(k + 1) must also be true, that is, that k + 1 is the product of primes. There are two cases to consider, namely, when k + 1 is prime and when k + 1 is composite. If k + 1 is prime, we immediately see that P(k + 1) is true. Otherwise, k + 1 is composite and can be written as the product of two positive integers a and b with 2 ≤ a ≤ b &lt; k + 1. Because both a and b are integers at least 2 and not exceeding k, we can use the inductive hypothesis to write both a and b as the product of primes. Thus, if k + 1 is composite, it can be written as the product of primes, namely, those primes in the factorization of a and those in the factorization of</p>
-<p>b.</p>
-<p>Since, we have completed the basis step and the inductive step, so by strong mathematical induction we know that P(n) is true for all positive integers n greater than 1. That is, we have proven that n can be written as the product of primes for all positive integers n greater than 1.</p>
-</section>
-<section><h3>2. Proofs using Well Ordering Property</h3>
-<p>The well-ordering property states that every nonempty set of nonnegative integers has a least element. Example 2: Use the well-ordering property to prove the division algorithm. Recall that the division algorithm states that if a is an integer and d is a positive integer, then there are unique integers q and r with 0 ≤ r &lt; d and a = dq + r. Solution: Let S be the set of nonnegative integers of the form a − dq, where q is an integer. This set is nonempty. By the well-ordering property, S has a least element r = a − dq0. The integer r is nonnegative. It is also the case that r &lt; d.  If it were not, then there would be a smaller nonnegative element in S, namely, a − d(q0 + 1) and r ≥ d. Now, a − d(q0 + 1) = (a − dq0) − d = r – d ≥ 0. This contradicts  our assumption. Consequently, there are unique integers q and r with 0 ≤ r &lt; d.</p>
-</section>
-<section><h2>Recursive Definitions and Structural Induction</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>Sometimes it is difficult to define an object explicitly. However, it may be easy to define this object in terms of itself. This process is called recursion.  We can use recursion to define sequences, functions, and sets. For instance, the  sequence of powers of 2 is given by an = 2n for n = 0, 1, 2, …. We can also define this  sequence recursively by specifying how terms of the sequence are found from  previous terms. The sequence of powers of 2 can also be defined by giving the first  term of the sequence, namely, a0 = 1, and a rule for finding a term of the sequence  from the previous one, namely, an+1 = 2an for n = 0, 1, 2, ……</p>
-<p>When we define a sequence recursively by specifying how terms of the sequence are found from previous terms, we can use induction to prove results about the sequence. When we define a set recursively, we specify some initial elements in a basis step and provide a rule for constructing new elements from those we already have in the recursive step. To prove results about recursively defined sets we use a method called structural induction.</p>
-</section>
-<section><h3>2. Recursively Defined Functions</h3>
-<p>We use two steps to define a function with the set of nonnegative integers as its</p>
-<p>domain: Basis Step: Specify the value of the function at zero. Recursive Step: Give a rule for finding its value at an integer from its values at</p>
-<p>smaller integers. Such a definition is called a recursive or inductive definition. Note that a function f (n) from the set of nonnegative integers to the set of a real numbers is the same as a sequence a0, a1, ….. where ai is a real number for every nonnegative integer i. So, defining a real-valued sequence a0, a1, …..using a recurrence relation is the same as</p>
-<p>defining a function from the set of nonnegative integers to the set of real numbers.</p>
-<details><summary>Example</summary><p>Example 1: Suppose that f is defined recursively by f (0) = 3, f (n + 1) = 2f (n) + 3.</p></details>
-<p>Find f (1), f (2), f (3), and f (4). Solution: From the recursive definition it follows that f (1) = 2f (0) + 3 = 2 · 3 + 3 = 9, f (2) = 2f (1) + 3 = 2 · 9 + 3 = 21, f (3) = 2f (2) + 3 = 2 · 21 + 3 = 45, f (4) = 2f (3) + 3 = 2 · 45 + 3 = 93.</p>
-<details><summary>Example</summary><p>Example 2: Give a recursive definition of an, where a is a nonzero real number and n is a nonnegative integer.</p></details>
-<p>n Example 3: Give a</p>
-<p>recursive definition of ∑</p>
-<p>ak</p>
-<p>.</p>
-<p>k = 0</p>
-<p>0 ∑ Solution: The first part of the recursive definition is k 0</p>
-<p>= ⎜</p>
-<p>⎝</p>
-<p>⎛∑=n</p>
-<p>ak= a0.</p>
-<p>n + ak= ⎟</p>
-<p>⎠⎞</p>
-<p>1</p>
-<p>The second</p>
-<p>part is ∑</p>
-<p>ak + an + 1.</p>
-<p>k = 0 k 0</p>
-</section>
-<section><h3>3. Recursively Defined Sets</h3>
-<p>We can also define sets recursively. Just as in the recursive definition of functions, recursive definitions of sets have two parts, a basis step and a recursive step. In the basis step, an initial collection of elements is specified. In the recursive step, rules for forming new elements in the set from those already known to be in the set are provided. Recursive definitions may also include an exclusion rule, which specifies that a recursively defined set contains nothing other than those elements specified in the basis step or generated by applications of the recursive step.</p>
-<details><summary>Example</summary><p>Example 4: Consider the subset S of the set of integers recursively defined by Basis Step: 3 ∈ S. Recursive Step: If x ∈ S and y ∈ S, then x + y ∈ S.</p></details>
-<p>The new elements found to be in S are 3 by the basis step, 3 + 3 = 6 at the first application of the recursive step, 3 + 6 = 6 + 3 = 9 and 6 + 6 = 12 at the second application of the recursive step, and so on.</p>
-<details><summary>Example</summary><p>Example 5: We can define the set of well-formed formulae in propositional logic involving T, F, propositional variables, and operators from the set {¬, ∧, ∨, →, ↔}. Basis Step: T, F, and s, where s is a propositional variable, are well-formed formulae. Recursive Step: If E and F are well-formed formulae, then (¬E), (E ∧ F), (E ∨ F),  (E → F), and (E ↔ F) are well-formed formulae.</p></details>
-</section>
-<section><h3>4. Structural Induction</h3>
-<p>We can use a technique known as structural induction to prove results about recursively defined sets. Structural induction is a form of mathematical induction. Instead of using mathematical induction directly to prove results about recursively defined sets, we can use a more convenient form of induction known as structural induction. A proof by structural induction consists of two parts. These parts are Basis Step: Show that the result holds for all elements specified in the basis step of the recursive definition to be in the set. Recursive Step: Show that if the statement is true for each of the elements used to</p>
-<p>construct new elements in the recursive step of the definition, the result holds for these new elements.</p>
-<details><summary>Example</summary><p>Example 6: Show that the set S defined in example 4 is the set of all positive integers that are multiples of 3. Solution: Basis Step: The basis step holds because 3 = 3.1 is multiple of 3. Recursive Step: If x and y are both in S, it follows that 3 | x and 3 | y. Hence, 3 | x + y.</p></details>
-<details><summary>Example</summary><p>Example 7: Show that every well-formed formula for compound propositions, as defined in Example 5, contains an equal number of left and right parentheses. Solution: Basis Step: Each of the formula T, F, and s contains no parentheses, so clearly they</p></details>
-<p>contain an equal number of left and right parentheses. Recursive Step: Assume p and q are well-formed formulae each containing an equal number of left and right parentheses. That is, if lp and lq are the number of left parentheses in p and q, respectively, and rp and rq are the number of right parentheses in p and q, respectively, then lp = rp and lq = rq. To complete the inductive step, we need to show that each of (¬p), (p ∨ q), (p ∧ q), (p → q), and (p ↔ q) also contains an equal number of left and right parentheses. The number of left parentheses in the first of these compound propositions equals lp + 1 and in each of the other compound propositions equals lp + lq + 1. Similarly, the number of right parentheses in the first  of these compound propositions equals rp + 1 and in each of the other compound propositions equals rp + rq + 1. Because lp = rp and lq = rq, it follows that each of these compound expressions contains the same number of left and right parentheses. This completes the proof by structural induction.</p>
-</section>
-<section><h2>Recursive Algorithms</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>Sometimes we can reduce the solution to a problem with a particular set of input values to the solution of the same problem with smaller input values.  An algorithm is called recursive if it solves a problem by reducing it to an instance of  the same</p>
-<p>problem with smaller input.</p>
-<details><summary>Example</summary><p>Example 1: Give a recursive algorithm for computing n!, where n is a nonnegative integer. Solution: n! = n.(n – 1)! when n is a positive integer, and that 0! = 1. To find n! for a particular integer, we use the recursive step n times, each time replacing a value of the factorial function with the value of the factorial function at the next smaller integer.  At this last step, we insert the value of 0!. For example, we can find 5!, first we use  the recursive step to write 5! = 5.4!. We then use the recursive step repeatedly to write  4! = 4.3!, 3! = 3.2!, 2! = 2.1! and 1! = 1 · 0!. Inserting the value of 0! = 1, and  working back through the steps, we see that 1! = 1.1 = 1, 2! = 2.1! = 2, 3! = 3.2! = 3.2  = 6, 4! = 4.3! = 4.6 = 24, and 5! = 5.4! = 5.24 = 120.</p></details>
-<p>Algorithm:</p>
-<p>procedure factorial(n: nonnegative integer) if n = 0 then return 1 else return n.factorial(n − 1)</p>
-<p>{output is n!}</p>
-<details><summary>Example</summary><p>Example 2: Give a recursive algorithm for computing an, where a is a nonzero real number and n is a nonnegative integer. Solution: We can base a recursive algorithm on the recursive definition of an. This</p></details>
-<div class="callout"><strong>Definition:</strong> definition states that an+1 = a.an for n &gt; 0 and the initial condition a0 = 1. To find an, successively use the recursive step to reduce the exponent until it becomes zero.</div>
-<p>Algorithm:</p>
-<p>procedure power(a: nonzero real number, n: nonnegative integer) if n = 0 then return 1 else return a · power(a, n − 1)</p>
-<p>{output is an}</p>
-<details><summary>Example</summary><p>Example 3: Give a recursive algorithm for computing the greatest common divisor of two nonnegative integers a and b with a &lt; b. Solution: We can base a recursive algorithm on the reduction gcd(a, b) = gcd(b mod a, a) and the condition gcd(0, b) = b when b &gt; 0. For example, gcd(14, 21) = gcd(7, 14) = gcd(0, 7) = 7.</p></details>
-<p>Algorithm:</p>
-<p>procedure gcd(a, b: nonnegative integers with a &lt; b) if a = 0 then return b else return gcd(b mod a, a)</p>
-<p>{output is gcd(a, b)}</p>
-</section>
-<section><h3>2. Proving Correctness of Recursive Algorithms  Mathematical</h3>
-<p>induction, and its variant strong induction, can be used to prove that a  recursive algorithm is correct, that is, that it produces the desired output for all  possible input values.</p>
-<details><summary>Example</summary><p>Example 4: Prove that algorithm, explained in example 2, which computes powers of real numbers, is correct.</p></details>
-<p>correct because a0 = 1 for every nonzero real number a. This completes the basis step. Inductive Step: The inductive hypothesis is the statement that power (a, k) = ak for an arbitrary positive integer k. That is, the inductive hypothesis is the statement that the algorithm correctly computes ak.</p>
-<p>Using this hypothesis, we show that the algorithm correctly computes ak+1. Now, power (a, k + 1) = a.power (a, k). By the inductive hypothesis, we have power (a, k) = ak, so power (a, k + 1) = a · power (a, k) = a · ak = ak+1. This completes the inductive step. We have completed the basis step and the inductive step, so we can conclude  that the algorithm always computes an correctly when a ≠ 0 and n is a nonnegative  integer.</p>
-</section>
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the chapter.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM n</span> times the topic appears in the nine past papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Proof by mathematical induction, 4: 2078 Q7, 2079 Q7, 2081 Q5, 2082 Q6.</li>
+            <li>Recurrence relations, 3: 2078 Q2, 2080.1 Q2, 2082 Q7.</li>
+            <li>Correctness of recursive algorithms, 2: 2080.1 Q2, 2082 Q10.</li>
+            <li>Recursively defined functions, 1: 2079 Q8.</li>
+            <li>Structural induction and recursive definitions, 1: 2081 Q12.</li>
+          </ul>
+        </aside>
 
-        <section class="recall-block">
-          <h2>Summary &amp; recall</h2>
-          <p>Induction proves statements over the natural numbers. Recursion defines objects in terms of themselves.</p>
-          <details><summary>Can you name the basis step and the inductive step?</summary><p>Induction proves statements over the natural numbers. Recursion defines objects in terms of themselves.</p></details>
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Mathematical Induction <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 1–4 of the chapter PDF.</p>
+
+          <h3>1. The principle <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 4</span></h3>
+          <p>Induction proves statements of the form ∀n P(n) over the positive integers. It is an extremely important proof technique with two parts:</p>
+          <table class="topic-table">
+            <thead><tr><th>Step</th><th>What you do</th></tr></thead>
+            <tbody>
+              <tr><td>Basis step</td><td>Show P(1) is true</td></tr>
+              <tr><td>Inductive step</td><td>Show ∀k(P(k) → P(k + 1)): assume P(k) for an arbitrary k, then prove P(k + 1)</td></tr>
+            </tbody>
+          </table>
+          <p>The assumption P(k) is the <strong>inductive hypothesis</strong>. As a rule of inference:</p>
+          <p><strong>(P(1) ∧ ∀k(P(k) → P(k + 1))) → ∀n P(n)</strong>.</p>
+
+          <h3>2. Proving summation formulae <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 4</span></h3>
+          <details><summary>Example: 1 + 2 + … + n = n(n + 1)/2</summary>
+            <ol class="worked-steps">
+              <li>Basis, P(1): 1 = 1(1 + 1)/2, true.</li>
+              <li>Assume P(k): 1 + … + k = k(k + 1)/2.</li>
+              <li>Then 1 + … + k + (k + 1) = k(k + 1)/2 + (k + 1) = (k + 1)(k + 2)/2.</li>
+              <li>That is P(k + 1), so P(n) holds for all positive integers n.</li>
+            </ol>
+          </details>
+          <details><summary>Example: 1 + 3 + 5 + … + (2n − 1) = n²</summary>
+            <ol class="worked-steps">
+              <li>Basis: P(1) is 1 = 1², true.</li>
+              <li>Assume P(k) = k². Then add the next odd term: k² + (2(k + 1) − 1) = k² + 2k + 1 = (k + 1)².</li>
+            </ol>
+          </details>
+          <p><strong>Starting at b ≠ 1.</strong> Replace the basis step with P(b) and prove P(k) → P(k + 1) for k = b, b + 1, …. The rule becomes P(b) ∧ ∀k(P(k) → P(k + 1)) → ∀n P(n) for n ≥ b.</p>
+          <details><summary>Example: 1 + 2 + 2² + … + 2ⁿ = 2^(n+1) − 1</summary>
+            <ol class="worked-steps">
+              <li>Basis P(0): 1 = 2¹ − 1, true.</li>
+              <li>Assume P(k): sum to 2ᵏ equals 2^(k+1) − 1.</li>
+              <li>Add 2^(k+1): 2^(k+1) − 1 + 2^(k+1) = 2·2^(k+1) − 1 = 2^(k+2) − 1, which is P(k + 1).</li>
+            </ol>
+          </details>
+
+          <h3>3. Inequalities and divisibility <span class="priority-mark">★★★</span></h3>
+          <details><summary>Example: n &lt; 2ⁿ for every positive integer</summary>
+            <ol class="worked-steps">
+              <li>Basis P(1): 1 &lt; 2¹ = 2.</li>
+              <li>Assume k &lt; 2ᵏ. Then k + 1 &lt; 2ᵏ + 1 ≤ 2ᵏ + 2ᵏ = 2^(k+1).</li>
+            </ol>
+          </details>
+          <details><summary>Example: n³ − n is divisible by 3</summary>
+            <ol class="worked-steps">
+              <li>Basis P(1): 1³ − 1 = 0, divisible by 3.</li>
+              <li>Assume 3 | (k³ − k). Expand (k + 1)³ − (k + 1) = (k³ − k) + 3(k² + k).</li>
+              <li>Both terms are divisible by 3, so the sum is divisible by 3.</li>
+            </ol>
+          </details>
+
+          <h3>4. Practice exercises <span class="priority-mark">★</span></h3>
+          <ul class="worked-steps">
+            <li>Prove 1·1! + 2·2! + … + n·n! = (n + 1)! − 1.</li>
+            <li>Prove 2 − 2·7 + 2·7² − … + 2(−7)ⁿ = (1 − (−7)^(n+1))/4 for n ≥ 0.</li>
+            <li>Prove the geometric sum a + ar + … + arⁿ = a(r^(n+1) − 1)/(r − 1).</li>
+            <li>Prove 2ⁿ &lt; n! for n ≥ 4, starting the basis at 4.</li>
+            <li>Prove 7^(n+2) + 8^(2n+1) is divisible by 57 for n ≥ 0.</li>
+          </ul>
         </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Strong Induction and Well Ordering <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 5–6 of the chapter PDF.</p>
+
+          <h3>1. Strong induction <span class="priority-mark">★★★</span></h3>
+          <p>Use strong induction when ordinary induction is not enough. The basis step is the same, P(1). The inductive step assumes <strong>P(j) for all j = 1, 2, …, k</strong> and proves P(k + 1):</p>
+          <p><strong>(P(1) ∧ P(2) ∧ … ∧ P(k)) → P(k + 1)</strong>.</p>
+          <p>It is also called the second principle of mathematical induction or complete induction.</p>
+          <details><summary>Example: every integer greater than 1 is a product of primes</summary>
+            <ol class="worked-steps">
+              <li>Basis P(2): 2 is a product of one prime, itself.</li>
+              <li>Assume P(j) for 2 ≤ j ≤ k. Consider k + 1.</li>
+              <li>If k + 1 is prime, done. Otherwise k + 1 = ab with 2 ≤ a ≤ b &lt; k + 1.</li>
+              <li>By the hypothesis a and b are products of primes, hence so is k + 1.</li>
+            </ol>
+          </details>
+
+          <h3>2. Well-ordering property <span class="priority-mark">★★★</span></h3>
+          <p>Every nonempty set of nonnegative integers has a least element.</p>
+          <details><summary>Division algorithm via well ordering</summary>
+            <p>Let S = {a − dq | q ∈ Z} ∩ {nonnegative integers}. S is nonempty, so it has least element r = a − dq. If r ≥ d then a − d(q + 1) = r − d ≥ 0 would be a smaller element, a contradiction. Hence 0 ≤ r &lt; d and a = dq + r with q and r unique.</p>
+          </details>
+        </section>
+
+        <section class="topic-part" data-part="3">
+          <h2>Part 3 · Recursive Definitions and Structural Induction <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 6–8 of the chapter PDF.</p>
+
+          <h3>1. Recursively defined functions <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 1</span></h3>
+          <p>Define a function on nonnegative integers in two steps: a <strong>basis step</strong> gives its value at 0, and a <strong>recursive step</strong> gives its value at n from smaller values. A sequence a₀, a₁, … is the same object: aₙ = f(n).</p>
+          <details><summary>f(0) = 3, f(n + 1) = 2f(n) + 3</summary>
+            <ol class="worked-steps">
+              <li>f(1) = 2·3 + 3 = 9.</li>
+              <li>f(2) = 2·9 + 3 = 21.</li>
+              <li>f(3) = 2·21 + 3 = 45.</li>
+              <li>f(4) = 2·45 + 3 = 93.</li>
+            </ol>
+          </details>
+          <details><summary>Recursive definition of aⁿ</summary>
+            <p>Basis: a⁰ = 1. Recursive step: aⁿ⁺¹ = a · aⁿ for n = 0, 1, 2, …. Together these uniquely define aⁿ for every nonnegative n.</p>
+          </details>
+
+          <h3>2. Recursively defined sets <span class="priority-mark">★★★</span></h3>
+          <p>A recursive set definition has a basis step (initial elements), a recursive step (rules for new elements), and sometimes an exclusion rule saying nothing else belongs.</p>
+          <details><summary>Set S: 3 ∈ S, and x, y ∈ S implies x + y ∈ S</summary>
+            <p>Basis gives 3. One application gives 6 = 3 + 3. Two applications give 9 = 3 + 6 and 12 = 6 + 6. The set is the positive multiples of 3.</p>
+          </details>
+          <details><summary>Well-formed formulae</summary>
+            <p>Basis: T, F, and propositional variables are well-formed. Recursive step: if E and F are well-formed, so are (¬E), (E ∧ F), (E ∨ F), (E → F), (E ↔ F).</p>
+          </details>
+
+          <h3>3. Structural induction <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 1</span></h3>
+          <table class="topic-table">
+            <thead><tr><th>Step</th><th>Obligation</th></tr></thead>
+            <tbody>
+              <tr><td>Basis</td><td>Prove the statement for every element in the basis step of the set definition</td></tr>
+              <tr><td>Recursive</td><td>Assume it for the components used to build new elements, then prove it for those new elements</td></tr>
+            </tbody>
+          </table>
+          <details><summary>Balanced parentheses in every well-formed formula</summary>
+            <ol class="worked-steps">
+              <li>Basis: T, F, s have no parentheses, so counts are equal.</li>
+              <li>Assume p and q have lₚ = rₚ and l_q = r_q.</li>
+              <li>Each compound adds one left and one right parenthesis, so equality is preserved.</li>
+            </ol>
+          </details>
+        </section>
+
+        <section class="topic-part" data-part="4">
+          <h2>Part 4 · Recursive Algorithms <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 8–9 of the chapter PDF.</p>
+
+          <h3>1. Three model algorithms <span class="priority-mark">★★★</span></h3>
+          <p>An algorithm is recursive when it solves a problem by reducing it to an instance of the same problem with smaller input.</p>
+          <details><summary>Factorial</summary>
+            <p>n! = n · (n − 1)! for n &gt; 0 and 0! = 1. Trace: 5! = 5·4!, 4! = 4·3!, …, 1! = 1·0!, then work back to 5! = 120.</p>
+            <p>procedure factorial(n: nonnegative integer)<br />if n = 0 then return 1<br />else return n · factorial(n − 1)</p>
+          </details>
+          <details><summary>Power</summary>
+            <p>aⁿ⁺¹ = a · aⁿ for n &gt; 0, with a⁰ = 1. Reduce the exponent to zero, then work back.</p>
+            <p>procedure power(a: nonzero real, n: nonnegative integer)<br />if n = 0 then return 1<br />else return a · power(a, n − 1)</p>
+          </details>
+          <details><summary>Greatest common divisor</summary>
+            <p>Use gcd(a, b) = gcd(b mod a, a) with gcd(0, b) = b. Example: gcd(14, 21) = gcd(7, 14) = gcd(0, 7) = 7.</p>
+            <p>procedure gcd(a, b: nonnegative integers with a &lt; b)<br />if a = 0 then return b<br />else return gcd(b mod a, a)</p>
+          </details>
+
+          <h3>2. Proving correctness <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
+          <p>Use ordinary or strong induction to show a recursive algorithm produces the desired output for every input.</p>
+          <details><summary>Proof that power(a, n) = aⁿ</summary>
+            <ol class="worked-steps">
+              <li>Basis: n = 0 returns 1, and a⁰ = 1 for every nonzero a.</li>
+              <li>Inductive hypothesis: power(a, k) = aᵏ.</li>
+              <li>Then power(a, k + 1) = a · power(a, k) = a · aᵏ = a^(k+1).</li>
+              <li>Therefore the algorithm is correct for a ≠ 0 and n ≥ 0.</li>
+            </ol>
+          </details>
+        </section>
+
         <aside class="revision-tracker" data-page="discrete/induction-and-recursion.html">
           <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
           <button class="revision-btn" type="button">Mark as reviewed</button>
