@@ -130,12 +130,17 @@
         // resolve against the new page, not the one we are leaving.
         if (push) history.pushState({ nav: true }, "", href);
         var doc = new DOMParser().parseFromString(html, "text/html");
-        var kept = Array.prototype.slice.call(document.querySelectorAll(persist));
-        Array.prototype.forEach.call(doc.querySelectorAll(persist), function (el) {
-          if (el.parentNode) el.parentNode.removeChild(el);
+        var isPersist = function (el) { return el.matches && el.matches(persist); };
+        // Never detach #yt-player. Removing an iframe from the document
+        // destroys its browsing context, so re-inserting it reloads the
+        // video and restarts playback.
+        Array.prototype.slice.call(document.body.children).forEach(function (el) {
+          if (!isPersist(el)) document.body.removeChild(el);
         });
-        document.body.innerHTML = doc.body.innerHTML;
-        kept.forEach(function (el) { document.body.appendChild(el); });
+        Array.prototype.forEach.call(doc.body.children, function (el) {
+          if (isPersist(el)) return;
+          document.body.appendChild(document.importNode(el, true));
+        });
         swapStyles(doc);
         document.title = doc.title || document.title;
         if (location.hash === "#music") {
