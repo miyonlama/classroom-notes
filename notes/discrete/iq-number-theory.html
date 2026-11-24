@@ -117,7 +117,7 @@
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q9) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
             <p>The Chinese Remainder Theorem represents an integer x by its residues modulo several pairwise coprime moduli m₁, …, mₖ. Since reduction is a ring homomorphism, (x + y) mod mᵢ = (x mod mᵢ) + (y mod mᵢ) and similarly for products. Large integers can therefore be added or multiplied componentwise on small residues, then recovered uniquely modulo M = m₁⋯mₖ.</p>
-            <p><b>Example.</b> With moduli 9, 10, 11 (pairwise coprime, M = 990), 1234 has residues (6, 8, 7) and 56 has residues (2, 6, 1). Their sum has residues (8, 4, 8), which reconstructs to 1290 ≡ 300 (mod 990), the same residue as 1234 + 56 = 1290.</p>
+            <p><b>Example.</b> With moduli 9, 10, 11 (pairwise coprime, M = 990), 1234 has residues (1, 4, 2): its digit sum is 10, so 1234 ≡ 1 (mod 9), its last digit gives 4, and the alternating sum 4 − 3 + 2 − 1 = 2 gives mod 11. Also 56 has residues (2, 6, 1). Adding componentwise, their sum has residues (3, 0, 3), which reconstructs to 300 (mod 990). This agrees with 1234 + 56 = 1290 = 990 + 300.</p>
             <p>This is used in modular arithmetic libraries and cryptography: computations stay on small numbers while the modulus M can be enormous.</p>
           </div>
         </article>
