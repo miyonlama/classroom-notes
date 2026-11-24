@@ -141,7 +141,12 @@ Expected: `[]`.
 - [ ] **Step 2: Verify preserved study hooks**
 
 ```sh
-python -c "s=open(r'C:\Users\lamam\classroom-notes\notes\discrete\logic-and-proof-methods.html',encoding='utf-8').read(); [assert_token in s for assert_token in ['id=\"study-toggle\"','class=\"cue-block\"','class=\"recall-block\"','class=\"revision-tracker\"','class=\"chapter-nav\"','study-tools.js','player.js']]; print('study hooks ok')"
+python -c "
+s=open(r'C:\Users\lamam\classroom-notes-logic-notes-restructure\notes\discrete\logic-and-proof-methods.html',encoding='utf-8').read()
+hooks=['id=\"study-toggle\"','class=\"cue-block\"','class=\"recall-block\"','class=\"revision-tracker\"','class=\"chapter-nav\"','study-tools.js','player.js']
+assert all(h in s for h in hooks), [h for h in hooks if h not in s]
+print('study hooks ok')
+"
 ```
 
 Expected: `study hooks ok`.

@@ -113,11 +113,15 @@
 
           <h3>5. Worked examples <span class="priority-mark">★★</span></h3>
           <details><summary>a) Truth table for (p ∨ ¬q) → (p ∧ q)</summary>
-            <ol class="worked-steps">
-              <li>Build intermediate columns: ¬q, p ∨ ¬q, p ∧ q.</li>
-              <li>Evaluate the final implication column using “false only when antecedent true and consequent false”.</li>
-              <li>Read the completed table as the truth function of the compound proposition.</li>
-            </ol>
+            <table class="topic-table">
+              <thead><tr><th>p</th><th>q</th><th>¬q</th><th>p ∨ ¬q</th><th>p ∧ q</th><th>(p ∨ ¬q) → (p ∧ q)</th></tr></thead>
+              <tbody>
+                <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
+                <tr><td>T</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+                <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+              </tbody>
+            </table>
           </details>
           <details><summary>b) English translation</summary>
             <p>p = “it rained last night”, q = “the sprinklers came on last night”, r = “the lawn was wet this morning”.</p>
@@ -214,7 +218,7 @@
             <li>P(x): x &gt; 3 → P(3) is false, P(7) is true.</li>
             <li>Q(x, y): x = y + 3 → Q(1, 2) is false, Q(3, 0) is true.</li>
           </ul>
-          <details><summary>Exercise: R(x, y, z) = “x + y = z²”</summary>
+          <details><summary>Exercise: R(x, y, z) = “x + y = z”</summary>
             <p>Find the truth values of R(1, 2, 3) and R(0, 0, 1).</p>
           </details>
 
@@ -271,7 +275,7 @@
             </tbody>
           </table>
           <details><summary>English → nested quantifiers</summary>
-            <p>Female and parent ⇒ someone’s mother: ∀x∀y((F(x) ∧ P(x)) → ∃y M(x, y)), equivalently ∀x∃y(F(x) ∧ P(x) → M(x, y)).</p>
+            <p>Female and parent ⇒ someone’s mother: ∀x (F(x) ∧ P(x) → ∃y M(x, y)), equivalently ∀x∃y(F(x) ∧ P(x) → M(x, y)).</p>
             <p>Everyone has exactly one best friend: ∀x∃y (B(x, y) ∧ ∀z (B(x, z) → (y = z))).</p>
           </details>
           <details><summary>Negating nested quantifiers</summary>
@@ -413,12 +417,12 @@
           <h4>3.1 Existence proofs <span class="priority-mark">★★</span></h4>
           <ul>
             <li>Constructive: exhibit the element, 2500 = 50² and 2601 = 51² bound 100 consecutive non-squares.</li>
-            <li>Nonconstructive: prove existence without producing the element, irrational x, y with xʸ rational; x³ + 2x² + x − 7 = 0 in (0, 2) by the Intermediate Value Theorem.</li>
+            <li>Nonconstructive: prove existence without producing the element, irrational x, y with xʸ rational; x⁵ + 2x³ + x − 7 = 0 in (0, 2) by the Intermediate Value Theorem.</li>
           </ul>
           <h4>3.2 Uniqueness proofs <span class="priority-mark">★★</span></h4>
           <p>Form: ∃x (P(x) ∧ ∀y (y ≠ x → ¬P(y))). Show existence, then show any y ≠ x lacks the property. Example: if a ≠ 0, ax + b = c has unique solution x = (c − b) / a.</p>
 
-          <h3>4. Proofs by counterexamples <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
+          <h3>4. Proofs by counterexamples <span class="priority-mark">★★★</span></h3>
           <p>To disprove ∀x P(x), find one x with P(x) false. Example: √2 · √2 = 2, so the product of two irrationals is not necessarily irrational.</p>
 
           <h3>5. Mistakes in proofs <span class="priority-mark">★</span></h3>
