@@ -2,7 +2,7 @@
   "use strict";
 
   var KEY = "classroom-notes-yt-player";
-  var state = { url: "", time: 0, volume: 70, muted: false };
+  var state = { url: "", time: 0, volume: 70, muted: false, title: "" };
   var player = null;
   var pendingPlay = false;
   var pollTimer = null;
@@ -28,6 +28,7 @@
       state.time = Number(saved.time) || 0;
       state.volume = typeof saved.volume === "number" ? saved.volume : 70;
       state.muted = !!saved.muted;
+      state.title = typeof saved.title === "string" ? saved.title : "";
     } catch (e) {}
   }
 
@@ -53,6 +54,27 @@
     if (!el) return;
     el.textContent = text;
     el.dataset.error = isError ? "true" : "false";
+  }
+
+  function setTitle(title) {
+    if (!title) return;
+    state.title = title;
+    setStatus(title, false);
+    saveState();
+  }
+
+  function applyVideoData(p) {
+    if (!p || !p.getVideoData) return;
+    var data = p.getVideoData();
+    if (data && data.title) {
+      setTitle(data.title);
+      return;
+    }
+    // Fallback for players without getVideoData()
+    fetch("https://noembed.com/embed?url=" + encodeURIComponent(state.url))
+      .then(function (r) { return r.json(); })
+      .then(function (d) { if (d && d.title) setTitle(d.title); })
+      .catch(function () {});
   }
 
   function updateToggle(playing) {
@@ -127,8 +149,9 @@
     document.getElementById("yt-mute").addEventListener("click", function () { setMuted(!state.muted); });
     document.getElementById("yt-close").addEventListener("click", function () {
       if (player && player.stopVideo) player.stopVideo();
-      state.url = ""; state.time = 0; lastLoadedUrl = "";
+      state.url = ""; state.time = 0; state.title = ""; lastLoadedUrl = "";
       document.getElementById("yt-url").value = "";
+      document.getElementById("yt-seek").max = "100";
       document.getElementById("yt-seek").value = "0";
       document.getElementById("yt-time").textContent = "00:00 / 00:00";
       updateToggle(false);
@@ -161,7 +184,10 @@
     }
     state.url = url;
     state.time = 0;
+    state.title = "";
     lastLoadedUrl = url;
+    document.getElementById("yt-seek").max = "100";
+    document.getElementById("yt-seek").value = "0";
     document.getElementById("yt-player").classList.add("is-open");
     setStatus("Ready — press play", false);
     saveState();
@@ -199,13 +225,17 @@
           e.target.setVolume(state.volume);
           if (state.muted) e.target.mute(); else e.target.unMute();
           if (state.time > 0) e.target.seekTo(state.time, true);
-          setStatus("YouTube · " + id, false);
+          setStatus(state.title || ("YouTube · " + id), false);
+          applyVideoData(e.target);
+          var readyDuration = e.target.getDuration && e.target.getDuration();
+          if (readyDuration > 0) document.getElementById("yt-seek").max = String(Math.floor(readyDuration));
           if (pendingPlay) { pendingPlay = false; e.target.playVideo(); }
           startPoll();
         },
         onStateChange: function (e) {
           var isPlaying = e.data === window.YT.PlayerState.PLAYING || e.data === window.YT.PlayerState.BUFFERING;
           updateToggle(isPlaying);
+          if (isPlaying) applyVideoData(e.target);
           if (e.data === window.YT.PlayerState.ENDED) {
             state.time = 0;
             saveState();
@@ -264,7 +294,12 @@
       var dur = player.getDuration() || 0;
       state.time = cur;
       document.getElementById("yt-time").textContent = fmt(cur) + " / " + fmt(dur);
-      if (dur > 0) document.getElementById("yt-seek").value = String(Math.min(cur, dur));
+      var seek = document.getElementById("yt-seek");
+      if (dur > 0) {
+        var max = String(Math.floor(dur));
+        if (seek.max !== max) seek.max = max;
+        seek.value = String(Math.min(cur, dur));
+      }
       if (Date.now() - lastSave > 2000) { saveState(); lastSave = Date.now(); }
     }, 500);
   }
@@ -276,7 +311,7 @@
     if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
     var id = parseId(state.url);
     if (id) {
-      setStatus("Restored · press play", false);
+      setStatus(state.title || "Restored · press play", false);
       createPlayer(id);
     }
     window.addEventListener("pagehide", saveState);
