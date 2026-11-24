@@ -22,6 +22,10 @@ var css = fs.readFileSync(path.join(root, "assets/css/lecture-notes.css"), "utf8
 var toggleRule = css.slice(css.indexOf(".syllabus-toggle {"), css.indexOf(".study-toggle {"));
 assert(toggleRule.indexOf("position: fixed") !== -1, "toggle must stick to the screen");
 assert(toggleRule.indexOf("border-radius: 50%") !== -1, "toggle must be a circle like the island icon");
+var sidebarRule = css.slice(css.indexOf(".syllabus {"), css.indexOf(".reading {"));
+assert(sidebarRule.indexOf("position: sticky") !== -1, "chapter list must stay visible while scrolling");
+assert(css.indexOf(".doc-shell:not(.syllabus-collapsed) .syllabus-toggle {") !== -1,
+  "open sidebar must move the toggle clear of the first chapter row");
 assert(css.indexOf("rgba(242,193,78,0.6)") === -1, "folio still hardcodes dark-theme gold");
 assert(css.indexOf("color: var(--yellow); opacity: 0.6") !== -1, "folio must follow the theme");
 
