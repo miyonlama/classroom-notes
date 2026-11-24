@@ -62,44 +62,58 @@
           <h3 class="iq-question">Define Cartesian product. Find A³ for the set A = {a, b, c}.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Definition.</b> The Cartesian product of A and B is A × B = {(a, b) | a ∈ A and b ∈ B}, the set of all ordered pairs with first entry from A and second from B. For three sets, A³ = A × A × A = {(x, y, z) | x, y, z ∈ A}.</p>
-            <p>Here A = {a, b, c}, so A³ contains 3³ = 27 triples: (a,a,a), (a,a,b), (a,a,c), (a,b,a), (a,b,b), (a,b,c), (a,c,a), (a,c,b), (a,c,c), (b,a,a), (b,a,b), (b,a,c), (b,b,a), (b,b,b), (b,b,c), (b,c,a), (b,c,b), (b,c,c), (c,a,a), (c,a,b), (c,a,c), (c,b,a), (c,b,b), (c,b,c), (c,c,a), (c,c,b), (c,c,c).</p>
+            <p><b>[5 marks] Definition.</b> The Cartesian product of two sets A and B is A × B = {(a, b) | a ∈ A and b ∈ B}. It is the set of every ordered pair whose first component comes from A and second from B. Order matters: (a, b) ≠ (b, a) unless a = b. The product is named after Descartes and is the formal basis for coordinates and relations.</p>
+            <p><b>Extending to three sets.</b> A³ = A × A × A = {(x, y, z) | x, y, z ∈ A}, the set of ordered triples. In general Aⁿ consists of n-tuples. The number of elements multiplies: if |A| = n then |A × B| = |A||B| and |A³| = |A|³.</p>
+            <p><b>Application to A = {a, b, c}.</b> Since |A| = 3, A³ has 3³ = 27 triples. Listing them systematically with the first coordinate fixed, then the second, then the third:</p>
+            <p>Starting with a: (a,a,a), (a,a,b), (a,a,c), (a,b,a), (a,b,b), (a,b,c), (a,c,a), (a,c,b), (a,c,c). Starting with b: (b,a,a), (b,a,b), (b,a,c), (b,b,a), (b,b,b), (b,b,c), (b,c,a), (b,c,b), (b,c,c). Starting with c: (c,a,a), (c,a,b), (c,a,c), (c,b,a), (c,b,b), (c,b,c), (c,c,a), (c,c,b), (c,c,c).</p>
+            <p><b>Counting check.</b> Nine triples begin with each of a, b and c, giving 9 + 9 + 9 = 27. This matches the product rule: three independent choices, each with three options.</p>
+            <p><b>Contrast.</b> A × A has only 9 ordered pairs, while A³ has 27 triples. The diagonal elements (a,a,a), (b,b,b), (c,c,c) are those whose three coordinates agree. A relation on A is any subset of A × A, and a ternary relation is any subset of A³.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">How can you represent relations using matrices? Suppose A = {1, 2, 3} and B = {1, 2}. Let R be the relation from A to B containing (a, b) whenever a ∈ A, b ∈ B, and a &gt; b. What is the matrix representing R if a₁ = 1, a₂ = 2, a₃ = 3 and b₁ = 1, b₂ = 2?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q6) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Matrix representation.</b> A relation R from A to B is encoded by a boolean matrix M with one row per aᵢ ∈ A and one column per bⱼ ∈ B, where mᵢⱼ = 1 if (aᵢ, bⱼ) ∈ R and 0 otherwise.</p>
-            <p>Here R = {(a, b) | a &gt; b} with A = {1, 2, 3}, B = {1, 2}. The pairs satisfying a &gt; b are (2, 1), (3, 1), (3, 2). With rows ordered a₁ = 1, a₂ = 2, a₃ = 3 and columns b₁ = 1, b₂ = 2:</p>
-            <p>M = [0 0; 1 0; 1 1] — row 1 is 0 0, row 2 is 1 0, row 3 is 1 1.</p>
+            <p><b>[5 marks] Boolean matrix of a relation.</b> Let R ⊆ A × B be a relation from A to B with A = {a₁, …, aₘ} and B = {b₁, …, bₙ}. Its matrix M has m rows and n columns; the entry in row i, column j is mᵢⱼ = 1 when (aᵢ, bⱼ) ∈ R and mᵢⱼ = 0 otherwise. This converts a set of ordered pairs into a rectangular array of bits.</p>
+            <p><b>Finding the pairs.</b> Here A = {1, 2, 3} and B = {1, 2}, and R contains (a, b) exactly when a &gt; b. Compare every element of A with every element of B: 1 &gt; 1 is false, 1 &gt; 2 is false; 2 &gt; 1 is true, 2 &gt; 2 is false; 3 &gt; 1 is true, 3 &gt; 2 is true. Hence R = {(2,1), (3,1), (3,2)}.</p>
+            <p><b>Building the matrix.</b> Order rows by a₁ = 1, a₂ = 2, a₃ = 3 and columns by b₁ = 1, b₂ = 2. Row 1 has no true comparisons, so it is (0, 0). Row 2 has only (2,1), so it is (1, 0). Row 3 has both pairs, so it is (1, 1).</p>
+            <p>M = [0 0; 1 0; 1 1], that is, m₁₁ = 0, m₁₂ = 0, m₂₁ = 1, m₂₂ = 0, m₃₁ = 1, m₃₂ = 1.</p>
+            <p><b>Reading the matrix back.</b> The number of 1 entries equals |R| = 3. Row i lists which elements of B are related to aᵢ; column j lists which elements of A relate to bⱼ. The second column is all zeros because no element of A exceeds 2, while the first column has two 1s because 2 and 3 both exceed 1.</p>
+            <p><b>Why matrices help.</b> Composition of relations becomes boolean matrix multiplication, transitivity becomes a comparison of M ⊙ M with M, and a relation on a finite set is reflexive exactly when its diagonal is all 1s. The representation works best for finite sets; infinite relations need rules or graphs instead.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define the power set. What is the power set of A = {1, 2, 3, 4}?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Definition.</b> The power set P(A) is the set of all subsets of A. If |A| = n then |P(A)| = 2ⁿ.</p>
-            <p>For A = {1, 2, 3, 4}, n = 4, so P(A) has 16 members: ∅; {1}, {2}, {3}, {4}; {1,2}, {1,3}, {1,4}, {2,3}, {2,4}, {3,4}; {1,2,3}, {1,2,4}, {1,3,4}, {2,3,4}; {1,2,3,4}.</p>
-            <p>The count follows from the product rule: each of the four elements is either in or out of a subset, giving 2 × 2 × 2 × 2 = 16 choices.</p>
+            <p><b>[5 marks] Definition.</b> The power set P(A) is the set whose elements are all subsets of A, including the empty set ∅ and A itself. For a finite set with |A| = n, the power set has |P(A)| = 2ⁿ elements. It is called “power” because of this exponential count.</p>
+            <p><b>Why the count is 2ⁿ.</b> Each element of A can be either included in or excluded from a subset. These n independent yes/no choices give 2 × 2 × ⋯ × 2 = 2ⁿ subsets. For A = {1, 2, 3, 4} with n = 4, the power set has 2⁴ = 16 members.</p>
+            <p><b>Full enumeration.</b> The subsets grouped by size are: size 0 — ∅; size 1 — {1}, {2}, {3}, {4}; size 2 — {1,2}, {1,3}, {1,4}, {2,3}, {2,4}, {3,4}; size 3 — {1,2,3}, {1,2,4}, {1,3,4}, {2,3,4}; size 4 — {1,2,3,4}. This gives 1 + 4 + 6 + 4 + 1 = 16, matching 2⁴ and the binomial coefficients C(4, k).</p>
+            <p><b>Structure.</b> P(A) is itself a set of sets, so ∅ ∈ P(A) and {1} ∈ P(A), but 1 ∉ P(A). Inclusion ⊆ is a partial order on P(A): the empty set is the least element and A is the greatest. This makes the power set the standard example of a Boolean algebra under union, intersection, and complement.</p>
+            <p><b>Example of use.</b> If A = {a, b, c} represents three optional toppings, P(A) lists all 8 possible orders, from no toppings to all three. Cantor’s theorem generalises the count: for any set A, |P(A)| &gt; |A|, even for infinite sets.</p>
+            <p><b>Connection to binomial coefficients.</b> The number of k-element subsets of A is C(4, k) here, and summing C(4, k) for k = 0 to 4 gives 2⁴. In general Σₖ C(n, k) = 2ⁿ, which is the binomial theorem evaluated at 1 = 1. This links the combinatorial and algebraic ways of counting the same power set.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain one-to-one correspondence with an example. What is the identity function?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q6) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>One-to-one correspondence.</b> A function f : A → B is a bijection if it is both one-to-one (distinct inputs give distinct outputs) and onto (every element of B is hit). It pairs the elements of A and B exactly, so |A| = |B| for finite sets.</p>
-            <p>Example: f : {1, 2, 3} → {a, b, c} with f(1) = a, f(2) = b, f(3) = c. No two inputs share an image and every letter is used.</p>
-            <p><b>Identity function.</b> For any set A, the identity function id_A : A → A is defined by id_A(x) = x. It is a bijection: different inputs stay different, and every element x is the image of itself.</p>
+            <p><b>[5 marks] Definition.</b> A function f : A → B is a one-to-one correspondence, or bijection, when it is both injective (one-to-one) and surjective (onto). Injectivity means f(x) = f(y) implies x = y, so different inputs never share an output. Surjectivity means every b ∈ B equals f(a) for some a ∈ A, so nothing in B is left unpaired.</p>
+            <p><b>Worked example.</b> Let A = {1, 2, 3} and B = {a, b, c} with f(1) = a, f(2) = b, f(3) = c. The outputs a, b, c are distinct, so f is injective; every element of B appears as an output, so f is surjective. Therefore f is a bijection and the two sets are in one-to-one correspondence.</p>
+            <p><b>Verification method.</b> To test injectivity, assume f(x) = f(y) and deduce x = y. To test surjectivity, take an arbitrary b ∈ B and exhibit an a with f(a) = b. For finite sets of equal size, injectivity alone implies surjectivity and vice versa; for infinite sets this fails, as f(n) = 2n on ℤ shows.</p>
+            <p><b>Identity function.</b> For any set A, the identity function id_A : A → A is given by id_A(x) = x. Every input maps to itself, so distinct inputs have distinct images and every element is its own preimage. Hence id_A is a bijection for every set A, finite or infinite.</p>
+            <p><b>Inverse.</b> A bijection f has an inverse f⁻¹ : B → A with f⁻¹(f(x)) = x and f(f⁻¹(y)) = y. In the example f⁻¹(a) = 1, f⁻¹(b) = 2, f⁻¹(c) = 3. The identity function is its own inverse, since applying it twice changes nothing.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define an equivalence relation with an example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q10) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Definition.</b> A relation R on a set A is an equivalence relation when it is reflexive (xRx for all x), symmetric (xRy implies yRx), and transitive (xRy and yRz imply xRz).</p>
-            <p><b>Example.</b> Congruence modulo 3 on the integers: x ≡ y (mod 3) when 3 divides x − y. It is reflexive since x − x = 0; symmetric since x − y = 3k gives y − x = 3(−k); transitive since (x − y) + (y − z) = x − z is a sum of multiples of 3.</p>
-            <p>Its equivalence classes are the residue classes {…, −3, 0, 3, …}, {…, −2, 1, 4, …}, {…, −1, 2, 5, …}, which partition ℤ.</p>
+            <p><b>[5 marks] Definition.</b> A relation R on a set A is an equivalence relation when it satisfies three properties: reflexive — xRx for every x ∈ A; symmetric — xRy implies yRx; and transitive — xRy together with yRz implies xRz. These conditions mimic equality and produce classes of objects regarded as the same under R.</p>
+            <p><b>Example: congruence modulo 3.</b> Define xRy on ℤ by x ≡ y (mod 3), meaning 3 divides x − y. Reflexive: x − x = 0 = 3·0. Symmetric: if x − y = 3k then y − x = 3(−k). Transitive: if x − y = 3k and y − z = 3m then x − z = 3(k + m). All three properties hold, so R is an equivalence relation.</p>
+            <p><b>Equivalence classes.</b> The class of x is [x] = {y ∈ ℤ | y ≡ x (mod 3)}. The distinct classes are [0] = {…, −3, 0, 3, 6, …}, [1] = {…, −2, 1, 4, 7, …}, [2] = {…, −1, 2, 5, 8, …}. Since every integer leaves remainder 0, 1 or 2 on division by 3, these are the only classes.</p>
+            <p><b>Partition theorem.</b> Equivalence classes are either identical or disjoint, and their union is the whole set; they therefore form a partition of A. Here [0], [1], [2] are pairwise disjoint and together cover ℤ. Conversely every partition defines an equivalence relation by declaring two elements related when they lie in the same block.</p>
+            <p><b>Non-examples.</b> “≤” on ℤ is reflexive and transitive but not symmetric, so not an equivalence relation. “x is a sibling of y” is symmetric but not reflexive. Same parity and equality of absolute value are equivalence relations. Equivalence relations are the formal tool for classifying objects by a shared feature.</p>
           </div>
         </article>
         <article class="iq-card">
@@ -108,78 +122,99 @@
             <li>Some people hate good people.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q1) &middot; <b>Marks:</b> 10</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Venn diagrams.</b> Draw a rectangle for the universal set U and overlapping circles inside it for the sets. A ∪ B is everything in either circle; A ∩ B is the lens where the two circles overlap; A − B is the part of A outside B; the complement Ā is everything outside A. Shading the required region pictures the identity.</p>
-            <p><b>Quantifier translations.</b> Let G(x) = “x is good”, H(x) = “x is a hero”, P(x) = “x is a person”.</p>
-            <ol><li>Not all good people are heroes: ¬∀x(G(x) → H(x)), equivalently ∃x(G(x) ∧ ¬H(x)).</li>
-            <li>Every person in our country is loyal: ∀x(P(x) → L(x)), with L(x) = “x is loyal”.</li>
-            <li>Some people hate good people: ∃x(P(x) ∧ ∃y(G(y) ∧ Hate(x, y))).</li></ol>
+            <p><b>[10 marks] Part (a) — 4 marks: Venn diagrams.</b> A Venn diagram draws the universal set U as a rectangle and subsets as circles (or other closed curves) inside it. Shading the region that satisfies a formula gives a picture of the set. With two overlapping circles A and B the rectangle splits into four regions: inside A only, inside B only, inside both, and outside both.</p>
+            <p><b>Basic operations.</b> A ∪ B is the union, all of either circle; A ∩ B is the intersection, the lens where they overlap; A − B is the part of A outside B; and the complement Ā = U − A is everything outside A. For example with U = {1,…,6}, A = {1,2,3}, B = {3,4}, the overlap is {3}, A − B = {1,2}, B − A = {4}, and A ∪ B = {1,2,3,4}.</p>
+            <p><b>Identities from shading.</b> De Morgan’s law A ∪ B = Ā ∩ B̄ is seen by noting that “outside both circles” is the complement of “inside at least one”. Similarly A ∩ B = Ā ∪ B̄. Distributivity A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C) is verified by shading both sides and comparing. Venn diagrams give intuition but a set-membership proof is needed for formality.</p>
+            <p><b>Part (b) — 3 marks: define predicates.</b> Let G(x) mean “x is good”, H(x) mean “x is a hero”, P(x) mean “x is a person”, L(x) mean “x is loyal”, and Hate(x, y) mean “x hates y”.</p>
+            <p><b>Statement (a) — not all good people are heroes.</b> “All good people are heroes” is ∀x(G(x) → H(x)), so its negation is ¬∀x(G(x) → H(x)). Pushing the negation inward using ¬∀x φ ≡ ∃x ¬φ and ¬(p → q) ≡ p ∧ ¬q gives ∃x(G(x) ∧ ¬H(x)): at least one good person is not a hero.</p>
+            <p><b>Statement (b) — everyone loyal.</b> “Every person in our country is loyal” becomes ∀x(P(x) → L(x)), where the domain is people in the country. The implication is essential: a universal statement over an implication is vacuously true for anyone failing the antecedent. Using ∀x(P(x) ∧ L(x)) would incorrectly assert that everything in the universe is both a person and loyal.</p>
+            <p><b>Statement (c) — some people hate good people.</b> This is ∃x(P(x) ∧ ∃y(G(y) ∧ Hate(x, y))): there exists a person x and a good person y such that x hates y. The existential quantifiers pair with conjunctions, whereas universals pair with implications. A nested quantifier is required because the good person may depend on the person doing the hating.</p>
+            <p><b>Quantifier rules used.</b> ¬∀x φ ≡ ∃x ¬φ, ¬∃x φ ≡ ∀x ¬φ, and ¬(p → q) ≡ p ∧ ¬q. These let any English negation be pushed to the predicate level, producing a formula whose truth can be checked directly.</p>
+            <p><b>Common mistakes.</b> Translating “not all” as “all not” changes ∃x(G(x) ∧ ¬H(x)) into ∀x(G(x) → ¬H(x)), a much stronger claim. Likewise, writing ∀x(P(x) ∧ L(x)) for statement (b) would assert that every object in the universe is a loyal person. The partner of ∀ is → and the partner of ∃ is ∧; this single rule prevents most translation errors.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Explain one-to-one and onto functions with examples. What is the identity function?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>One-to-one (injective).</b> f : A → B is injective when f(x) = f(y) implies x = y. Example: f : ℤ → ℤ, f(n) = 2n is injective, since 2x = 2y forces x = y; it is not onto because no integer maps to 1.</p>
-            <p><b>Onto (surjective).</b> f is surjective when for every b ∈ B there is an a ∈ A with f(a) = b. Example: g : {1, 2, 3} → {a, b} with g(1) = a, g(2) = b, g(3) = b is onto but not one-to-one.</p>
-            <p><b>Identity function.</b> id_A(x) = x is both injective and surjective for every set A, so it is a bijection.</p>
+            <p><b>[5 marks] Definitions.</b> A function f : A → B is one-to-one (injective) when f(x) = f(y) forces x = y, so distinct inputs have distinct outputs. It is onto (surjective) when for every b ∈ B some a ∈ A satisfies f(a) = b, so the range equals the codomain. A function that is both is a bijection.</p>
+            <p><b>Injective but not onto.</b> Let f : ℤ → ℤ with f(n) = 2n. If 2x = 2y then x = y, so f is injective. But no integer n satisfies 2n = 1, so f is not onto: its image is only the even integers. This shows injectivity does not imply surjectivity on infinite sets.</p>
+            <p><b>Onto but not injective.</b> Let g : {1, 2, 3} → {a, b} with g(1) = a, g(2) = b, g(3) = b. Every element of the codomain is hit, so g is onto. But g(2) = g(3) with 2 ≠ 3, so g is not injective. Surjectivity does not imply injectivity.</p>
+            <p><b>Both.</b> The function h : {1, 2} → {x, y} with h(1) = x, h(2) = y is bijective. For finite sets, a function from A to A is injective if and only if it is surjective; this fails on infinite sets, as f(n) = 2n demonstrates.</p>
+            <p><b>Identity function.</b> For any set A, id_A(x) = x is injective (x = y follows immediately from id_A(x) = id_A(y)) and surjective (x is the preimage of itself). Hence the identity is always a bijection, and it serves as the neutral element for composition: f ∘ id_A = f and id_B ∘ f = f.</p>
+            <p><b>Testing with a diagram.</b> Draw arrows from each element of A to its image in B. Injective means no two arrows land on the same target; surjective means every element of B receives at least one arrow; bijective means every target receives exactly one arrow. In the example f(1) = a, f(2) = b, f(3) = c the arrows form a perfect matching between the two sets.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">How can you represent relations using matrices? Explain with a suitable example.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q6) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A relation R from A to B is a subset of A × B. Its boolean matrix has entry mᵢⱼ = 1 exactly when (aᵢ, bⱼ) ∈ R, and 0 otherwise.</p>
-            <p><b>Example.</b> Let A = {1, 2}, B = {a, b}, and R = {(1, a), (2, b)}. Ordering rows 1, 2 and columns a, b gives M = [1 0; 0 1]. The number of 1s equals |R| = 2.</p>
-            <p>Properties read off the matrix: R is reflexive on a single finite set when all diagonal entries are 1; symmetric when M equals its transpose; transitive when the boolean product M ⊙ M has no 1 where M has 0.</p>
+            <p><b>[5 marks] Matrix of a relation.</b> For a relation R from A = {a₁,…,aₘ} to B = {b₁,…,bₙ}, form the m × n boolean matrix M whose entry mᵢⱼ is 1 exactly when (aᵢ, bⱼ) ∈ R and 0 otherwise. The row order and column order must be fixed in advance; changing the order permutes the matrix but represents the same relation.</p>
+            <p><b>Worked example.</b> Take A = {1, 2}, B = {a, b} and R = {(1, a), (2, b)} with rows 1, 2 and columns a, b. The pair (1, a) puts 1 in row 1, column a; (2, b) puts 1 in row 2, column b; the other entries are 0. Thus M = [1 0; 0 1], the identity matrix in this ordering.</p>
+            <p><b>Reading properties.</b> Each 1 corresponds to exactly one ordered pair, so the count of 1s equals |R|. For a relation on a single set, reflexivity means every diagonal entry is 1; symmetry means M equals its transpose Mᵀ; antisymmetry means no off-diagonal pair i, j has both mᵢⱼ and mⱼᵢ equal to 1; transitivity means the boolean product M ⊙ M has no 1 where M has 0.</p>
+            <p><b>Operations.</b> The matrix of R ∪ S is the entrywise boolean OR of their matrices; R ∩ S is the entrywise AND; the complement is obtained by swapping 0 and 1; the inverse relation R⁻¹ has matrix Mᵀ. Composition R ∘ S corresponds to boolean matrix multiplication, where multiplication becomes AND and addition becomes OR.</p>
+            <p><b>When to use it.</b> Matrices make membership tests and composition mechanical, ideal for finite relations and computer storage. For sparse relations an adjacency list saves space; for infinite relations a rule or directed graph is the appropriate representation.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define an equivalence relation. How can a relation be represented?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q8) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Definition.</b> An equivalence relation on A is reflexive, symmetric, and transitive. It partitions A into disjoint equivalence classes [x] = {y ∈ A | yRx}. Example: on ℤ, x ≡ y (mod 2) splits the integers into evens and odds.</p>
-            <p><b>Representations.</b> (i) As a set of ordered pairs, e.g. R = {(x, y) | x ≡ y (mod 2)}. (ii) As a boolean matrix: reflexivity puts 1s on the diagonal, symmetry makes the matrix symmetric, transitivity means M ⊙ M ≤ M. (iii) As a directed graph: every vertex has a loop, every arrow has its reverse, and any two-step path closes into an arrow. Each connected component is one equivalence class.</p>
+            <p><b>[5 marks] Definition and properties.</b> A relation R on A is an equivalence relation if it is reflexive (xRx), symmetric (xRy ⇒ yRx) and transitive (xRy ∧ yRz ⇒ xRz). Example: on ℤ, x ≡ y (mod 2) when x − y is even. Reflexive because x − x = 0; symmetric because x − y = 2k gives y − x = 2(−k); transitive because (x − y) + (y − z) = x − z is even.</p>
+            <p><b>Classes partition the set.</b> The equivalence class [x] = {y | yRx} of an element groups all objects equivalent to it. For congruence mod 2 the classes are the even integers and the odd integers. Two classes are either equal or disjoint, and their union is A, so the classes form a partition. Conversely, any partition defines an equivalence relation by relating elements in the same block.</p>
+            <p><b>Representation by ordered pairs.</b> A relation is a subset of A × A, so it can be listed explicitly. For A = {1, 2} and R = {(1,1), (2,2), (1,2), (2,1)}, every possible pair is present; this is the universal relation, which is an equivalence relation with a single class {1, 2}.</p>
+            <p><b>Representation by matrix.</b> Ordering A as a₁,…,aₙ, the boolean matrix has mᵢⱼ = 1 iff aᵢRaⱼ. Equivalence forces 1s on the diagonal, symmetry about the diagonal, and transitivity expressed as M ⊙ M ≤ M. For the two-element example above the matrix is [1 1; 1 1]; for equality it is the identity matrix.</p>
+            <p><b>Representation by directed graph.</b> Draw an arrow a → b when aRb. Equivalence means every vertex has a loop, every arrow has its reverse, and any two-step path has a shortcut arrow joining its ends. The connected components of this graph are exactly the equivalence classes. These three representations carry the same information and are chosen by convenience.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Sketch the graph of the function f(x) = x + 1. Define the ceiling, floor, and exponential functions.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q11) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Graph of f(x) = x + 1.</b> It is a straight line with slope 1 and y-intercept 1: it crosses the axes at (0, 1) and (−1, 0) and rises one unit for each unit moved right.</p>
-            <p><b>Floor and ceiling.</b> ⌊x⌋ is the greatest integer ≤ x and ⌈x⌉ is the least integer ≥ x. For x = 2.3, ⌊2.3⌋ = 2 and ⌈2.3⌉ = 3; for an integer k, ⌊k⌋ = ⌈k⌉ = k.</p>
-            <p><b>Exponential function.</b> f(x) = aˣ with a &gt; 0, a ≠ 1; for a = 2 it passes through (0, 1), (1, 2), (2, 4) and grows rapidly. It is one-to-one but not onto ℝ, since its values are always positive.</p>
+            <p><b>[5 marks] Graph of f(x) = x + 1.</b> This is a linear function with slope 1 and y-intercept 1. Plot the points (0, 1) and (1, 2), then draw the straight line through them, extending in both directions. It crosses the x-axis at (−1, 0). For every increase of 1 in x, f increases by 1, so the line rises at 45° when axes use equal scales. It is continuous, one-to-one, and onto ℝ.</p>
+            <p><b>Floor function.</b> ⌊x⌋ is the greatest integer less than or equal to x; it rounds down. Its graph is a staircase: constant on each interval [n, n + 1) with value n, and jumping by 1 at each integer. Examples: ⌊2.3⌋ = 2, ⌊−0.5⌋ = −1, ⌊7⌋ = 7. Note that rounding down a negative number gives the more negative integer.</p>
+            <p><b>Ceiling function.</b> ⌈x⌉ is the least integer greater than or equal to x; it rounds up. Its graph is a staircase shifted one step up, constant on (n − 1, n] with value n. Examples: ⌈2.3⌉ = 3, ⌈−0.5⌉ = 0, ⌈7⌉ = 7. For integers k both functions equal k; otherwise ⌈x⌉ = ⌊x⌋ + 1.</p>
+            <p><b>Exponential function.</b> f(x) = aˣ with a &gt; 0 and a ≠ 1 takes positive values for every real x. For a = 2 it passes through (0, 1), (1, 2), (2, 4), (−1, ½), rising slowly for negative x and rapidly for positive x. It satisfies aˣ⁺ʸ = aˣaʸ and is one-to-one but not onto ℝ because its range is (0, ∞). For 0 &lt; a &lt; 1 it decreases instead.</p>
+            <p><b>Comparison.</b> The line x + 1 grows at a constant rate, the floor and ceiling functions grow in unit jumps, and the exponential grows at a rate proportional to its current value. These examples illustrate linear, step, and exponential behaviour used throughout discrete mathematics.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define Boolean function, exponential function, and partial order. Give computer representations for the following subsets of the universal set U = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}: (i) the set of even numbers; (ii) the set of multiples of 5; (iii) the set of numbers greater than 7; (iv) the set of prime numbers.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q3) &middot; <b>Marks:</b> 6+4</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Boolean function.</b> A function whose values lie in {0, 1}, such as f(x) = 1 when x is even and 0 otherwise; these are the truth functions of propositional logic.</p>
-            <p><b>Exponential function.</b> f(x) = aˣ for a fixed base a &gt; 0, a ≠ 1; for example 2ˣ doubles whenever x increases by 1.</p>
-            <p><b>Partial order.</b> A relation ≤ on a set that is reflexive, antisymmetric, and transitive. Set inclusion ⊆ and divisibility | on positive integers are partial orders; unlike a total order, two elements may be incomparable (for example {1} and {2}).</p>
-            <p><b>Computer representations of subsets of U = {0, …, 9}.</b> Store a 10-bit string with bit i = 1 exactly when i is in the set, indexing bits 0 to 9 from the left:</p>
-            <ul><li>Even numbers {0, 2, 4, 6, 8}: 1010101010.</li>
-            <li>Multiples of 5 {0, 5}: 1000010000.</li>
-            <li>Numbers greater than 7 {8, 9}: 0000000011.</li>
-            <li>Primes {2, 3, 5, 7}: 0011010100.</li></ul>
+            <p><b>[10 marks] Part (a) — 6 marks: the three definitions.</b> A Boolean function is a map whose values lie in the two-element set {0, 1}, where 0 means false and 1 means true. Example: f(n) = 1 if n is even, 0 otherwise. Boolean functions are exactly the functions computed by propositional formulas: given a truth assignment, the formula returns a truth value.</p>
+            <p><b>Boolean examples.</b> The conjunction function AND(x, y) = xy is 1 only when x = y = 1; OR(x, y) = x + y − xy is 0 only when both are 0; NOT(x) = 1 − x swaps 0 and 1. A truth table lists the value of a Boolean function for every combination of inputs; with n variables there are 2ⁿ rows and 2^(2ⁿ) distinct Boolean functions.</p>
+            <p><b>Exponential function.</b> f(x) = aˣ for a fixed base a &gt; 0, a ≠ 1. For integer exponents it means repeated multiplication: aⁿ = a·a·…·a (n factors), with a⁰ = 1 and a⁻ⁿ = 1/aⁿ. Laws include aˣ⁺ʸ = aˣaʸ, aˣ⁻ʸ = aˣ/aʸ and (aˣ)ʸ = aˣʸ. With a = 2 the values double for each unit increase in x.</p>
+            <p><b>Partial order.</b> A relation ≼ on a set S is a partial order when it is reflexive (x ≼ x), antisymmetric (x ≼ y and y ≼ x imply x = y), and transitive (x ≼ y and y ≼ z imply x ≼ z). It is “partial” because not every pair must be comparable. Examples: ⊆ on subsets, ≤ on integers, and divisibility | on positive integers. Divisibility is antisymmetric since a | b and b | a force a = b for positive integers, but 2 and 3 are incomparable.</p>
+            <p><b>Part (b) — 4 marks: bit-string representations.</b> Let U = {0, 1, 2, …, 9} and represent a subset by a 10-bit string whose i-th bit is 1 exactly when i belongs to the subset. This is the characteristic function of the subset, and it turns set operations into bitwise operations: union is OR, intersection is AND, complement is NOT.</p>
+            <p><b>Even numbers.</b> The set {0, 2, 4, 6, 8} gives bits 0,2,4,6,8 set: 1010101010 (reading bits 0 through 9 left to right).</p>
+            <p><b>Multiples of 5.</b> The set {0, 5} gives bits 0 and 5 set: 1000010000.</p>
+            <p><b>Numbers greater than 7.</b> The set {8, 9} gives only the last two bits set: 0000000011.</p>
+            <p><b>Prime numbers.</b> The primes in U are {2, 3, 5, 7}, giving 0011010100. The four strings together show how the same universe supports many subsets, each encoded compactly. Bit strings are the standard computer representation of finite sets and make membership tests constant time.</p>
+            <p><b>Illustrating operations on the strings.</b> OR of the even-number string 1010101010 and the prime string 0011010100 is 1011111110, the string of numbers that are even or prime. AND of those two strings is 0010000000, representing the single even prime 2. Complementing the “greater than 7” string 0000000011 gives 1111111100, the set {0, 1, …, 7}. These operations mirror the set laws exactly, which is why computers implement finite sets this way.</p>
+            <p><b>Why three definitions belong together.</b> Boolean functions, exponential functions and partial orders appear side by side because all three are built from simple local rules that generate large structures: truth tables from 0/1 values, powers from repeated multiplication, and order relations from three axioms. Recognising the pattern helps when meeting lattices, Boolean algebra and recurrence relations later in the course.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">How can a set be represented? Explain.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q5) &middot; <b>Marks:</b> 5</p>
           <div class="iq-solution" data-solution="done">
-            <p>A finite set can be written in <b>roster (tabular) form</b> by listing its members, e.g. A = {2, 4, 6, 8}. Order and repetition do not matter.</p>
-            <p>An infinite or rule-based set uses <b>set-builder notation</b>: A = {x ∈ ℤ | x is even and 0 &lt; x &lt; 10}, read as “the set of integers x such that x is even and lies between 0 and 10”.</p>
-            <p>For a finite universal set U, a subset is also represented by its <b>characteristic (bit) string</b>: with U = {1, …, 5}, the subset {1, 3, 5} is 10101. <b>Venn diagrams</b> give a pictorial representation of the same relations between sets.</p>
+            <p><b>[5 marks] Roster form.</b> A finite set is written by listing its elements between braces, separated by commas, for example A = {2, 4, 6, 8}. Order is irrelevant and repetition is ignored, so {8, 6, 4, 2} = A and {2, 2, 4} = {2, 4}. The symbol ∅ denotes the empty set with no elements, and it differs from {∅}, which has one element.</p>
+            <p><b>Set-builder form.</b> When listing members is impractical, describe them by a property: B = {x ∈ ℤ | x is even and 0 &lt; x &lt; 10} = {2, 4, 6, 8}. The part before the bar names the domain; the part after gives the defining predicate. This handles infinite sets such as ℚ = {p/q | p, q ∈ ℤ, q ≠ 0}.</p>
+            <p><b>Characteristic (bit) string.</b> For a finite universal set U with a fixed ordering, a subset S is encoded by a string of 0s and 1s: bit i is 1 exactly when the i-th element of U lies in S. With U = {1, 2, 3, 4, 5}, the subset {1, 3, 5} is 10101. Union, intersection, and complement reduce to bitwise OR, AND, and NOT.</p>
+            <p><b>Venn diagrams.</b> A pictorial representation uses a rectangle for U and closed curves for subsets. Overlap shows intersection, combined regions show union, and shading outside a curve shows the complement. Diagrams are useful for two or three sets and for checking identities such as De Morgan’s laws, though they do not constitute a formal proof for arbitrary sets.</p>
+            <p><b>Other forms.</b> Interval notation describes subsets of ℝ, such as [0, 5) = {x ∈ ℝ | 0 ≤ x &lt; 5}. Recursive definitions generate sets from basis elements and closure rules, as with the set of well-formed formulas. The choice of representation depends on whether the set is finite, whether membership is easy to test, and whether the context is written mathematics or a computer program.</p>
           </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Define Boolean and exponential functions. Discuss partial orders.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q9) &middot; <b>Marks:</b> 2+3</p>
           <div class="iq-solution" data-solution="done">
-            <p><b>Boolean function.</b> A map into {0, 1}; for instance f(n) = 1 if n is prime and 0 otherwise. Under the identification 0 = false, 1 = true these are the functions computed by propositional formulas.</p>
-            <p><b>Exponential function.</b> f(x) = aˣ for a &gt; 0, a ≠ 1. It satisfies aˣ⁺ʸ = aˣaʸ and grows faster than any polynomial when a &gt; 1.</p>
-            <p><b>Partial order.</b> A reflexive, antisymmetric, transitive relation. Divisibility on the positive integers is a partial order: a | a; a | b and b | a force a = b; and a | b with b | c gives a | c. It is not total, since 2 and 3 are incomparable.</p>
+            <p><b>[2 marks] Boolean and exponential functions.</b> A Boolean function maps inputs to {0, 1}, identifying 1 with true and 0 with false. For instance f(n) = 1 if n is prime and 0 otherwise. Every propositional formula defines a Boolean function of its variables, and truth tables enumerate the values for all input combinations.</p>
+            <p>An exponential function has the form f(x) = aˣ with a &gt; 0, a ≠ 1. For a = 2, f(0) = 1, f(1) = 2, f(2) = 4; the function satisfies aˣ⁺ʸ = aˣaʸ and grows faster than any polynomial for a &gt; 1. Its range is (0, ∞), so it is injective but not surjective onto ℝ.</p>
+            <p><b>[3 marks] Partial orders.</b> A relation ≼ on a set S is a partial order when it is reflexive, antisymmetric and transitive. Reflexive means x ≼ x for all x; antisymmetric means x ≼ y and y ≼ x force x = y; transitive means x ≼ y and y ≼ z imply x ≼ z. “Partial” indicates that some pairs need not be comparable.</p>
+            <p><b>Example: divisibility.</b> On the positive integers, a | b means b = ak for some positive integer k. Reflexive: a = a·1. Antisymmetric: a | b and b | a give b = ak and a = bm, so a = a(km), forcing km = 1 and a = b. Transitive: a | b and b | c give c = bj = a(kj). But 2 and 3 are incomparable, so this is not a total order.</p>
+            <p><b>Other examples and contrast.</b> Set inclusion ⊆ is a partial order on any power set; the usual ≤ is a total order on ℤ. A partial order need not arrange elements in a single line: divisibility forms a lattice-like structure, and inclusion of subsets forms a Boolean lattice. Partial orders are the formal language of precedence, hierarchy, and dependency.</p>
           </div>
         </article>
 
