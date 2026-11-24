@@ -54,6 +54,8 @@ typography:
     letterSpacing: "0.18em"
 rounded:
   none: "0px"
+  island: "999px"
+  island-open: "22px"
 spacing:
   sm: "0.7rem"
   md: "1rem"
@@ -138,7 +140,9 @@ Most surfaces are flat and separated by full 1px borders. The primary action alo
 
 ## Shapes
 
-All corners are square (0px radius). Subject slides use a small taped tab at the top edge. Dividers are 1px rules; the chalk tray uses a dotted rule. No rounded containers.
+Content surfaces keep square corners (0px radius). Subject slides use a small taped tab at the top edge. Dividers are 1px rules; the chalk tray uses a dotted rule.
+
+The global music island is the single rounded exception: a top-center pill that expands into a panel (`999px` collapsed, `22px` expanded). It is an overlay control, not a content surface.
 
 ## Components
 
@@ -168,4 +172,4 @@ All corners are square (0px radius). Subject slides use a small taped tab at the
 ### Don't:
 - **Don't** add a kicker above the display headline.
 - **Don't** use emoji or Unicode glyphs as icons.
-- **Don't** introduce rounded corners or gradient text.
+- **Don't** introduce rounded corners on content surfaces or use gradient text. The music island is the only rounded exception.

@@ -149,7 +149,7 @@
     "donts": [
       "Don't add a kicker above the display headline.",
       "Don't use emoji or Unicode glyphs as icons.",
-      "Don't introduce rounded corners or gradient text."
+      "Don't introduce rounded corners on content surfaces or use gradient text. The music island is the only rounded exception."
     ]
   }
 }

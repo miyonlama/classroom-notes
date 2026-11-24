@@ -13,7 +13,8 @@
     pause: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="3" width="3" height="10"/><rect x="9" y="3" width="3" height="10"/></svg>',
     mute: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2Z"/><path d="M11 6l4 4M15 6l-4 4"/></svg>',
     sound: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6h3l4-3v10l-4-3H2Z"/><path d="M11 5.5c1.2.7 1.2 3.3 0 4"/></svg>',
-    close: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>'
+    close: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>',
+    chevron: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 10l4-4 4 4"/></svg>'
   };
 
   function loadState() {
@@ -53,7 +54,7 @@
   }
 
   function updateToggle(playing) {
-    var btn = document.getElementById("yt-toggle");
+    var btn = document.getElementById("yt-head-toggle");
     if (btn) btn.innerHTML = playing ? icons.pause : icons.play;
   }
 
@@ -67,10 +68,11 @@
         '<span class="yt-player__mark" aria-hidden="true"></span>' +
         '<span class="yt-player__label">Music</span>' +
         '<span class="yt-player__status" id="yt-status">Paste a YouTube URL</span>' +
+        '<button id="yt-head-toggle" type="button" aria-label="Play or pause">' + icons.play + '</button>' +
+        '<button id="yt-expand" class="yt-player__expand" type="button" aria-label="Expand player">' + icons.chevron + '</button>' +
       '</div>' +
       '<div class="yt-player__body">' +
         '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
-        '<button id="yt-toggle" type="button" aria-label="Play or pause">' + icons.play + '</button>' +
         '<input id="yt-seek" class="yt-player__seek" type="range" min="0" max="100" value="0" aria-label="Seek" />' +
         '<span class="yt-player__time" id="yt-time">00:00 / 00:00</span>' +
         '<input id="yt-volume" class="yt-player__volume" type="range" min="0" max="100" value="70" aria-label="Volume" />' +
@@ -86,7 +88,17 @@
     document.getElementById("yt-url").addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); loadFromInput(); }
     });
-    document.getElementById("yt-toggle").addEventListener("click", toggle);
+    document.getElementById("yt-head-toggle").addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggle();
+    });
+    document.getElementById("yt-expand").addEventListener("click", function (e) {
+      e.stopPropagation();
+      root.classList.toggle("is-open");
+    });
+    root.querySelector(".yt-player__head").addEventListener("click", function () {
+      root.classList.toggle("is-open");
+    });
     document.getElementById("yt-seek").addEventListener("change", function (e) {
       if (!player || !player.seekTo) return;
       player.seekTo(Number(e.target.value), true);
@@ -108,6 +120,7 @@
       document.getElementById("yt-time").textContent = "00:00 / 00:00";
       updateToggle(false);
       setStatus("Paste a YouTube URL", false);
+      document.getElementById("yt-player").classList.remove("is-open");
       saveState();
     });
   }
@@ -135,6 +148,7 @@
     }
     state.url = url;
     state.time = 0;
+    document.getElementById("yt-player").classList.add("is-open");
     setStatus("Loading " + id + "…", false);
     saveState();
     if (player && player.loadVideoById) {
