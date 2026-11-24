@@ -7,6 +7,8 @@
   var pendingPlay = false;
   var pollTimer = null;
   var lastSave = 0;
+  var lastLoadedUrl = "";
+  var loadTimer = null;
 
   var icons = {
     play: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5Z"/></svg>',
@@ -73,6 +75,7 @@
       '</div>' +
       '<div class="yt-player__body">' +
         '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
+        '<button id="yt-load" class="yt-player__load" type="button">LOAD</button>' +
         '<input id="yt-seek" class="yt-player__seek" type="range" min="0" max="100" value="0" aria-label="Seek" />' +
         '<span class="yt-player__time" id="yt-time">00:00 / 00:00</span>' +
         '<input id="yt-volume" class="yt-player__volume" type="range" min="0" max="100" value="70" aria-label="Volume" />' +
@@ -85,9 +88,17 @@
     document.getElementById("yt-volume").value = String(state.volume);
     updateMuteIcon();
 
-    document.getElementById("yt-url").addEventListener("keydown", function (e) {
+    var urlInput = document.getElementById("yt-url");
+    urlInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); loadFromInput(); }
     });
+    urlInput.addEventListener("input", function () {
+      if (loadTimer) clearTimeout(loadTimer);
+      var value = urlInput.value.trim();
+      if (!parseId(value) || value === lastLoadedUrl) return;
+      loadTimer = setTimeout(loadFromInput, 700);
+    });
+    document.getElementById("yt-load").addEventListener("click", loadFromInput);
     document.getElementById("yt-head-toggle").addEventListener("click", function (e) {
       e.stopPropagation();
       toggle();
@@ -114,7 +125,7 @@
     document.getElementById("yt-mute").addEventListener("click", function () { setMuted(!state.muted); });
     document.getElementById("yt-close").addEventListener("click", function () {
       if (player && player.stopVideo) player.stopVideo();
-      state.url = ""; state.time = 0;
+      state.url = ""; state.time = 0; lastLoadedUrl = "";
       document.getElementById("yt-url").value = "";
       document.getElementById("yt-seek").value = "0";
       document.getElementById("yt-time").textContent = "00:00 / 00:00";
@@ -148,15 +159,15 @@
     }
     state.url = url;
     state.time = 0;
+    lastLoadedUrl = url;
     document.getElementById("yt-player").classList.add("is-open");
-    setStatus("Loading " + id + "…", false);
+    setStatus("Ready — press play", false);
     saveState();
     if (player && player.loadVideoById) {
       player.loadVideoById(id, 0);
       if (state.muted) player.mute(); else player.unMute();
       player.setVolume(state.volume);
     } else {
-      pendingPlay = true;
       createPlayer(id);
     }
   }
@@ -228,8 +239,14 @@
 
   function toggle() {
     if (!player || !player.playVideo) {
-      var id = parseId(state.url);
-      if (id) { pendingPlay = true; createPlayer(id); }
+      var typed = document.getElementById("yt-url").value.trim();
+      var source = state.url || typed;
+      var id = parseId(source);
+      if (id) {
+        if (!state.url) { state.url = typed; lastLoadedUrl = typed; saveState(); }
+        pendingPlay = true;
+        createPlayer(id);
+      }
       return;
     }
     var st = player.getPlayerState && player.getPlayerState();
@@ -253,6 +270,8 @@
   function init() {
     loadState();
     build();
+    lastLoadedUrl = state.url;
+    if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
     var id = parseId(state.url);
     if (id) {
       setStatus("Restored · press play", false);
