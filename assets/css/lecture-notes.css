@@ -276,7 +276,7 @@ html[data-theme="study"] .projector-wash {
 .syllabus-toggle {
   position: fixed;
   z-index: 20;
-  top: 9.2rem;
+  top: 5.75rem;
   left: 1.75rem;
   width: 38px;
   height: 38px;
@@ -292,10 +292,9 @@ html[data-theme="study"] .projector-wash {
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
 }
-/* Sidebar open: park the toggle at the top-right of the rail, clear of the
-   first chapter label. Collapsed: it stays in the left margin. */
+/* Both states share the same height. Only the horizontal position changes;
+   the scroll handler moves the open icon with the rail. */
 .doc-shell:not(.syllabus-collapsed) .syllabus-toggle {
-  top: 5rem;
   left: calc(300px - 3.1rem);
 }
 .doc-shell.syllabus-collapsed .syllabus-toggle { visibility: visible; }

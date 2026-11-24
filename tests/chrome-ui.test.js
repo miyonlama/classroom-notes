@@ -34,10 +34,16 @@ assert(css.indexOf("bottom: calc(1rem + env(safe-area-inset-bottom, 0px))") !== 
   "mobile contents button must dock clear of the chapter rail and folio");
 assert(css.indexOf(".topic-table { display: block; overflow-x: auto; }") !== -1,
   "mobile tables must scroll inside the reading column");
+assert(toggleRule.indexOf("top: 5.75rem") !== -1, "both toggle states share one height");
+var openToggleRule = css.slice(css.indexOf(".doc-shell:not(.syllabus-collapsed) .syllabus-toggle {"),
+  css.indexOf(".doc-shell.syllabus-collapsed .syllabus-toggle"));
+assert(openToggleRule.indexOf("top:") === -1, "open toggle must not override the shared height");
 var notesJs = fs.readFileSync(path.join(root, "assets/js/lecture-notes.js"), "utf8");
 assert(notesJs.indexOf("function updateStickyRail") !== -1 &&
   notesJs.indexOf("76 - (window.scrollY") !== -1,
   "rail must slide up into the header gap and stop at the viewport top");
+assert(notesJs.indexOf('(top + 16) + "px"') !== -1,
+  "open toggle must travel with the rail");
 assert(css.indexOf("rgba(242,193,78,0.6)") === -1, "folio still hardcodes dark-theme gold");
 assert(css.indexOf("color: var(--yellow); opacity: 0.6") !== -1, "folio must follow the theme");
 
