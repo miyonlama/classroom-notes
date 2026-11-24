@@ -271,7 +271,7 @@ html[data-theme="study"] .projector-wash {
 .syllabus-toggle {
   position: fixed;
   z-index: 20;
-  top: 5.4rem;
+  top: 9.2rem;
   left: 1.75rem;
   width: 38px;
   height: 38px;
@@ -404,7 +404,7 @@ html[data-theme="study"] .projector-wash {
   .chapter-rail a { white-space: nowrap; border: 1px solid var(--line); padding: 0.5rem 0.8rem; }
   .reading { padding: 2.5rem 5vw 3rem; }
   .folio { left: 1rem; top: 2.6rem; font-size: 2.1rem; }
-  .syllabus-toggle { top: 5rem; left: 1rem; }
+  .syllabus-toggle { top: 8.8rem; left: 1rem; }
   .index-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {

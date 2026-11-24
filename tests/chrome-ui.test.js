@@ -25,6 +25,14 @@ assert(toggleRule.indexOf("border-radius: 50%") !== -1, "toggle must be a circle
 assert(css.indexOf("rgba(242,193,78,0.6)") === -1, "folio still hardcodes dark-theme gold");
 assert(css.indexOf("color: var(--yellow); opacity: 0.6") !== -1, "folio must follow the theme");
 
+pages.forEach(function (f) {
+  var s = fs.readFileSync(path.join(chapterDir, f), "utf8");
+  assert(s.indexOf('href="../../assets/pdfs/Past Questions.pdf" download') !== -1,
+    f + " missing past questions link");
+  assert(s.indexOf("<span>Past Questions</span>") !== -1, f + " missing past questions label");
+});
+assert(fs.existsSync(path.join(root, "assets/pdfs/Past Questions.pdf")), "past questions pdf missing");
+
 var playerCss = fs.readFileSync(path.join(root, "assets/css/player.css"), "utf8");
 assert(playerCss.indexOf('html[data-theme="study"] .yt-player:not(.is-open)') !== -1,
   "collapsed island icon must change with the light theme");

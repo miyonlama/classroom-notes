@@ -17,6 +17,7 @@ specs.forEach(function (spec) {
   var s = fs.readFileSync(file, "utf8");
 
   assert.strictEqual((s.match(/class="topic-part"/g) || []).length, spec.parts, spec.file + " part count");
+  assert.strictEqual((s.match(/class="chapter-rail"/g) || []).length, 1, spec.file + " chapter rail");
   for (var i = 1; i <= spec.parts; i++) {
     assert(s.indexOf('data-part="' + i + '"') !== -1, spec.file + " missing part " + i);
   }
