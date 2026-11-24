@@ -50,8 +50,9 @@ files.forEach(function (f) {
       assert(card.indexOf("Solution to be added.") !== -1,
         f + " card " + (i + 1) + " missing placeholder text");
     }
-    if (card.indexOf("<h3") !== -1) {
-      assert(card.indexOf("<ol") === -1, f + " card " + (i + 1) + " nests a list inside h3");
+    var questionPart = card.slice(0, card.indexOf('data-solution='));
+    if (questionPart.indexOf("<h3") !== -1) {
+      assert(questionPart.indexOf("<ol") === -1, f + " card " + (i + 1) + " nests a list inside h3");
     }
   });
   cardCount += cards.length;

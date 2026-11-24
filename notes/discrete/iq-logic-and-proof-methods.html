@@ -61,22 +61,44 @@
         <article class="iq-card">
           <h3 class="iq-question">Explain direct proof, indirect proof, and proof by contradiction. Use a direct proof to show: “If n is an odd integer, then n² is an odd integer.” Also use an indirect proof to show: “If n is an integer and n² is odd, then n is odd.”</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q1) &middot; <b>Marks:</b> 10</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Direct proof.</b> To prove p → q, assume p and derive q by algebra and known facts. <b>Indirect proof</b> proves p → q by proving the contrapositive ¬q → ¬p. <b>Proof by contradiction</b> assumes ¬p together with the premises and derives a contradiction.</p>
+            <p><b>Direct: n odd ⇒ n² odd.</b> Write n = 2k + 1. Then n² = 4k² + 4k + 1 = 2(2k² + 2k) + 1, which is twice an integer plus 1, hence odd.</p>
+            <p><b>Indirect: n² odd ⇒ n odd.</b> Prove the contrapositive: if n is even then n = 2k, so n² = 4k² = 2(2k²) is even. Therefore an n with n² odd cannot be even, so it must be odd.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a tautology? Show that (p ∧ q) → (p ∨ q) is a tautology.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q4) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A <b>tautology</b> is a compound proposition true for every assignment of truth values to its variables.</p>
+            <p>Test (p ∧ q) → (p ∨ q). An implication is false only when its antecedent is true and consequent false. If p ∧ q is true then both p and q are true, so p ∨ q is true; there is no row with true antecedent and false consequent.</p>
+            <table class="topic-table"><thead><tr><th>p</th><th>q</th><th>p ∧ q</th><th>p ∨ q</th><th>(p ∧ q) → (p ∨ q)</th></tr></thead><tbody>
+            <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>T</td></tr>
+            <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>T</td></tr>
+            <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+            <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+            </tbody></table>
+            <p>The last column is all true, so the formula is a tautology.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Give four examples of sentences that are not propositions. Assume the premises: (i) All over-smart persons are stupid. (ii) Children of stupid persons are naughty. (iii) John is over-smart. (iv) Sam is a child of John. Using rules of inference, show that Sam is naughty.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q1) &middot; <b>Marks:</b> 10</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A proposition is a declarative sentence with a definite truth value. Questions, commands, exclamations, open sentences, and paradoxes are not propositions: “Is it raining?”, “Close the door!”, “What a lovely day!”, “x + 2 = 5” (truth depends on x), and “This sentence is false”.</p>
+            <p>Let O(x) = “x is over-smart”, S(x) = “x is stupid”, N(x) = “x is naughty”, C(x, y) = “x is a child of y”. The premises are:</p>
+            <ol><li>∀x(O(x) → S(x))</li><li>∀y∀x((S(y) ∧ C(x, y)) → N(x))</li><li>O(John)</li><li>C(Sam, John)</li></ol>
+            <p>From (1) and (3), universal instantiation and modus ponens give S(John). From (2) with y = John and x = Sam we get (S(John) ∧ C(Sam, John)) → N(Sam). Both antecedents hold, so by modus ponens N(Sam): Sam is naughty.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Show by direct proof that the sum of two even numbers is even.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q4) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Let the two even numbers be a and b. By definition a = 2k and b = 2m for some integers k and m.</p>
+            <p>Then a + b = 2k + 2m = 2(k + m). Since k + m is an integer, a + b is twice an integer, and therefore even. The argument uses only the definition of evenness, so it holds for every pair of even integers.</p>
+          </div>
         </article>
         <article class="iq-card">
           <div class="iq-question">Give the negations of the following statements:<ol class="subquestions">            <li>He has passed the exam.</li>
@@ -85,33 +107,66 @@
             <li>If you study then you will pass the exam.</li>
             <li>Open the door.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q4) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Use ¬(∀x P(x)) ≡ ∃x ¬P(x), ¬(∃x P(x)) ≡ ∀x ¬P(x), and ¬(p → q) ≡ p ∧ ¬q.</p>
+            <ol><li>He has not passed the exam.</li>
+            <li>Some dogs are not loyal.</li>
+            <li>No medicine has side effects. (Equivalently: every medicine has no side effects.)</li>
+            <li>You study and you will not pass the exam.</li>
+            <li>“Open the door” is a command, not a proposition, so it has no truth value and no logical negation. Only declarative sentences can be negated.</li></ol>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Using a direct proof, show that the sum of the squares of even numbers is even.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q7) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Let the even numbers be 2k and 2m with k, m ∈ ℤ. Their squares are (2k)² = 4k² and (2m)² = 4m².</p>
+            <p>The sum is 4k² + 4m² = 2(2k² + 2m²). Because 2k² + 2m² is an integer, the sum is twice an integer and hence even.</p>
+            <p>This is stronger than needed: the sum of squares of any two integers with the same parity is even, since 4 divides each square here.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">List any five rules of inference.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q12) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Five standard rules of inference:</p>
+            <ol><li><b>Modus ponens:</b> from p and p → q infer q.</li>
+            <li><b>Modus tollens:</b> from ¬q and p → q infer ¬p.</li>
+            <li><b>Hypothetical syllogism:</b> from p → q and q → r infer p → r.</li>
+            <li><b>Disjunctive syllogism:</b> from p ∨ q and ¬p infer q.</li>
+            <li><b>Resolution:</b> from p ∨ q and ¬p ∨ r infer q ∨ r.</li></ol>
+            <p>Each rule is a tautology when read as “(all premises) → conclusion”, so any application preserves truth.</p>
+          </div>
         </article>
         <article class="iq-card">
           <div class="iq-question">Define propositions. Convert the following sentences into predicate logic:<ol class="subquestions">            <li>Some kind-hearted people still exist.</li>
             <li>Students who study hard and do their homework get good marks in exams.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q4) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A <b>proposition</b> is a declarative sentence that is either true or false, but not both. Predicate logic adds variables and quantifiers: ∀x for “every x” and ∃x for “some x”.</p>
+            <p>Let K(x) = “x is kind-hearted”, S(x) = “x studies hard”, H(x) = “x does homework”, and G(x) = “x gets good marks”.</p>
+            <ol><li>∃x K(x) — at least one kind-hearted person exists.</li>
+            <li>∀x((S(x) ∧ H(x)) → G(x)) — every student who studies hard and does homework gets good marks.</li></ol>
+            <p>The universal statement uses an implication, not a conjunction: it is vacuously true for people who fail the antecedent.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Using a direct proof, show that the sum of an odd number and an even number is odd.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q10) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Write the odd number as 2k + 1 and the even number as 2m, with k, m ∈ ℤ.</p>
+            <p>Their sum is (2k + 1) + 2m = 2(k + m) + 1. Since k + m is an integer, the sum has the form 2t + 1 with t = k + m, so it is odd.</p>
+            <p>This confirms the general parity rules: odd + even is odd, odd + odd and even + even are even.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">Why do we need quantifiers? List any three rules of inference. Prove that √2 is irrational using proof by contradiction.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q2) &middot; <b>Marks:</b> 2+3+5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>Quantifiers say how many objects a predicate covers. Without them “x is good” has no fixed truth value; ∀x and ∃x turn it into a proposition, and they let us formalise “every”, “some”, and “none” precisely.</p>
+            <p>Three rules of inference: modus ponens (p, p → q ⊢ q), universal instantiation (∀x P(x) ⊢ P(c)), and modus tollens (¬q, p → q ⊢ ¬p).</p>
+            <p><b>Proof that √2 is irrational.</b> Suppose √2 = a/b in lowest terms with gcd(a, b) = 1. Squaring gives a² = 2b², so a² is even and hence a = 2k. Then 4k² = 2b² gives b² = 2k², so b is even too. Both a and b share the factor 2, contradicting gcd(a, b) = 1. The assumption fails, so √2 is irrational.</p>
+          </div>
         </article>
 
         <aside class="revision-tracker" data-page="discrete/iq-logic-and-proof-methods.html">
