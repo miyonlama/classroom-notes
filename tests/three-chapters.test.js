@@ -9,7 +9,8 @@ var specs = [
   { file: "sets-relations-functions.html", parts: 3, minPriority: 20, minExam: 7, minDetails: 8, minTables: 6 },
   { file: "induction-and-recursion.html", parts: 4, minPriority: 15, minExam: 6, minDetails: 12, minTables: 2 },
   { file: "number-theory.html", parts: 4, minPriority: 15, minExam: 6, minDetails: 8, minTables: 4 },
-  { file: "counting-and-discrete-probability.html", parts: 3, minPriority: 18, minExam: 6, minDetails: 12, minTables: 6 }
+  { file: "counting-and-discrete-probability.html", parts: 3, minPriority: 18, minExam: 6, minDetails: 12, minTables: 6 },
+  { file: "trees-and-graphs.html", parts: 2, minPriority: 14, minExam: 6, minDetails: 3, minTables: 4 }
 ];
 
 specs.forEach(function (spec) {
