@@ -37,20 +37,46 @@ files.forEach(function (f) {
   });
   var cards = s.split('<article class="iq-card">').slice(1);
   assert(cards.length > 0, f + " has no question cards");
+  var done = (s.split('data-solution="done"').length - 1);
+  var pending = (s.split('data-solution="pending"').length - 1);
+  assert.strictEqual(done + pending, cards.length, f + " every card needs exactly one solution state");
   cards.forEach(function (card, i) {
     assert(card.indexOf("Frequency:") !== -1, f + " card " + (i + 1) + " missing Frequency");
     assert(card.indexOf("Marks:") !== -1, f + " card " + (i + 1) + " missing Marks");
-    assert(card.indexOf('data-solution="pending"') !== -1, f + " card " + (i + 1) + " solution not pending");
-    assert(card.indexOf("Solution to be added.") !== -1, f + " card " + (i + 1) + " missing placeholder text");
+    var isDone = card.indexOf('data-solution="done"') !== -1;
+    assert(isDone || card.indexOf('data-solution="pending"') !== -1,
+      f + " card " + (i + 1) + " has no solution state");
+    if (!isDone) {
+      assert(card.indexOf("Solution to be added.") !== -1,
+        f + " card " + (i + 1) + " missing placeholder text");
+    }
     if (card.indexOf("<h3") !== -1) {
       assert(card.indexOf("<ol") === -1, f + " card " + (i + 1) + " nests a list inside h3");
     }
   });
   cardCount += cards.length;
-  assert(s.indexOf('data-solution="done"') === -1, f + " must not contain a written answer");
+  if (f === "iq-number-theory.html") {
+    assert.strictEqual(done, 1, "number theory must have exactly one written answer");
+  } else {
+    assert.strictEqual(done, 0, f + " must contain only pending answers");
+  }
 });
 
 assert(cardCount >= 60, "full extraction expected at least 60 cards, got " + cardCount);
+
+var numberTheory = fs.readFileSync(path.join(chapterDir, "iq-number-theory.html"), "utf8");
+var irrationalCard = numberTheory.split('<article class="iq-card">').find(function (c) {
+  return c.indexOf("irrational") !== -1;
+});
+assert(irrationalCard, "missing irrationality card");
+assert(irrationalCard.indexOf("2080.1 (Q7)") !== -1 && irrationalCard.indexOf("2082 (Q2)") !== -1,
+  "irrationality Frequency must list both papers");
+assert(/<b>Marks:<\/b> 5/.test(irrationalCard), "irrationality Marks must be 5");
+assert(irrationalCard.indexOf("data-solution=\"done\"") !== -1, "irrationality answer must be filled");
+assert(irrationalCard.indexOf("Contradiction") !== -1, "answer must name the method");
+var cssFile = fs.readFileSync(path.join(root, "assets/css/lecture-notes.css"), "utf8");
+assert(cssFile.indexOf('.iq-solution[data-solution="done"]') !== -1,
+  "written answers need readable styling");
 
 var induction = fs.readFileSync(path.join(chapterDir, "iq-induction-and-recursion.html"), "utf8");
 var inductionCard = induction.split('<article class="iq-card">').find(function (c) {
