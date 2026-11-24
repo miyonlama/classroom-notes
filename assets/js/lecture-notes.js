@@ -76,7 +76,28 @@
     });
   }
 
+  function initSyllabusToggle() {
+    var button = document.getElementById("syllabus-toggle");
+    var shell = document.querySelector(".doc-shell");
+    if (!button || !shell) return;
+    var key = "classroom-notes-syllabus";
+    var collapsed = false;
+    try { collapsed = localStorage.getItem(key) === "collapsed"; } catch (e) {}
+
+    function apply() {
+      shell.classList.toggle("syllabus-collapsed", collapsed);
+      button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    }
+    button.addEventListener("click", function () {
+      collapsed = !collapsed;
+      try { localStorage.setItem(key, collapsed ? "collapsed" : "open"); } catch (e) {}
+      apply();
+    });
+    apply();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    initSyllabusToggle();
     document.querySelectorAll(".chapter-rail a").forEach(function (a, i) {
       a.addEventListener("mouseenter", function () { show(i); });
       a.addEventListener("focus", function () { show(i); });

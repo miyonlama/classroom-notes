@@ -23,6 +23,7 @@
   --line: rgba(232, 236, 225, 0.16);
   --cue-bg: rgba(47, 125, 88, 0.08);
   --cue-line: rgba(242, 193, 78, 0.4);
+  --reading-measure: 140ch;
 }
 
 html[data-theme="study"] {
@@ -35,6 +36,7 @@ html[data-theme="study"] {
   --line: rgba(26, 26, 26, 0.16);
   --cue-bg: rgba(58, 125, 93, 0.07);
   --cue-line: rgba(184, 66, 46, 0.5);
+  --reading-measure: 140ch;
 }
 
 * { box-sizing: border-box; }
@@ -74,6 +76,7 @@ a { color: inherit; }
   height: 76px;
   border-bottom: 1px solid var(--line);
   display: flex; align-items: center; justify-content: space-between;
+  gap: 0.75rem;
   padding: 0 4vw;
 }
 .brand {
@@ -89,8 +92,18 @@ a { color: inherit; }
 .crumb a { text-decoration: none; }
 .crumb a:hover { color: var(--yellow); }
 
-.doc-shell { display: grid; grid-template-columns: 300px 1fr; min-height: calc(100vh - 76px); min-width: 0; }
-.syllabus { border-right: 1px solid var(--line); padding: 2.2rem 0; min-width: 0; }
+.doc-shell {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  min-height: calc(100vh - 76px);
+  min-width: 0;
+  transition: grid-template-columns 0.18s ease;
+}
+.doc-shell.syllabus-collapsed { grid-template-columns: 0 minmax(0, 1fr); }
+.doc-shell.syllabus-collapsed .syllabus {
+  overflow: hidden; visibility: hidden; border-right: 0; padding: 0;
+}
+.syllabus { border-right: 1px solid var(--line); padding: 2.2rem 0; min-width: 0; overflow: hidden; }
 .reading { min-width: 0; }
 .syllabus-label {
   font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
@@ -123,9 +136,9 @@ a { color: inherit; }
   font-family: "Barlow Condensed", sans-serif; font-size: clamp(2.8rem, 5vw, 3.6rem); font-weight: 700; line-height: 1;
   letter-spacing: -0.03em; margin: 0 0 1.4rem; max-width: 18ch;
 }
-.lede { max-width: 66ch; color: var(--chalk-dim); font-size: 1rem; margin: 0; }
+.lede { max-width: var(--reading-measure); color: var(--chalk-dim); font-size: 1rem; margin: 0; }
 .callout {
-  margin-top: 2rem; max-width: 64ch;
+  margin-top: 2rem; max-width: var(--reading-measure);
   border: 1px solid rgba(47,125,88,0.6);
   background: rgba(47,125,88,0.08);
   padding: 1.1rem 1.35rem;
@@ -168,6 +181,7 @@ a { color: inherit; }
 
 /* Chapter reading pages */
 .chapter-reading { max-width: 100%; }
+.chapter-reading > :not(h1) { margin-left: auto; margin-right: auto; }
 .chapter-reading h1 { font-size: clamp(2.8rem, 5vw, 3.6rem); }
 .chapter-reading .source-line {
   color: var(--chalk-dim); font-size: 0.8rem; margin: 0 0 2.2rem;
@@ -175,7 +189,7 @@ a { color: inherit; }
 }
 .chapter-reading .source-line a { color: var(--yellow); text-underline-offset: 4px; }
 .chapter-reading section {
-  max-width: 70ch;
+  max-width: var(--reading-measure);
   border-top: 1px solid var(--line);
   padding-top: 1.6rem;
   padding-right: 0;
@@ -200,9 +214,9 @@ a { color: inherit; }
   text-transform: uppercase; color: var(--yellow);
   margin: 1.4rem 0 0.5rem;
 }
-.chapter-reading p { max-width: 70ch; color: var(--chalk); margin: 0 0 1rem; }
+.chapter-reading p { max-width: var(--reading-measure); color: var(--chalk); margin: 0 0 1rem; }
 .chapter-reading .callout {
-  margin: 1.4rem 0; max-width: 70ch;
+  margin: 1.4rem 0; max-width: var(--reading-measure);
   border: 1px solid rgba(47,125,88,0.6);
   background: rgba(47,125,88,0.08);
   padding: 1rem 1.25rem;
@@ -216,7 +230,7 @@ a { color: inherit; }
   letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem;
 }
 .chapter-reading details {
-  max-width: 70ch; border: 1px solid var(--line);
+  max-width: var(--reading-measure); border: 1px solid var(--line);
   background: rgba(11,19,16,0.7); padding: 0.9rem 1.1rem; margin: 1.2rem 0;
 }
 .chapter-reading summary { cursor: pointer; font-weight: 700; color: var(--chalk); }
@@ -226,7 +240,7 @@ a { color: inherit; }
   font-size: 0.9em; color: var(--yellow);
 }
 .chapter-nav {
-  max-width: 70ch; margin-top: 3rem; padding-top: 1.4rem;
+  max-width: var(--reading-measure); margin-top: 3rem; padding-top: 1.4rem;
   border-top: 1px solid var(--line);
   display: flex; justify-content: space-between; gap: 1rem;
   font-size: 0.8rem; letter-spacing: 0.08em;
@@ -250,8 +264,29 @@ html[data-theme="study"] .projector-wash {
   background: radial-gradient(circle, rgba(184,66,46,0.08), rgba(58,125,93,0.05) 40%, transparent 68%);
 }
 
-.study-toggle {
+.syllabus-toggle {
   margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--chalk-dim);
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.syllabus-toggle svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.syllabus-toggle:hover { border-color: var(--yellow); color: var(--chalk); }
+.syllabus-toggle:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
+.study-toggle {
+  margin-left: 0.5rem;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -272,7 +307,7 @@ html[data-theme="study"] .projector-wash {
 .study-toggle:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
 
 .cue-block {
-  max-width: 70ch;
+  max-width: var(--reading-measure);
   margin: 1.8rem 0 2.2rem;
   border: 1px solid var(--cue-line);
   background: var(--cue-bg);
@@ -290,7 +325,7 @@ html[data-theme="study"] .projector-wash {
 .cue-block li { font-size: 0.9rem; color: var(--chalk); padding: 0.25rem 0; }
 
 .recall-block {
-  max-width: 70ch;
+  max-width: var(--reading-measure);
   margin-top: 2.4rem;
   border-top: 1px solid var(--line);
   padding-top: 1.4rem;
@@ -313,7 +348,7 @@ html[data-theme="study"] .projector-wash {
 .recall-block details p { margin: 0.7rem 0 0; }
 
 .revision-tracker {
-  max-width: 70ch;
+  max-width: var(--reading-measure);
   margin-top: 1.6rem;
   border: 1px solid var(--line);
   background: var(--board-deep);
@@ -355,6 +390,8 @@ html[data-theme="study"] .projector-wash {
 
 @media (max-width: 900px) {
   .doc-shell { grid-template-columns: 1fr; }
+  .doc-shell.syllabus-collapsed { grid-template-columns: 1fr; }
+  .doc-shell.syllabus-collapsed .syllabus { display: none; }
   .syllabus { border-right: 0; border-bottom: 1px solid var(--line); padding: 1.2rem 0; }
   .chapter-rail { display: flex; overflow-x: auto; gap: 0.4rem; padding: 0 1rem 0.4rem; }
   .chapter-rail a { white-space: nowrap; border: 1px solid var(--line); padding: 0.5rem 0.8rem; }
@@ -397,7 +434,7 @@ html[data-theme="study"] .projector-wash {
 }
 .topic-table {
   width: 100%;
-  max-width: 70ch;
+  max-width: none;
   margin: 1.2rem 0 2rem;
   border-collapse: collapse;
   font-size: 0.9rem;
@@ -418,7 +455,7 @@ html[data-theme="study"] .projector-wash {
   text-transform: uppercase;
 }
 .exam-hits {
-  max-width: 70ch;
+  max-width: var(--reading-measure);
   margin: 1.6rem 0 2.4rem;
   border: 1px solid var(--cue-line);
   background: var(--cue-bg);
