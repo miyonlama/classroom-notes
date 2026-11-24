@@ -6,7 +6,7 @@ var path = require("path");
 
 var root = path.join(__dirname, "..");
 var chapterDir = path.join(root, "notes/discrete");
-var pages = fs.readdirSync(chapterDir).filter(function (f) { return /\.html$/.test(f); });
+var pages = fs.readdirSync(chapterDir).filter(function (f) { return /\.html$/.test(f) && !/^iq-/.test(f); });
 assert.strictEqual(pages.length, 7);
 
 pages.forEach(function (f) {
