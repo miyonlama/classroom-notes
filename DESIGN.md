@@ -8,6 +8,10 @@ colors:
   chalk-dim: "#a9b7ac"
   board-green: "#2f7d58"
   projector-yellow: "#f2c14e"
+  glass: "rgba(11, 19, 16, 0.62)"
+  glass-line: "rgba(232, 236, 225, 0.24)"
+  glass-hi: "rgba(255, 255, 255, 0.14)"
+  glass-sheen: "rgba(255, 255, 255, 0.12)"
 typography:
   display:
     fontFamily: "Barlow Condensed, sans-serif"
@@ -142,7 +146,7 @@ Most surfaces are flat and separated by full 1px borders. The primary action alo
 
 Content surfaces keep square corners (0px radius). Subject slides use a small taped tab at the top edge. Dividers are 1px rules; the chalk tray uses a dotted rule.
 
-The global music island is the single rounded exception: a top-center pill that expands into a panel (`999px` collapsed, `22px` expanded). It is an overlay control, not a content surface.
+The global music island is the single rounded and glass exception: a top-center circle (`44px`) that expands into a glass panel (`22px` radius). It uses translucency, blur, a hairline light border, and an inner top highlight. It is an overlay control, not a content surface.
 
 ## Components
 

@@ -58,6 +58,8 @@
   function updateToggle(playing) {
     var btn = document.getElementById("yt-head-toggle");
     if (btn) btn.innerHTML = playing ? icons.pause : icons.play;
+    var root = document.getElementById("yt-player");
+    if (root) root.classList.toggle("is-playing", !!playing);
   }
 
   function build() {
