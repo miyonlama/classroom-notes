@@ -12,6 +12,8 @@ colors:
   glass-line: "rgba(232, 236, 225, 0.24)"
   glass-hi: "rgba(255, 255, 255, 0.14)"
   glass-sheen: "rgba(255, 255, 255, 0.12)"
+  study-dust: "rgba(26, 26, 26, 0.08)"
+  study-wash: "rgba(184, 66, 46, 0.08)"
 typography:
   display:
     fontFamily: "Barlow Condensed, sans-serif"

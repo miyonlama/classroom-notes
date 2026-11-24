@@ -13,6 +13,7 @@
 
   <header class="masthead site">
     <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
     <div class="crumb"><a href="../index.html">Notes</a> / <a href="../discrete-structure.html">Discrete Structure</a> / Trees and Graphs</div>
   </header>
 
@@ -34,6 +35,15 @@
         <span class="folio" aria-hidden="true">03</span>
         <h1>Trees and Graphs</h1>
         <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Tree and Graphs.pdf" download>Download original PDF</a>.</p>
+        <aside class="cue-block">
+          <h2>Recall cues</h2>
+          <ol>
+      <li>What distinguishes a simple graph from a multigraph or pseudograph?</li>
+      <li>How are paths, connectedness, and trees related?</li>
+      <li>What information must a graph representation carry?</li>
+          </ol>
+        </aside>
+
 <section><h2>Graphs</h2>
 </section>
 <section><h3>1. Introduction</h3>
@@ -930,6 +940,16 @@
 <p>Exercise: Use Kruskal’s algorithm to find minimum spanning tree of the graph used in the example of Dijkstra’s shortest path algorithm above.</p>
 <p>including computer networks, telecommunications networks, transportation  networks, water supply networks, and electrical grids. Other practical applications  based on minimal spanning trees include constructing trees for broadcasting in  computer networks, Circuit design, and financial market description.</p>
 </section>
+
+        <section class="recall-block">
+          <h2>Summary &amp; recall</h2>
+          <p>Graphs model pairwise relations. Trees are connected acyclic graphs used for hierarchy and structure.</p>
+          <details><summary>Can you explain the difference between a graph and a tree in one sentence?</summary><p>Graphs model pairwise relations. Trees are connected acyclic graphs used for hierarchy and structure.</p></details>
+        </section>
+        <aside class="revision-tracker" data-page="discrete/trees-and-graphs.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
         <div class="chapter-nav">
           <a href="logic-and-proof-methods.html">&larr; LOGIC AND PROOF METHODS</a>
           <a href="counting-and-discrete-probability.html">COUNTING AND DISCRETE PROBABILITY →</a>
@@ -940,6 +960,7 @@
 
   <footer class="site-footer site"><span>Discrete Structure / Trees and Graphs</span><span>Keep reading.</span></footer>
 
+  <script src="/assets/js/study-tools.js" defer></script>
   <script src="/assets/js/player.js" defer></script>
   <script src="../../assets/js/lecture-notes.js" defer></script>
 </body>

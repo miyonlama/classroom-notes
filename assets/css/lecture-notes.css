@@ -21,6 +21,20 @@
   --board-green: #2f7d58;
   --yellow: #f2c14e;
   --line: rgba(232, 236, 225, 0.16);
+  --cue-bg: rgba(47, 125, 88, 0.08);
+  --cue-line: rgba(242, 193, 78, 0.4);
+}
+
+html[data-theme="study"] {
+  --board: #faf7f0;
+  --board-deep: #f1ede2;
+  --chalk: #1a1a1a;
+  --chalk-dim: #5c5c5c;
+  --board-green: #3a7d5d;
+  --yellow: #b8422e;
+  --line: rgba(26, 26, 26, 0.16);
+  --cue-bg: rgba(58, 125, 93, 0.07);
+  --cue-line: rgba(184, 66, 46, 0.5);
 }
 
 * { box-sizing: border-box; }
@@ -223,6 +237,120 @@ a { color: inherit; }
 @media (max-width: 600px) {
   .chapter-reading h2 { font-size: 2.1rem; }
   .chapter-nav { flex-direction: column; }
+}
+
+/* Study mode and learning components */
+html[data-theme="study"] .chalk-dust {
+  background-image:
+    radial-gradient(rgba(26,26,26,0.08) 0.7px, transparent 0.8px),
+    radial-gradient(rgba(26,26,26,0.05) 0.6px, transparent 0.7px);
+  opacity: 0.5;
+}
+html[data-theme="study"] .projector-wash {
+  background: radial-gradient(circle, rgba(184,66,46,0.08), rgba(58,125,93,0.05) 40%, transparent 68%);
+}
+
+.study-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--chalk-dim);
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+.study-toggle:hover { border-color: var(--yellow); color: var(--chalk); }
+.study-toggle svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.4; }
+.study-toggle:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
+.cue-block {
+  max-width: 70ch;
+  margin: 1.8rem 0 2.2rem;
+  border: 1px solid var(--cue-line);
+  background: var(--cue-bg);
+  padding: 1.1rem 1.35rem;
+}
+.cue-block h2 {
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin: 0 0 0.7rem;
+}
+.cue-block ol { margin: 0; padding-left: 1.2rem; }
+.cue-block li { font-size: 0.9rem; color: var(--chalk); padding: 0.25rem 0; }
+
+.recall-block {
+  max-width: 70ch;
+  margin-top: 2.4rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.4rem;
+}
+.recall-block h2 {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.7rem;
+}
+.recall-block > p { color: var(--chalk); }
+.recall-block details {
+  margin-top: 1rem;
+  border: 1px solid var(--line);
+  background: var(--board-deep);
+  padding: 0.85rem 1rem;
+}
+.recall-block summary { cursor: pointer; font-weight: 700; color: var(--yellow); }
+.recall-block details p { margin: 0.7rem 0 0; }
+
+.revision-tracker {
+  max-width: 70ch;
+  margin-top: 1.6rem;
+  border: 1px solid var(--line);
+  background: var(--board-deep);
+  padding: 0.9rem 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.revision-label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 0.3rem;
+}
+.revision-dates { font-size: 0.8rem; color: var(--chalk); }
+.revision-dates[data-due="true"] { color: var(--yellow); }
+.revision-btn {
+  background: transparent;
+  border: 1px solid var(--yellow);
+  border-radius: 999px;
+  color: var(--yellow);
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+}
+.revision-btn:hover { background: var(--yellow); color: var(--board-deep); }
+
+@media (max-width: 600px) {
+  .study-toggle { margin-left: 0; font-size: 0.7rem; padding: 0.35rem 0.6rem; }
+  .revision-tracker { align-items: flex-start; }
 }
 
 @media (max-width: 900px) {

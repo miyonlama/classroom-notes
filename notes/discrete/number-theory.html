@@ -13,6 +13,7 @@
 
   <header class="masthead site">
     <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
     <div class="crumb"><a href="../index.html">Notes</a> / <a href="../discrete-structure.html">Discrete Structure</a> / Number Theory</div>
   </header>
 
@@ -34,6 +35,15 @@
         <span class="folio" aria-hidden="true">05</span>
         <h1>Number Theory</h1>
         <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Number Theory.pdf" download>Download original PDF</a>.</p>
+        <aside class="cue-block">
+          <h2>Recall cues</h2>
+          <ol>
+      <li>What does divisibility mean, and how does the division algorithm work?</li>
+      <li>How is modular arithmetic expressed with congruences?</li>
+      <li>Why do integer representations and algorithms matter?</li>
+          </ol>
+        </aside>
+
 <section><h2>Number Theory</h2>
 </section>
 <section><h3>1. Introduction</h3>
@@ -363,6 +373,16 @@
 <p>⎤ ⎥</p>
 <p>⎥ ⎥ ⎦</p>
 </section>
+
+        <section class="recall-block">
+          <h2>Summary &amp; recall</h2>
+          <p>Number theory studies integers under divisibility and congruence, with algorithms for representation and arithmetic.</p>
+          <details><summary>Can you explain what a ≡ b (mod m) means in your own words?</summary><p>Number theory studies integers under divisibility and congruence, with algorithms for representation and arithmetic.</p></details>
+        </section>
+        <aside class="revision-tracker" data-page="discrete/number-theory.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
         <div class="chapter-nav">
           <a href="counting-and-discrete-probability.html">&larr; COUNTING AND DISCRETE PROBABILITY</a>
           <a href="induction-and-recursion.html">INDUCTION AND RECURSION →</a>
@@ -373,6 +393,7 @@
 
   <footer class="site-footer site"><span>Discrete Structure / Number Theory</span><span>Keep reading.</span></footer>
 
+  <script src="/assets/js/study-tools.js" defer></script>
   <script src="/assets/js/player.js" defer></script>
   <script src="../../assets/js/lecture-notes.js" defer></script>
 </body>

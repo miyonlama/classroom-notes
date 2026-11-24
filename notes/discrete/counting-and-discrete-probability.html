@@ -13,6 +13,7 @@
 
   <header class="masthead site">
     <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
     <div class="crumb"><a href="../index.html">Notes</a> / <a href="../discrete-structure.html">Discrete Structure</a> / Counting and Discrete Probability</div>
   </header>
 
@@ -34,6 +35,15 @@
         <span class="folio" aria-hidden="true">04</span>
         <h1>Counting and Discrete Probability</h1>
         <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Counting and Discrete Probability.pdf" download>Download original PDF</a>.</p>
+        <aside class="cue-block">
+          <h2>Recall cues</h2>
+          <ol>
+      <li>When do you use the product rule versus the sum rule?</li>
+      <li>How does a permutation differ from a combination?</li>
+      <li>What does the pigeonhole principle guarantee?</li>
+          </ol>
+        </aside>
+
 <section><h2>Counting</h2>
 </section>
 <section><h3>1. Introduction</h3>
@@ -580,6 +590,16 @@
 <section><h3>10. Randomized Algorithms</h3>
 <p>A randomized algorithm is a technique that uses a source of randomness as part of its logic. It is typically used to reduce either the running time (time complexity) or memory used (space complexity) in standard algorithm. The algorithm works by generating a random number, r, within a specified range of numbers, and making decisions based on the value of r. Randomized algorithms are usually designed in one of two common forms: as a Las Vegas or as a Monte Carlo algorithm. A Las Vegas algorithm runs within a specified amount of time. If it finds a solution within that timeframe, the solution will be exactly correct; however, it is possible that it runs out of time and does not find any solutions. One popular example of Las Vegas algorithm is Randomized Quick Sort. A Monte Carlo algorithm is a probabilistic algorithm which, depending on the input, has a slight probability of producing an incorrect result or failing to produce a result altogether. Monte Carlo algorithms are always fast and probably correct, whereas Las Vegas algorithms are sometimes fast but always correct. One popular example of Monte Carlo algorithm is Probabilistic Primality Testing. Practically speaking, computers cannot generate completely random numbers, so randomized algorithms in computer science are approximated using a pseudorandom number generator in place of a true source of random number, such as rolling a die.</p>
 </section>
+
+        <section class="recall-block">
+          <h2>Summary &amp; recall</h2>
+          <p>Counting rules turn arrangements into numbers. Permutations order, combinations select, and the pigeonhole principle forces repetition.</p>
+          <details><summary>Can you state the product rule and give one situation where it applies?</summary><p>Counting rules turn arrangements into numbers. Permutations order, combinations select, and the pigeonhole principle forces repetition.</p></details>
+        </section>
+        <aside class="revision-tracker" data-page="discrete/counting-and-discrete-probability.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
         <div class="chapter-nav">
           <a href="trees-and-graphs.html">&larr; TREES AND GRAPHS</a>
           <a href="number-theory.html">NUMBER THEORY →</a>
@@ -590,6 +610,7 @@
 
   <footer class="site-footer site"><span>Discrete Structure / Counting and Discrete Probability</span><span>Keep reading.</span></footer>
 
+  <script src="/assets/js/study-tools.js" defer></script>
   <script src="/assets/js/player.js" defer></script>
   <script src="../../assets/js/lecture-notes.js" defer></script>
 </body>
