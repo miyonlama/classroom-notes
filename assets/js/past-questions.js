@@ -11,7 +11,10 @@
       var expanded = btn.getAttribute("aria-expanded") === "true";
 
       function apply() {
-        section.hidden = !expanded;
+        section.classList.toggle("paper--collapsed", !expanded);
+        section.setAttribute("aria-hidden", expanded ? "false" : "true");
+        if (expanded) section.removeAttribute("inert");
+        else section.setAttribute("inert", "");
         btn.setAttribute("aria-expanded", expanded ? "true" : "false");
       }
 
