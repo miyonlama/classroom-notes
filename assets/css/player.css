@@ -114,6 +114,7 @@ html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
   padding: 0;
   display: grid;
   place-items: center;
+  justify-content: center;
 }
 .yt-player:not(.is-open) .yt-player__label,
 .yt-player:not(.is-open) .yt-player__status,
