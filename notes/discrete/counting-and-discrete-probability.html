@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Counting and Discrete Probability — Discrete Structure</title>
+  <title>Counting and Discrete Probability, Discrete Structure</title>
   <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
   <link rel="stylesheet" href="/assets/css/player.css" />
 </head>
@@ -38,568 +38,241 @@
       <article class="reading chapter-reading">
         <span class="folio" aria-hidden="true">04</span>
         <h1>Counting and Discrete Probability</h1>
-        <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Counting and Discrete Probability.pdf" download>Download original PDF</a>.</p>
+        <p class="source-line">Interactive recreation of the chapter PDF. <a href="../../assets/pdfs/Discrete Probability.pdf" download>Download original PDF</a>.</p>
+
         <aside class="cue-block">
           <h2>Recall cues</h2>
           <ol>
-      <li>When do you use the product rule versus the sum rule?</li>
-      <li>How does a permutation differ from a combination?</li>
-      <li>What does the pigeonhole principle guarantee?</li>
+            <li>When do you multiply counts, and when do you add them?</li>
+            <li>What does the generalized pigeonhole principle guarantee?</li>
+            <li>How do independence and conditional probability differ?</li>
           </ol>
         </aside>
 
-<section><h2>Counting</h2>
-</section>
-<section><h3>1. Introduction</h3>
-<p>Combinatorics is the study of arrangements of objects. Enumeration, the counting of objects with certain properties, is an important part of combinatorics. We must count objects to solve many different types of problems. For example counting is used to determine the complexity of algorithms, to determine whether there are enough telephone numbers or Internet protocol addresses to meet demand etc.</p>
-</section>
-<section><h3>2. The Basics of Counting</h3>
-</section>
-<section><h4>2.1. The Product Rule</h4>
-<p>Suppose that a procedure can be broken down into a sequence of two tasks. If there are n1 ways to do the first task and for each of these ways of doing the first task, there are n2 ways to do the second task, then there are n1n2 ways to do the procedure.  An extended version of the product rule is often useful. Suppose that a procedure is carried out by performing the tasks T1, T2,…, Tm in sequence. If each task Ti, i = 1, 2, …, n, can be done in ni ways, regardless of how the previous tasks were done, then there are n1.n2. … nm ways to carry out the procedure. The product rule is often phrased in terms of sets in this way: If A1, A2,…, Am are finite sets, then the number of elements in the Cartesian product of these sets is the product of the numbers of elements in each set, that is,</p>
-<p>|A1 × A2 ×…× Am| = |A1|.|A2| .…. |Am|</p>
-<details><summary>Example</summary><p>Example 1: An office building contains 27 floors and has 37 offices on each floor. How many offices are there are in the building? Solution: By the product rule there are 27.37 = 999 offices in the building.</p></details>
-<details><summary>Example</summary><p>Example 2: How many different three-letter initials with none of the letters can be repeated can people have? Solution: Here the first letter can be chosen in 26 ways, since the first letter is assigned we can choose second letter in 25 ways and in the same manner we can choose third letter in 24 ways. So by product rule number of different three-letter initials are 26.25.24 = 15600.</p></details>
-<details><summary>Example</summary><p>Example 3: How many strings are there of four lowercase letters that have the letter x in them? Solution: There are total 26.26.26.26 strings of four lowercase letters, by product rule. In the same way we can say that there are 25.25.25.25 strings of four lowercase letters without x, since without x there will be a set of 25 characters only. So there are total of 26.26.26.26 - 25.25.25.25 = 66351 four lowercase letter strings with x in them. This is true because we are decrementing total numbers of strings with the number of strings that do not contain x in them so at least one x will be in the strings.</p></details>
-<details><summary>Example</summary><p>Example 4: How many different bit strings of length five are there?  Solution: Each of the five bits can be chosen in two ways, because each bit is either 0  or 1. Therefore, the product rule shows there are a total of 2.2.2.2.2 = 25 = 32 different  bit strings of length five.</p></details>
-<p>Exercise 1: The chairs of an auditorium are to be labeled with a letter and a positive</p>
-<p>integer not exceeding 100. What is the largest number of chairs that can be  numbered? Exercise 2: How many different license plates are available if each plate contains</p>
-<p>sequence of three letters followed by three digits?</p>
-</section>
-<section><h4>2.2. The Sum Rule</h4>
-<p>If a task can be done either in one of n1 ways or in one of n2 ways, where none of the set of n1 ways is the same as any of the set of n2 ways, then there are n1 + n2 ways to do the task. We can extend the sum rule to more than two tasks. Suppose that a task can be done  in one of n1 ways, in one of n2 ways, …., or in one of nm ways, where none of the set  of ni ways of doing the task is the same as any of the set of nj ways, for all pairs i and j with 1 ≤ i &lt; j ≤ m. Then the number of ways to do the task is n1 + n2 + … + nm. The sum rule can be phrased in terms of sets: If A1, A2,…, Am are disjoint sets, then the number of elements in the union of these sets is the sum of the numbers of elements in them, that is,</p>
-<p>|A1 ∪ A2 ∪…∪ Am| = |A1| + |A2| +…+ |Am|</p>
-<p>Remember: This equality applies only when the sets are disjoint. For overlapping set we use different principle called inclusion exclusion principle.</p>
-<details><summary>Example</summary><p>Example 5: In how many ways we can draw a heart or a diamond from an ordinary deck of playing cards? Solution: There are total 13 cards of heart and 13 card of diamond. So, by sum rule total number of ways of picking heart or diamond is 13 + 13 = 26.</p></details>
-<details><summary>Example</summary><p>Example 6: How many ways we can get a sum of 4 or of 8 when two distinguishable dice (say one dice is red and the other is white) are rolled? Solution: Since dice are distinguishable outcome (1, 3) is different form (3, 1) so to get 4 as sum we have the pairs (1, 3), (3, 1), (2, 2), so total of 3 ways. And similarly getting 8 can be from pairs (2, 6), (6, 2), (3, 5), (5, 3), (4, 4), so total 5 ways. Hence getting sum of 4 or 8 is 3 + 5 = 8.</p></details>
-<details><summary>Example</summary><p>Example 7: A student can choose a computer project from one of three lists. The three lists contain 23, 15, and 19 possible projects, respectively. How many possible projects are there to choose from? Solution: The student can choose a project by selecting a project from the first list, the second list, or the third list. Because no project is on more than one list, by the sum rule there are 23 + 15 + 19 = 57 ways to choose a project.</p></details>
-<p>Exercise 3: Suppose that either a member of the computer faculty or a student who is a computer major is chosen as a representative to a university committee. How many different choices are there for this representative if there are 37 members of the computer faculty and 83 computer majors?</p>
-</section>
-<section><h4>2.3. The Subtraction Rule (Inclusion-Exclusion for Two Sets) Suppose</h4>
-<p>that a task can be done in one of two ways, but some of the ways to do it are  common to both ways. In this situation, we must subtract the number of ways that are  counted twice to the sum rule. If a task can be done in either n1 ways or n2 ways, then the number of ways to do the task is n1 + n2 minus the number of ways to do the task that are common to the two</p>
-<p>different ways. The subtraction rule is also known as the principle of inclusion-exclusion, especially when it is used to count the number of elements in the union of two sets. This counting principle can be phrased in terms of sets. Let A1 and A2 be sets and let T1 be the task of choosing an element from A1 and T2 the task of choosing an element from A2. There are |A1| ways to do T1 and |A2| ways to do T2. The number of ways to either T1 or T2 is the sum of the number of ways to do T1 and the number of ways to do T2, minus the number of ways to do both T1 and T2. Since, there are |A1 ∪ A2| ways to do either T1 or T2 and |A1 ∩ A2| ways to do both T1 and T2, we have |A1 ∪ A2 | = |A1| + |A2|  - |A1 ∩ A2|.</p>
-<details><summary>Example</summary><p>Example 8: How many bit strings of length eight either start with a 1 bit or end with the two bits 00? Solution: The first task, constructing a bit string of length eight beginning with a 1 bit, can be done in 27 = 128 ways (using product rule). The second task, constructing a bit string of length eight ending with the two bits 00, can be done in 26 = 64 ways (using product rule). Both tasks, constructing a bit string of length eight that begins with a 1 and ends with 00 can be done in 25 = 32 ways (using product rule). Hence, the number of bit strings of length eight that either start with a 1 bit or end with the two bits 00 is 128 + 64 – 32 = 160. Exercise 4: How many integers from 1 to 30 are multiples of 2 or 3?</p></details>
-</section>
-<section><h3>3. The Pigeonhole Principle</h3>
-<p>Pigeonhole principle states that if there are more pigeons than pigeonholes, then there must be at least one pigeonhole with at least two pigeons in it. The concept of pigeons can be extended to any objects.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 1: The pigeonhole principle: If k + 1 or more objects are placed into k boxes, then there is at least one box containing two or more of the objects.  Proof: Here, We use proof by contradiction. Suppose that k+1 or more objects are  placed into k boxes and no boxes contain more than one object in it. If there are k  boxes then there must be k objects such that there are no two objects in a box. This  contradicts our assumption. So there is at least one box containing two or more of the  objects.</div>
-<div class="callout key"><strong>Corollary:</strong> Corollary 1: A function f from a set with k + 1 or more elements to a set with k elements is not one-to-one. Proof: Suppose that for each element y in the codomain of f we have a box that contains all elements x of the domain of f such that f (x) = y. Because the domain contains k + 1 or more elements and the codomain contains only k elements, the pigeonhole principle tells us that one of these boxes contains two or more elements x of the domain. This means that f cannot be one-to-one.</div>
-<details><summary>Example</summary><p>Example 9: Show that if there are 30 students in a class, then at least two have last names that begin with the same letter. Proof: There are 30 students in the class and we have 26 letters in English alphabet</p></details>
-<p>that can be used in beginning of the last name. Since there are only 26 letters and 30 students, by pigeonhole principle at least two students have the last name that begins with the same letter. Example 10: How many students must be in a class to guarantee that at least two students receive the same score on the final exam, if the exam is graded on a scale from 0 to 100 points? Proof: There are 101 possible scores on the final. The pigeonhole principle shows that</p>
-<p>among any 102 students there must be at least 2 students with the same score.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 2: The generalized pigeonhole principle: If N objects are placed into k boxes, then there is at least one box containing at least ⎡N / k⎤objects.</div>
-<details><summary>Proof</summary><p>Proof: Suppose N objects are placed into k boxes and there is no box containing more than</p></details>
-<p>⎡N / k⎤-1 objects. So the total</p>
-<p>number of objects is at most</p>
-<p>k(</p>
-<p>⎡N / k⎤-1) &lt; k((N/k</p>
-<p>+ 1) –1) = N. This is the contradiction that N objects are placed into k boxes (since we</p>
-<p>showed that there is total number of objects less than N).</p>
-<details><summary>Example</summary><p>Example 11: Find the minimum number of people among 100 people who were born in the same month. Solution: Among 100 people there are at least  same month. ⎡100 /12⎤= 9 who were born in the</p></details>
-<details><summary>Example</summary><p>Example 12: If a class has 24 students, what is the maximum number of possible grading that must be done to ensure that there at least two students with the same grade.</p></details>
-<details><summary>Example</summary><p>Example 13: What is the minimum number of students required in a discrete mathematics class to be sure that at least six will receive the same grade, if there are five possible grades A, B, C, D, and F?</p></details>
-<p>such integer is N = 5.5 + 1 = 26. If you have only 25 students, it is possible for there to be five who have received each grade so that no six students have received the same grade. Thus, 26 is the minimum number of students needed to ensure that at least six students will receive the same grade.</p>
-</section>
-<section><h3>4. Permutations and Combinations</h3>
-<p>Many counting problems can be solved by finding the number of ways to arrange a specified number of distinct elements of a set of a particular size, where the order of</p>
-<p>these elements matters. Many other counting problems can be solved by finding the number of ways to select a particular number of elements from a set of a particular size, where the order of the elements selected does not matter.</p>
-</section>
-<section><h4>4.1. Permutations</h4>
-<p>A permutation of a set of distinct objects is an ordered arrangement of these objects. We are also interested in ordered arrangement of some of the elements of a set. An ordered arrangement of r elements of a set is called an r-permutation. The number of r-permutations of a set with n elements is denoted by P(n, r). We can find P(n, r) using the product rule.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 3: The number of r-permutations of a set with n distinct elements is</div>
-<p>n</p>
-<p>! P(n, r) = n(n – 1)(n – 2)…(n – r + 1) =</p>
-<p>( )! n r − Proof: The first element of the permutation can be chosen in n ways, since there are n elements in the set. There are n – 1 ways to choose the second element of the permutation, since there are n – 1 elements left in the set after using the element picked for the first position. Similarly, there are n – 2 ways to choose the third element, and so on, until there are exactly n – (r – 1) = n – r + 1 ways to choose the rth element. Hence, by the product rule, there are</p>
-<p>n n n n r n r n r= ( 1)( 2)....( 1)( )( 1)....1</p>
-<p>− − − + − − − n(n – 1)(n – 2)…(n – r + 1) = ( )( 1)....1 n r n r</p>
-<p>− − − n !</p>
-<p>( )!</p>
-<p>n r</p>
-<p>− r-permutations of the set.</p>
-<details><summary>Example</summary><p>Example 14: How many ways are there to select a first-prizewinner, a second prize winner, and a third prize winner from 100 different people who have entered a contest? Solution: The number of ways to pick the three prize winners is the number of  ordered selections of three elements from a set of 100 elements, that is, the number of  3 – permutations of a set of 100 elements. Consequently, the answer is  P(100, 3) = 100.99.98 = 970,200.</p></details>
-<details><summary>Example</summary><p>Example 15: Suppose that there are eight runners in a race. The winner receives a</p></details>
-<p>gold medal, the second-place finisher receives a silver medal, and the third-place finisher receives a bronze medal. How many different ways are there to award these medals, if all possible outcomes of the race can occur and there are no ties? Solution: The number of different ways to award the medals is the number of 3- permutations of the set with eight elements. Hence, there are P(8, 3) = 8.7.6 = 336 possible ways to award the medals.</p>
-<details><summary>Example</summary><p>Example 16: Suppose that a saleswoman has to visit eight different cities. She must begin her trip in a specified city, but she can visit other seven cities in any order she wishes. How many possible orders can the saleswoman use when visiting these cities? Solution: The number of possible paths between the cities is the number of permutations of seven elements, since the first city is determined, but the remaining seven can be ordered arbitrarily. Hence, there are P(7, 7) = 7! = 7.6.5.4.3.2.1 = 5040 ways for the saleswoman to choose her tour.</p></details>
-<details><summary>Example</summary><p>Example 17: How many permutations of the letters ABCDEFGH contain the string ABC? Solution: Because the letters ABC must occur as a block, we can find the answer by finding the number of permutations of six objects, namely, the block ABC and the individual letters D, E, F, G, and H. because these six objects can occur in any order, there are P(6, 6) = 6! = 720 permutations of the letters ABCDEFGH in which ABC occurs as a block.</p></details>
-</section>
-<section><h4>4.2. Combinations</h4>
-<p>An r-combination of elements of a set is an unordered selection of r elements from</p>
-<p>the set. Thus, an r-combination is simply a subset of the set with r elements.  The number of r-combination of a set with n distinct elements is denoted by C(n, r).  ( ) C(n, r) is also denoted by n</p>
-<p>rand is called binomial coefficient. We can</p>
-<p>determine the</p>
-<p>number of r-combinations of a set with n elements using the formula for the number of r-permutations of a set.</p>
-<details><summary>Example</summary><p>Example 18: What is the value of 2-combinations of the set {a, b, c, d}?  Solution: Since there are six subsets {a, b}, {a, c}, {a, d}, {b, c}, {b, d}, and {c, d}, the  value of 2-combinations C(4, 2) = 6.</p></details>
-<div class="callout key"><strong>Theorem:</strong> Theorem 4: The number of r-combinations of a set with n elements, where n is a nonnegative integer and r is an integer with 0 ≤ r ≤ n, equals</div>
-<p>C(n, r)</p>
-<p>= n</p>
-<p>!</p>
-<p>r n r</p>
-<p>!( )! −</p>
-<details><summary>Proof</summary><p>Proof: The r-permutations of the set can be obtained by forming r-combinations, C(n, r) of the set, and then ordering the elements in each r-combination, which can be done in P(r, r) ways. Hence,</p></details>
-<p>P(n, r) = C(n, r).P(r, r)</p>
-<p>C(n, r)</p>
-<p>=</p>
-<p>P n r=  ( , )</p>
-<p>n</p>
-<p>!</p>
-<p>P r r ( , )</p>
-<p>r n r !( )!</p>
-<p>−</p>
-<div class="callout key"><strong>Corollary:</strong> Corollary 2: Let n and r be nonnegative integers with r ≤ n. Then, C(n, r) = C(n, n – r). Proof: Form the above theorem, it follows that</div>
-<p>C(n, r)</p>
-<p>= n</p>
-<p>!</p>
-<p>r n r !( )! −</p>
-<p>and</p>
-<p>C(n, n – r) =</p>
-<p>n !</p>
-<p>n !</p>
-<p>− − −= !( )! ( )![ ( )]!</p>
-<p>n r n n r</p>
-<p>Hence, C(n, r) = C(n, n – r).</p>
-<p>r n r −</p>
-<details><summary>Example</summary><p>Example 19: How many ways to select five players from a 10-member tennis team to make a trip to a match at another school? Solution: The number of ways to select five players from a 10-member tennis team is C(10, 5) = 10! / 5!(10 – 5)! = 10! / 5!5! = 252.</p></details>
-<details><summary>Example</summary><p>Example 20: How many ways are there to select a committee to develop a discrete mathematics course at a school if the committee is to consist of three faculty members from the mathematics department and four from the computer science department, if there are 9 faculty members of the mathematics department and 11 of the computer science department? Solution: Here we can use product rule. Hence, the number of ways to select the committee is</p></details>
-<p>C(9, 3).C(11, 4) = 9! / 3!6! . 11! / 4!7! = 84.330 = 27,720. Note: The number of subsets of size r of a set with n elements is C(n, r). For example, the number of subsets of size 3 of the set {a, b, c, d} is C(4, 3) = 4 and the number of subsets of size 2 of the set {a, b, c, d} is C(4,2) = 6.</p>
-<p>Exercise 5: What is the number of subsets of size 5 of set with 10 elements?</p>
-</section>
-<section><h3>5. Binomial Coefficients and Identity</h3>
-</section>
-<section><h4>The number of r-combinations from a set with n elements is also called binomial  ( )</h4>
-<p>coefficient and is often denoted by n</p>
-<p>r. These numbers occur as coefficients in</p>
-<p>the</p>
-<p>expansion of powers of binomial expressions such as (a + b)n.</p>
-</section>
-<section><h4>5.1. The Binomial Theorem</h4>
-<p>The binomial theorem gives the coefficients of the expansion of the expansion of powers of binomial expression. A binomial expression is simply the sum of two terms, such as x + y.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 5: The Binomial Theorem: Let x and y be variables, and let n be a nonnegative integer. Then,</div>
-<p>(x + y)n = n ∑( )</p>
-<p>xn-jyj = n</p>
-<p>( )</p>
-<p>0xn +  n ( )</p>
-<p>1xn-1y +  n</p>
-<p>( )</p>
-<p>2xn-2y2</p>
-<p>+….+  n</p>
-<p>( )</p>
-<p>n−1xyn-1 +  n</p>
-<p>( )</p>
-<p>nyn n</p>
-<p>j = 0 j</p>
-<details><summary>Example</summary><p>Example 21: What is the expansion of (x + y)4? Solution: From the binomial theorem, it follows that</p></details>
-<p>4 (x + y)4 =</p>
-<p>∑( )</p>
-<p>jx4-jyj = 4 ( )</p>
-<p>0x4 +  4</p>
-<p>1x3y + (</p>
-<p>)4</p>
-<p>2x2y2 + ( ) 4</p>
-<p>( )</p>
-<p>3xy3 +  4 ( )</p>
-<p>4y4 4</p>
-<p>j = 0</p>
-<p>= x4 + 4x3y + 6x2y2 + 4xy3 + y4</p>
-<details><summary>Example</summary><p>Example 22: What is the coefficient of x12y13 in the expansion of (x + y) 25? Solution: From the binomial theorem, it follows that this coefficient is</p></details>
-<p>( ) 25</p>
-<p>13=</p>
-<p>25!=</p>
-<p>5200300 13!12!</p>
-<details><summary>Example</summary><p>Example 23: What is the coefficient of x12y13 in the expansion of (2x - 3y) 25? Solution: From the binomial theorem, it follows that this coefficient is</p></details>
-<p>( )</p>
-<p>13212(-3)13 = - 25 25!212(3)13 13!12!</p>
-<p>n</p>
-<p>∑( )</p>
-<p>= 2n.</p>
-<p>n Corollary 3: Let n be a nonnegative integer. Then</p>
-<p>k 0 k</p>
-<p>= Proof: Using the binomial theorem with x = 1 and y = 1, we see that</p>
-<p>2n = (1 + 1)n = n</p>
-<p>∑( )</p>
-<p>n ∑( )</p>
-<p>k = 0 n k</p>
-<p>1n-k1k =</p>
-<p>k</p>
-<p>= 0 n k</p>
-<p>n</p>
-<p>∑( )</p>
-<p>n Corollary 4: Let n be a nonnegative integer. Then</p>
-<p>k 0 k = Proof: By binomial theorem it</p>
-<p>follows that (-1)k = 0.</p>
-<p>0 = (1 +</p>
-<p>(-1))n = n ∑( )</p>
-<p>n ∑( )</p>
-<p>k = 0</p>
-<p>n k 1n-k(-1)</p>
-<p>k =</p>
-<p>k =</p>
-<p>0 n k (-1)k.</p>
-<p>n</p>
-</section>
-<section><h3>Corollary 5: Let n be a nonnegative integer. Then ∑( )</h3>
-<p>2k = 3n. n k 0 k</p>
-<p>= Proof: By binomial theorem it follows that</p>
-<p>n</p>
-<p>n</p>
-<p>3n = (1 + 2)n = ∑( )</p>
-<p>1n-k2k = ∑( )</p>
-<p>k</p>
-<p>=</p>
-<p>0 n k</p>
-<p>k</p>
-<p>=</p>
-<p>0</p>
-<p>n k 2k</p>
-</section>
-<section><h4>5.2. Pascal’s Identity and Triangle</h4>
-<p>The binomial coefficients satisfy many different identities. One such identity is called pascal’s Identity.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 6: Pascal’s Identity: Let n and k be positive integers with n ≥ k. Then</div>
-<p>( ) n+1</p>
-<p>k=</p>
-<p>( )</p>
-<p>n</p>
-<p>k −1+</p>
-<p>( ) n k</p>
-</section>
-<section><h3>Proof:( ) n</h3>
-<p>( ) n n !</p>
-<p>n !</p>
-<p>k −1+</p>
-<p>k</p>
-<p>= ( 1)!( 1)! k</p>
-<p>− n − k + + !( )! k n k</p>
-<p>−</p>
-<p>n ! n ! = ( 1)!( 1)( )!</p>
-<p>− − + −+  k n k n k</p>
-<p>k k n k ( 1)!( )! − −</p>
-<p>⎜</p>
-<p>⎜</p>
-<p>⎝</p>
-<p>⎛+</p>
-<p>− −⎟⎟</p>
-<p>⎠⎞</p>
-<p>n ! 1 1 = ( 1)!( )! k n k</p>
-<p>( 1)</p>
-<p>n k k − + )</p>
-<p>− −⎟⎟</p>
-<p>⎠⎞</p>
-<p>n</p>
-<p>⎜</p>
-<p>⎜</p>
-<p>⎝</p>
-<p>⎛− +</p>
-<p>! k n k</p>
-<p>1</p>
-<p>= ( 1)!( )! k n k n n !( 1)</p>
-<p>+</p>
-<p>+ − + ( 1) n k k</p>
-<p>= k n k n k k ( 1)!( )!( 1)</p>
-<p>− − − +</p>
-<p>( 1)!</p>
-<p>n + = !( 1)!</p>
-<p>k n k</p>
-<p>− +</p>
-<p>= ( )</p>
-<p>n+1 k Pascal’s identity is the basis for a geometric arrangement of the binomial coefficients in a triangle known as Pascal’s triangle. The nth row in the triangle consists of the binomial coefficients</p>
-<p>( )</p>
-<p>n</p>
-<p>k, k = 0, 1, …, n. Pascal’s identity shows that when two adjacent binomial coefficients in this triangle are added, the binomial coefficient in the next row between these two coefficients is produced. Pascal’s triangle is shown below.</p>
-<p>( )</p>
-<p>0 0 ( )1</p>
-<p>0( )11 ( )</p>
-<p>0 ( ) 1 1 1 1 2 1</p>
-<p>2</p>
-<p>1 ( ) 2 ( )</p>
-<p>2 2</p>
-<p>2 ( ) 1 3 3 1 ………….</p>
-<p>0 ( ) 3</p>
-<p>1 ( )</p>
-<p>3 3 3</p>
-<p>3</p>
-<p>……………….. …………………..</p>
-<p>……………..</p>
-</section>
-<section><h3>6. Generalized Permutations and Combinations  So far, we</h3>
-<p>discussed permutations and combinations in which each item could be used at most  once. In generalized permutations and combinations, we solve counting problems where elements  may be used more than once.</p>
-</section>
-<section><h4>6.1. Permutations with Repetition</h4>
-<p>Counting permutations when repetition of elements is allowed can easily be done using the product rule.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 7: The number of r-permutations of a set of n objects with repetition</div>
-<p>allowed is nr.</p>
-<details><summary>Example</summary><p>Example 24: How many strings of length 6 can be formed from the uppercase letters of the English alphabet? Solution: By the product rule, because there are 26 uppercase English letters, and because each letter can be used repeatedly, we see that there are 266 strings of uppercase English letters of length 6.</p></details>
-</section>
-<section><h4>6.2. Combinations with Repetition</h4>
-<div class="callout key"><strong>Theorem:</strong> Theorem 8: There are C(n + r − 1, r) = C(n + r − 1, n − 1) r-combinations from a set with n elements when repetition of elements is allowed.</div>
-<details><summary>Example</summary><p>Example 25: Suppose that a cookie shop has four different kinds of cookies. How many different ways can six cookies be chosen? Assume that only the type of cookie, and not the individual cookies or the order in which they are chosen, matters. Solution: The number of ways to choose six cookies is the number of 6-combinations of a set with four elements. This equals C(4 + 6 − 1, 6) = C(9, 6). Because C(9, 6) = C(9, 3) = 84. There are 84 different ways to choose the six cookies.</p></details>
-</section>
-<section><h4>6.3. Permutations with Indistinguishable Objects</h4>
-<p>Some elements may be indistinguishable in counting problems. When this is the case, care must be taken to avoid counting things more than once. Theorem 9: The number of different permutations of n objects, where there are n1 indistinguishable objects of type 1, n2 indistinguishable objects of type 2, …, and nk indistinguishable objects of type k, is</p>
-<p>n ! n n nk</p>
-<p>1! 2!..... !</p>
-<details><summary>Example</summary><p>Example 26: How many different strings can be made by reordering the letters of the word SUCCESS? Solution: This word contains three Ss, two Cs, one U, and one E. The number of</p></details>
-<p>different strings that can be made by reordering letters is</p>
-<p>7!= 420. 3!2!1!1!</p>
-</section>
-<section><h3>7. Generating Permutations and Combinations  So far we</h3>
-<p>discussed methods for counting various types of permutations and  combinations. Sometimes permutations or combinations need to be generated, not just  counted.</p>
-</section>
-<section><h4>7.1. Generating Permutations</h4>
-<p>Any set with n elements can be placed in one-to-one correspondence with the set {1, 2, 3, …, n}. We can list the permutations of any set of n elements by generating the permutations of the n smallest positive integers and then replacing these integers with the corresponding elements. An algorithm for generating the permutations of {1, 2, …, n} can be based on a procedure that constructs the next permutation in lexicographic order following a given permutation a1a2 … an. First, find the integers aj and aj+1 with aj &lt; aj+1 and aj+1 &gt; aj+2 &gt;….&gt; an that is, the last pair of adjacent integers in the permutation where the first integer in the pair is smaller than the second. Then, the next larger permutation in lexicographic order is obtained by putting in the jth position the least integer among aj+1, aj+2, …, and an that is greater than aj and  listing in increasing order the rest of the integers aj, aj+1, …, an in positions j + 1 to n.</p>
-<details><summary>Example</summary><p>Example 27: What is the next permutation in lexicographic order after 362541? Solution: The last pair of integers aj and aj+1 where aj &lt; aj+1 is a3 = 2 and a4 = 5. The least integer to the right of 2 that is greater than 2 in the permutation is a5 = 4. Hence, 4 is placed in the third position. Then the integers 2, 5, and 1 are placed in order in the last three positions, giving 125 as the last three positions of the permutation. Hence, the next permutation is 364125.</p></details>
-<p>To produce the all n! permutations of the integers 1, 2, 3, …, n, begin with the smallest permutation in lexicographic order, namely, 123 · · · n, and successively apply the procedure described for producing the next larger permutation of n! − 1 times. This yields all the permutations of the n smallest integers in lexicographic order.</p>
-<details><summary>Example</summary><p>Example 28: Generate the permutations of the integers 1, 2, 3 in lexicographic order. Solution: Begin with 123. The next permutation is obtained by interchanging 3 and 2 to obtain 132. Next, because 3 &gt; 2 and 1 &lt; 3, permute the three integers in 132. Put the smaller of 3 and 2 in the first position, and then put 1 and 3 in increasing order in positions 2 and 3 to obtain 213. This is followed by 231, obtained by interchanging 1 and 3, because 1 &lt; 3.  The next larger permutation has 3 in the first position, followed by 1 and 2 in  increasing order, namely, 312. Finally, interchange 1 and 2 to obtain the last permutation, 321. Hence, permutations of 1, 2, 3 in lexicographic order are 123, 132, 213, 231, 312, and</p></details>
-<p>321.</p>
-</section>
-<section><h4>7.2. Generating Combinations</h4>
-<p>We can generate all the combinations of the elements of a finite set. Because a combination is just a subset, we can use the correspondence between subsets of {a1,  a2 ,…, an} and bit strings of length n. The bit string corresponding to a subset has a 1  in position k if ak is in the subset, and has a 0 in this position if ak is not in the subset.  If all the bit strings of length n can be listed, then by the correspondence between subsets and bit strings, a list of all the subsets is obtained. To produce all bit strings of length n, start with the bit string 000 … 00, with n zeros. Then, successively find the next expansion until the bit string 111 … 11, with n ones is obtained. At each stage the next binary expansion is found by locating the first position from the right that is not a 1, then changing all the 1s to the right of this position to 0s and making this first 0 (from the right) a 1.</p>
-<details><summary>Example</summary><p>Example 29: Find the next bit string after 1000100111. Solution: The first bit from the right that is not a 1 is the fourth bit from the right. Change this bit to a 1 and change all the following bits to 0s. This produces the next larger bit string, 1000101000.</p></details>
-<details><summary>Example</summary><p>Example 30: Generate all combinations of the set {a, b, c}. Solution: Here we start with the bit string 000. The next bit string after 000 is 001. The remaining bit strings are 010, 011, 100, 101, 110, and 111. Hence, all combinations of the set {a, b, c} are {{φ}, {c}, {b}, {b, c}, {a}, {a, c}, {a, b}, {a, b, c}}.</p></details>
-<p>Generating r-Combinations: An r-combination of the set {1, 2, 3, …, n} can be represented by a sequence containing the elements in the subset in increasing order. The r-combinations can be listed using lexicographic order on these sequences. In this lexicographic ordering, the first r-combination is {1, 2, …, r − 1, r} and the last</p>
-<p>r-combination is {n − r + 1, n − r + 2, . . . , n − 1, n}. To find next r-combination after a1a2 … ar, first locate the last element ai in the sequence such that ai ≠ n − r + i. Then, replace ai with ai + 1 and aj with ai + j − i + 1, for j = i + 1, i + 2, …, r.</p>
-<details><summary>Example</summary><p>Example 31: Find next larger 4-combination of the set {1, 2, 3, 4, 5, 6} after {1, 2, 5,</p></details>
-<p>6}. Solution: The last term among the terms ai with a1 = 1, a2 = 2, a3 = 5, and a4 = 6 such that ai ≠ 6 − 4 + i is a2 = 2. To obtain the next larger 4-combination, increment a2 by 1 to obtain a2 = 3. Then set a3 = 3 + 1 = 4 and a4 = 3 + 2 = 5. Hence the next larger 4- combination is {1, 3, 4, 5}.</p>
-</section>
-<section><h2>Advanced Counting Techniques</h2>
-</section>
-<section><h3>1. Recurrence Relations</h3>
-<p>Some counting problems cannot be solved using the methods we have learnt before. One of the ways of solving counting problems is by finding relationships, called recurrence relation, between the terms of a sequence. When we represent some problem using recursive definition, we specify some initial condition and the recursive condition. We use such definition to solve the relation called recurrence</p>
-<p>relation. A recurrence relation for the sequence {an} is an equation that expresses an in terms of one or more of the previous terms of the sequence, namely, a0, a1, …, an-1, for all integers n with n ≥ n0, where n0 is a nonnegative integer. A sequence is called a solution of a recurrence relation if its term satisfies the recurrence relation.</p>
-<details><summary>Example</summary><p>Example 1: Let {an} be a sequence that satisfies the recurrence relation an = an – 1 + 1</p></details>
-<p>for n = 2, 3,…, and suppose that a1 = 1. What is the sequence? Solution: We have a1 = 1, a2 = a1 + 1 = 1 + 1 = 2, a3 = a2 + 1 = 2 + 1 = 3, and so on. Hence, the sequence is 1, 2, 3, 4, 5…</p>
-<details><summary>Example</summary><p>Example 2: For an = -2an-1 and a0 = -1 find a1, a2, a3, a4, and a5. Solution: We have a0 = -1, a1 = -2a0 = -2.-1 = 2, a2 = -2a1 = -2.2 = -4, a3 = -2a2 = -2.-4  = 8, a4 = -2a3 = -2.8 = -16, and a5 = -2a4 = -2.-16 = 32</p></details>
-<details><summary>Example</summary><p>Example 3: Is the sequence {an} a solution of the recurrence relation an = -3an-1 + 4an</p></details>
-<p>2 if an = 2n? Solution: Suppose that an = 2n. Then we see that -3an-1 + 4an-2 = -3.2(n-1) + 4.2(n-2) = -6n + 6 + 8n – 16 = 2n – 10 ≠ 2n, so it is not a solution of the recurrence relation. Alternatively, suppose that an = 2n. Then we have a0 = 0, a1 = 2, and a2 = 4. Since -3a1 + 4a0 = -3.2 + 4.0 = -6 ≠ a2, an = 2n is not a solution of the recurrence relation.</p>
-<details><summary>Example</summary><p>Example 4: Is the sequence {an} a solution of the recurrence relation an = 2an-1 – an-2</p></details>
-<p>for n = 2, 3, 4, … where an = 3n for every nonnegative integer n. Solution: Suppose that an = 3n. Then we see that 2an-1 – an-2 = 2.3(n -1) – 3(n – 2) = 6n – 6 – 3n + 6 = 3n. So, it is a solution of the recurrence relation.</p>
-<p>Exercise 1: Determine whether the sequence {an} is a solution of the recurrence relation an = 2an-1 – an-2 for n = 2, 3, 4,…, where an = 2n for every nonnegative integer n. Also determine for an = 5.</p>
-<p>Recurrence relations can be used of study and to solve many different counting problems as given in the examples below.</p>
-<details><summary>Example</summary><p>Example 5: Suppose the number of bacteria in a colony doubles every hour. If a colony begins with five bacteria, how many will be present in n hours?  Solution: Let an be the number of bacteria at the end of n hours. Because the number  of bacteria doubles every hour, the relationship an = 2an−1 holds whenever n is a  positive integer. This recurrence relation, together with the initial condition a0 = 5,  uniquely determines an for all nonnegative integers n. We can find a solution for an using the iterative approach as follows.</p></details>
-<p>an = 2.an-1 = 2.2.an-2 = 2.2.2.an-3 = 2.2.2…..2.an-n = 2n.a0 = 2n.5 So, an = 5.2n for all nonnegative integers n. Example 6: Find the recurrence relation to find the total amount after 30 years if a person deposits $10,000 in a savings account at a bank yielding 11% per year with interest compounded annually. Solution: Let Pn denote the amount in the account after n years. Since the amount in the account after n years equals the amount in the account after n – 1 years plus the interest for the nth year, we see that the sequence {Pn} satisfies the recurrence relation Pn = Pn-1 + 0.11Pn-1 = (1.11)Pn-1 with initial condition is P0 = 10000. We can use an iterative approach to solve this recurrence relation as</p>
-<p>Pn = (1.11)Pn-1 = (1.11) (1.11)Pn-2 = (1.11) (1.11)….(1.11)Pn-n = (1.11)nP0 Hence, P30 = (1.11)3010000 = $228,922.97.</p>
-</section>
-<section><h3>2. Solving Recurrence Relations</h3>
-<p>We encounter different types of recurrence relations. There is no specific technique to solve all the recurrence relation. However, we solve recurrence relation with some particular forms by using the systematic methods. In this section we are going to see few of them.</p>
-</section>
-<section><h4>2.1. Solving Linear Homogenous Recurrence Relation with  Constant</h4>
-</section>
-<section><h4>Coefficients</h4>
-<p>A linear homogeneous recurrence relation of degree k with constant coefficients is a recurrence relation of the form an = c1an-1 + c2an-2 + … + ckan-k, where c1, c2,…,ck are real numbers, and ck ≠ 0. The above relation is linear since right hand side is the sum of the multiples of previous terms of the sequence. It is homogeneous because no term occurs without being multiple of some ajs. All the coefficients of the terms are constants because they do not depend on n. And, the degree of the relation is k because an is expressed in terms of previous k terms of the sequence.</p>
-<details><summary>Example</summary><p>Example 4: The recurrence relation Pn = (1.11)Pn-1 is a linear homogeneous recurrence relation of degree one. The recurrence relation fn = fn-1 + fn-2 is a linear homogeneous recurrence relation of degree two. The recurrence relation an = an-5 is a linear homogeneous recurrence relation of degree 5. The recurrence relation an = an-1 + a2n-2 is not linear. The recurrence relation an = 2an 1 + 1 is not homogeneous. The recurrence relation an = nan-1 does not have constant coefficient.</p></details>
-<p>In solving the recurrence relation of this type, the approach is to look for the solution of the form an = rn, where r is a constant. an = rn is a solution of a recurrence relation  an = c1an-1 + c2an-2 + … + ckan-k if and only if rn = c1rn-1 + c2rn-2 + … + ckrn-k. When we divide both sides by rn-k and transpose the right hand side we have rk - c1rk-1 - c2rk-2 -  … - ck = 0. Here we can say an = rn is a solution if and only if r is the solution of the equation rk - c1rk-1 - c2rk-2 - … - ck = 0 (characteristic equation of the recurrence relation) and solutions to this equations are called characteristic roots of the recurrence relation.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 1: Let c1 and c2 be real numbers. Suppose that r2 - c1r - c2 = 0 has two distinct roots r1 and r2. Then the sequence {an} is a solution of the recurrence relation</div>
-<p>an = c1an-1 + c2an-2 if and only if an = α1r1</p>
-<p>n + α2r2</p>
-<p>n for n = 0, 1, 2, …. where α1 and α2 are constants.</p>
-<details><summary>Example</summary><p>Example 5: Solve the recurrence relation an = an-1 + 6an-2 for n ≥ 2, a0 = 3, a1 = 6. Solution: Characteristic equation of the given relation is r2 - r - 6 = 0. Its roots are r = 3 and r = -2 since (r - 3)(r + 2) = 0. Hence, the sequence {an} is a solution to the recurrence relation if and only if an = α13n + α2(-2)n, for some constants α1 and α2. From the initial conditions we have a0 = 3 = α1+ α2, a1 = 6 = 3α1+ (-2)α2. Solving these two equations we have α1 = 12/5 and α2 = 3/5. Hence, the solution is the</p></details>
-<p>sequence {an} with an = (12.3n + 3(-2)n)/5.</p>
-<p>Exercise 2: What is the solution of the recurrence relation an = an-1 + 2an-2 with a0 = 2</p>
-<p>and a1 = 7.</p>
-<p>Exercise 3: Find the explicit formula for the Fibonacci numbers. [Use fn = fn-1 + fn-2 as recursive condition and f0 = 0 and f1 = 1 as initial condition]</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 2: Let c1 and c2 be real numbers with c2 ≠ 0. Suppose that r2 - c1r - c2 = 0  has</div>
-<p>only one root r0. Then the sequence {an} is a solution of the recurrence relation an =</p>
-<p>c1an-1 + c2an-2 if and only if an = α1r0</p>
-<p>n + α2nr0</p>
-<p>n for n = 0, 1, 2,…, where α1 and α2 are constants.</p>
-<details><summary>Example</summary><p>Example 6: Solve the recurrence relation an = 2an-1 - an-2 for n ≥ 2, a0 = 3, a1 = 6. Solution: Characteristic equation of the given relation is r2 - 2r + 1 = 0. Its only root is r = 1. Hence, the sequence {an} is a solution to the recurrence relation if and only if an = α11n + α2n1n, for some constants α1 and α2. From the initial conditions we have a0 = 3 = α1 and a1 = 6 = α1 + α2. Solving these two equations we have α1 = 3 and α2 = 3. Hence, the solution is the sequence {an} with an = 3(1n + n1n) = 3(1 + n).</p></details>
-<p>Exercise 4: What is the solution of the recurrence relation an = 6an-1 – 9an-2 with  initial conditions a0 = 1 and a1 = 6?</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 3: Let c1, c2, …, ck be real numbers. Suppose that rk - c1rk-1 - … - ck = 0 has k distinct roots r1, r2, …, rk. Then the sequence {an} is a solution of the recurrence</div>
-<p>relation an = c1an-1 + c2an-2 + … + ckan-k if and only if an = α1r1</p>
-<p>n + α2r2</p>
-<p>n + … + αkrkn  for n = 0, 1, 2, …, where α1, α2, …, αk are constants.</p>
-<details><summary>Example</summary><p>Example 7: Solve the recurrence relation an = 2an-1 + an-2 - 2an-3 for n ≥ 3, a0 = 3, a1 =  6</p></details>
-<p>and a2 = 9. Solution: Characteristic equation of the given relation is r3- 2r2 - r + 2 = 0. Its roots are r = 1, r = -1, and r = 2. Hence, the sequence {an} is a solution to the recurrence relation if and only if an = α11n + α2(-1)n + α32n, for some constants α1, α2, and α3. From the initial conditions we have a0 = 3 = α1 + α2 + α3, a1 = 6 = α1 - α2 + 2α3, and  a2 = 9 = α1 + α2 + 4α3. Solving these equations we have α1 = 3/2, α2 = -1/2, and α3 =  2. Hence, the solution is the sequence {an} with an = (3/2)1n – (1/2)(-1)n + 2.2n.</p>
-<p>Exercise 5: Find the solution to the recurrence relation an = 6an-1 – 11an-2 + 6an-3 with the initial conditions a0 = 2, a1 = 5, and a2 = 15.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 4: Let c1, c2, …, ck be real numbers. Suppose that rk - c1rk-1 - … - ck = 0 has  t distinct roots r1, r2, …, rt with multiplicity m1, m2, …, mt, respectively, so that mi ≥ 1 for i = 1, 2, …, t and m1 + m2 + …+ mt = k. Then the sequence {an} is a solution of  the recurrence relation an = c1an-1 + c2an-2 + … + ckan-k if and only if</div>
-<p>an = (α1,0 + α1,1n + … + α1,m1-1nm1-1) r1n</p>
-<p>+ (α2,0 + α2,1n + … + α2,m2-1nm2-1) r2</p>
-<p>n</p>
-<p>+ … + (αt,0 + αt,1n + … + αt,mt-1nmt-1) rtn</p>
-<p>for n = 0, 1, 2, …, where αi,j are constants for 1 ≤ i ≤ t and 0 ≤ j ≤ mi-1.</p>
-<details><summary>Example</summary><p>Example 8: Solve the recurrence relation an = 5an-1 - 7an-2 + 3an-3 for n ≥ 3, a0 = 1, a1 = 9 and a2 = 15. Solution: Characteristic equation of the given relation is r3 - 5r2 + 7r - 3 = 0. Its roots are r = 1, r = 3, and r = 1. i.e. r1 = 1, m1 = 2 and r2 = 3, m2 = 1 Hence, the sequence {an} is a solution to the recurrence relation if and only if an = (α1,0 + α1,1n) 1n + (α2,0) 3n, for some constants α1,0, α1,1, and α2,0. From the initial conditions we have a0 = 5 = α1,0 + α2,0 , a1 = 9 = α1,0 + α1,1 + 3α2,0, and a2 = 15 = α1,0 + 2α1,1 + 9α2,0. Solving  these equations we have α1,0 = 3/2, α1,1 = 9, and α3 = -1/2. Hence, the solution is the sequence {an} with an = (3/2)1n + 9n1n - (1/2)3n.</p></details>
-<p>Exercise 6: Find the solution to the recurrence relation an = -3an-1 – 3an-2 – an-3 with initial conditions a0 = 1, a1 = -2 and a2 = -1.</p>
-</section>
-<section><h4>2.2. Solving Linear Nonhomogeneous Recurrence Relation with</h4>
-</section>
-<section><h4>Constant Coefficients</h4>
-<p>The recurrence relation of the form an = c1an-1 + c2an-2 + … + ckan-k + F(n), where c1, c2, …, ck are real numbers and F(n) is a function depending upon n. The recurrence relation preceding F(n) is called associated homogeneous recurrence relation. For example, an = 7an-1 + 3an-2 +6n is a linear nonhomogeneous recurrence relation with constant coefficients.</p>
-<details><summary>Example</summary><p>Example 9: Each of the recurrence relations an = 3an-1 + 2n, an = an-1 + 2n, an = an-1 + an-2 + n2 + n + 1, an = 3an-1 + n3n, and an = an-1 + an-2 + an-3 + n! is a linear nonhomogeneous recurrence relation with constant coefficients. The associated linear homogeneous recurrence relations are an = 3an-1, an = an-1, an = an-1 + an-2, an = 3an-1</p></details>
-<p>and an = an-1 + an-2 + an-3, respectively.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 5: If {an</div>
-<p>(p)} is a particular solution of the nonhomogeneous linear recurrence relation with constant coefficients an = c1an-1 + c2an-2 + … + ckan-k + F(n),</p>
-<p>then every solution is of the form {an</p>
-<p>(p)</p>
-<p>+ an</p>
-<p>(h)}, where an</p>
-<p>(h) is a solution of the associated homogeneous recurrence relation an = c1an-1 + c2an-2 + … + ckan-k.</p>
-<details><summary>Example</summary><p>Example 10: Find all the solutions of the recurrence relation an = 4an-1 + n2. Also find the solution of the relation with initial condition a1 = 1. Solution: We have associated linear homogeneous recurrence relation as an = 4an-1.</p></details>
-<p>The root is 4, so the solutions are an</p>
-<p>(h) = α4n, where α is a constant.  Since F(n) = n2 is a polynomial of degree 2, a trial solution is a quadratic function in  n, say, pn = an2 + bn + c, where a, b, and c are constants. To determine whether there  are any solutions of this form, suppose that pn = an2 + bn + c is such solution. Then  the equation an = 4an-1 + n2 becomes</p>
-<p>an2 + bn + c = 4(a(n-1)2 + b(n-1) + c) + n2</p>
-<p>= 4an2 –8an + 4a + 4bn – 4b + 4c + n2</p>
-<p>= (4a + 1)n2 + (-8a + 4b)n +(4a – 4b + 4c) Here an2 + bn + c is the solution if and only if 4a + 1 = a i.e. a = -1/3; -8a + 4b = b i.e.</p>
-<p>b = -8/9; 4a – 4b + 4c = c i.e. c = -20/27. So an</p>
-<p>(p) = -( n2 + 8n + 28)/3 is a particular</p>
-<p>(p)</p>
-<p>+ an</p>
-<p>(h)} = -( n2 + 8n/3 + 20/9)/3 + α4n,where  α is a constant. For solution with a1 = 1, we have a1 = 1 = -(1 + 8/3 + 20/9)/3 + α4 i.e. α = 20/27.  Then the solution is an = - (n2 + 8n/3 + 20/9)/3 + 20.4n/27. Exercise 7: Find all solutions of the recurrence relation an = 3an-1 + 2n. What is the</p>
-<p>Exercise 8: Find all solutions of the recurrence relation an = 5an-1 - 6an-2 + 7n.</p>
-<div class="callout key"><strong>Theorem:</strong> Theorem 6: Suppose that {an} satisfies the linear nonhomogeneous recurrence relation an = c1an-1 + c2an-2 + … + ckan-k + F(n), where c1, c2, …, ck are real numbers and F(n) = (btnt + bt-1nt-1 + … + b1n + b0)sn, where b0, b1, …, bt and s are real  numbers. When s is not a root of the characteristic equation of the associated linear homogeneous recurrence relation, there is a particular solution of the form (ptnt + pt</div>
-<p>1nt-1 + … + p1n + p0)sn. When s is a root of the characteristic equation and its multiplicity is m, there is a particular solution of the form nm(ptnt + pt-1nt-1 + … + p1n + p0)sn.</p>
-<details><summary>Example</summary><p>Example 11: Find the solution of the recurrence relation an = 2an-1 + n.2n.  Solution: We have the associated linear homogeneous recurrence relation is an = 2an-1.  The characteristic equation for this would be r-2 = 0, so the root is 2 and hence the</p></details>
-<p>(h) = α2n, where α is a constant. We have F(n) = n.2n. (Of the form  n.sn) where s is the root of the characteristic equation and the multiplicity of 2 is 1 so,  the particular solution has the form n.(p1n + p0)2n = p1n22n + p0n2n. Hence, all  solutions of the original recurrence relation are given by an = α2n + p1n22n + p0n2n.</p>
-<p>Exercise 9: What form does a particular solution of the linear nonhomogenous recurrence relation an = 6an-1 – 9an-2 + F(n) have when F(n) = 3n, F(n) = n3n, F(n) = n22n, and F(n) = (n2 + 1)3n?</p>
-</section>
-<section><h2>Discrete Probability</h2>
-</section>
-<section><h3>1. Finite Probability</h3>
-<p>An experiment is a procedure that yields one of a given set of possible outcomes. The sample space of the experiment is the set of possible outcomes. An event is a subset of the sample space. Laplace’s definition of the probability of an event with finitely many possible outcomes is defined as follows. If S is a finite nonempty sample space of equally likely outcomes, and E is an event,  | | that is, a subset of S, then the probability of E is p(E) =</p>
-<p>E. | |</p>
-<p>S</p>
-<p>According to Laplace’s definition, the probability of an event is between 0 and 1. To see this, note that if E is an event from a finite sample space S, then 0 ≤ |E| ≤ |S|, because E ⊆ S. Thus, 0 ≤ p(E) = |E| / |S| ≤ 1.</p>
-<details><summary>Example</summary><p>Example 1: What is probability that a fair die comes up an odd number when it is</p></details>
-<p>rolled?</p>
-<p>| | the probability that the die comes up an odd number is</p>
-<p>E=  | | S 3= 2</p>
-<p>1. 6</p>
-<details><summary>Example</summary><p>Example 2: An urn contains four blue balls and five red balls. What is the probability that a ball chosen at random from the urn is blue? Solution: To calculate the probability, note that there are nine possible outcomes, and four of these possible outcomes produce a blue ball. Hence, the probability that a blue ball is chosen is 4/9.</p></details>
-<p>Exercise 1: What is the probability that when two fair dice are rolled, the sum of the numbers on the two dice is 7?</p>
-</section>
-<section><h3>2. Probabilities of Complements and Unions of Events</h3>
-<div class="callout key"><strong>Theorem:</strong> Theorem 1: Let E be an event in a sample space S. The probability of the event  S − E, the complementary event of E, is given by p(E) = 1 − p(E). E=</div>
-<details><summary>Proof</summary><p>Proof: To find the probability of the event</p></details>
-<p>| | | |</p>
-<p>S − E= 1 -</p>
-<p>| |</p>
-<p>| | E= S − E, note that |E| = |S| − |E|. Hence,</p>
-<p>p( E) = | | S E= 1 – p(E).  S</p>
-<details><summary>Example</summary><p>Example 3: A sequence of 10 bits is randomly generated. What is the probability that at least one of these bits is 0?</p></details>
-<p>|</p>
-<p>E= 1 −</p>
-<p>10 2 p(E) = 1 − p(</p>
-<p>E) = 1 −</p>
-<p>| | S</p>
-<p>1= 1023. 1024 Theorem 2: Let E1 and E2 be events in the sample space S. Then p(E1 ∪ E2) = p(E1) + p(E2) − p(E1 ∩ E2).</p>
-<details><summary>Proof</summary><p>Proof:</p></details>
-<p>| E | | E | -| E E | | E E |</p>
-<p>+ ∩= p(E1) + p(E2) − p(E1 ∩ E2).</p>
-<p>∪=</p>
-<p>| |</p>
-<p>p(E1 ∪ E2) = | |</p>
-<p>1 2</p>
-<p>S</p>
-<p>1 2 1 2 S</p>
-<details><summary>Example</summary><p>Example 4: What is the probability that a positive integer selected at random from the</p></details>
-<p>set of positive integers not exceeding 100 is divisible by either 2 or 5? Solution: Let E1 be the event that the integer selected at random is divisible by 2, and let E2 be the event that it is divisible by 5. Then E1 ∪ E2 is the event that it is divisible by either 2 or 5. Also, E1 ∩ E2 is the event that it is divisible by both 2 and 5, or equivalently, that it is divisible by 10. Because |E1| = 50, |E2| = 20, and |E1 ∩ E2| = 10, it follows that p(E1 ∪ E2) = p(E1) + p(E2) − p(E1 ∩ E2) = 50/100 + 20/100 - 10/100 = 3/5.</p>
-</section>
-<section><h3>3. Assigning Probabilities</h3>
-<p>Let S be the sample space of an experiment with a finite or countable number of outcomes. We assign a probability p(s) to each outcome s. We require that two conditions be met:</p>
-<p>(i) 0 ≤ p(s) ≤ 1 for each s ∈ S and</p>
-<p>(ii)   ∑ s∈S  p(s)= 1</p>
-<p>Condition (i) states that the probability of each outcome is a nonnegative real number no greater than 1. Condition (ii) states that the sum of the probabilities of all possible outcomes should be 1. Note that when there are n possible outcomes, x1, x2, …, xn, the two conditions to be met are</p>
-<p>(i) 0 ≤ p(xi) ≤ 1 for i = 1, 2, . . . , n and</p>
-<p>n</p>
-<p>(ii) ∑</p>
-<p>i p x= 1</p>
-<p>( )</p>
-<p>i = 1</p>
-<p>The function p from the set of all outcomes of the sample space S is called a probability distribution.</p>
-<p>Suppose that S is a set with n elements. The uniform distribution assigns the probability 1/n to each element of S. Uniform distribution assigns the same  probability to an event. The experiment of selecting an element from a sample space  with a uniform distribution is called selecting an element of S at random. We can model experiments in which outcomes are either equally likely or not equally likely by choosing the appropriate function p(s).</p>
-<details><summary>Example</summary><p>Example 5: What probabilities should we assign to the outcomes H (heads) and T (tails) when a fair coin is flipped? What probabilities should be assigned to these outcomes when the coin is biased so that heads comes up twice as often as tails? Solution: For a fair coin, the probability that heads comes up when the coin is flipped</p></details>
-<p>equals the probability that tails comes up, so the outcomes are equally likely. Consequently, we assign the probability 1/2 to each of the two possible outcomes, that is, p(H) = p(T ) = 1/2. For the biased coin we have p(H) = 2p(T ).</p>
-<p>Because p(H) + p(T ) = 1, it follows that 2p(T ) + p(T ) = 3p(T ) = 1. We conclude that p(T ) = 1/3 and p(H) = 2/3.</p>
-<details><summary>Example</summary><p>Example 6: Suppose that a die is biased (or loaded) so that 3 appears twice as often as each other number but that the other five outcomes are equally likely. What is the probability that an odd number appears when we roll this die? Solution: We want to find the probability of the event E = {1, 3, 5}. Since we have p(1) = p(2) = p(4) = p(5) = p(6) = 1/7 and p(3) = 2/7.</p></details>
-<p>It follows that p(E) = p(1) + p(3) + p(5) = 1/7 + 2/7 + 1/7 = 4/7.</p>
-<p>Probability of Event: The probability of the event E is the sum of the probabilities of the outcomes in E. That is,</p>
-<p>p(E)</p>
-<p>=∑ s∈E</p>
-<p>p(s)</p>
-<p>n ∑</p>
-<p>p(E) = ( )</p>
-<p>p ai</p>
-<p>i = 1 If there are n equally likely outcomes in the samples space, each possible outcome has probability 1/n. suppose the event E contains m outcomes, then</p>
-<p>p(E) =</p>
-<p>m ∑</p>
-<p>1= m n</p>
-<p>i 1 n</p>
-<p>= since |E| = m and |S| = n, it follows that</p>
-<p>p(E) =</p>
-<p>m=  n</p>
-<p>| | E</p>
-<p>| | S</p>
-</section>
-<section><h3>4. Conditional Probability</h3>
-<p>Let E and F be events with p(F) &gt; 0. The conditional probability of E given F, denoted by p(E | F), is defined as</p>
-<p>p(E | F) =</p>
-<p>p(E∩ F).</p>
-<p>p(F)</p>
-<details><summary>Example</summary><p>Example 7: Suppose that we flip a coin three times, and all eight possibilities are</p></details>
-<p>equally likely. What is the probability that an odd number of tails appear given that the first flip is tail? Solution: Let E be the event that odd number of tails appear and let F be the event that the first flip is tail. The probability that an odd number of tails appear given that the first flip is tail equals</p>
-<p>p(E | F)</p>
-<p>=</p>
-<p>p(E∩ F)</p>
-<p>p(F)</p>
-<p>Because E ∩ F = {THH, HTH, HHT, TTT} ∩ {THH, THT, TTH, TTT) = {THH, TTT} we see that p(E ∩ F) = 2/8 = 1/4. Because there are there are four outcomes that start with tail, we have p(F) = 4/8 = 1/2. Consequently,</p>
-<p>p(E | F) =</p>
-<p>1/4= 1/2.</p>
-<p>1/2</p>
-<p>Exercise 2: A bit string of length four is generated at random so that each of the 16  bit strings of length four is equally likely. What is the probability that it contains at  least two consecutive 0s, given that its first bit is a 0?</p>
-<p>Exercise 3: What is the conditional probability that a family with two children has two boys, given they have at least one boy? Assume that each of the possibilities BB, BG, GB, and GG is equally likely, where B represents a boy and G represents a girl. (Note that BG represents a family with an older boy and a younger girl while GB represents a family with an older girl and a younger boy.)</p>
-</section>
-<section><h3>5. Independence</h3>
-<p>When two events are independent, the occurrence of one of the events gives no information about the probability that the other event occurs. The events E and F are independent if and only if p(E ∩ F) = p(E)p(F). For example, the events E and F in example 7 above are independence because the first flip comes up tails (event F) does not alter the probability that tails comes up an odd number of times (event E). Also, p(E ∩ F) = p(E)p(F) = 1/4.</p>
-<details><summary>Example</summary><p>Example 8: Suppose E is the event that a randomly generated bit string of length four begins with a 1 and F is the event that this bit string contains an even number of 1s. Are E and F independent, if the 16 bit strings of length four are equally likely? Solution: There are eight bit strings of length four that begin with a one: 1000, 1001, 1010, 1011, 1100, 1101, 1110, and 1111. There are also eight bit strings of length four that contain an even number of ones: 0000, 0011, 0101, 0110, 1001, 1010, 1100,  1111. Because there are 16 bit strings of length four, it follows that  p(E) = p(F) = 8/16 = 1/2.</p></details>
-<p>Because E ∩ F = {1111, 1100, 1010, 1001}, we see that p(E ∩ F) = 4/16 = 1/4.</p>
-<p>Because p(E ∩ F) = 1/4 = (1/2)(1/2) = p(E)p(F),</p>
-<p>we conclude that E and F are independent.</p>
-<details><summary>Example</summary><p>Example 8: Assume that each of the possibilities BB, BG, GB, and GG is equally likely, where B represents a boy and G represents a girl (Note that BG represents a family with an older boy and a younger girl while GB represents a family with an older girl and a younger boy). Are the events E, that a family with two children has</p></details>
-<p>two boys, and F, that a family with two children has at least one boy, independent? Solution: Because E = {BB}, F = {BB, BG, GB} and E ∩ F = {BB}, we have p(E) = 1/4, p(F) = 3/4 and p(E ∩ F) = 1/4. But p(E)p(F) = 1/4.3/4 = 3/16. Therefore p(E ∩ F ) ≠ p(E)p(F), so the events E and F are not independent.</p>
-<p>Exercise 4: Are the events E, that a family with three children has children of both sexes, and F, that this family has at most one boy, independent? Assume that the eight ways a family can have three children are equally likely.</p>
-</section>
-<section><h3>6. Random Variables</h3>
-<p>Many problems are concerned with a numerical value associated with the outcome of an experiment. A random variable is a function from the sample space of an experiment to the set of real numbers. That is, a random variable assigns a real number to each possible outcome. Random variables are usually written as X.</p>
-<details><summary>Example</summary><p>Example 9: Suppose that a coin is flipped three times. Let X(t) be the random variable that equals the number of heads that appear when t is the outcome. Then X(t) takes on the following values: X(HHH) = 3, X(HHT ) = X(HTH ) = X(THH ) = 2, X(TTH ) = X(THT ) = X(HTT ) = 1, X(TTT ) = 0. The distribution of a random variable X on a sample space S is the set of pairs (r, p(X = r)) for all r ∈ X(S), where p(X = r) is the probability that X takes the value r. (The set of pairs in this distribution is determined by the probabilities p(X = r) for r ∈ X(S).)</p></details>
-<details><summary>Example</summary><p>Example 10: Each of the eight possible outcomes when a fair coin is flipped three times has probability 1/8. So, the distribution of the random variable X(t) in Example 9 is determined by the probabilities P(X = 3) = 1/8, P(X = 2) = 3/8, P(X = 1) = 3/8, and P(X = 0) = 1/8. Consequently, the distribution of X(t) in Example 9 is the set of pairs (3, 1/8), (2, 3/8), (1, 3/8), and (0, 1/8).</p></details>
-</section>
-<section><h3>7. Expected Value of a Random Variable</h3>
-<p>The expected value of a random variable provides a central point for the distribution of values of the random variable. The expected value, also called the expectation or mean, of the random variable X on the sample space S is equal to E(X) =∑</p>
-<p>s∈S</p>
-<p>p(s)X (s)</p>
-<p>The deviation of X at s ∈ S is X(s) − E(X), the difference between the value of X and the mean of X. Note that when the sample space S has n elements S = {x1, x2, …, xn},  n E(X)=∑</p>
-<p>i i p x X x (</p>
-<p>) ( ).</p>
-<p>i = 1</p>
-<details><summary>Example</summary><p>Example 11: Let X be the number that comes up when a fair die is rolled. What is the expected value of X?</p></details>
-<details><summary>Example</summary><p>Example 12: A fair coin is flipped three times. Let S be the sample space of the eight possible outcomes, and let X be the random variable that assigns to an outcome the number of heads in this outcome. What is the expected value of X?  Solution: Because the coin is fair and the flips are independent, the probability of each  outcome is 1/8. Consequently, E(X) = 1/8 [X(HHH) + X(HHT) + X(HTH) + X(THH) + X(TTH) +X(THT) + X(HTT) + X(TTT)] = 1/8 (3 + 2 + 2 + 2 + 1 + 1 + 1 + 0) = 12/8 = 3/2. Consequently, the expected number of heads that come up when a fair coin is flipped three times is 3/2.</p></details>
-</section>
-<section><h3>8. Variance of a Random Variable</h3>
-<p>Variance of a random variable helps us characterize how widely a random variable is distributed. In particular, it provides a measure of how widely X is distributed about its expected value. If X is a random variable on a sample space S, then V (X) = E(X2) − E(X)2. Example 13: What is the variance of the random variable X, where X is the number that comes up when a fair die is rolled? Solution: We have V (X) = E(X2) − E(X)2. By Example 11 we know that E(X) = 7/2. To find E(X2) note that X2 takes the values i2, i = 1, 2, …, 6, each with probability 1/6. It follows that E(X2) = 1/6 (12 + 22 + 32 + 42 + 52 + 62) = 91/6 Hence, V(X) = 91/6 – (7/2)2 = 35/12.</p>
-</section>
-<section><h3>9. Probability of a Collision in Hashing</h3>
-<p>A hashing function h(k) is a mapping of the keys to storage locations. Hashing functions map a large number of keys to a much smaller set of storage locations. A good hashing function yields few collisions, which are mappings of two different  keys to the same memory location. What is the probability that no two keys are  mapped to the same location by a hashing function, or, in other words, that there are  no collisions?</p>
-<p>Suppose that the keys are k1, k2, …., kn. When we add the first record, the probability that the key is mapped to a location is 1/m, where m is the number of available locations. When we add the second record, the probability that it is mapped to a location different from the location of the first record is, that h(k2) ≠ h(k1), is (m − 1)/m because there are m − 1 free locations after the first record has been placed. The probability that the third record is mapped to a free location after the first and second records have been placed without a collision is (m − 2)/m. In general, the probability that the jth record is mapped to a free location after the first j − 1 records have been mapped to locations h(k1), h(k2),…, h(kj−1) without collisions is (m − (j − 1))/m because j − 1 of the m locations are taken. Because the keys are independent, the</p>
-<p>probability that all n keys are mapped to different locations is</p>
-<p>m −1.</p>
-<p>m</p>
-<p>m − n +1)</p>
-<p>Pn = m m − 2….. m</p>
-<p>It follows that the probability that there is at least one collision, that is, at least two keys are mapped to the same location, is</p>
-<p>m −1.</p>
-<p>m</p>
-<p>m − n +1</p>
-<p>1 - Pn = 1 -</p>
-<p>m</p>
-<p>m −</p>
-<p>2….. m</p>
-</section>
-<section><h3>10. Randomized Algorithms</h3>
-<p>A randomized algorithm is a technique that uses a source of randomness as part of its logic. It is typically used to reduce either the running time (time complexity) or memory used (space complexity) in standard algorithm. The algorithm works by generating a random number, r, within a specified range of numbers, and making decisions based on the value of r. Randomized algorithms are usually designed in one of two common forms: as a Las Vegas or as a Monte Carlo algorithm. A Las Vegas algorithm runs within a specified amount of time. If it finds a solution within that timeframe, the solution will be exactly correct; however, it is possible that it runs out of time and does not find any solutions. One popular example of Las Vegas algorithm is Randomized Quick Sort. A Monte Carlo algorithm is a probabilistic algorithm which, depending on the input, has a slight probability of producing an incorrect result or failing to produce a result altogether. Monte Carlo algorithms are always fast and probably correct, whereas Las Vegas algorithms are sometimes fast but always correct. One popular example of Monte Carlo algorithm is Probabilistic Primality Testing. Practically speaking, computers cannot generate completely random numbers, so randomized algorithms in computer science are approximated using a pseudorandom number generator in place of a true source of random number, such as rolling a die.</p>
-</section>
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the chapter.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM n</span> times the topic appears in the nine past papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Recurrence relations, 5: 2078 Q2, 2080.1 Q3, 2080.2 Q1, 2081 Q4, 2082 Q7.</li>
+            <li>Pigeonhole principle, 4: 2079 Q11, 2080.1 Q9, 2080.2 Q6, 2081 Q7.</li>
+            <li>Permutations and combinations, 4: 2080.1 Q3, 2080.1 Q10, 2080.2 Q6, 2082 Q3.</li>
+            <li>Randomized algorithms, 3: 2080.2 Q1, 2081 Q8, 2082 Q3.</li>
+          </ul>
+        </aside>
 
-        <section class="recall-block">
-          <h2>Summary &amp; recall</h2>
-          <p>Counting rules turn arrangements into numbers. Permutations order, combinations select, and the pigeonhole principle forces repetition.</p>
-          <details><summary>Can you state the product rule and give one situation where it applies?</summary><p>Counting rules turn arrangements into numbers. Permutations order, combinations select, and the pigeonhole principle forces repetition.</p></details>
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Counting <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 1–14 of the chapter PDF.</p>
+
+          <h3>1. Product, sum, and subtraction rules <span class="priority-mark">★★★</span></h3>
+          <table class="topic-table">
+            <thead><tr><th>Rule</th><th>Statement</th><th>Set form</th></tr></thead>
+            <tbody>
+              <tr><td>Product</td><td>n₁ ways then n₂ ways gives n₁n₂ ways</td><td>|A₁ × … × Aₙ| = |A₁|…|Aₙ|</td></tr>
+              <tr><td>Sum</td><td>n₁ ways or n₂ disjoint ways gives n₁ + n₂</td><td>|A₁ ∪ … ∪ Aₙ| = Σ|Aᵢ| for disjoint sets</td></tr>
+              <tr><td>Subtraction</td><td>Add the counts, subtract the overlap</td><td>|A ∪ B| = |A| + |B| − |A ∩ B|</td></tr>
+            </tbody>
+          </table>
+          <details><summary>Four product-rule examples</summary>
+            <ol class="worked-steps">
+              <li>27 floors × 37 offices = 999 offices.</li>
+              <li>Three-letter initials with no repeats: 26·25·24 = 15,600.</li>
+              <li>Four-letter strings containing x: 26⁴ − 25⁴ = 456,976 − 390,625 = 66,351.</li>
+              <li>Bit strings of length 5: 2⁵ = 32.</li>
+            </ol>
+          </details>
+          <p>The sum rule applies only to disjoint sets. For overlapping sets use inclusion–exclusion.</p>
+          <details><summary>Bit strings of length 8 starting with 1 or ending in 00</summary>
+            <p>2⁷ + 2⁶ − 2⁵ = 128 + 64 − 32 = 160. The overlap is the strings that start with 1 and end with 00.</p>
+          </details>
+
+          <h3>2. Pigeonhole principle <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 4</span></h3>
+          <p><strong>Theorem 1:</strong> if k + 1 or more objects go into k boxes, some box holds at least two objects. Proof by contradiction: if every box held at most one, the total would be at most k. Also called the Dirichlet drawer principle.</p>
+          <p><strong>Corollary 1:</strong> a function from a set with k + 1 elements to a set with k elements is not one-to-one.</p>
+          <p><strong>Theorem 2 (generalized):</strong> N objects in k boxes force a box with at least ⌈N/k⌉ objects.</p>
+          <details><summary>Three generalized examples</summary>
+            <ol class="worked-steps">
+              <li>100 people, 12 months: at least ⌈100/12⌉ = 9 share a birth month.</li>
+              <li>24 students and k grades: ⌈24/k⌉ = 2 gives largest k = 23.</li>
+              <li>Five grades and at least six sharing: smallest N with ⌈N/5⌉ = 6 is N = 26.</li>
+            </ol>
+          </details>
+
+          <h3>3. Permutations and combinations <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 4</span></h3>
+          <table class="topic-table">
+            <thead><tr><th>Concept</th><th>Formula</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>r-permutation (ordered)</td><td>P(n, r) = n!/(n − r)!</td><td>P(8, 3) = 336</td></tr>
+              <tr><td>r-combination (unordered)</td><td>C(n, r) = n!/(r!(n − r)!)</td><td>C(10, 5) = 252</td></tr>
+              <tr><td>Symmetry</td><td>C(n, r) = C(n, n − r)</td><td>C(4, 2) = C(4, 2)</td></tr>
+              <tr><td>All permutations</td><td>P(n, n) = n!</td><td>7 cities ⇒ 5040</td></tr>
+            </tbody>
+          </table>
+          <details><summary>Committee and prize examples</summary>
+            <ol class="worked-steps">
+              <li>Prizes from 100 people: P(100, 3) = 100·99·98 = 970,200.</li>
+              <li>Committee of 3 math from 9 and 4 CS from 11: C(9, 3)·C(11, 4) = 84·330 = 27,720.</li>
+              <li>Permutations of ABCDEFGH containing ABC as a block: 6! = 720.</li>
+            </ol>
+          </details>
+
+          <h3>4. Binomial coefficients <span class="priority-mark">★★★</span></h3>
+          <p><strong>Binomial Theorem:</strong> (x + y)ⁿ = Σₖ₌₀ⁿ C(n, k) x^(n−k) yᵏ.</p>
+          <p><strong>Pascal's Identity:</strong> C(n + 1, k) = C(n, k − 1) + C(n, k). It builds Pascal's triangle: each entry is the sum of the two above it.</p>
+          <ul>
+            <li>Σₖ C(n, k) = 2ⁿ (set x = y = 1).</li>
+            <li>Σₖ (−1)ᵏ C(n, k) = 0 (set x = 1, y = −1).</li>
+            <li>Σₖ 2ᵏ C(n, k) = 3ⁿ (set x = 1, y = 2).</li>
+          </ul>
+          <details><summary>Expansions and coefficients</summary>
+            <ol class="worked-steps">
+              <li>(x + y)⁴ = x⁴ + 4x³y + 6x²y² + 4xy³ + y⁴.</li>
+              <li>Coefficient of x¹²y¹³ in (2x − 3y)²⁵ is C(25, 13)·2¹²·(−3)¹³.</li>
+            </ol>
+          </details>
+
+          <h3>5. Generalized permutations and combinations <span class="priority-mark">★★★</span></h3>
+          <table class="topic-table">
+            <thead><tr><th>Case</th><th>Count</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Permutation with repetition</td><td>nʳ</td><td>Length-6 strings from 26 letters: 26⁶</td></tr>
+              <tr><td>Combination with repetition</td><td>C(n + r − 1, r)</td><td>6 cookies from 4 kinds: C(9, 6) = 84</td></tr>
+              <tr><td>Indistinguishable objects</td><td>n! / (n₁! … nₖ!)</td><td>SUCCESS: 7!/(3!2!1!1!) = 420</td></tr>
+            </tbody>
+          </table>
+
+          <h3>6. Generating arrangements <span class="priority-mark">★★</span></h3>
+          <p>For permutations in lexicographic order, locate the last adjacent pair with aᵢ &lt; aᵢ₊₁, replace aᵢ by the least larger element to its right, then list the rest increasingly. After 362541 comes <strong>364125</strong>.</p>
+          <p>Subsets correspond to bit strings. Starting at 00…0, find the first 0 from the right and change all 1s after it to 0: after 100010011 comes <strong>100010100</strong>.</p>
+          <p>For r-combinations, locate the last aᵢ with aᵢ ≠ n − r + i, increment it, and reset the following entries. After {1, 2, 5, 6} of {1, …, 6} comes <strong>{1, 3, 4, 5}</strong>.</p>
         </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Advanced Counting Techniques <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 15–19 of the chapter PDF.</p>
+
+          <h3>1. Recurrence relations <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 5</span></h3>
+          <p>A recurrence relation expresses aₙ in terms of earlier terms for all n ≥ n₀. The initial conditions and the recurrence together define the sequence; a sequence is a solution when its terms satisfy the relation.</p>
+          <details><summary>Checking candidate solutions</summary>
+            <ol class="worked-steps">
+              <li>aₙ = −3aₙ₋₁ + 4aₙ₋₂ is not satisfied by aₙ = 2n: the right side gives 2n − 10.</li>
+              <li>aₙ = 2aₙ₋₁ − aₙ₋₂ is satisfied by aₙ = 3n: 2·3(n − 1) − 3(n − 2) = 3n.</li>
+              <li>Bacteria doubling aₙ = 2aₙ₋₁ with a₀ = 5 gives aₙ = 5·2ⁿ.</li>
+              <li>Compound interest Pₙ = 1.11Pₙ₋₁ with P₀ = 10,000 gives P₃₀ = (1.11)³⁰·10,000 = $228,922.97.</li>
+            </ol>
+          </details>
+
+          <h3>2. Linear homogeneous relations <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 5</span></h3>
+          <p>Form: aₙ = c₁aₙ₋₁ + … + cₖaₙ₋ₖ with constant cᵢ. Substitute aₙ = rⁿ to obtain the characteristic equation rᵏ − c₁rᵏ⁻¹ − … − cₖ = 0.</p>
+          <table class="topic-table">
+            <thead><tr><th>Root case</th><th>General solution</th></tr></thead>
+            <tbody>
+              <tr><td>Two distinct roots r₁, r₂</td><td>aₙ = α₁r₁ⁿ + α₂r₂ⁿ</td></tr>
+              <tr><td>One repeated root r₀</td><td>aₙ = α₁r₀ⁿ + α₂n r₀ⁿ</td></tr>
+              <tr><td>k distinct roots</td><td>aₙ = Σ αᵢrᵢⁿ</td></tr>
+              <tr><td>Root rᵢ with multiplicity mᵢ</td><td>Polynomial in n of degree mᵢ − 1 times rᵢⁿ</td></tr>
+            </tbody>
+          </table>
+          <details><summary>Distinct roots: aₙ = aₙ₋₁ + 6aₙ₋₂, a₀ = 3, a₁ = 6</summary>
+            <ol class="worked-steps">
+              <li>Characteristic r² − r − 6 = 0 gives roots 3 and −2.</li>
+              <li>aₙ = α₁3ⁿ + α₂(−2)ⁿ; a₀ = 3 gives α₁ + α₂ = 3.</li>
+              <li>a₁ = 6 gives 3α₁ − 2α₂ = 6, so α₁ = 12/5 and α₂ = 3/5.</li>
+              <li>Solution: aₙ = (12·3ⁿ + 3(−2)ⁿ)/5.</li>
+            </ol>
+          </details>
+          <details><summary>Repeated root: aₙ = 2aₙ₋₁ − aₙ₋₂, a₀ = 3, a₁ = 6</summary>
+            <p>r² − 2r + 1 = 0 has the single root 1, so aₙ = α₁ + α₂n. Initial values give α₁ = α₂ = 3, hence aₙ = 3(1 + n).</p>
+          </details>
+          <details><summary>Multiple roots and multiplicity</summary>
+            <p>aₙ = 2aₙ₋₁ + aₙ₋₂ − 2aₙ₋₃ has roots 1, −1, 2 and solution aₙ = (3/2)1ⁿ − (1/2)(−1)ⁿ + 2·2ⁿ. For aₙ = 5aₙ₋₁ − 7aₙ₋₂ + 3aₙ₋₃, root 1 has multiplicity 2: aₙ = (α₁₀ + α₁₁n)1ⁿ + α₂₀3ⁿ.</p>
+          </details>
+
+          <h3>3. Linear nonhomogeneous relations <span class="priority-mark">★★★</span></h3>
+          <p>Form: aₙ = c₁aₙ₋₁ + … + cₖaₙ₋ₖ + F(n). Dropping F(n) gives the associated homogeneous relation.</p>
+          <ul>
+            <li><strong>Theorem 5:</strong> every solution equals a particular solution plus a solution of the associated homogeneous relation.</li>
+            <li><strong>Theorem 6:</strong> for F(n) = (polynomial of degree t)·sⁿ, try (polynomial of degree t)·sⁿ when s is not a characteristic root, and nᵐ times that when s is a root of multiplicity m.</li>
+          </ul>
+          <details><summary>aₙ = 4aₙ₋₁ + n²</summary>
+            <ol class="worked-steps">
+              <li>Homogeneous root 4 gives aₙ⁽ʰ⁾ = α4ⁿ.</li>
+              <li>Try pₙ = an² + bn + c; matching coefficients gives a = −1/3, b = −8/9, c = −20/27.</li>
+              <li>All solutions: aₙ = −n²/3 − 8n/9 − 20/27 + α4ⁿ. With a₁ = 1, α = 20/27.</li>
+            </ol>
+          </details>
+          <details><summary>When s is a root: aₙ = 2aₙ₋₁ + n·2ⁿ</summary>
+            <p>Here s = 2 is a root of multiplicity 1, so try n(p₁n + p₀)2ⁿ. All solutions have the form α2ⁿ + p₁n²2ⁿ + p₀n2ⁿ.</p>
+          </details>
+        </section>
+
+        <section class="topic-part" data-part="3">
+          <h2>Part 3 · Discrete Probability <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Pages 20–25 of the chapter PDF.</p>
+
+          <h3>1. Finite probability <span class="priority-mark">★★★</span></h3>
+          <p>An experiment yields one of a set of outcomes; the sample space S is that set; an event E is a subset of S. For a finite nonempty sample space of equally likely outcomes, <strong>Laplace's definition</strong> gives p(E) = |E| / |S|, with 0 ≤ p(E) ≤ 1.</p>
+          <ul>
+            <li>Fair die, odd number: p = 3/6 = 1/2.</li>
+            <li>Urn with 4 blue and 5 red balls: p(blue) = 4/9.</li>
+            <li>Complement: p(Ē) = 1 − p(E). Ten random bits, at least one 0: 1 − 1/1024 = 1023/1024.</li>
+            <li>Union: p(E₁ ∪ E₂) = p(E₁) + p(E₂) − p(E₁ ∩ E₂). Integers ≤ 100 divisible by 2 or 5: 50/100 + 20/100 − 10/100 = 3/5.</li>
+          </ul>
+
+          <h3>2. Assigning probabilities <span class="priority-mark">★★★</span></h3>
+          <p>A probability distribution assigns p(s) to each outcome with 0 ≤ p(s) ≤ 1 and Σ p(s) = 1. The uniform distribution gives 1/n to each outcome; choosing at random means uniform.</p>
+          <details><summary>Biased coin and biased die</summary>
+            <ol class="worked-steps">
+              <li>p(H) = 2p(T) and p(H) + p(T) = 1 ⇒ p(T) = 1/3, p(H) = 2/3.</li>
+              <li>Die with 3 twice as likely: five faces at 1/7 and face 3 at 2/7; p({1, 3, 5}) = 1/7 + 2/7 + 1/7 = 4/7.</li>
+            </ol>
+          </details>
+
+          <h3>3. Conditional probability and independence <span class="priority-mark">★★★</span></h3>
+          <p>For p(F) &gt; 0, the conditional probability of E given F is <strong>p(E | F) = p(E ∩ F) / p(F)</strong>. Events E and F are independent exactly when p(E ∩ F) = p(E)p(F).</p>
+          <details><summary>Three fair coin flips</summary>
+            <p>E = odd number of tails, F = first flip is tail. E ∩ F = {THH, TTT}, so p(E ∩ F) = 2/8 and p(F) = 4/8. Hence p(E | F) = (1/4)/(1/2) = 1/2.</p>
+          </details>
+          <details><summary>Families with two children</summary>
+            <p>E = two boys {BB}, F = at least one boy {BB, BG, GB}. p(E) = 1/4, p(F) = 3/4, p(E ∩ F) = 1/4 ≠ 3/16, so E and F are not independent.</p>
+          </details>
+
+          <h3>4. Random variables, expectation, variance <span class="priority-mark">★★★</span></h3>
+          <table class="topic-table">
+            <thead><tr><th>Concept</th><th>Definition</th></tr></thead>
+            <tbody>
+              <tr><td>Random variable X</td><td>Function from sample space to real numbers</td></tr>
+              <tr><td>Distribution</td><td>Pairs (r, p(X = r)) for r in X(S)</td></tr>
+              <tr><td>Expected value</td><td>E(X) = Σ p(s)X(s)</td></tr>
+              <tr><td>Variance</td><td>V(X) = E(X²) − (E(X))²</td></tr>
+            </tbody>
+          </table>
+          <details><summary>Worked expectations</summary>
+            <ol class="worked-steps">
+              <li>Fair die: E(X) = (1 + 2 + 3 + 4 + 5 + 6)/6 = 7/2.</li>
+              <li>Three flips, X = number of heads: E(X) = 12/8 = 3/2.</li>
+              <li>Fair die variance: E(X²) = 91/6, so V(X) = 91/6 − (7/2)² = 35/12.</li>
+            </ol>
+          </details>
+
+          <h3>5. Hashing and randomized algorithms <span class="priority-mark">★★</span> <span class="exam-mark">EXAM 3</span></h3>
+          <p>A hashing function maps keys to storage locations; a collision maps two different keys to one location. The probability that n keys all land in different locations among m is pₙ = (m − 1)(m − 2)…(m − n + 1) / m^(n−1), so the probability of at least one collision is 1 − pₙ.</p>
+          <table class="topic-table">
+            <thead><tr><th>Form</th><th>Behavior</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Las Vegas</td><td>Always correct; may fail to finish in time</td><td>Randomized Quick Sort</td></tr>
+              <tr><td>Monte Carlo</td><td>Always fast; small chance of a wrong answer</td><td>Probabilistic primality testing</td></tr>
+            </tbody>
+          </table>
+          <p>Practical implementations use a pseudorandom number generator, since computers cannot produce a truly random source.</p>
+        </section>
+
         <aside class="revision-tracker" data-page="discrete/counting-and-discrete-probability.html">
           <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
           <button class="revision-btn" type="button">Mark as reviewed</button>
