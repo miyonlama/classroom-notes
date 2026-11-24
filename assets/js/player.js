@@ -9,6 +9,7 @@
   var lastSave = 0;
   var lastLoadedUrl = "";
   var loadTimer = null;
+  var titleTimer = null;
 
   var icons = {
     play: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5Z"/></svg>',
@@ -65,16 +66,43 @@
 
   function applyVideoData(p) {
     if (!p || !p.getVideoData) return;
+    var url = state.url;
     var data = p.getVideoData();
     if (data && data.title) {
       setTitle(data.title);
       return;
     }
-    // Fallback for players without getVideoData()
-    fetch("https://noembed.com/embed?url=" + encodeURIComponent(state.url))
-      .then(function (r) { return r.json(); })
-      .then(function (d) { if (d && d.title) setTitle(d.title); })
-      .catch(function () {});
+    // getVideoData() is often empty right after loadVideoById. Ask YouTube
+    // oEmbed first, then noembed. Pin the URL so a late reply cannot rename
+    // a different song.
+    fetch("https://www.youtube.com/oembed?url=" + encodeURIComponent(url) + "&format=json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("status " + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        if (d && d.title && state.url === url) setTitle(d.title);
+      })
+      .catch(function () {
+        fetch("https://noembed.com/embed?url=" + encodeURIComponent(url))
+          .then(function (r) { return r.json(); })
+          .then(function (d) { if (d && d.title && state.url === url) setTitle(d.title); })
+          .catch(function () {});
+      });
+    if (titleTimer) clearInterval(titleTimer);
+    var tries = 0;
+    titleTimer = setInterval(function () {
+      tries++;
+      var latest = p.getVideoData ? p.getVideoData() : null;
+      if (latest && latest.title && state.url === url) {
+        setTitle(latest.title);
+        clearInterval(titleTimer);
+        titleTimer = null;
+      } else if (tries >= 8) {
+        clearInterval(titleTimer);
+        titleTimer = null;
+      }
+    }, 700);
   }
 
   function updateToggle(playing) {
@@ -195,6 +223,7 @@
       player.loadVideoById(id, 0);
       if (state.muted) player.mute(); else player.unMute();
       player.setVolume(state.volume);
+      setTimeout(function () { if (state.url === url) applyVideoData(player); }, 500);
     } else {
       createPlayer(id);
     }
@@ -309,11 +338,10 @@
     build();
     lastLoadedUrl = state.url;
     if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
-    var id = parseId(state.url);
-    if (id) {
-      setStatus(state.title || "Restored · press play", false);
-      createPlayer(id);
-    }
+    // Restore the URL for convenience, but do not load the old video on a
+    // fresh page load. Playback continuity is handled by the site router,
+    // which never reloads this player.
+    if (parseId(state.url)) setStatus("Ready — press play", false);
     window.addEventListener("pagehide", saveState);
   }
 

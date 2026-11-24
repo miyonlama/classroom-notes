@@ -98,4 +98,9 @@ assert.strictEqual(typeof nav.isCached, "function");
   assert(s.indexOf("__CN_REINIT") !== -1, "missing reinit registration in " + name);
 });
 
+var playerSource = fs.readFileSync(path.join(root, "assets/js/player.js"), "utf8");
+assert(playerSource.indexOf("Restored · press play") === -1, "stale song still auto-loads on reload");
+assert(playerSource.indexOf("state.url === url") !== -1, "title reply not pinned to its URL");
+assert(playerSource.indexOf("titleTimer") !== -1, "missing title retry");
+
 console.log("site nav tests ok");
