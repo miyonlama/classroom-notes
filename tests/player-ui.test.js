@@ -40,4 +40,12 @@ assert(
   "collapsed play mark must be centered"
 );
 
+[
+  "transform 160ms cubic-bezier(0.16, 1, 0.3, 1)",
+  ".yt-player button:active { transform: scale(0.97); }",
+  ".yt-player button:active { transform: none; background: rgba(242, 193, 78, 0.12); }"
+].forEach(function (needle) {
+  assert(css.indexOf(needle) !== -1, "player.css missing: " + needle);
+});
+
 console.log("player ui tests ok");
