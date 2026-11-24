@@ -87,6 +87,7 @@
     function apply() {
       shell.classList.toggle("syllabus-collapsed", collapsed);
       button.setAttribute("aria-expanded", collapsed ? "false" : "true");
+      updateStickyRail();
     }
     button.addEventListener("click", function () {
       collapsed = !collapsed;
@@ -101,14 +102,21 @@
   function updateStickyRail() {
     var rail = document.querySelector(".syllabus");
     if (!rail) return;
+    var button = document.getElementById("syllabus-toggle");
+    var shell = document.querySelector(".doc-shell");
     if (window.matchMedia && window.matchMedia("(max-width: 900px)").matches) {
       rail.style.top = "";
       rail.style.height = "";
+      if (button) button.style.top = "";
       return;
     }
     var top = Math.max(0, 76 - (window.scrollY || document.documentElement.scrollTop || 0));
     rail.style.top = top + "px";
     rail.style.height = "calc(100vh - " + top + "px)";
+    if (button) {
+      button.style.top = (shell && shell.classList.contains("syllabus-collapsed"))
+        ? "" : (top + 16) + "px";
+    }
   }
 
   function initStickyRail() {
