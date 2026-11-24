@@ -3,7 +3,7 @@
 | # | Title | Severity | Status |
 |---|-------|----------|--------|
 | 001 | Ease the exam-paper switch | MEDIUM | DONE |
-| 002 | Add press feedback to player buttons | LOW | TODO |
+| 002 | Add press feedback to player buttons | LOW | DONE |
 
 Recommended execution order: 001, then 002.
 
