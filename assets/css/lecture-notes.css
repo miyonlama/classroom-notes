@@ -26,6 +26,8 @@
   --reading-measure: 140ch;
   --toggle-glass: rgba(11, 19, 16, 0.62);
   --toggle-shadow: rgba(0, 0, 0, 0.22);
+  --bool-true: #7fdca0;
+  --bool-false: #ff8a80;
 }
 
 html[data-theme="study"] {
@@ -41,6 +43,8 @@ html[data-theme="study"] {
   --reading-measure: 140ch;
   --toggle-glass: rgba(255, 252, 245, 0.82);
   --toggle-shadow: rgba(26, 26, 26, 0.14);
+  --bool-true: #166a43;
+  --bool-false: #b8422e;
 }
 
 * { box-sizing: border-box; }
@@ -443,6 +447,8 @@ html[data-theme="study"] .projector-wash {
 }
 
 /* Structured topic notes */
+.bool-true { color: var(--bool-true); font-weight: 600; }
+.bool-false { color: var(--bool-false); font-weight: 600; }
 .priority-mark {
   display: inline-block;
   margin-left: 0.6rem;

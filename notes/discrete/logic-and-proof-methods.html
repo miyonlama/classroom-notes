@@ -75,28 +75,28 @@
           <p>Rules of logic give precise meaning to mathematical statements and separate valid arguments from invalid ones. Applications named in the chapter: computer circuit design, program construction, and program correctness verification.</p>
 
           <h3>2. Propositions <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 2</span></h3>
-          <p><strong>Definition.</strong> A proposition is a declarative sentence that is either true or false, but not both.</p>
+          <p><strong>Definition.</strong> A proposition is a declarative sentence that is either <span class="bool-true">true</span> or <span class="bool-false">false</span>, but not both.</p>
           <table class="topic-table">
             <thead><tr><th>Proposition</th><th>Truth value</th></tr></thead>
             <tbody>
-              <tr><td>Kathmandu is the capital of Nepal.</td><td>True</td></tr>
-              <tr><td>2 + 2 = 5.</td><td>False</td></tr>
-              <tr><td>1 + 1 = 2.</td><td>True</td></tr>
+              <tr><td>Kathmandu is the capital of Nepal.</td><td><span class="bool-true">True</span></td></tr>
+              <tr><td>2 + 2 = 5.</td><td><span class="bool-false">False</span></td></tr>
+              <tr><td>1 + 1 = 2.</td><td><span class="bool-true">True</span></td></tr>
             </tbody>
           </table>
           <p><strong>Not propositions.</strong> “x &gt; 3”; “What time is it?”; “Read this carefully.”; “x + y = z”, not declarative, or truth cannot be judged.</p>
-          <p>Propositions use lowercase letters p, q, r, s … Truth values are T and F. The field is propositional logic, also called propositional calculus, developed systematically by Aristotle more than 2300 years ago.</p>
+          <p>Propositions use lowercase letters p, q, r, s … Truth values are <span class="bool-true">T</span> and <span class="bool-false">F</span>. The field is propositional logic, also called propositional calculus, developed systematically by Aristotle more than 2300 years ago.</p>
 
           <h3>3. Logical operators / connectives <span class="priority-mark">★★★</span></h3>
           <table class="topic-table">
             <thead><tr><th>Operator</th><th>Key rule</th><th>Truth behavior</th><th>Priority</th></tr></thead>
             <tbody>
-              <tr><td>Negation ¬p</td><td>“I love birds” → “I do not love birds”</td><td>T→F, F→T</td><td><span class="priority-mark">★★★</span></td></tr>
-              <tr><td>Conjunction p ∧ q</td><td>p = “Ram is intelligent”, q = “Ram is diligent”</td><td>True only when both are true</td><td><span class="priority-mark">★★★</span></td></tr>
-              <tr><td>Disjunction p ∨ q</td><td>Same example</td><td>False only when both are false</td><td><span class="priority-mark">★★★</span></td></tr>
-              <tr><td>Exclusive or p ⊕ q</td><td>“Ram drinks coffee or tea in the morning”</td><td>True only when exactly one is true</td><td><span class="priority-mark">★★</span></td></tr>
-              <tr><td>Implication p → q</td><td>p = hypothesis / antecedent / premise; q = conclusion / consequence</td><td>False only when p is true and q is false</td><td><span class="priority-mark">★★★</span></td></tr>
-              <tr><td>Biconditional p ↔ q</td><td>“p if and only if q”</td><td>True when p and q share a truth value</td><td><span class="priority-mark">★★★</span></td></tr>
+              <tr><td>Negation ¬p</td><td>“I love birds” → “I do not love birds”</td><td><span class="bool-true">T</span>→<span class="bool-false">F</span>, <span class="bool-false">F</span>→<span class="bool-true">T</span></td><td><span class="priority-mark">★★★</span></td></tr>
+              <tr><td>Conjunction p ∧ q</td><td>p = “Ram is intelligent”, q = “Ram is diligent”</td><td><span class="bool-true">True</span> only when both are <span class="bool-true">true</span></td><td><span class="priority-mark">★★★</span></td></tr>
+              <tr><td>Disjunction p ∨ q</td><td>Same example</td><td><span class="bool-false">False</span> only when both are <span class="bool-false">false</span></td><td><span class="priority-mark">★★★</span></td></tr>
+              <tr><td>Exclusive or p ⊕ q</td><td>“Ram drinks coffee or tea in the morning”</td><td><span class="bool-true">True</span> only when exactly one is <span class="bool-true">true</span></td><td><span class="priority-mark">★★</span></td></tr>
+              <tr><td>Implication p → q</td><td>p = hypothesis / antecedent / premise; q = conclusion / consequence</td><td><span class="bool-false">False</span> only when p is <span class="bool-true">true</span> and q is <span class="bool-false">false</span></td><td><span class="priority-mark">★★★</span></td></tr>
+              <tr><td>Biconditional p ↔ q</td><td>“p if and only if q”</td><td><span class="bool-true">True</span> when p and q share a truth value</td><td><span class="priority-mark">★★★</span></td></tr>
             </tbody>
           </table>
 
@@ -120,10 +120,10 @@
             <table class="topic-table">
               <thead><tr><th>p</th><th>q</th><th>¬q</th><th>p ∨ ¬q</th><th>p ∧ q</th><th>(p ∨ ¬q) → (p ∧ q)</th></tr></thead>
               <tbody>
-                <tr><td>T</td><td>T</td><td>F</td><td>T</td><td>T</td><td>T</td></tr>
-                <tr><td>T</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
-                <tr><td>F</td><td>T</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
-                <tr><td>F</td><td>F</td><td>T</td><td>T</td><td>F</td><td>F</td></tr>
+                <tr><td><span class="bool-true">T</span></td><td><span class="bool-true">T</span></td><td><span class="bool-false">F</span></td><td><span class="bool-true">T</span></td><td><span class="bool-true">T</span></td><td><span class="bool-true">T</span></td></tr>
+                <tr><td><span class="bool-true">T</span></td><td><span class="bool-false">F</span></td><td><span class="bool-true">T</span></td><td><span class="bool-true">T</span></td><td><span class="bool-false">F</span></td><td><span class="bool-false">F</span></td></tr>
+                <tr><td><span class="bool-false">F</span></td><td><span class="bool-true">T</span></td><td><span class="bool-false">F</span></td><td><span class="bool-false">F</span></td><td><span class="bool-false">F</span></td><td><span class="bool-true">T</span></td></tr>
+                <tr><td><span class="bool-false">F</span></td><td><span class="bool-false">F</span></td><td><span class="bool-true">T</span></td><td><span class="bool-true">T</span></td><td><span class="bool-false">F</span></td><td><span class="bool-false">F</span></td></tr>
               </tbody>
             </table>
           </details>
@@ -135,10 +135,10 @@
               <li>¬r ∨ p ∨ q = “either the lawn was not wet this morning or it rained last night or the sprinklers came on last night”</li>
             </ul>
           </details>
-          <details><summary>c) Evaluate with p = T, q = F, r = T</summary>
+          <details><summary>c) Evaluate with p = <span class="bool-true">T</span>, q = <span class="bool-false">F</span>, r = <span class="bool-true">T</span></summary>
             <ol class="worked-steps">
-              <li>¬r ∨ ¬(p ∧ q) = F ∨ ¬(T ∧ F) = F ∨ T = T (true).</li>
-              <li>¬(p ∨ q) ∧ (¬r ∨ q) = ¬(T ∨ F) ∧ (F ∨ F) = F ∧ F = F (false).</li>
+              <li>¬r ∨ ¬(p ∧ q) = <span class="bool-false">F</span> ∨ ¬(<span class="bool-true">T</span> ∧ <span class="bool-false">F</span>) = <span class="bool-false">F</span> ∨ <span class="bool-true">T</span> = T (<span class="bool-true">true</span>).</li>
+              <li>¬(p ∨ q) ∧ (¬r ∨ q) = ¬(<span class="bool-true">T</span> ∨ <span class="bool-false">F</span>) ∧ (<span class="bool-false">F</span> ∨ <span class="bool-false">F</span>) = <span class="bool-false">F</span> ∧ <span class="bool-false">F</span> = F (<span class="bool-false">false</span>).</li>
             </ol>
           </details>
 
@@ -159,8 +159,8 @@
           <table class="topic-table">
             <thead><tr><th>Type</th><th>Meaning</th><th>Example</th></tr></thead>
             <tbody>
-              <tr><td>Tautology</td><td>Always true</td><td>p ∨ ¬p</td></tr>
-              <tr><td>Contradiction</td><td>Always false</td><td>p ∧ ¬p</td></tr>
+              <tr><td>Tautology</td><td>Always <span class="bool-true">true</span></td><td>p ∨ ¬p</td></tr>
+              <tr><td>Contradiction</td><td>Always <span class="bool-false">false</span></td><td>p ∧ ¬p</td></tr>
               <tr><td>Contingency</td><td>Neither tautology nor contradiction</td><td>p ∧ q</td></tr>
             </tbody>
           </table>
@@ -170,15 +170,15 @@
           <table class="topic-table">
             <thead><tr><th>Law</th><th>Formula</th></tr></thead>
             <tbody>
-              <tr><td>Identity</td><td>p ∧ T ⇔ p; p ∨ F ⇔ p</td></tr>
-              <tr><td>Domination</td><td>p ∧ F ⇔ F; p ∨ T ⇔ T</td></tr>
+              <tr><td>Identity</td><td>p ∧ <span class="bool-true">T</span> ⇔ p; p ∨ <span class="bool-false">F</span> ⇔ p</td></tr>
+              <tr><td>Domination</td><td>p ∧ <span class="bool-false">F</span> ⇔ <span class="bool-false">F</span>; p ∨ <span class="bool-true">T</span> ⇔ <span class="bool-true">T</span></td></tr>
               <tr><td>Idempotent</td><td>p ∧ p ⇔ p; p ∨ p ⇔ p</td></tr>
               <tr><td>Double negation</td><td>¬(¬p) ⇔ p</td></tr>
               <tr><td>Commutative</td><td>p ∧ q ⇔ q ∧ p; p ∨ q ⇔ q ∨ p</td></tr>
               <tr><td>Associative</td><td>(p ∧ q) ∧ r ⇔ p ∧ (q ∧ r); (p ∨ q) ∨ r ⇔ p ∨ (q ∨ r)</td></tr>
               <tr><td>Distributive</td><td>p ∧ (q ∨ r) ⇔ (p ∧ q) ∨ (p ∧ r); p ∨ (q ∧ r) ⇔ (p ∨ q) ∧ (p ∨ r)</td></tr>
               <tr><td>De Morgan</td><td>¬(p ∧ q) ⇔ ¬p ∨ ¬q; ¬(p ∨ q) ⇔ ¬p ∧ ¬q</td></tr>
-              <tr><td>Negation</td><td>p ∧ ¬p ⇔ F; p ∨ ¬p ⇔ T</td></tr>
+              <tr><td>Negation</td><td>p ∧ ¬p ⇔ <span class="bool-false">F</span>; p ∨ ¬p ⇔ <span class="bool-true">T</span></td></tr>
               <tr><td>Absorption</td><td>p ∨ (p ∧ q) ⇔ p; p ∧ (p ∨ q) ⇔ p</td></tr>
             </tbody>
           </table>
@@ -195,8 +195,8 @@
               <li>≡ ¬p ∧ [¬(¬p) ∨ ¬q], De Morgan</li>
               <li>≡ ¬p ∧ (p ∨ ¬q), Double negation</li>
               <li>≡ (¬p ∧ p) ∨ (¬p ∧ ¬q), Distributive</li>
-              <li>≡ F ∨ (¬p ∧ ¬q), Negation</li>
-              <li>≡ (¬p ∧ ¬q) ∨ F, Commutative</li>
+              <li>≡ <span class="bool-false">F</span> ∨ (¬p ∧ ¬q), Negation</li>
+              <li>≡ (¬p ∧ ¬q) ∨ <span class="bool-false">F</span>, Commutative</li>
               <li>≡ ¬p ∧ ¬q, Identity</li>
             </ol>
           </details>
@@ -217,10 +217,10 @@
           <p>Propositional logic cannot adequately express all statements in mathematics or natural language. Predicate logic adds predicates and quantifiers.</p>
 
           <h3>2. Predicate <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 3</span></h3>
-          <p>Statements with variables are neither true nor false until values are assigned. P(x) is a propositional function: P = predicate, x = variable / subject.</p>
+          <p>Statements with variables are neither <span class="bool-true">true</span> nor <span class="bool-false">false</span> until values are assigned. P(x) is a propositional function: P = predicate, x = variable / subject.</p>
           <ul>
-            <li>P(x): x &gt; 3 → P(3) is false, P(7) is true.</li>
-            <li>Q(x, y): x = y + 3 → Q(1, 2) is false, Q(3, 0) is true.</li>
+            <li>P(x): x &gt; 3 → P(3) is <span class="bool-false">false</span>, P(7) is <span class="bool-true">true</span>.</li>
+            <li>Q(x, y): x = y + 3 → Q(1, 2) is <span class="bool-false">false</span>, Q(3, 0) is <span class="bool-true">true</span>.</li>
           </ul>
           <details><summary>Exercise: R(x, y, z) = “x + y = z”</summary>
             <p>Find the truth values of R(1, 2, 3) and R(0, 0, 1).</p>
@@ -230,11 +230,11 @@
           <table class="topic-table">
             <thead><tr><th>Quantifier</th><th>Meaning</th><th>Essence</th></tr></thead>
             <tbody>
-              <tr><td>Universal ∀</td><td>P(x) is true for all values of x in the universe of discourse</td><td>∀x P(x) = P(x₁) ∧ P(x₂) ∧ … ∧ P(xₙ)</td></tr>
-              <tr><td>Existential ∃</td><td>P(x) is true for at least one value of x</td><td>∃x P(x) = P(x₁) ∨ P(x₂) ∨ … ∨ P(xₙ)</td></tr>
+              <tr><td>Universal ∀</td><td>P(x) is <span class="bool-true">true</span> for all values of x in the universe of discourse</td><td>∀x P(x) = P(x₁) ∧ P(x₂) ∧ … ∧ P(xₙ)</td></tr>
+              <tr><td>Existential ∃</td><td>P(x) is <span class="bool-true">true</span> for at least one value of x</td><td>∃x P(x) = P(x₁) ∨ P(x₂) ∨ … ∨ P(xₙ)</td></tr>
             </tbody>
           </table>
-          <p><strong>Counterexample rule.</strong> One value with P(x) false disproves ∀x P(x). Example: x² &gt; 0 fails for x = 0 over the integers.</p>
+          <p><strong>Counterexample rule.</strong> One value with P(x) <span class="bool-false">false</span> disproves ∀x P(x). Example: x² &gt; 0 fails for x = 0 over the integers.</p>
           <details><summary>Exercise 2: P(x) = “x &gt; 10”, domain = positive integers not exceeding 4</summary>
             <p>Judge ∃x P(x).</p>
           </details>
@@ -292,7 +292,7 @@
           <p class="source-line">Pages 12–16 of the chapter PDF.</p>
 
           <h3>1. Introduction <span class="priority-mark">★★</span></h3>
-          <p>Rules of inference are templates for valid arguments. An argument is valid when all true hypotheses force a true conclusion.</p>
+          <p>Rules of inference are templates for valid arguments. An argument is valid when all <span class="bool-true">true</span> hypotheses force a <span class="bool-true">true</span> conclusion.</p>
 
           <h3>2. Rules for propositional logic <span class="priority-mark">★★★</span> <span class="exam-mark">EXAM 3</span></h3>
           <table class="topic-table">
@@ -323,7 +323,7 @@
           </ul>
 
           <h3>4. Valid arguments <span class="priority-mark">★★★</span></h3>
-          <p>Valid ⇔ (p₁ ∧ p₂ ∧ … ∧ pₖ) → q is a tautology. A valid argument with false premises may still yield a false conclusion.</p>
+          <p>Valid ⇔ (p₁ ∧ p₂ ∧ … ∧ pₖ) → q is a tautology. A valid argument with <span class="bool-false">false</span> premises may still yield a <span class="bool-false">false</span> conclusion.</p>
           <details><summary>Full 12-step derivation, “It rained”</summary>
             <p>p = “It rains”, q = “It is foggy”, r = “the sailing race is held”, s = “Life saving demonstration is done”, t = “Trophy is awarded”.</p>
             <ol class="worked-steps">
@@ -394,8 +394,8 @@
             <tbody>
               <tr><td>Direct proof</td><td>Assume p; show q</td><td><span class="priority-mark">★★★</span></td></tr>
               <tr><td>Indirect proof</td><td>Prove contrapositive ¬q → ¬p</td><td><span class="priority-mark">★★★</span></td></tr>
-              <tr><td>Vacuous proof</td><td>p is false, so p → q is true</td><td><span class="priority-mark">★★</span></td></tr>
-              <tr><td>Trivial proof</td><td>q is always true</td><td><span class="priority-mark">★★</span></td></tr>
+              <tr><td>Vacuous proof</td><td>p is <span class="bool-false">false</span>, so p → q is <span class="bool-true">true</span></td><td><span class="priority-mark">★★</span></td></tr>
+              <tr><td>Trivial proof</td><td>q is always <span class="bool-true">true</span></td><td><span class="priority-mark">★★</span></td></tr>
               <tr><td>Contradiction</td><td>Assume p ∧ ¬q; derive a contradiction</td><td><span class="priority-mark">★★★</span></td></tr>
               <tr><td>Exhaustive / cases</td><td>Prove (p₁ ∨ … ∨ pₙ) → q case by case</td><td><span class="priority-mark">★★</span></td></tr>
               <tr><td>Equivalence</td><td>Prove both p → q and q → p</td><td><span class="priority-mark">★★★</span></td></tr>
@@ -427,7 +427,7 @@
           <p>Form: ∃x (P(x) ∧ ∀y (y ≠ x → ¬P(y))). Show existence, then show any y ≠ x lacks the property. Example: if a ≠ 0, ax + b = c has unique solution x = (c − b) / a.</p>
 
           <h3>4. Proofs by counterexamples <span class="priority-mark">★★★</span></h3>
-          <p>To disprove ∀x P(x), find one x with P(x) false. Example: √2 · √2 = 2, so the product of two irrationals is not necessarily irrational.</p>
+          <p>To disprove ∀x P(x), find one x with P(x) <span class="bool-false">false</span>. Example: √2 · √2 = 2, so the product of two irrationals is not necessarily irrational.</p>
 
           <h3>5. Mistakes in proofs <span class="priority-mark">★</span></h3>
           <p>Most common errors are arithmetic and algebra mistakes. Every step must follow logically. The most common fallacy is begging the question, circular reasoning.</p>
