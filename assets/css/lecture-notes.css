@@ -462,6 +462,8 @@ html[data-theme="study"] .projector-wash {
   border: 1px dashed var(--line); color: var(--chalk-dim); font-size: 0.9rem;
 }
 .iq-solution p { margin: 0; }
+.iq-solution[data-solution="done"] { color: var(--chalk); }
+.iq-solution[data-solution="done"] p + p { margin-top: 0.55rem; }
 
 /* Structured topic notes */
 .bool-true { color: var(--bool-true); font-weight: 600; }
