@@ -163,10 +163,13 @@ a { color: inherit; }
 .chapter-reading section {
   max-width: 70ch;
   border-top: 1px solid var(--line);
-  padding: 1.6rem 0 0.4rem;
+  padding-top: 1.6rem;
+  padding-right: 0;
+  padding-bottom: 0.4rem;
+  padding-left: 0;
   margin-top: 1.4rem;
 }
-.chapter-reading section:first-of-type { border-top: 0; margin-top: 0; padding-top: 0; }
+.chapter-reading section:first-of-type { border-top: 0; margin-top: 0; padding-top: 1.6rem; }
 .chapter-reading h2 {
   font-family: "Barlow Condensed", sans-serif;
   font-size: 2.1rem; font-weight: 700; line-height: 1.05;
