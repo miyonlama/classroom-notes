@@ -6,6 +6,8 @@
   // element and YouTube iframe are kept alive across navigations.
   var reinit = (window.__CN_REINIT = window.__CN_REINIT || {});
   var pending = {};
+  var cache = {};
+  var inflight = {};
   var persist = "#yt-player, .chalk-dust, .projector, .projector-wash";
   var skipScript = /(?:^|\/)(?:player|site-nav)\.js(?:\?|$)/;
 
@@ -86,12 +88,43 @@
     });
   }
 
+  function fetchHtml(href) {
+    if (cache[href]) return Promise.resolve(cache[href]);
+    if (!inflight[href]) {
+      inflight[href] = fetch(href, { headers: { "X-Requested-With": "site-nav" } })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.text();
+        })
+        .then(function (html) { cache[href] = html; return html; })
+        .then(function (html) { delete inflight[href]; return html; },
+              function (err) { delete inflight[href]; throw err; });
+    }
+    return inflight[href];
+  }
+
+  function prefetch(href) {
+    try { fetchHtml(new URL(href, location.href).href).catch(function () {}); } catch (e) {}
+  }
+
+  function isCached(href) {
+    try { return !!cache[new URL(href, location.href).href]; } catch (e) { return false; }
+  }
+
+  function prefetchLinks() {
+    var links = Array.prototype.slice.call(document.querySelectorAll("a[href]"));
+    var grab = function () {
+      links.forEach(function (a) {
+        if (!shouldIntercept(a, null)) return;
+        prefetch(new URL(a.getAttribute("href"), location.href).href);
+      });
+    };
+    if (window.requestIdleCallback) window.requestIdleCallback(grab, { timeout: 2000 });
+    else setTimeout(grab, 800);
+  }
+
   function navigate(href, push) {
-    return fetch(href, { headers: { "X-Requested-With": "site-nav" } })
-      .then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.text();
-      })
+    return fetchHtml(href)
       .then(function (html) {
         // Update location first so relative URLs in the incoming document
         // resolve against the new page, not the one we are leaving.
@@ -114,8 +147,15 @@
         if (document.dispatchEvent && window.CustomEvent) {
           document.dispatchEvent(new CustomEvent("site-nav:navigated", { detail: { href: href } }));
         }
+        prefetchLinks();
       })
       .catch(function () { window.location.assign(href); });
+  }
+
+  function prefetchFromEvent(e) {
+    var anchor = anchorFrom(e.target);
+    if (!shouldIntercept(anchor, null)) return;
+    prefetch(new URL(anchor.getAttribute("href"), location.href).href);
   }
 
   document.addEventListener("click", function (e) {
@@ -125,14 +165,22 @@
     e.preventDefault();
     navigate(href, true);
   });
+  document.addEventListener("mouseover", prefetchFromEvent);
+  document.addEventListener("focusin", prefetchFromEvent);
+  document.addEventListener("touchstart", prefetchFromEvent, { passive: true });
 
   window.addEventListener("popstate", function () {
     navigate(location.href, false);
   });
 
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", prefetchLinks);
+  else prefetchLinks();
+
   window.ClassroomNav = {
     moduleName: moduleName,
     shouldIntercept: shouldIntercept,
-    navigate: navigate
+    navigate: navigate,
+    prefetch: prefetch,
+    isCached: isCached
   };
 })();

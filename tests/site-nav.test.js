@@ -84,6 +84,11 @@ pages.forEach(function (p) {
 var navSource = fs.readFileSync(path.join(root, "assets/js/site-nav.js"), "utf8");
 assert(navSource.indexOf("history.pushState") < navSource.indexOf("parseFromString"),
   "history must update before relative URLs are resolved");
+assert(navSource.indexOf("prefetch") !== -1, "missing prefetch");
+assert(navSource.indexOf('"mouseover"') !== -1, "missing hover prefetch");
+assert(navSource.indexOf('"focusin"') !== -1, "missing focus prefetch");
+assert.strictEqual(typeof nav.prefetch, "function");
+assert.strictEqual(typeof nav.isCached, "function");
 
 ["hub.js", "notes.js", "lecture-notes.js", "study-tools.js"].forEach(function (name) {
   var s = fs.readFileSync(path.join(root, "assets/js", name), "utf8");
