@@ -7,7 +7,7 @@ var path = require("path");
 var root = path.join(__dirname, "..");
 var chapterDir = path.join(root, "notes/discrete");
 var pages = fs.readdirSync(chapterDir).filter(function (f) { return /\.html$/.test(f); });
-assert.strictEqual(pages.length, 6);
+assert.strictEqual(pages.length, 7);
 
 pages.forEach(function (f) {
   var s = fs.readFileSync(path.join(chapterDir, f), "utf8");
@@ -27,11 +27,16 @@ assert(css.indexOf("color: var(--yellow); opacity: 0.6") !== -1, "folio must fol
 
 pages.forEach(function (f) {
   var s = fs.readFileSync(path.join(chapterDir, f), "utf8");
-  assert(s.indexOf('href="../../assets/pdfs/Past Questions.pdf" download') !== -1,
+  assert(s.indexOf('href="past-questions.html"') !== -1,
     f + " missing past questions link");
   assert(s.indexOf("<span>Past Questions</span>") !== -1, f + " missing past questions label");
 });
 assert(fs.existsSync(path.join(root, "assets/pdfs/Past Questions.pdf")), "past questions pdf missing");
+var pq = fs.readFileSync(path.join(chapterDir, "past-questions.html"), "utf8");
+assert(pq.indexOf('href="../../assets/pdfs/Past Questions.pdf" download') !== -1,
+  "past questions page must still offer the original PDF");
+assert(pq.indexOf('id="paper-2078"') !== -1 && pq.indexOf('id="paper-2082"') !== -1,
+  "past questions page must carry the exam papers");
 
 var playerCss = fs.readFileSync(path.join(root, "assets/css/player.css"), "utf8");
 assert(playerCss.indexOf('html[data-theme="study"] .yt-player:not(.is-open)') !== -1,
