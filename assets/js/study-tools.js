@@ -21,7 +21,7 @@
     function apply() {
       document.documentElement.dataset.theme = study ? "study" : "dark";
       btn.setAttribute("aria-pressed", study ? "true" : "false");
-      btn.innerHTML = svg() + "<span>" + (study ? "Dark mode" : "Study mode") + "</span>";
+      btn.innerHTML = svg() + "<span>" + (study ? "DARK" : "LIGHT") + "</span>";
     }
     function svg() {
       return '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/>' +

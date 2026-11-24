@@ -60,6 +60,20 @@
   border-color: rgba(242, 193, 78, 0.55);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--player-glass-hi);
 }
+/* Light theme: only the collapsed island icon changes. The expanded island
+   keeps the dark glass world. */
+html[data-theme="study"] .yt-player:not(.is-open) {
+  --player-glass: rgba(255, 252, 245, 0.82);
+  --player-glass-line: rgba(26, 26, 26, 0.22);
+  --player-glass-hi: rgba(255, 255, 255, 0.8);
+  --player-glass-sheen: rgba(255, 255, 255, 0.55);
+  --player-yellow: #b8422e;
+  --player-chalk: #1a1a1a;
+  box-shadow: 0 10px 30px rgba(26, 26, 26, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
+  border-color: rgba(184, 66, 46, 0.55);
+}
 .yt-player[hidden] { display: none; }
 
 .yt-player::before {
