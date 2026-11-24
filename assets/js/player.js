@@ -357,12 +357,16 @@
   function init() {
     loadState();
     build();
-    lastLoadedUrl = state.url;
+    // Keep the link in the input for convenience, but drop the saved song and
+    // timestamp. Otherwise the first play resumes an old track mid-song.
+    var restoredUrl = document.getElementById("yt-url").value;
+    state.url = "";
+    state.time = 0;
+    state.title = "";
+    lastLoadedUrl = "";
+    saveState();
     if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
-    // Restore the URL for convenience, but do not load the old video on a
-    // fresh page load. Playback continuity is handled by the site router,
-    // which never reloads this player.
-    if (parseSource(state.url)) setStatus("Ready — press play", false);
+    if (parseSource(restoredUrl)) setStatus("Ready — press play", false);
     window.addEventListener("pagehide", saveState);
   }
 
