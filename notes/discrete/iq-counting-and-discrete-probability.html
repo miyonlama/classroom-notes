@@ -61,48 +61,83 @@
         <article class="iq-card">
           <h3 class="iq-question">Explain the product rule. How many strings of four lowercase letters contain the letter x at least once?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2078 (Q10) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Product rule.</b> If a task splits into successive independent stages with n₁, n₂, …, nₖ choices, the total number of outcomes is n₁n₂⋯nₖ.</p>
+            <p>Count strings of four lowercase letters containing x at least once by complementary counting. All strings: 26⁴ = 456,976. Strings with no x: 25⁴ = 390,625. Hence the required number is 26⁴ − 25⁴ = <b>66,351</b>.</p>
+            <p>Complementary counting is easier than summing the cases of exactly one, two, three, or four x’s, which would require four separate binomial calculations.</p>
+          </div>
         </article>
         <article class="iq-card">
           <div class="iq-question">Why do we need the principle of inclusion–exclusion? Then answer the two parts below.<ol class="subquestions">            <li>How many 4-character strings are there that end with a digit and whose first three characters are lowercase alphabets, with no character repeated?</li>
-            <li>Using induction, show that the given expression is a multiple of 3 for n ≥ 1 (the expression is printed in the original PDF).</li></ol></div>
+            <li>Using induction, show that 3ⁿ − 1 is a multiple of 2 for n ≥ 1.</li></ol></div>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q2) &middot; <b>Marks:</b> 2+3+5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Inclusion–exclusion.</b> For finite sets, |A ∪ B| = |A| + |B| − |A ∩ B|. Simply adding the two sizes counts the overlap twice, so it must be subtracted once; three or more sets alternate adding and subtracting intersections. This avoids double counting when counting outcomes with “at least one” properties.</p>
+            <p><b>Part b.</b> A 4-character string ending in a digit, with first three characters lowercase letters and no repetition: 26 × 25 × 24 for the letters and 10 for the final digit, giving 26 · 25 · 24 · 10 = <b>156,000</b>.</p>
+            <p><b>Part c.</b> Prove 3ⁿ − 1 is even for n ≥ 1. Basis: 3¹ − 1 = 2. Assume 3ᵏ − 1 = 2m. Then 3ᵏ⁺¹ − 1 = 3(2m + 1) − 1 = 6m + 2 = 2(3m + 1), which is even. Hence the statement holds for all n ≥ 1.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is the generalized pigeonhole principle? If a class has 24 students, what is the minimum number of possible distinct grades required to ensure that there are at least two students with the same grade?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2079 (Q11) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Generalized pigeonhole principle.</b> If N objects are placed into k boxes, some box contains at least ⌈N/k⌉ objects. Otherwise every box would hold at most ⌈N/k⌉ − 1 and the total would be less than N.</p>
+            <p>Here the 24 students are objects and the possible grades are boxes. To force two students to share a grade, the number of boxes must satisfy k ≤ 23: if only 23 distinct grades are possible, 24 students into 23 grades forces at least ⌈24/23⌉ = 2 students with the same grade by the pigeonhole principle.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What does connectivity in graphs mean? Differentiate between permutation and combination. Solve the recurrence relation aₙ = 7aₙ₋₁ − 10aₙ₋₂ with initial conditions a₀ = 2 and a₁ = 3.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q3) &middot; <b>Marks:</b> 4+6</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Connectivity.</b> A graph is connected when a path joins every pair of vertices. It is a structural property of the graph, unrelated to the counting question that follows.</p>
+            <p><b>Permutation vs combination.</b> A permutation is an ordered arrangement; a combination is an unordered selection. Choosing 3 of 5 objects gives C(5, 3) = 10 combinations but P(5, 3) = 60 ordered triples.</p>
+            <p><b>Recurrence.</b> For aₙ = 7aₙ₋₁ − 10aₙ₋₂ the characteristic equation is r² − 7r + 10 = (r − 2)(r − 5) = 0, so aₙ = A·2ⁿ + B·5ⁿ. From a₀ = 2 we get A + B = 2; from a₁ = 3 we get 2A + 5B = 3. Solving gives B = −1/3 and A = 7/3, hence aₙ = (7·2ⁿ − 5ⁿ)/3. Check: a₀ = (7 − 1)/3 = 2 and a₁ = (14 − 5)/3 = 3.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the pigeonhole principle. Prove that C(n + 1, k) = C(n, k − 1) + C(n, k) for positive integers n and k with n ≥ k.</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q9) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Pigeonhole principle.</b> If more than k objects occupy k boxes, some box holds at least two objects. Its generalized form says some box holds at least ⌈N/k⌉ objects.</p>
+            <p><b>Pascal identity.</b> C(n + 1, k) = C(n, k − 1) + C(n, k). A combinatorial proof: to choose k objects from n + 1, either exclude the last object, giving C(n, k) choices, or include it and choose k − 1 from the remaining n, giving C(n, k − 1). These cases are disjoint and exhaustive, so adding them proves the identity.</p>
+            <p>Algebraically, C(n, k − 1) + C(n, k) = n!/(k−1)!(n−k+1)! + n!/k!(n−k)! = n![k + (n − k + 1)]/k!(n − k + 1)! = (n + 1)!/k!(n + 1 − k)! = C(n + 1, k).</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">What is a permutation? What is the next permutation in lexicographic order after 362541?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.1 (Q10) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A <b>permutation</b> is an ordered arrangement of distinct objects. Lexicographic order lists permutations as dictionary words.</p>
+            <p>To get the next permutation of 362541: scan from the right to find the first digit smaller than its right neighbour. Here 2 &lt; 5, so the pivot is 2 and the suffix is 5, 4, 1, which is decreasing (already largest). The smallest suffix digit greater than 2 is 4. Swap 2 and 4 to get 364521, then reverse the suffix 5, 2, 1 into 1, 2, 5.</p>
+            <p>The next permutation is therefore <b>364125</b>. This is the least arrangement strictly greater than 362541, because no arrangement beginning 362 can exceed 362541 and 364125 has the smallest possible tail after 364.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the generalized pigeonhole principle. How many three-digit integers can be formed without repeating any digit?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2080.2 (Q6) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A three-digit integer has a nonzero hundreds digit, so there are 9 choices (1–9) for the first digit. The tens digit may be 0 but must differ from the first: 9 choices. The units digit must differ from the first two: 8 choices.</p>
+            <p>By the product rule the number of three-digit integers with no repeated digit is 9 × 9 × 8 = <b>648</b>.</p>
+            <p>The generalized pigeonhole principle is the underlying counting idea when digits are treated as boxes: once a digit is used it cannot be reused, so each successive position has one fewer available digit.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">State the generalized pigeonhole principle. How many four-digit integers can be formed without repeating any digit?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2081 (Q7) &middot; <b>Marks:</b> 5</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p>A four-digit integer has 9 choices for the first digit (1–9), then 9 for the second (0–9 except the first), 8 for the third, and 7 for the fourth.</p>
+            <p>By the product rule the count is 9 × 9 × 8 × 7 = <b>4536</b> four-digit integers with no repeated digit.</p>
+            <p>Contrast this with repetitions allowed: 9 × 10³ = 9000. The repeated-digit restriction removes 4464 of those strings.</p>
+          </div>
         </article>
         <article class="iq-card">
           <h3 class="iq-question">List some advantages of randomized algorithms. Given any set of ten natural numbers between 1 and 99 (inclusive), prove that there exist two disjoint nonempty subsets of the set with equal sums. How do you generalize permutations and combinations?</h3>
           <p class="iq-meta"><b>Frequency:</b> 2082 (Q3) &middot; <b>Marks:</b> 2+4+4</p>
-          <div class="iq-solution" data-solution="pending"><p>Solution to be added.</p></div>
+          <div class="iq-solution" data-solution="done">
+            <p><b>Randomized algorithms</b> use random choices in their logic. Advantages include simplicity, resistance to adversarial worst-case inputs, speed on large structured problems, and the ability to break symmetry, as in randomized quicksort or hashing.</p>
+            <p><b>Equal-sum subsets.</b> A set of 10 numbers has 2¹⁰ − 1 = 1023 nonempty subsets. Each subset sum lies between 1 and 10 × 99 = 990. Since 1023 &gt; 990, the pigeonhole principle gives two distinct subsets A and B with equal sums. If they intersect, remove A ∩ B from each: the remainders A \ B and B \ A are still equal in sum and are disjoint. Neither is empty, because equal sums with positive integers rule out one being a proper subset of the other. Hence two disjoint nonempty subsets have equal sums.</p>
+            <p><b>Generalizing permutations and combinations.</b> Permutations of a multiset divide by repeated factorials, n!/(n₁!⋯nₖ!); circular permutations of n objects are (n − 1)!; combinations with repetition of k objects from n types number C(n + k − 1, k). These extend the basic ordered/unordered counts to repeated or structured selections.</p>
+          </div>
         </article>
 
         <aside class="revision-tracker" data-page="discrete/iq-counting-and-discrete-probability.html">
