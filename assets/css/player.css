@@ -149,7 +149,8 @@ html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
   text-transform: uppercase;
 }
 .yt-player__status {
-  margin-left: auto;
+  margin-right: auto;
+  min-width: 0;
   font-size: 0.68rem;
   color: var(--player-dim);
   max-width: 150px;
