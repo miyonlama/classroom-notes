@@ -18,21 +18,7 @@
     <p>Pick a subject.</p>
     <div id="grid" class="card-grid"></div>
   </main>
-  <script>
-    (async () => {
-      const res = await fetch('../subjects.json');
-      const subjects = await res.json();
-      const grid = document.getElementById('grid');
-      subjects.forEach(s => {
-        const a = document.createElement('a');
-        a.className = 'card';
-        a.href = s.href ? s.href : (s.slug + '.html');
-        a.style.setProperty('--accent', s.color);
-        a.innerHTML = '<div class="icon">' + s.icon + '</div><div class="title">' + s.title + '</div>';
-        grid.appendChild(a);
-      });
-    })();
-  </script>
+  <script src="../assets/js/notes.js" defer></script>
   <script src="/assets/js/player.js" defer></script>
   <script src="/assets/js/site-nav.js" defer></script>
 </body>

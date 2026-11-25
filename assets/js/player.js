@@ -24,6 +24,14 @@
     next: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><rect x="11" y="3" width="2" height="10"/><path d="M3 3l7 5-7 5Z"/></svg>'
   };
 
+  function setPlayerOpen(open) {
+    var root = document.getElementById("yt-player");
+    if (!root) return;
+    root.classList.toggle("is-open", !!open);
+    var opener = document.getElementById("yt-open");
+    if (opener) opener.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
   function loadState() {
     try {
       var raw = localStorage.getItem(KEY);
@@ -114,12 +122,13 @@
     for (var n = current; n < current + 4; n++) {
       var isCurrent = n === current;
       var label = isCurrent ? (state.title || "Now playing") : "Track " + String(n + 1).padStart(2, "0");
-      html += '<li class="yt-queue__item' + (isCurrent ? " is-current" : "") + '" data-index="' + n + '">' +
+      html += '<li><button type="button" class="yt-queue__item' + (isCurrent ? " is-current" : "") +
+        '" data-index="' + n + '" aria-label="Play track ' + (n + 1) + '">' +
         '<span class="yt-queue__no">' + String(n + 1).padStart(2, "0") + '</span>' +
         '<span class="yt-queue__thumb" aria-hidden="true"></span>' +
         '<span class="yt-queue__text"><b>' + escapeHtml(label) + '</b><small>' +
         (isCurrent ? "Now playing" : "Up next") + '</small></span>' +
-        '</li>';
+        '</button></li>';
     }
     list.innerHTML = html;
   }
@@ -179,7 +188,7 @@
     root.innerHTML =
       '<div class="yt-player__host" id="yt-host"></div>' +
       '<div class="yt-player__head">' +
-        '<span class="yt-player__mark" aria-hidden="true"></span>' +
+        '<button id="yt-open" class="yt-player__mark" type="button" aria-label="Open player" aria-expanded="false" aria-controls="yt-player"></button>' +
         '<button id="yt-expand" class="yt-player__expand" type="button" aria-label="Expand player">' + icons.chevron + '</button>' +
       '</div>' +
       '<div class="yt-player__deck">' +
@@ -250,10 +259,14 @@
     });
     document.getElementById("yt-expand").addEventListener("click", function (e) {
       e.stopPropagation();
-      root.classList.toggle("is-open");
+      setPlayerOpen(!root.classList.contains("is-open"));
+    });
+    document.getElementById("yt-open").addEventListener("click", function (e) {
+      e.stopPropagation();
+      setPlayerOpen(true);
     });
     root.querySelector(".yt-player__head").addEventListener("click", function () {
-      root.classList.toggle("is-open");
+      setPlayerOpen(!root.classList.contains("is-open"));
     });
     document.getElementById("yt-seek").addEventListener("change", function (e) {
       if (!player || !player.seekTo) return;
@@ -281,7 +294,7 @@
       renderQueue();
       updateToggle(false);
       setStatus("Paste a YouTube URL", false);
-      document.getElementById("yt-player").classList.remove("is-open");
+      setPlayerOpen(false);
       saveState();
     });
   }
@@ -313,7 +326,7 @@
     lastLoadedUrl = url;
     document.getElementById("yt-seek").max = "100";
     document.getElementById("yt-seek").value = "0";
-    document.getElementById("yt-player").classList.add("is-open");
+    setPlayerOpen(true);
     setStatus("Ready — press play", false);
     lastQueueIndex = -1;
     renderQueue();
@@ -466,7 +479,7 @@
     lastLoadedUrl = "";
     saveState();
     renderQueue();
-    if (window.location.hash === "#music") document.getElementById("yt-player").classList.add("is-open");
+    if (window.location.hash === "#music") setPlayerOpen(true);
     if (parseSource(restoredUrl)) setStatus("Ready — press play", false);
     window.addEventListener("pagehide", saveState);
   }

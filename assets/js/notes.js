@@ -17,7 +17,26 @@
     });
   }
 
+  function renderIndex() {
+    const grid = document.getElementById("grid");
+    if (!grid) return Promise.resolve();
+    return fetch("../subjects.json")
+      .then(res => res.json())
+      .then(subjects => {
+        subjects.forEach(s => {
+          const a = document.createElement("a");
+          a.className = "card";
+          a.href = s.href ? s.href : (s.slug + ".html");
+          a.style.setProperty("--accent", s.color);
+          a.innerHTML = '<div class="icon">' + s.icon + '</div><div class="title">' + s.title + '</div>';
+          grid.appendChild(a);
+        });
+      })
+      .catch(() => {});
+  }
+
   function init() {
+    renderIndex();
     document.querySelectorAll(".codeblock").forEach(block => {
       const btn = block.querySelector(".copy-btn");
       if (!btn) return;
