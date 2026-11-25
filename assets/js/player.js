@@ -13,6 +13,7 @@
   var titleTimer = null;
   var lastQueueIndex = -1;
   var apiQueue = [];
+  var apiFetched = false;
   var API_BASE = "https://www.googleapis.com/youtube/v3/";
 
   var icons = {
@@ -105,6 +106,7 @@
 
   function storeApiQueue(result) {
     apiQueue = result.items;
+    apiFetched = true;
     var title = document.getElementById("yt-queue-title");
     if (title) title.textContent = result.kind === "playlist" ? "UP NEXT" : "MORE LIKE THIS";
     renderQueue();
@@ -176,7 +178,11 @@
   function renderQueue() {
     var list = document.getElementById("yt-queue-list");
     if (!list) return;
-    if (apiQueue.length > 0) {
+    if (apiFetched) {
+      if (apiQueue.length === 0) {
+        list.innerHTML = '<li class="yt-queue__empty">No suggestions found</li>';
+        return;
+      }
       var apiHtml = "";
       for (var a = 0; a < apiQueue.length; a++) {
         var entry = apiQueue[a];
@@ -313,7 +319,7 @@
         '</div>' +
       '</div>' +
       '<div class="yt-player__queue">' +
-        '<p id="yt-queue-title" class="yt-player__queue-title">Up next</p>' +
+        '<p id="yt-queue-title" class="yt-player__queue-title">UP NEXT</p>' +
         '<ol id="yt-queue-list" class="yt-player__queue-list"></ol>' +
       '</div>';
     document.body.appendChild(root);

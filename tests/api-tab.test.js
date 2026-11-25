@@ -125,6 +125,7 @@ function rejectedValue(promise) {
   var api = sandbox.window.ClassroomPlayer.api;
   assert.ok(api && typeof api.fetchApiQueue === "function", "fetchApiQueue is not a function");
   assert(src.indexOf('id="yt-queue-title"') !== -1, 'player.js missing: id="yt-queue-title"');
+  assert(src.indexOf('class="yt-player__queue-title">UP NEXT<') !== -1, "initial queue heading must be UP NEXT");
 
   // playlist path
   requests.length = 0;
@@ -208,6 +209,8 @@ function rejectedValue(promise) {
   var empty = await api.fetchApiQueue("KEY", { videoId: "vidA", playlistId: null, index: 1 });
   assert.strictEqual(empty.kind, "suggested");
   assert.strictEqual(empty.items.length, 0);
+  assert.strictEqual(byId["yt-queue-list"].innerHTML, '<li class="yt-queue__empty">No suggestions found</li>');
+  assert.strictEqual(byId["yt-queue-title"].textContent, "MORE LIKE THIS");
 
   console.log("api tab tests ok");
 })().catch(function (err) {
