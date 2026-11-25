@@ -284,6 +284,20 @@ html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
   color: var(--player-dim);
 }
 .yt-player__api-status[data-error="true"] { color: var(--player-yellow); }
+#yt-api-key {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--player-line);
+  color: var(--player-chalk);
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+}
+#yt-api-key::placeholder { color: var(--player-dim); }
+#yt-api-key:focus { outline: none; border-bottom-color: var(--player-yellow); }
+#yt-api-status { font-size: 0.7rem; color: var(--player-dim); }
+#yt-api-status[data-error="true"] { color: var(--player-yellow); }
 [data-mode="api"] .yt-player__link { display: none; }
 [data-mode="api"] .yt-player__api { display: flex; }
 [data-mode="url"] .yt-player__link { display: flex; }

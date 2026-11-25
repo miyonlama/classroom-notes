@@ -10,6 +10,7 @@ var src = fs.readFileSync(path.join(rootDir, "assets/js/player.js"), "utf8");
 var css = fs.readFileSync(path.join(rootDir, "assets/css/player.css"), "utf8");
 
 function el() {
+  var listeners = {};
   return {
     id: "",
     className: "",
@@ -25,7 +26,16 @@ function el() {
       toggle: function () {},
       contains: function () { return false; }
     },
-    addEventListener: function () {},
+    addEventListener: function (type, fn) {
+      (listeners[type] = listeners[type] || []).push(fn);
+    },
+    dispatch: function (type) {
+      var self = this;
+      (listeners[type] || []).slice().forEach(function (fn) {
+        fn.call(self, { target: self, preventDefault: function () {} });
+      });
+    },
+    listenerCount: function (type) { return (listeners[type] || []).length; },
     appendChild: function () {},
     querySelector: function () { return el(); },
     setAttribute: function (k, v) { this.attrs[k] = v; },
@@ -68,6 +78,18 @@ var sandbox = {
   setInterval: setInterval,
   clearInterval: clearInterval
 };
+sandbox.window.YT = {
+  Player: function () {
+    this.setVolume = function () {};
+    this.mute = function () {};
+    this.unMute = function () {};
+    this.loadVideoById = function () {};
+    this.loadPlaylist = function () {};
+    this.getVideoData = function () { return { title: "API Song", video_id: "vidA" }; };
+  }
+};
+// saved API key must survive the fresh-load reset
+store["classroom-notes-yt-api-key"] = "KEY";
 vm.createContext(sandbox);
 vm.runInContext(src, sandbox);
 
@@ -211,6 +233,93 @@ function rejectedValue(promise) {
   assert.strictEqual(empty.items.length, 0);
   assert.strictEqual(byId["yt-queue-list"].innerHTML, '<li class="yt-queue__empty">No suggestions found</li>');
   assert.strictEqual(byId["yt-queue-title"].textContent, "MORE LIKE THIS");
+
+  // ---- Task 3: key persistence, LOAD wiring, stale-response guard ----
+
+  // saved key restored, song state still cleared on a fresh load
+  var keyInput = sandbox.document.getElementById("yt-api-key");
+  var apiUrlInput = sandbox.document.getElementById("yt-api-url");
+  assert.strictEqual(keyInput.value, "KEY", "saved API key must be restored");
+  assert.strictEqual(sandbox.localStorage.getItem("classroom-notes-yt-api-key"), "KEY");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.stateForTest.url, "", "fresh load must clear song");
+
+  // key saved on input
+  keyInput.value = "KEY2";
+  keyInput.dispatch("input");
+  assert.strictEqual(sandbox.localStorage.getItem("classroom-notes-yt-api-key"), "KEY2");
+  keyInput.value = "KEY";
+  keyInput.dispatch("input");
+  assert.strictEqual(sandbox.localStorage.getItem("classroom-notes-yt-api-key"), "KEY");
+
+  // LOAD wired; typing in the API URL never fetches
+  requests.length = 0;
+  assert.ok(sandbox.document.getElementById("yt-api-load").listenerCount("click") > 0, "LOAD button must be wired");
+  apiUrlInput.value = "https://youtu.be/abc";
+  apiUrlInput.dispatch("input");
+  assert.strictEqual(apiUrlInput.listenerCount("input"), 0, "API URL must not auto-load");
+  assert.strictEqual(requests.length, 0, "typing must not spend quota");
+
+  // errors: exact strings, playback untouched
+  sandbox.window.ClassroomPlayer.setMode("api");
+  requests.length = 0;
+  fetchStub = function () { return jsonResponse(400, { error: { errors: [{ reason: "keyInvalid" }] } }); };
+  await sandbox.window.ClassroomPlayer.loadForTest("BAD", { videoId: "vidA", playlistId: null, index: 1 });
+  assert.strictEqual(byId["yt-api-status"].textContent, "API key rejected. Check the key and its referrer restriction.");
+  assert.strictEqual(byId["yt-api-status"].dataset.error, "true");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.stateForTest.url, "", "errors must not change playback");
+
+  fetchStub = function () { return jsonResponse(403, { error: { errors: [{ reason: "quotaExceeded" }] } }); };
+  await sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL123", index: 1 });
+  assert.strictEqual(byId["yt-api-status"].textContent, "API quota exhausted for today. URL mode still works.");
+
+  fetchStub = function () { return jsonResponse(400, { error: { errors: [{ reason: "badRequest" }] } }); };
+  await sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL123", index: 1 });
+  assert.strictEqual(byId["yt-api-status"].textContent, "YouTube API error: badRequest");
+
+  // a late response must not populate the queue after switching to URL mode
+  requests.length = 0;
+  var pending = [];
+  fetchStub = function () {
+    return new Promise(function (resolve) { pending.push(resolve); });
+  };
+  sandbox.window.ClassroomPlayer.setMode("api");
+  var firstPending = sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL_first", index: 1 });
+  var secondPending = sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL_second", index: 1 });
+  assert.strictEqual(pending.length, 2, "two requests must be in flight");
+  var titleBefore = byId["yt-queue-title"].textContent;
+  sandbox.window.ClassroomPlayer.setMode("url");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0);
+  var resolveLate = function (resolve) {
+    resolve({
+      ok: true,
+      status: 200,
+      json: function () {
+        return Promise.resolve({ items: [{ snippet: { title: "Late", resourceId: { videoId: "lateVid" } } }] });
+      }
+    });
+  };
+  resolveLate(pending[0]);
+  await firstPending;
+  resolveLate(pending[1]);
+  await secondPending;
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0, "late response must not fill URL-mode queue");
+  assert.strictEqual(byId["yt-queue-title"].textContent, titleBefore, "late response must not change queue heading");
+
+  // success uses the same playback path as URL LOAD
+  requests.length = 0;
+  var step = 0;
+  fetchStub = function () {
+    step++;
+    if (step === 1) return jsonResponse(200, { items: [{ snippet: { title: "Fetched Song" } }] });
+    return jsonResponse(200, { items: [{ id: { videoId: "sugVid" }, snippet: { title: "Suggestion" } }] });
+  };
+  sandbox.window.ClassroomPlayer.setMode("api");
+  var apiUrl = "https://youtu.be/vidA";
+  var loaded = await sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: "vidA", playlistId: null, index: 1 }, apiUrl);
+  assert.strictEqual(loaded.kind, "suggested");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.stateForTest.url, apiUrl, "API load must use playback load path");
+  assert.strictEqual(byId["yt-api-status"].textContent, "Queue loaded — press play");
+  assert.strictEqual(byId["yt-api-status"].dataset.error, "false");
 
   console.log("api tab tests ok");
 })().catch(function (err) {

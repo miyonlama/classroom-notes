@@ -14,6 +14,8 @@
   var lastQueueIndex = -1;
   var apiQueue = [];
   var apiFetched = false;
+  var apiRequestId = 0;
+  var API_KEY_STORAGE = "classroom-notes-yt-api-key";
   var API_BASE = "https://www.googleapis.com/youtube/v3/";
 
   var icons = {
@@ -35,15 +37,27 @@
     if (opener) opener.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
+  function getMode() {
+    var root = document.getElementById("yt-player");
+    return root && root.dataset ? root.dataset.mode : "url";
+  }
+
   function setMode(mode) {
     if (mode !== "url" && mode !== "api") return;
     var root = document.getElementById("yt-player");
     if (!root) return;
+    var leavingApi = mode === "url" && getMode() === "api";
     if (root.dataset) root.dataset.mode = mode;
     var urlTab = document.getElementById("yt-tabs-url");
     var apiTab = document.getElementById("yt-tabs-api");
     if (urlTab) urlTab.setAttribute("aria-selected", mode === "url" ? "true" : "false");
     if (apiTab) apiTab.setAttribute("aria-selected", mode === "api" ? "true" : "false");
+    if (leavingApi) {
+      apiRequestId++;
+      apiQueue = [];
+      apiFetched = false;
+      renderQueue();
+    }
   }
 
   function loadState() {
@@ -104,7 +118,8 @@
     }).slice(0, 5);
   }
 
-  function storeApiQueue(result) {
+  function storeApiQueue(result, isCurrent) {
+    if (isCurrent && !isCurrent()) return result;
     apiQueue = result.items;
     apiFetched = true;
     var title = document.getElementById("yt-queue-title");
@@ -113,13 +128,13 @@
     return result;
   }
 
-  function fetchApiQueue(key, source) {
+  function fetchApiQueue(key, source, isCurrent) {
     var q = "key=" + encodeURIComponent(key);
     if (source && source.playlistId) {
       return apiGet(API_BASE + "playlistItems?part=snippet&maxResults=5&playlistId=" +
         encodeURIComponent(source.playlistId) + "&" + q).then(function (data) {
         return { items: mapApiItems(data.items, false), kind: "playlist" };
-      }).then(storeApiQueue);
+      }).then(function (result) { return storeApiQueue(result, isCurrent); });
     }
     var videoId = source && source.videoId;
     return apiGet(API_BASE + "videos?part=snippet&id=" + encodeURIComponent(videoId) + "&" + q)
@@ -131,7 +146,7 @@
           return { items: mapApiItems(search.items, true), kind: "suggested" };
         });
       })
-      .then(storeApiQueue);
+      .then(function (result) { return storeApiQueue(result, isCurrent); });
   }
 
   function fmt(seconds) {
@@ -143,6 +158,13 @@
 
   function setStatus(text, isError) {
     var el = document.getElementById("yt-status");
+    if (!el) return;
+    el.textContent = text;
+    el.dataset.error = isError ? "true" : "false";
+  }
+
+  function setApiStatus(text, isError) {
+    var el = document.getElementById("yt-api-status");
     if (!el) return;
     el.textContent = text;
     el.dataset.error = isError ? "true" : "false";
@@ -334,6 +356,13 @@
     document.getElementById("yt-volume").value = String(state.volume);
     updateMuteIcon();
 
+    var keyInput = document.getElementById("yt-api-key");
+    try { keyInput.value = localStorage.getItem(API_KEY_STORAGE) || ""; } catch (e) {}
+    keyInput.addEventListener("input", function () {
+      try { localStorage.setItem(API_KEY_STORAGE, keyInput.value); } catch (e) {}
+    });
+    document.getElementById("yt-api-load").addEventListener("click", loadFromApi);
+
     var urlInput = document.getElementById("yt-url");
     urlInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); loadFromInput(); }
@@ -424,13 +453,7 @@
     saveState();
   }
 
-  function loadFromInput() {
-    var url = document.getElementById("yt-url").value.trim();
-    var source = parseSource(url);
-    if (!source) {
-      setStatus("That is not a YouTube video or playlist URL.", true);
-      return;
-    }
+  function loadSource(url, source) {
     state.url = url;
     state.time = 0;
     state.title = "";
@@ -458,6 +481,49 @@
     } else {
       createPlayer(source.videoId, source.playlistId, source.index);
     }
+  }
+
+  function loadFromInput() {
+    var url = document.getElementById("yt-url").value.trim();
+    var source = parseSource(url);
+    if (!source) {
+      setStatus("That is not a YouTube video or playlist URL.", true);
+      return;
+    }
+    loadSource(url, source);
+  }
+
+  function loadApi(key, source, url) {
+    setApiStatus("", false);
+    var requestId = ++apiRequestId;
+    var isCurrent = function () { return requestId === apiRequestId && getMode() === "api"; };
+    return fetchApiQueue(key, source, isCurrent).then(function (result) {
+      if (!isCurrent()) return result;
+      loadSource(url || "", source);
+      setApiStatus("Queue loaded — press play", false);
+      return result;
+    }, function (reason) {
+      if (!isCurrent()) return null;
+      if (reason === "keyInvalid") {
+        setApiStatus("API key rejected. Check the key and its referrer restriction.", true);
+      } else if (reason === "quotaExceeded") {
+        setApiStatus("API quota exhausted for today. URL mode still works.", true);
+      } else {
+        setApiStatus("YouTube API error: " + reason, true);
+      }
+      return null;
+    });
+  }
+
+  function loadFromApi() {
+    var key = document.getElementById("yt-api-key").value.trim();
+    var url = document.getElementById("yt-api-url").value.trim();
+    var source = parseSource(url);
+    if (!source) {
+      setApiStatus("That is not a YouTube video or playlist URL.", true);
+      return;
+    }
+    return loadApi(key, source, url);
   }
 
   function createPlayer(id, playlistId, index) {
@@ -598,6 +664,9 @@
   window.ClassroomPlayer = { setOpen: setPlayerOpen };
   window.ClassroomPlayer.setMode = setMode;
   window.ClassroomPlayer.api = { fetchApiQueue: fetchApiQueue };
+  window.ClassroomPlayer.loadForTest = function (key, source, url) { return loadApi(key, source, url); };
+  window.ClassroomPlayer.stateForTest = state;
+  window.ClassroomPlayer.apiQueueForTest = function () { return apiQueue; };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
