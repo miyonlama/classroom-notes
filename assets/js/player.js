@@ -12,6 +12,8 @@
   var loadTimer = null;
   var titleTimer = null;
   var lastQueueIndex = -1;
+  var apiQueue = [];
+  var API_BASE = "https://www.googleapis.com/youtube/v3/";
 
   var icons = {
     play: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5Z"/></svg>',
@@ -73,6 +75,63 @@
     return { videoId: videoId, playlistId: playlistId, index: index };
   }
 
+  function apiGet(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) {
+        return r.json().then(function (body) {
+          var errs = body && body.error && body.error.errors;
+          var reason = errs && errs[0] && errs[0].reason;
+          throw reason || new Error("API status " + r.status);
+        }, function () { throw new Error("API status " + r.status); });
+      }
+      return r.json();
+    });
+  }
+
+  function mapApiItems(items, fromSearch) {
+    return (items || []).map(function (item) {
+      var snippet = item.snippet || {};
+      var thumbs = snippet.thumbnails || {};
+      var videoId = fromSearch
+        ? (item.id && item.id.videoId)
+        : (snippet.resourceId && snippet.resourceId.videoId);
+      return {
+        videoId: videoId || "",
+        title: snippet.title || "",
+        thumb: (thumbs.medium && thumbs.medium.url) || (thumbs.default && thumbs.default.url) || ""
+      };
+    }).slice(0, 5);
+  }
+
+  function storeApiQueue(result) {
+    apiQueue = result.items;
+    var title = document.getElementById("yt-queue-title");
+    if (title) title.textContent = result.kind === "playlist" ? "UP NEXT" : "MORE LIKE THIS";
+    renderQueue();
+    return result;
+  }
+
+  function fetchApiQueue(key, source) {
+    var q = "key=" + encodeURIComponent(key);
+    if (source && source.playlistId) {
+      return apiGet(API_BASE + "playlistItems?part=snippet&maxResults=5&playlistId=" +
+        encodeURIComponent(source.playlistId) + "&" + q).then(function (data) {
+        return { items: mapApiItems(data.items, false), kind: "playlist" };
+      }).then(storeApiQueue);
+    }
+    var videoId = source && source.videoId;
+    return apiGet(API_BASE + "videos?part=snippet&id=" + encodeURIComponent(videoId) + "&" + q)
+      .then(function (data) {
+        var first = data.items && data.items[0];
+        var title = first && first.snippet && first.snippet.title || "";
+        return apiGet(API_BASE + "search?part=snippet&type=video&maxResults=5&order=relevance&q=" +
+          encodeURIComponent(title) + "&" + q).then(function (search) {
+          return { items: mapApiItems(search.items, true), kind: "suggested" };
+        });
+      })
+      .then(storeApiQueue);
+  }
+
   function fmt(seconds) {
     if (!isFinite(seconds) || seconds < 0) seconds = 0;
     var m = Math.floor(seconds / 60);
@@ -117,6 +176,22 @@
   function renderQueue() {
     var list = document.getElementById("yt-queue-list");
     if (!list) return;
+    if (apiQueue.length > 0) {
+      var apiHtml = "";
+      for (var a = 0; a < apiQueue.length; a++) {
+        var entry = apiQueue[a];
+        var thumb = entry.thumb
+          ? '<img src="' + escapeHtml(entry.thumb) + '" alt="" style="width:100%;height:100%;object-fit:cover" />'
+          : "";
+        apiHtml += '<li><button type="button" class="yt-queue__item" data-video-id="' + escapeHtml(entry.videoId) +
+          '" aria-label="Play ' + escapeHtml(entry.title) + '">' +
+          '<span class="yt-queue__thumb" aria-hidden="true">' + thumb + '</span>' +
+          '<span class="yt-queue__text"><b>' + escapeHtml(entry.title) + '</b></span>' +
+          '</button></li>';
+      }
+      list.innerHTML = apiHtml;
+      return;
+    }
     var source = parseSource(state.url);
     var current = 0;
     if (player && typeof player.getPlaylistIndex === "function") {
@@ -238,7 +313,7 @@
         '</div>' +
       '</div>' +
       '<div class="yt-player__queue">' +
-        '<p class="yt-player__queue-title">Up next</p>' +
+        '<p id="yt-queue-title" class="yt-player__queue-title">Up next</p>' +
         '<ol id="yt-queue-list" class="yt-player__queue-list"></ol>' +
       '</div>';
     document.body.appendChild(root);
@@ -268,7 +343,13 @@
     document.getElementById("yt-tabs-api").addEventListener("click", function () { setMode("api"); });
     document.getElementById("yt-queue-list").addEventListener("click", function (e) {
       var item = e.target.closest ? e.target.closest(".yt-queue__item") : null;
-      if (!item || !player || !player.playVideoAt) return;
+      if (!item || !player) return;
+      var videoId = item.getAttribute("data-video-id");
+      if (videoId) {
+        if (player.loadVideoById) player.loadVideoById(videoId, 0);
+        return;
+      }
+      if (!player.playVideoAt) return;
       player.playVideoAt(Number(item.getAttribute("data-index")));
     });
     document.getElementById("yt-prev").addEventListener("click", function () {
@@ -510,6 +591,7 @@
 
   window.ClassroomPlayer = { setOpen: setPlayerOpen };
   window.ClassroomPlayer.setMode = setMode;
+  window.ClassroomPlayer.api = { fetchApiQueue: fetchApiQueue };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
