@@ -12,6 +12,11 @@
   var loadTimer = null;
   var titleTimer = null;
   var lastQueueIndex = -1;
+  var apiQueue = [];
+  var apiFetched = false;
+  var apiRequestId = 0;
+  var API_KEY_STORAGE = "classroom-notes-yt-api-key";
+  var API_BASE = "https://www.googleapis.com/youtube/v3/";
 
   var icons = {
     play: '<svg class="filled" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5L13 8L4 13.5Z"/></svg>',
@@ -30,6 +35,38 @@
     root.classList.toggle("is-open", !!open);
     var opener = document.getElementById("yt-open");
     if (opener) opener.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+
+  function getMode() {
+    var root = document.getElementById("yt-player");
+    return root && root.dataset ? root.dataset.mode : "url";
+  }
+
+  function setMode(mode) {
+    if (mode !== "url" && mode !== "api") return;
+    var root = document.getElementById("yt-player");
+    if (!root) return;
+    var previous = getMode();
+    var leavingApi = mode === "url" && previous === "api";
+    var leavingUrl = mode === "api" && previous === "url";
+    if (root.dataset) root.dataset.mode = mode;
+    var urlTab = document.getElementById("yt-tabs-url");
+    var apiTab = document.getElementById("yt-tabs-api");
+    if (urlTab) urlTab.setAttribute("aria-selected", mode === "url" ? "true" : "false");
+    if (apiTab) apiTab.setAttribute("aria-selected", mode === "api" ? "true" : "false");
+    if (leavingApi) {
+      apiRequestId++;
+      apiQueue = [];
+      apiFetched = false;
+      var title = document.getElementById("yt-queue-title");
+      if (title) title.textContent = "UP NEXT";
+      setApiStatus("", false);
+      renderQueue();
+    }
+    if (leavingUrl) {
+      if (loadTimer) clearTimeout(loadTimer);
+      loadTimer = null;
+    }
   }
 
   function loadState() {
@@ -62,6 +99,65 @@
     return { videoId: videoId, playlistId: playlistId, index: index };
   }
 
+  function apiGet(url) {
+    return fetch(url).then(function (r) {
+      if (!r.ok) {
+        return r.json().then(function (body) {
+          var errs = body && body.error && body.error.errors;
+          var reason = errs && errs[0] && errs[0].reason;
+          throw reason || new Error("API status " + r.status);
+        }, function () { throw new Error("API status " + r.status); });
+      }
+      return r.json();
+    });
+  }
+
+  function mapApiItems(items, fromSearch) {
+    return (items || []).map(function (item) {
+      var snippet = item.snippet || {};
+      var thumbs = snippet.thumbnails || {};
+      var videoId = fromSearch
+        ? (item.id && item.id.videoId)
+        : (snippet.resourceId && snippet.resourceId.videoId);
+      return {
+        videoId: videoId || "",
+        title: snippet.title || "",
+        thumb: (thumbs.medium && thumbs.medium.url) || (thumbs.default && thumbs.default.url) || ""
+      };
+    }).slice(0, 5);
+  }
+
+  function storeApiQueue(result, isCurrent) {
+    if (isCurrent && !isCurrent()) return result;
+    apiQueue = result.items;
+    apiFetched = true;
+    var title = document.getElementById("yt-queue-title");
+    if (title) title.textContent = result.kind === "playlist" ? "UP NEXT" : "MORE LIKE THIS";
+    renderQueue();
+    return result;
+  }
+
+  function fetchApiQueue(key, source, isCurrent) {
+    var q = "key=" + encodeURIComponent(key);
+    if (source && source.playlistId) {
+      return apiGet(API_BASE + "playlistItems?part=snippet&maxResults=5&playlistId=" +
+        encodeURIComponent(source.playlistId) + "&" + q).then(function (data) {
+        return { items: mapApiItems(data.items, false), kind: "playlist" };
+      }).then(function (result) { return storeApiQueue(result, isCurrent); });
+    }
+    var videoId = source && source.videoId;
+    return apiGet(API_BASE + "videos?part=snippet&id=" + encodeURIComponent(videoId) + "&" + q)
+      .then(function (data) {
+        var first = data.items && data.items[0];
+        var title = first && first.snippet && first.snippet.title || "";
+        return apiGet(API_BASE + "search?part=snippet&type=video&maxResults=5&order=relevance&q=" +
+          encodeURIComponent(title) + "&" + q).then(function (search) {
+          return { items: mapApiItems(search.items, true), kind: "suggested" };
+        });
+      })
+      .then(function (result) { return storeApiQueue(result, isCurrent); });
+  }
+
   function fmt(seconds) {
     if (!isFinite(seconds) || seconds < 0) seconds = 0;
     var m = Math.floor(seconds / 60);
@@ -71,6 +167,13 @@
 
   function setStatus(text, isError) {
     var el = document.getElementById("yt-status");
+    if (!el) return;
+    el.textContent = text;
+    el.dataset.error = isError ? "true" : "false";
+  }
+
+  function setApiStatus(text, isError) {
+    var el = document.getElementById("yt-api-status");
     if (!el) return;
     el.textContent = text;
     el.dataset.error = isError ? "true" : "false";
@@ -106,6 +209,26 @@
   function renderQueue() {
     var list = document.getElementById("yt-queue-list");
     if (!list) return;
+    if (apiFetched) {
+      if (apiQueue.length === 0) {
+        list.innerHTML = '<li class="yt-queue__empty">No suggestions found</li>';
+        return;
+      }
+      var apiHtml = "";
+      for (var a = 0; a < apiQueue.length; a++) {
+        var entry = apiQueue[a];
+        var thumb = entry.thumb
+          ? '<img src="' + escapeHtml(entry.thumb) + '" alt="" style="width:100%;height:100%;object-fit:cover" />'
+          : "";
+        apiHtml += '<li><button type="button" class="yt-queue__item" data-video-id="' + escapeHtml(entry.videoId) +
+          '" aria-label="Play ' + escapeHtml(entry.title) + '">' +
+          '<span class="yt-queue__thumb" aria-hidden="true">' + thumb + '</span>' +
+          '<span class="yt-queue__text"><b>' + escapeHtml(entry.title) + '</b></span>' +
+          '</button></li>';
+      }
+      list.innerHTML = apiHtml;
+      return;
+    }
     var source = parseSource(state.url);
     var current = 0;
     if (player && typeof player.getPlaylistIndex === "function") {
@@ -185,6 +308,7 @@
     var root = document.createElement("div");
     root.className = "yt-player";
     root.id = "yt-player";
+    if (root.dataset) root.dataset.mode = "url";
     root.innerHTML =
       '<div class="yt-player__host" id="yt-host"></div>' +
       '<div class="yt-player__head">' +
@@ -192,6 +316,10 @@
         '<button id="yt-expand" class="yt-player__expand" type="button" aria-label="Expand player">' + icons.chevron + '</button>' +
       '</div>' +
       '<div class="yt-player__deck">' +
+        '<div class="yt-player__tabs" role="tablist" aria-label="Player source">' +
+          '<button id="yt-tabs-url" class="yt-player__tab" type="button" role="tab" aria-selected="true">URL</button>' +
+          '<button id="yt-tabs-api" class="yt-player__tab" type="button" role="tab" aria-selected="false">API</button>' +
+        '</div>' +
         '<img id="yt-art" class="yt-player__art" alt="" />' +
         '<div class="yt-player__meta">' +
           '<span class="yt-player__label">Music</span>' +
@@ -214,9 +342,15 @@
           '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
           '<button id="yt-load" class="yt-player__load" type="button">LOAD</button>' +
         '</div>' +
+        '<div class="yt-player__api">' +
+          '<input id="yt-api-key" type="password" autocomplete="off" placeholder="YouTube API key" aria-label="YouTube API key" />' +
+          '<input id="yt-api-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube API URL" />' +
+          '<button id="yt-api-load" class="yt-player__load" type="button">LOAD</button>' +
+          '<span id="yt-api-status" class="yt-player__api-status" role="status"></span>' +
+        '</div>' +
       '</div>' +
       '<div class="yt-player__queue">' +
-        '<p class="yt-player__queue-title">Up next</p>' +
+        '<p id="yt-queue-title" class="yt-player__queue-title">UP NEXT</p>' +
         '<ol id="yt-queue-list" class="yt-player__queue-list"></ol>' +
       '</div>';
     document.body.appendChild(root);
@@ -231,6 +365,13 @@
     document.getElementById("yt-volume").value = String(state.volume);
     updateMuteIcon();
 
+    var keyInput = document.getElementById("yt-api-key");
+    try { keyInput.value = localStorage.getItem(API_KEY_STORAGE) || ""; } catch (e) {}
+    keyInput.addEventListener("input", function () {
+      try { localStorage.setItem(API_KEY_STORAGE, keyInput.value); } catch (e) {}
+    });
+    document.getElementById("yt-api-load").addEventListener("click", loadFromApi);
+
     var urlInput = document.getElementById("yt-url");
     urlInput.addEventListener("keydown", function (e) {
       if (e.key === "Enter") { e.preventDefault(); loadFromInput(); }
@@ -242,9 +383,17 @@
       loadTimer = setTimeout(loadFromInput, 700);
     });
     document.getElementById("yt-load").addEventListener("click", loadFromInput);
+    document.getElementById("yt-tabs-url").addEventListener("click", function () { setMode("url"); });
+    document.getElementById("yt-tabs-api").addEventListener("click", function () { setMode("api"); });
     document.getElementById("yt-queue-list").addEventListener("click", function (e) {
       var item = e.target.closest ? e.target.closest(".yt-queue__item") : null;
-      if (!item || !player || !player.playVideoAt) return;
+      if (!item || !player) return;
+      var videoId = item.getAttribute("data-video-id");
+      if (videoId) {
+        if (player.loadVideoById) player.loadVideoById(videoId, 0);
+        return;
+      }
+      if (!player.playVideoAt) return;
       player.playVideoAt(Number(item.getAttribute("data-index")));
     });
     document.getElementById("yt-prev").addEventListener("click", function () {
@@ -285,6 +434,12 @@
       if (player && player.stopVideo) player.stopVideo();
       state.url = ""; state.time = 0; state.title = ""; lastLoadedUrl = "";
       lastQueueIndex = -1;
+      apiRequestId++;
+      apiQueue = [];
+      apiFetched = false;
+      var queueTitle = document.getElementById("yt-queue-title");
+      if (queueTitle) queueTitle.textContent = "UP NEXT";
+      setApiStatus("", false);
       document.getElementById("yt-url").value = "";
       document.getElementById("yt-author").textContent = "";
       document.getElementById("yt-art").src = ART_PLACEHOLDER;
@@ -313,13 +468,7 @@
     saveState();
   }
 
-  function loadFromInput() {
-    var url = document.getElementById("yt-url").value.trim();
-    var source = parseSource(url);
-    if (!source) {
-      setStatus("That is not a YouTube video or playlist URL.", true);
-      return;
-    }
+  function loadSource(url, source) {
     state.url = url;
     state.time = 0;
     state.title = "";
@@ -347,6 +496,49 @@
     } else {
       createPlayer(source.videoId, source.playlistId, source.index);
     }
+  }
+
+  function loadFromInput() {
+    var url = document.getElementById("yt-url").value.trim();
+    var source = parseSource(url);
+    if (!source) {
+      setStatus("That is not a YouTube video or playlist URL.", true);
+      return;
+    }
+    loadSource(url, source);
+  }
+
+  function loadApi(key, source, url) {
+    setApiStatus("", false);
+    var requestId = ++apiRequestId;
+    var isCurrent = function () { return requestId === apiRequestId && getMode() === "api"; };
+    return fetchApiQueue(key, source, isCurrent).then(function (result) {
+      if (!isCurrent()) return result;
+      loadSource(url || "", source);
+      setApiStatus("Queue loaded — press play", false);
+      return result;
+    }, function (reason) {
+      if (!isCurrent()) return null;
+      if (reason === "keyInvalid") {
+        setApiStatus("API key rejected. Check the key and its referrer restriction.", true);
+      } else if (reason === "quotaExceeded") {
+        setApiStatus("API quota exhausted for today. URL mode still works.", true);
+      } else {
+        setApiStatus("YouTube API error: " + reason, true);
+      }
+      return null;
+    });
+  }
+
+  function loadFromApi() {
+    var key = document.getElementById("yt-api-key").value.trim();
+    var url = document.getElementById("yt-api-url").value.trim();
+    var source = parseSource(url);
+    if (!source) {
+      setApiStatus("That is not a YouTube video or playlist URL.", true);
+      return;
+    }
+    return loadApi(key, source, url);
   }
 
   function createPlayer(id, playlistId, index) {
@@ -485,6 +677,11 @@
   }
 
   window.ClassroomPlayer = { setOpen: setPlayerOpen };
+  window.ClassroomPlayer.setMode = setMode;
+  window.ClassroomPlayer.api = { fetchApiQueue: fetchApiQueue };
+  window.ClassroomPlayer.loadForTest = function (key, source, url) { return loadApi(key, source, url); };
+  window.ClassroomPlayer.stateForTest = state;
+  window.ClassroomPlayer.apiQueueForTest = function () { return apiQueue; };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
