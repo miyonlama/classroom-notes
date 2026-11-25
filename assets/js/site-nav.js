@@ -143,9 +143,8 @@
         });
         swapStyles(doc);
         document.title = doc.title || document.title;
-        if (location.hash === "#music") {
-          var player = document.getElementById("yt-player");
-          if (player && player.classList) player.classList.add("is-open");
+        if (location.hash === "#music" && window.ClassroomPlayer && window.ClassroomPlayer.setOpen) {
+          window.ClassroomPlayer.setOpen(true);
         }
         window.scrollTo(0, 0);
         runScripts(doc);
