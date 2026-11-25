@@ -32,6 +32,17 @@
     if (opener) opener.setAttribute("aria-expanded", open ? "true" : "false");
   }
 
+  function setMode(mode) {
+    if (mode !== "url" && mode !== "api") return;
+    var root = document.getElementById("yt-player");
+    if (!root) return;
+    if (root.dataset) root.dataset.mode = mode;
+    var urlTab = document.getElementById("yt-tabs-url");
+    var apiTab = document.getElementById("yt-tabs-api");
+    if (urlTab) urlTab.setAttribute("aria-selected", mode === "url" ? "true" : "false");
+    if (apiTab) apiTab.setAttribute("aria-selected", mode === "api" ? "true" : "false");
+  }
+
   function loadState() {
     try {
       var raw = localStorage.getItem(KEY);
@@ -185,6 +196,7 @@
     var root = document.createElement("div");
     root.className = "yt-player";
     root.id = "yt-player";
+    if (root.dataset) root.dataset.mode = "url";
     root.innerHTML =
       '<div class="yt-player__host" id="yt-host"></div>' +
       '<div class="yt-player__head">' +
@@ -192,6 +204,10 @@
         '<button id="yt-expand" class="yt-player__expand" type="button" aria-label="Expand player">' + icons.chevron + '</button>' +
       '</div>' +
       '<div class="yt-player__deck">' +
+        '<div class="yt-player__tabs" role="tablist" aria-label="Player source">' +
+          '<button id="yt-tabs-url" class="yt-player__tab" type="button" role="tab" aria-selected="true">URL</button>' +
+          '<button id="yt-tabs-api" class="yt-player__tab" type="button" role="tab" aria-selected="false">API</button>' +
+        '</div>' +
         '<img id="yt-art" class="yt-player__art" alt="" />' +
         '<div class="yt-player__meta">' +
           '<span class="yt-player__label">Music</span>' +
@@ -213,6 +229,12 @@
         '<div class="yt-player__link">' +
           '<input id="yt-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL" />' +
           '<button id="yt-load" class="yt-player__load" type="button">LOAD</button>' +
+        '</div>' +
+        '<div class="yt-player__api">' +
+          '<input id="yt-api-key" type="password" autocomplete="off" placeholder="YouTube API key" aria-label="YouTube API key" />' +
+          '<input id="yt-api-url" type="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube API URL" />' +
+          '<button id="yt-api-load" class="yt-player__load" type="button">LOAD</button>' +
+          '<span id="yt-api-status" class="yt-player__api-status" role="status"></span>' +
         '</div>' +
       '</div>' +
       '<div class="yt-player__queue">' +
@@ -242,6 +264,8 @@
       loadTimer = setTimeout(loadFromInput, 700);
     });
     document.getElementById("yt-load").addEventListener("click", loadFromInput);
+    document.getElementById("yt-tabs-url").addEventListener("click", function () { setMode("url"); });
+    document.getElementById("yt-tabs-api").addEventListener("click", function () { setMode("api"); });
     document.getElementById("yt-queue-list").addEventListener("click", function (e) {
       var item = e.target.closest ? e.target.closest(".yt-queue__item") : null;
       if (!item || !player || !player.playVideoAt) return;
@@ -485,6 +509,7 @@
   }
 
   window.ClassroomPlayer = { setOpen: setPlayerOpen };
+  window.ClassroomPlayer.setMode = setMode;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
