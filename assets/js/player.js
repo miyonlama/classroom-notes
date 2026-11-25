@@ -46,7 +46,9 @@
     if (mode !== "url" && mode !== "api") return;
     var root = document.getElementById("yt-player");
     if (!root) return;
-    var leavingApi = mode === "url" && getMode() === "api";
+    var previous = getMode();
+    var leavingApi = mode === "url" && previous === "api";
+    var leavingUrl = mode === "api" && previous === "url";
     if (root.dataset) root.dataset.mode = mode;
     var urlTab = document.getElementById("yt-tabs-url");
     var apiTab = document.getElementById("yt-tabs-api");
@@ -56,7 +58,14 @@
       apiRequestId++;
       apiQueue = [];
       apiFetched = false;
+      var title = document.getElementById("yt-queue-title");
+      if (title) title.textContent = "UP NEXT";
+      setApiStatus("", false);
       renderQueue();
+    }
+    if (leavingUrl) {
+      if (loadTimer) clearTimeout(loadTimer);
+      loadTimer = null;
     }
   }
 
@@ -425,6 +434,12 @@
       if (player && player.stopVideo) player.stopVideo();
       state.url = ""; state.time = 0; state.title = ""; lastLoadedUrl = "";
       lastQueueIndex = -1;
+      apiRequestId++;
+      apiQueue = [];
+      apiFetched = false;
+      var queueTitle = document.getElementById("yt-queue-title");
+      if (queueTitle) queueTitle.textContent = "UP NEXT";
+      setApiStatus("", false);
       document.getElementById("yt-url").value = "";
       document.getElementById("yt-author").textContent = "";
       document.getElementById("yt-art").src = ART_PLACEHOLDER;

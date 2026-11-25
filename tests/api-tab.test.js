@@ -29,10 +29,10 @@ function el() {
     addEventListener: function (type, fn) {
       (listeners[type] = listeners[type] || []).push(fn);
     },
-    dispatch: function (type) {
+    dispatch: function (type, target) {
       var self = this;
       (listeners[type] || []).slice().forEach(function (fn) {
-        fn.call(self, { target: self, preventDefault: function () {} });
+        fn.call(self, { target: target || self, preventDefault: function () {} });
       });
     },
     listenerCount: function (type) { return (listeners[type] || []).length; },
@@ -47,6 +47,7 @@ var byId = {};
 var created = [];
 var store = {};
 var requests = [];
+var loadVideoByIdCalls = [];
 var fetchStub = function () { return Promise.reject(new Error("fetch stub not configured")); };
 var sandbox = {
   window: {
@@ -83,7 +84,7 @@ sandbox.window.YT = {
     this.setVolume = function () {};
     this.mute = function () {};
     this.unMute = function () {};
-    this.loadVideoById = function () {};
+    this.loadVideoById = function (id, time) { loadVideoByIdCalls.push([id, time]); };
     this.loadPlaylist = function () {};
     this.getVideoData = function () { return { title: "API Song", video_id: "vidA" }; };
   }
@@ -92,6 +93,19 @@ sandbox.window.YT = {
 store["classroom-notes-yt-api-key"] = "KEY";
 vm.createContext(sandbox);
 vm.runInContext(src, sandbox);
+
+var realSetTimeout = sandbox.setTimeout;
+var realClearTimeout = sandbox.clearTimeout;
+var timers = [];
+sandbox.setTimeout = function (fn, ms) {
+  var handle = realSetTimeout(fn, ms);
+  timers.push({ handle: handle, ms: ms, cleared: false });
+  return handle;
+};
+sandbox.clearTimeout = function (handle) {
+  timers.forEach(function (t) { if (t.handle === handle) t.cleared = true; });
+  return realClearTimeout(handle);
+};
 
 var root = created[0];
 byId["yt-player"] = root;
@@ -107,6 +121,17 @@ assert.strictEqual(byId["yt-tabs-url"].attrs["aria-selected"], "true");
 assert.strictEqual(byId["yt-tabs-api"].attrs["aria-selected"], "false");
 sandbox.window.ClassroomPlayer.setMode("nonsense");
 assert.strictEqual(root.dataset.mode, "url", "setMode must ignore unsupported modes");
+
+// switching away from URL mode cancels the pending 700 ms auto-load
+timers.length = 0;
+var urlInputEl = sandbox.document.getElementById("yt-url");
+urlInputEl.value = "https://youtu.be/pendingVid1";
+urlInputEl.dispatch("input");
+assert.strictEqual(timers.length, 1, "URL typing must schedule one auto-load");
+assert.strictEqual(timers[0].ms, 700);
+sandbox.window.ClassroomPlayer.setMode("api");
+assert.strictEqual(timers[0].cleared, true, "leaving URL mode must clear pending auto-load");
+sandbox.window.ClassroomPlayer.setMode("url");
 
 [
   'id="yt-tabs-url"',
@@ -286,7 +311,6 @@ function rejectedValue(promise) {
   var firstPending = sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL_first", index: 1 });
   var secondPending = sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL_second", index: 1 });
   assert.strictEqual(pending.length, 2, "two requests must be in flight");
-  var titleBefore = byId["yt-queue-title"].textContent;
   sandbox.window.ClassroomPlayer.setMode("url");
   assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0);
   var resolveLate = function (resolve) {
@@ -303,7 +327,7 @@ function rejectedValue(promise) {
   resolveLate(pending[1]);
   await secondPending;
   assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0, "late response must not fill URL-mode queue");
-  assert.strictEqual(byId["yt-queue-title"].textContent, titleBefore, "late response must not change queue heading");
+  assert.strictEqual(byId["yt-queue-title"].textContent, "UP NEXT", "late response must not change reset queue heading");
 
   // success uses the same playback path as URL LOAD
   requests.length = 0;
@@ -320,6 +344,53 @@ function rejectedValue(promise) {
   assert.strictEqual(sandbox.window.ClassroomPlayer.stateForTest.url, apiUrl, "API load must use playback load path");
   assert.strictEqual(byId["yt-api-status"].textContent, "Queue loaded — press play");
   assert.strictEqual(byId["yt-api-status"].dataset.error, "false");
+
+  // queue-item click plays that video id
+  var callsBeforeClick = loadVideoByIdCalls.length;
+  var queueItem = sandbox.document.createElement("button");
+  queueItem.setAttribute("data-video-id", "vidOne");
+  byId["yt-queue-list"].dispatch("click", {
+    closest: function (selector) {
+      assert.strictEqual(selector, ".yt-queue__item");
+      return queueItem;
+    }
+  });
+  assert.strictEqual(loadVideoByIdCalls.length, callsBeforeClick + 1, "queue click must call loadVideoById");
+  assert.deepStrictEqual(loadVideoByIdCalls[callsBeforeClick], ["vidOne", 0]);
+
+  // leaving API mode resets the heading and API status
+  sandbox.window.ClassroomPlayer.setMode("url");
+  assert.strictEqual(byId["yt-queue-title"].textContent, "UP NEXT", "URL mode must reset queue heading");
+  assert.strictEqual(byId["yt-api-status"].textContent, "", "URL mode must clear API status");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0);
+
+  // close clears the API queue, heading and status
+  sandbox.window.ClassroomPlayer.setMode("api");
+  await sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: "vidA", playlistId: null, index: 1 }, apiUrl);
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 1);
+  byId["yt-close"].dispatch("click");
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0, "close must clear API queue");
+  assert.strictEqual(byId["yt-queue-title"].textContent, "UP NEXT", "close must reset queue heading");
+  assert.strictEqual(byId["yt-api-status"].textContent, "", "close must clear API status");
+  assert.strictEqual(byId["yt-queue-list"].innerHTML.indexOf("data-video-id"), -1, "close must clear queue DOM");
+
+  // an in-flight request must not repopulate the queue after close
+  requests.length = 0;
+  var closePending = [];
+  fetchStub = function () {
+    return new Promise(function (resolve) { closePending.push(resolve); });
+  };
+  var pendingCloseLoad = sandbox.window.ClassroomPlayer.loadForTest("KEY", { videoId: null, playlistId: "PL_close", index: 1 });
+  assert.strictEqual(closePending.length, 1, "close test must have one request in flight");
+  byId["yt-close"].dispatch("click");
+  closePending[0]({
+    ok: true,
+    status: 200,
+    json: function () { return Promise.resolve({ items: [{ snippet: { title: "Late", resourceId: { videoId: "lateVid" } } }] }); }
+  });
+  await pendingCloseLoad;
+  assert.strictEqual(sandbox.window.ClassroomPlayer.apiQueueForTest().length, 0, "late response after close must not refill queue");
+  assert.strictEqual(byId["yt-queue-title"].textContent, "UP NEXT", "late response after close must not change heading");
 
   console.log("api tab tests ok");
 })().catch(function (err) {
