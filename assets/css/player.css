@@ -131,9 +131,11 @@ html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
 }
 .yt-player.is-playing:not(.is-open) .yt-player__mark {
 }
-.yt-player__mark {
+.yt-player .yt-player__mark {
   width: 16px;
   height: 16px;
+  padding: 0;
+  background: transparent;
   border: 2px solid var(--player-yellow);
   border-radius: 50%;
   display: inline-grid;
@@ -272,16 +274,23 @@ html[data-theme="study"] .yt-player.is-playing:not(.is-open) {
   max-height: 220px;
   overflow-y: auto;
 }
-.yt-queue__item {
+.yt-player .yt-queue__item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  width: 100%;
+  height: auto;
   padding: 0.3rem;
+  background: transparent;
+  border: 0;
   border-radius: 0;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   cursor: pointer;
 }
-.yt-queue__item:hover { background: rgba(242, 193, 78, 0.08); }
-.yt-queue__item.is-current { background: rgba(242, 193, 78, 0.12); }
+.yt-player .yt-queue__item:hover { background: rgba(242, 193, 78, 0.08); }
+.yt-player .yt-queue__item.is-current { background: rgba(242, 193, 78, 0.12); }
 .yt-queue__no {
   font-size: 0.7rem;
   color: var(--player-dim);
