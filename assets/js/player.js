@@ -484,6 +484,7 @@
     window.addEventListener("pagehide", saveState);
   }
 
+  window.ClassroomPlayer = { setOpen: setPlayerOpen };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
 })();
