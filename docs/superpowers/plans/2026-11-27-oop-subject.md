@@ -313,7 +313,7 @@ Expected: PASS for the three paper assertions.
 Append assertions that:
 - sections `paper-2080-2`, `paper-2081`, `paper-2082` each have 12 `.question` and 12 `.worked-answer` entries with qnums `Q1`–`Q12` and bracketed marks;
 - the whole archive has exactly 72 `.question` and 72 `.worked-answer` entries;
-- every `href="..."` in the eight unit pages and the archive that starts with `.` or `../` resolves to an existing file under `notes/oop/` or an existing asset under `assets/`; skip fragments and external URLs.
+- every `href="..."` in the eight unit pages and the archive that starts with `.` resolves to an existing file under the repo root; skip fragments and absolute URLs.
 
 - [ ] **Step 2: Run the test to verify it fails**
 
