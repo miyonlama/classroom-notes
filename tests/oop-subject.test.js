@@ -46,12 +46,16 @@ assert(css.indexOf(".copy-btn") !== -1, "lecture-notes.css is missing .copy-btn"
 
 var currentLabels = {
   "introduction-to-oop.html": oopUnits[0],
-  "basics-of-cpp.html": oopUnits[1]
+  "basics-of-cpp.html": oopUnits[1],
+  "classes-and-objects.html": oopUnits[2],
+  "operator-overloading.html": oopUnits[3]
 };
 
 var unitPages = [
   { file: "introduction-to-oop.html", next: "basics-of-cpp.html", prior: false },
-  { file: "basics-of-cpp.html", next: "classes-and-objects.html", prior: "introduction-to-oop.html" }
+  { file: "basics-of-cpp.html", next: "classes-and-objects.html", prior: "introduction-to-oop.html" },
+  { file: "classes-and-objects.html", next: "operator-overloading.html", prior: "basics-of-cpp.html" },
+  { file: "operator-overloading.html", next: "inheritance.html", prior: "classes-and-objects.html" }
 ];
 
 unitPages.forEach(function (u) {
@@ -103,6 +107,15 @@ function headingCarriesExamBadge(html, needle) {
   ["types", "arithmetic", "pointers and functions"].forEach(function (needle) {
     assert(!headingCarriesExamBadge(s, needle), f + " heading '" + needle + "' must not carry an EXAM badge");
   });
+});
+
+var classesUnitPage = fs.readFileSync(path.join(root, "notes/oop/classes-and-objects.html"), "utf8");
+var operatorUnitPage = fs.readFileSync(path.join(root, "notes/oop/operator-overloading.html"), "utf8");
+["Copy Constructor", "Friend Function", "this pointer"].forEach(function (needle) {
+  assert(classesUnitPage.indexOf(needle) !== -1, "classes-and-objects.html is missing required string: " + needle);
+});
+["Pre-increment", "Post-increment", "String Concatenation"].forEach(function (needle) {
+  assert(operatorUnitPage.indexOf(needle) !== -1, "operator-overloading.html is missing required string: " + needle);
 });
 
 console.log("oop subject tests ok");

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Operator Overloading, OOP</title>
+  <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
+  <link rel="stylesheet" href="/assets/css/player.css" />
+</head>
+<body>
+  <div class="chalk-dust" aria-hidden="true"></div>
+  <div class="projector-wash" aria-hidden="true"></div>
+
+  <header class="masthead site">
+    <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
+    <div class="crumb"><a href="../index.html">Notes</a> / <a href="operator-overloading.html">Object Oriented Programming</a> / Operator Overloading</div>
+  </header>
+
+  <main>
+    <div class="doc-shell">
+      <nav class="syllabus" id="syllabus" aria-label="Object Oriented Programming chapters">
+        <button id="syllabus-toggle" class="syllabus-toggle" type="button" aria-controls="syllabus" aria-expanded="true" aria-label="Toggle chapter list">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12M2 8h12M2 13h12"/></svg>
+        </button>
+        <p class="syllabus-label">Syllabus</p>
+        <ol class="chapter-rail">
+          <li><a href="introduction-to-oop.html"><b>01</b><span>Introduction to Object Oriented Programming</span></a></li>
+          <li><a href="basics-of-cpp.html"><b>02</b><span>Basics of C++ Programming</span></a></li>
+          <li><a href="classes-and-objects.html"><b>03</b><span>Class and Objects</span></a></li>
+          <li><a href="operator-overloading.html" aria-current="true"><b>04</b><span>Operator Overloading</span></a></li>
+          <li><a href="inheritance.html"><b>05</b><span>Inheritance</span></a></li>
+          <li><a href="virtual-functions-and-polymorphism.html"><b>06</b><span>Virtual Function, Polymorphism, and other C++ Features</span></a></li>
+          <li><a href="templates-and-exception-handling.html"><b>07</b><span>Function Templates and Exception Handling</span></a></li>
+          <li><a href="files-and-streams.html"><b>08</b><span>File and Streams</span></a></li>
+          <li><a href="past-questions.html"><b>PQ</b><span>Past Questions</span></a></li>
+        </ol>
+      </nav>
+
+      <article class="reading chapter-reading">
+        <span class="folio" aria-hidden="true">04</span>
+        <h1>Operator Overloading</h1>
+        <p class="lede">Operator overloading gives ordinary C++ operators a meaning for user-defined types. One operator, many behaviours, decided by the class that overloads it.</p>
+        <p class="source-line">Unit prose and C++ examples are written from the syllabus and standard C++.</p>
+
+        <aside class="cue-block">
+          <h2>Recall cues</h2>
+          <ol>
+            <li>Which operators can be overloaded, and what behaviour does the compiler forbid?</li>
+            <li>How do unary pre-increment, post-increment, and negation differ?</li>
+            <li>How do binary plus, comparison, and string concatenation overload?</li>
+            <li>How do basic-to-user-defined, user-defined-to-basic, and user-defined-to-user-defined conversions work?</li>
+          </ol>
+        </aside>
+
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the unit.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM 6</span> times the topic appears across the six OOP papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Operator overloading, 6: 2079 Q3, 2080.1 Q3, 2080.2 Q9, 2081 Q8, 2081 Q12, 2082 Q3.</li>
+          </ul>
+        </aside>
+
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Operator Overloading Fundamentals <span class="priority-mark">★★</span></h2>
+          <p class="source-line">Unit 4.1 of the syllabus.</p>
+
+          <h3>1. Operator overloading: fundamentals, restrictions, and member operator functions <span class="priority-mark">★★</span> <span class="exam-mark">EXAM 6</span></h3>
+          <p>Operator overloading lets a member function or a friend function carry out an operation the built-in operator has no meaning for. Restrictions: new, delete, and assignment cannot be overloaded; the number of operands is fixed by the operator.</p>
+        </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Unary Operators <span class="priority-mark">★★</span></h2>
+          <p class="source-line">Unit 4.2 of the syllabus.</p>
+
+          <h3>2. Unary operators: Pre-increment, Post-increment, and Negation <span class="priority-mark">★★</span></h3>
+          <p>Unary operators take one operand. Pre-increment (++obj) returns the updated object; post-increment (obj++) returns the old value; negation (operator-) negates the value.</p>
+        </section>
+
+        <section class="topic-part" data-part="3">
+          <h2>Part 3 · Binary Operators and String Concatenation <span class="priority-mark">★★</span></h2>
+          <p class="source-line">Unit 4.3 of the syllabus.</p>
+
+          <h3>2. Binary plus, comparison, and String Concatenation <span class="priority-mark">★★</span></h3>
+          <p>Binary operators take two operands. Plus can add numbers or concatenate strings; comparison operators can compare objects field by field.</p>
+        </section>
+
+        <section class="topic-part" data-part="4">
+          <h2>Part 4 · Conversions <span class="priority-mark">★</span></h2>
+          <p class="source-line">Unit 4.4 of the syllabus.</p>
+
+          <h3>1. Basic-to-user-defined conversion</h3>
+          <p>A basic type converts into a user-defined type through an overloaded conversion operator.</p>
+
+          <h3>2. User-defined-to-basic conversion</h3>
+          <p>A user-defined type converts into a basic type through a conversion operator or an explicit constructor.</p>
+
+          <h3>3. User-defined-to-user-defined conversion</h3>
+          <p>A user-defined type converts into another user-defined type through a conversion operator or constructor chaining.</p>
+        </section>
+
+        <div class="codeblock">
+          <button class="copy-btn" type="button">Copy</button>
+          <code>&lt;#include &lt;iostream&gt;
+&lt;#include &lt;string&gt;
+
+class Number {
+  int value;
+
+public:
+  Number(int v) : value(v) {}
+
+  // Binary overload: operator+
+  Number operator+(const Number &amp; other) const {
+    return Number(value + other.value);
+  }
+
+  // Comparison overload: operator==
+  bool operator==(const Number &amp; other) const {
+    return value == other.value;
+  }
+
+  // Unary overload: operator++ (pre-increment)
+  Number &amp; operator++() {
+    ++value;
+    return *this;
+  }
+
+  // Unary overload: operator++ (post-increment)
+  Number operator++(int) {
+    Number tmp = *this;
+    ++value;
+    return tmp;
+  }
+};
+
+std::string concatenate(const std::string &amp; a, const std::string &amp; b) {
+  return a + b;
+}
+
+int main() {
+  Number x(2);
+  Number y(3);
+  Number sum = x + y;
+  Number next = ++x;
+  Number old = y++;
+  return 0;
+}</code>
+        </div>
+
+        <aside class="revision-tracker" data-page="oop/operator-overloading.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
+        <div class="chapter-nav">
+          <a href="classes-and-objects.html">PREVIOUS CHAPTER — CLASS AND OBJECTS</a>
+          <a href="inheritance.html">NEXT CHAPTER — INHERITANCE →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer site"><span>Object Oriented Programming / Operator Overloading</span><span>Keep reading.</span></footer>
+
+  <script src="/assets/js/study-tools.js" defer></script>
+  <script src="/assets/js/notes.js" defer></script>
+  <script src="/assets/js/player.js" defer></script>
+  <script src="/assets/js/site-nav.js" defer></script>
+  <script src="../../assets/js/lecture-notes.js" defer></script>
+</body>
+</html>
