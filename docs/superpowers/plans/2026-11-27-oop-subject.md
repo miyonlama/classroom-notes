@@ -53,7 +53,7 @@
 Create `tests/oop-subject.test.js` with `assert`, `fs`, `path`, a `root` path, and `oopUnits`. Assert:
 - `subjects.json` OOP entry has `href === "oop/introduction-to-oop.html"` and a description that does not contain "coming soon".
 - `notes/object-oriented-programming.html` contains `oop/introduction-to-oop.html` and `location.replace`.
-- `index.html` contains "Six subjects" and not "Five subjects".
+- `index.html` contains "Five subjects" and not "Six subjects".
 - `assets/js/hub.js` contains `"object-oriented-programming"` and, inside its array, all eight unit labels from `oopUnits.slice(0, 8)`.
 - `assets/css/lecture-notes.css` contains `.codeblock` and `.copy-btn` selectors.
 
@@ -64,7 +64,7 @@ Expected: FAIL on the first assertion.
 
 - [ ] **Step 3: Implement the wiring**
 
-Update the OOP entry in `subjects.json`; keep accent `#51cf66`. Replace the placeholder body of `notes/object-oriented-programming.html` with the redirect pattern used by `notes/discrete-structure.html`. Change the hub sentence to "Six subjects, one syllabus. Open the one you need." Add the eight-label OOP entry to the `chapters` map in `assets/js/hub.js`. Add minimal `.codeblock` and `.copy-btn` rules to `lecture-notes.css` using existing tokens; match the visual intent of the rules in `notes.css` without adding a second stylesheet.
+Update the OOP entry in `subjects.json`; keep accent `#51cf66`. Replace the placeholder body of `notes/object-oriented-programming.html` with the redirect pattern used by `notes/discrete-structure.html`. Keep the hub sentence as "Five subjects, one syllabus. Open the one you need." Add the eight-label OOP entry to the `chapters` map in `assets/js/hub.js`. Add minimal `.codeblock` and `.copy-btn` rules to `lecture-notes.css` using existing tokens; match the visual intent of the rules in `notes.css` without adding a second stylesheet.
 
 - [ ] **Step 4: Run tests to verify they pass**
 

@@ -4,7 +4,7 @@ Date: 2026-11-26
 
 ## Intent
 
-Add Object-Oriented Programming as the sixth subject on Classroom Notes. The
+Build out Object-Oriented Programming, already one of the five subjects on Classroom Notes. The
 user has the full BIT 153 syllabus but no source PDF. The exam source is
 `C:\Users\lamam\Downloads\Past Questions.txt`: six papers (2078, 2079, 2080.1,
 2080.2, 2081, 2082), 12 questions each, 72 total, no diagrams. Goal is exam
@@ -68,7 +68,7 @@ pages cover all of it, not only exam-derived topics.
 
 ## Goals
 
-- Make OOP a real, navigable sixth subject from the hub and Notes index.
+- Make OOP a real, navigable subject from the hub and Notes index.
 - Eight unit reading pages matching the eight syllabus units.
 - One past-papers archive with all 72 questions and a worked answer for each.
 - `EXAM n` counts on unit topics, derived only from the six papers.
@@ -95,7 +95,7 @@ pages cover all of it, not only exam-derived topics.
 - Exam counts come only from the six papers in the attached text file. Show
   them as informational, not official weighting.
 - Worked answers are model answers, not official solutions.
-- Hub copy changes from five subjects to six.
+- Hub copy keeps "Five subjects": OOP was already one of the five entries.
 
 ## Approaches
 
@@ -120,7 +120,8 @@ eight topic pages from approach 1 would duplicate the archive.
 - `assets/js/hub.js` gains an `"object-oriented-programming"` entry in its
   `chapters` map with the eight unit names exactly as they appear in the OOP
   rail. Without it the hub shows "Chapters coming soon." and "Notes" instead
-  of "8 chapters". `index.html` copy changes from five subjects to six.
+  of "8 chapters". `index.html` copy keeps "Five subjects" because OOP was
+  already one of the five entries.
 - Unit files under `notes/oop/`: `introduction-to-oop.html`,
   `basics-of-cpp.html`, `classes-and-objects.html`,
   `operator-overloading.html`, `inheritance.html`,

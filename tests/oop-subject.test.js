@@ -29,8 +29,8 @@ assert(stub.indexOf("oop/introduction-to-oop.html") !== -1, "old OOP URL must re
 assert(stub.indexOf("location.replace") !== -1, "old OOP URL must redirect with location.replace");
 
 var index = fs.readFileSync(path.join(root, "index.html"), "utf8");
-assert(index.indexOf("Six subjects") !== -1, "hub must say Six subjects");
-assert(index.indexOf("Five subjects") === -1, "hub still says Five subjects");
+assert(index.indexOf("Five subjects") !== -1, "hub must keep Five subjects");
+assert(index.indexOf("Six subjects") === -1, "hub must not claim a sixth subject");
 
 var hub = fs.readFileSync(path.join(root, "assets/js/hub.js"), "utf8");
 assert(hub.indexOf('"object-oriented-programming"') !== -1, "hub.js is missing the OOP chapters entry");
