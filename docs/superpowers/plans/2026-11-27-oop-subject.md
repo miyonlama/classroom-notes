@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add Object-Oriented Programming as a sixth subject with eight unit reading pages and a 72-question exam archive with worked answers.
+**Goal:** Build out Object-Oriented Programming, already one of the five subjects, with eight unit reading pages and a 72-question exam archive with worked answers.
 
 **Architecture:** Static HTML pages under `notes/oop/`, all sharing the existing Lecture Hall shell and rail. Content is authored from the supplied syllabus and standard C++; exam facts and `EXAM n` counts come only from `C:\Users\lamam\Downloads\Past Questions.txt`. No build step, no dependency, no server.
 
@@ -28,7 +28,7 @@
 - **Question text silently drifts from the supplied papers.** Task 6 and Task 7 tests pin paper ids, 12 questions per paper, the exact `Q1`–`Q12` numbering, and bracketed marks on every question.
 - **A question has no worked answer.** Task 6 and Task 7 tests require exactly one `<details class="worked-answer">` immediately after each `.question` element, giving 72 total.
 - **Rail or navigation breaks between units.** Task 2 through Task 5 tests pin the nine rail entries and each page's previous/next href. Task 7 resolves every local href on all OOP pages.
-- **Hub still presents OOP as empty.** Task 1 tests the `hub.js` chapter entry, the `subjects.json` href, the redirect stub, and the six-subject copy.
+- **Hub still presents OOP as empty.** Task 1 tests the `hub.js` chapter entry, the `subjects.json` href, the redirect stub, and the unchanged five-subject copy.
 - **Copy buttons render unstyled.** Task 1 tests that `.codeblock` and `.copy-btn` rules exist in `lecture-notes.css`; unit tasks require one `.codeblock` with a `.copy-btn` per unit page.
 
 ---
