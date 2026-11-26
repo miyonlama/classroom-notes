@@ -91,7 +91,7 @@
           <p>A Pure Virtual Function declares a function without a body. A class holding a Pure Virtual Function is an Abstract class and cannot be instantiated.</p>
 
           <h3>4. Abstract class and Virtual Destructor</h3>
-          <p>An Abstract class stays abstract without a Pure Virtual Function, and an Abstract class with one cannot be instantiated. A Virtual Destructor in the base class releases derived state when deleting through a base pointer.</p>
+          <p>A derived class stays abstract until it overrides every pure virtual function; a class with a Pure Virtual Function cannot be instantiated. A Virtual Destructor in the base class releases derived state when deleting through a base pointer.</p>
         </section>
 
         <div class="codeblock">
@@ -101,6 +101,7 @@
 class Employee {
 public:
   virtual void calculatePay() { std::cout &lt;&lt; "Employee pay" &lt;&lt; std::endl; }
+  virtual ~Employee() {}
 };
 
 class Typist : public Employee {
