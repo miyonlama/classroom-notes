@@ -88,8 +88,20 @@ unitPages.forEach(function (u) {
 });
 
 var basicsPage = fs.readFileSync(path.join(root, "notes/oop/basics-of-cpp.html"), "utf8");
-assert(basicsPage.indexOf("and types <span class=\"exam-mark\"") === -1, "basics must not badge tokens/types without exam support");
-assert(basicsPage.indexOf("and arrays <span class=\"exam-mark\"") === -1, "basics must not badge pointer arithmetic/arrays without exam support");
-assert(basicsPage.indexOf("and functions <span class=\"exam-mark\"") === -1, "basics must not badge function pointers without exam support");
+var introPage = fs.readFileSync(path.join(root, "notes/oop/introduction-to-oop.html"), "utf8");
+function headingCarriesExamBadge(html, needle) {
+  var re = /<h3[^>]*>[\s\S]*?<\/h3>/g;
+  var m;
+  while ((m = re.exec(html)) !== null) {
+    if (m[0].indexOf(needle) !== -1 && /<span class="exam-mark">EXAM \d+<\/span>/.test(m[0])) return true;
+  }
+  return false;
+}
+["introduction-to-oop.html", "basics-of-cpp.html"].forEach(function (f) {
+  var s = f === "introduction-to-oop.html" ? introPage : basicsPage;
+  ["types", "pointer arithmetic", "pointers and functions"].forEach(function (needle) {
+    assert(!headingCarriesExamBadge(s, needle), f + " heading '" + needle + "' must not carry an EXAM badge");
+  });
+});
 
 console.log("oop subject tests ok");
