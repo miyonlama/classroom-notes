@@ -48,14 +48,18 @@ var currentLabels = {
   "introduction-to-oop.html": oopUnits[0],
   "basics-of-cpp.html": oopUnits[1],
   "classes-and-objects.html": oopUnits[2],
-  "operator-overloading.html": oopUnits[3]
+  "operator-overloading.html": oopUnits[3],
+  "inheritance.html": oopUnits[4],
+  "virtual-functions-and-polymorphism.html": oopUnits[5]
 };
 
 var unitPages = [
   { file: "introduction-to-oop.html", next: "basics-of-cpp.html", prior: false },
   { file: "basics-of-cpp.html", next: "classes-and-objects.html", prior: "introduction-to-oop.html" },
   { file: "classes-and-objects.html", next: "operator-overloading.html", prior: "basics-of-cpp.html" },
-  { file: "operator-overloading.html", next: "inheritance.html", prior: "classes-and-objects.html" }
+  { file: "operator-overloading.html", next: "inheritance.html", prior: "classes-and-objects.html" },
+  { file: "inheritance.html", next: "virtual-functions-and-polymorphism.html", prior: "operator-overloading.html" },
+  { file: "virtual-functions-and-polymorphism.html", next: "templates-and-exception-handling.html", prior: "inheritance.html" }
 ];
 
 unitPages.forEach(function (u) {
@@ -116,6 +120,15 @@ var operatorUnitPage = fs.readFileSync(path.join(root, "notes/oop/operator-overl
 });
 ["Pre-increment", "Post-increment", "String Concatenation"].forEach(function (needle) {
   assert(operatorUnitPage.indexOf(needle) !== -1, "operator-overloading.html is missing required string: " + needle);
+});
+
+var inheritanceUnitPage = fs.readFileSync(path.join(root, "notes/oop/inheritance.html"), "utf8");
+var virtualUnitPage = fs.readFileSync(path.join(root, "notes/oop/virtual-functions-and-polymorphism.html"), "utf8");
+["Virtual Base Class", "Aggregation", "Ambiguity"].forEach(function (needle) {
+  assert(inheritanceUnitPage.indexOf(needle) !== -1, "inheritance.html is missing required string: " + needle);
+});
+["Pure Virtual", "Abstract class", "Virtual Destructor"].forEach(function (needle) {
+  assert(virtualUnitPage.indexOf(needle) !== -1, "virtual-functions-and-polymorphism.html is missing required string: " + needle);
 });
 
 console.log("oop subject tests ok");
