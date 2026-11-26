@@ -87,4 +87,9 @@ unitPages.forEach(function (u) {
   assert(navBlock.indexOf('href="' + u.next + '"') !== -1, u.file + " chapter nav must link next " + u.next);
 });
 
+var basicsPage = fs.readFileSync(path.join(root, "notes/oop/basics-of-cpp.html"), "utf8");
+assert(basicsPage.indexOf("and types <span class=\"exam-mark\"") === -1, "basics must not badge tokens/types without exam support");
+assert(basicsPage.indexOf("and arrays <span class=\"exam-mark\"") === -1, "basics must not badge pointer arithmetic/arrays without exam support");
+assert(basicsPage.indexOf("and functions <span class=\"exam-mark\"") === -1, "basics must not badge function pointers without exam support");
+
 console.log("oop subject tests ok");
