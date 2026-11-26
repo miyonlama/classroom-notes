@@ -44,6 +44,11 @@ var css = fs.readFileSync(path.join(root, "assets/css/lecture-notes.css"), "utf8
 assert(css.indexOf(".codeblock") !== -1, "lecture-notes.css is missing .codeblock");
 assert(css.indexOf(".copy-btn") !== -1, "lecture-notes.css is missing .copy-btn");
 
+var currentLabels = {
+  "introduction-to-oop.html": oopUnits[0],
+  "basics-of-cpp.html": oopUnits[1]
+};
+
 var unitPages = [
   { file: "introduction-to-oop.html", next: "basics-of-cpp.html", prior: false },
   { file: "basics-of-cpp.html", next: "classes-and-objects.html", prior: "introduction-to-oop.html" }
@@ -55,12 +60,14 @@ unitPages.forEach(function (u) {
     assert(s.indexOf(label) !== -1, u.file + " is missing rail label: " + label);
   });
   assert.strictEqual((s.match(/aria-current="true"/g) || []).length, 1, u.file + " must mark one rail label");
+  var railLi = s.match(/<li>\s*<a href="[^"]*" aria-current="true"[\s\S]*?<\/li>/);
+  assert(railLi, u.file + " must mark its own rail label");
+  assert(railLi[0].indexOf(currentLabels[u.file]) !== -1, u.file + " aria-current must sit on its own rail label");
   assert(s.indexOf('class="priority-mark"') !== -1, u.file + " is missing a priority mark");
   assert(s.indexOf('class="exam-mark">EXAM ') !== -1, u.file + " is missing an exam mark badge");
   assert(s.indexOf("syllabus and standard C++") !== -1, u.file + " source line must say syllabus and standard C++");
   assert(s.indexOf('class="revision-tracker" data-page="oop/' + u.file + '"') !== -1, u.file + " revision tracker data-page must be oop/" + u.file);
-  assert(s.indexOf('class="codeblock"') !== -1, u.file + " is missing a code block");
-  assert(s.indexOf('class="copy-btn"') !== -1, u.file + " code block is missing a copy button");
+  assert(/<div class="codeblock">[\s\S]*?<button class="copy-btn"[\s\S]*?<\/div>/.test(s), u.file + " code block must contain a copy button");
   assert(s.indexOf("site-footer") !== -1, u.file + " is missing the site footer");
   assert(s.indexOf("/assets/js/study-tools.js") !== -1, u.file + " is missing study-tools.js");
   assert(s.indexOf("/assets/js/notes.js") !== -1, u.file + " is missing notes.js");
@@ -71,14 +78,13 @@ unitPages.forEach(function (u) {
   assert(s.indexOf("/assets/js/notes.js") < s.indexOf("/assets/js/player.js"), u.file + " scripts out of order: notes before player");
   assert(s.indexOf("/assets/js/player.js") < s.indexOf("/assets/js/site-nav.js"), u.file + " scripts out of order: player before site-nav");
   assert(s.indexOf("/assets/js/site-nav.js") < s.indexOf("../../assets/js/lecture-notes.js"), u.file + " scripts out of order: site-nav before lecture-notes");
+  var navBlock = (s.match(/<div class="chapter-nav">[\s\S]*?<\/div>/) || [""])[0];
+  if (u.prior) {
+    assert(navBlock.indexOf('href="' + u.prior + '"') !== -1, u.file + " chapter nav must link previous " + u.prior);
+  } else {
+    assert(navBlock.indexOf("PREVIOUS CHAPTER") === -1, u.file + " chapter nav must not link a previous chapter");
+  }
+  assert(navBlock.indexOf('href="' + u.next + '"') !== -1, u.file + " chapter nav must link next " + u.next);
 });
-
-var introPage = fs.readFileSync(path.join(root, "notes/oop/introduction-to-oop.html"), "utf8");
-assert(introPage.indexOf('href="basics-of-cpp.html"') !== -1, "unit 01 next chapter must be basics-of-cpp.html");
-assert(introPage.indexOf("PREVIOUS CHAPTER") === -1, "unit 01 must not link a previous chapter");
-
-var basicsPage = fs.readFileSync(path.join(root, "notes/oop/basics-of-cpp.html"), "utf8");
-assert(basicsPage.indexOf('href="introduction-to-oop.html"') !== -1, "unit 02 previous chapter must be introduction-to-oop.html");
-assert(basicsPage.indexOf('href="classes-and-objects.html"') !== -1, "unit 02 next chapter must be classes-and-objects.html");
 
 console.log("oop subject tests ok");
