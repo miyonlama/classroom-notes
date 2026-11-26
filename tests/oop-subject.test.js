@@ -63,10 +63,12 @@ unitPages.forEach(function (u) {
   assert(s.indexOf('class="copy-btn"') !== -1, u.file + " code block is missing a copy button");
   assert(s.indexOf("site-footer") !== -1, u.file + " is missing the site footer");
   assert(s.indexOf("/assets/js/study-tools.js") !== -1, u.file + " is missing study-tools.js");
+  assert(s.indexOf("/assets/js/notes.js") !== -1, u.file + " is missing notes.js");
   assert(s.indexOf("/assets/js/player.js") !== -1, u.file + " is missing player.js");
   assert(s.indexOf("/assets/js/site-nav.js") !== -1, u.file + " is missing site-nav.js");
   assert(s.indexOf("../../assets/js/lecture-notes.js") !== -1, u.file + " is missing lecture-notes.js");
-  assert(s.indexOf("/assets/js/study-tools.js") < s.indexOf("/assets/js/player.js"), u.file + " scripts out of order: study-tools before player");
+  assert(s.indexOf("/assets/js/study-tools.js") < s.indexOf("/assets/js/notes.js"), u.file + " scripts out of order: study-tools before notes");
+  assert(s.indexOf("/assets/js/notes.js") < s.indexOf("/assets/js/player.js"), u.file + " scripts out of order: notes before player");
   assert(s.indexOf("/assets/js/player.js") < s.indexOf("/assets/js/site-nav.js"), u.file + " scripts out of order: player before site-nav");
   assert(s.indexOf("/assets/js/site-nav.js") < s.indexOf("../../assets/js/lecture-notes.js"), u.file + " scripts out of order: site-nav before lecture-notes");
 });
