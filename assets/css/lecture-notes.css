@@ -541,6 +541,37 @@ html[data-theme="study"] .projector-wash {
 .worked-steps { margin: 0.8rem 0 0; padding-left: 1.3rem; }
 .worked-steps li { padding: 0.25rem 0; }
 
+/* Code blocks */
+.codeblock {
+  position: relative;
+  max-width: var(--reading-measure);
+  margin: 1.2rem 0 2rem;
+  border: 1px solid var(--line);
+  background: var(--board-deep);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.codeblock code { color: var(--chalk); font-size: inherit; }
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(232, 236, 225, 0.12);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--chalk);
+  font-family: "Source Sans 3", "Segoe UI Symbol", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: 0.25rem 0.55rem;
+  cursor: pointer;
+}
+.copy-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+.copy-btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
+
 @media (max-width: 600px) {
   .topic-table { display: block; overflow-x: auto; }
 }

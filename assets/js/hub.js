@@ -25,6 +25,16 @@
       "Number Theory",
       "Induction and Recursion"
     ],
+    "object-oriented-programming": [
+      "Introduction to Object Oriented Programming",
+      "Basics of C++ Programming",
+      "Class and Objects",
+      "Operator Overloading",
+      "Inheritance",
+      "Virtual Function, Polymorphism, and other C++ Features",
+      "Function Templates and Exception Handling",
+      "File and Streams"
+    ],
     "economics": [
       "Economic Issues and Concepts",
       "Demand, Supply, and Price",
