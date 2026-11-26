@@ -141,8 +141,8 @@ eight topic pages from approach 1 would duplicate the archive.
   explanation and compilable C++ where the question asks for code. Repeated
   questions keep their own answer inside their own paper, so each paper stands
   alone.
-- The archive loads `notes.js` in addition to the scripts used by the Discrete
-  archive, so its copy buttons work.
+- Every unit page and the archive loads `notes.js`, so their copy buttons work.
+  The archive also loads `past-questions.js` for its paper toggles.
 - `.codeblock` and `.copy-btn` rules move into `lecture-notes.css` using that
   file's existing tokens. Unit pages and the archive then load one stylesheet
   for reading and one for the player, with no second design system.

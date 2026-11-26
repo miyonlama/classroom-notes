@@ -1,4 +1,4 @@
-# Object-Oriented Programming Subject Implementation Plan
+﻿# Object-Oriented Programming Subject Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -19,7 +19,7 @@
 - `EXAM n` counts occurrences across those six papers; a multi-part question counts once per distinct topic it examines. Badges are informational, not official weighting.
 - Worked answers are model answers, not official solutions.
 - Rail labels, in order: `Introduction to Object Oriented Programming`, `Basics of C++ Programming`, `Class and Objects`, `Operator Overloading`, `Inheritance`, `Virtual Function, Polymorphism, and other C++ Features`, `Function Templates and Exception Handling`, `File and Streams`, then `Past Questions` with the badge `PQ`.
-- Each unit page loads `lecture-notes.css` and `/assets/css/player.css`, then `study-tools.js`, `player.js`, `site-nav.js`, and `../../assets/js/lecture-notes.js` in that order. The archive additionally loads `notes.js` and `past-questions.js`.
+- Each unit page loads `lecture-notes.css` and `/assets/css/player.css`, then `study-tools.js`, `notes.js`, `player.js`, `site-nav.js`, and `../../assets/js/lecture-notes.js` in that order. The archive additionally loads `past-questions.js`.
 - Truth-value coloring and motion work on other pages is out of scope.
 - Every task commits on branch `oop-subject`. Do not merge or push.
 
@@ -99,7 +99,7 @@ Append assertions that both files exist and each contains:
 - `class="revision-tracker" data-page="oop/<filename>"`;
 - a `.codeblock` containing a `.copy-btn`;
 - `class="site-footer"`;
-- the four scripts in the order given in Global Constraints.
+- the five scripts in the order given in Global Constraints.
 Assert unit 01 has prior href absent and next `basics-of-cpp.html`; unit 02 has prior `introduction-to-oop.html` and next `classes-and-objects.html`.
 
 - [ ] **Step 2: Run the test to verify it fails**
