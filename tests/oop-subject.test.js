@@ -92,14 +92,15 @@ var introPage = fs.readFileSync(path.join(root, "notes/oop/introduction-to-oop.h
 function headingCarriesExamBadge(html, needle) {
   var re = /<h3[^>]*>[\s\S]*?<\/h3>/g;
   var m;
+  var n = needle.toLowerCase();
   while ((m = re.exec(html)) !== null) {
-    if (m[0].indexOf(needle) !== -1 && /<span class="exam-mark">EXAM \d+<\/span>/.test(m[0])) return true;
+    if (m[0].toLowerCase().indexOf(n) !== -1 && /<span class="exam-mark">EXAM \d+<\/span>/.test(m[0])) return true;
   }
   return false;
 }
 ["introduction-to-oop.html", "basics-of-cpp.html"].forEach(function (f) {
   var s = f === "introduction-to-oop.html" ? introPage : basicsPage;
-  ["types", "pointer arithmetic", "pointers and functions"].forEach(function (needle) {
+  ["types", "arithmetic", "pointers and functions"].forEach(function (needle) {
     assert(!headingCarriesExamBadge(s, needle), f + " heading '" + needle + "' must not carry an EXAM badge");
   });
 });
