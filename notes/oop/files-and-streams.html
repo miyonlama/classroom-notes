@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>File and Streams, OOP</title>
+  <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
+  <link rel="stylesheet" href="/assets/css/player.css" />
+</head>
+<body>
+  <div class="chalk-dust" aria-hidden="true"></div>
+  <div class="projector-wash" aria-hidden="true"></div>
+
+  <header class="masthead site">
+    <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
+    <div class="crumb"><a href="../index.html">Notes</a> / <a href="files-and-streams.html">Object Oriented Programming</a> / File and Streams</div>
+  </header>
+
+  <main>
+    <div class="doc-shell">
+      <nav class="syllabus" id="syllabus" aria-label="Object Oriented Programming chapters">
+        <button id="syllabus-toggle" class="syllabus-toggle" type="button" aria-controls="syllabus" aria-expanded="true" aria-label="Toggle chapter list">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12M2 8h12M2 13h12"/></svg>
+        </button>
+        <p class="syllabus-label">Syllabus</p>
+        <ol class="chapter-rail">
+          <li><a href="introduction-to-oop.html"><b>01</b><span>Introduction to Object Oriented Programming</span></a></li>
+          <li><a href="basics-of-cpp.html"><b>02</b><span>Basics of C++ Programming</span></a></li>
+          <li><a href="classes-and-objects.html"><b>03</b><span>Class and Objects</span></a></li>
+          <li><a href="operator-overloading.html"><b>04</b><span>Operator Overloading</span></a></li>
+          <li><a href="inheritance.html"><b>05</b><span>Inheritance</span></a></li>
+          <li><a href="virtual-functions-and-polymorphism.html"><b>06</b><span>Virtual Function, Polymorphism, and other C++ Features</span></a></li>
+          <li><a href="templates-and-exception-handling.html"><b>07</b><span>Function Templates and Exception Handling</span></a></li>
+          <li><a href="files-and-streams.html" aria-current="true"><b>08</b><span>File and Streams</span></a></li>
+          <li><a href="past-questions.html"><b>PQ</b><span>Past Questions</span></a></li>
+        </ol>
+      </nav>
+
+      <article class="reading chapter-reading">
+        <span class="folio" aria-hidden="true">08</span>
+        <h1>File and Streams</h1>
+        <p class="lede">The C++ stream library separates file input from file output. Binary mode transfers raw bytes; text mode performs character translation. The file pointer position is managed by seek operations.</p>
+        <p class="source-line">Unit prose and C++ examples are written from the syllabus and standard C++.</p>
+
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the unit.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM 6</span> times the topic appears across the six OOP papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Streams and file I/O, 6: 2078 Q12, 2079 Q8, 2080.1 Q9, 2080.2 Q11, 2081 Q1, 2082 Q11.</li>
+          </ul>
+        </aside>
+
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Stream Class Hierarchy <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Unit 8.1 of the syllabus.</p>
+
+          <h3>1. Stream class hierarchy <span class="exam-mark">EXAM 6</span></h3>
+          <p>The stream hierarchy derives from base classes for input and output. <code>ifstream</code> handles file input, <code>ofstream</code> handles file output, and <code>fstream</code> handles both. Each uses a stream buffer for character transfer.</p>
+
+          <h3>2. Reading and writing file pointers</h3>
+          <p>The get pointer marks the next byte to read; the put pointer marks the next byte to write. <code>seekg</code> repositions the get pointer, and <code>seekp</code> repositions the put pointer.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+int main() {
+  std::ofstream out("data.txt");
+  out &lt;&lt; 10 &lt;&lt; " " &lt;&lt; 20 &lt;&lt; std::endl;
+  out.close();
+
+  std::ifstream in("data.txt");
+  int value;
+  while (in &gt;&gt; value) {
+    std::cout &lt;&lt; value &lt;&lt; std::endl;
+  }
+  in.close();
+  return 0;
+}</code>
+          </div>
+
+          <h3>3. Text files</h3>
+          <p>Text files store human-readable characters. Formatted operators (&gt;&gt; and &lt;&lt;) read and write typed values with automatic conversion. Each insertion ends with a newline when std::endl is used.</p>
+
+          <h3>4. End-of-file detection</h3>
+          <p>A read reaches end of file when no further value is available. The extraction expression itself becomes false in that state, so a while loop using it stops naturally. The eof() member reports the EOF flag.</p>
+        </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Binary Files and Random Access <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Unit 8.2 of the syllabus.</p>
+
+          <h3>1. Binary files</h3>
+          <p>Binary files store raw bytes without text translation. Passing <code>ios::binary</code> to the stream constructor disables newline conversion and preserves the in-memory representation of data.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+int main() {
+  std::ofstream out("data.bin", std::ios::binary);
+  int value = 65;
+  out.write(reinterpret_cast&lt;const char*&gt;(&amp;value), sizeof(value));
+  out.close();
+  return 0;
+}</code>
+          </div>
+
+          <h3>2. Reading and writing objects</h3>
+          <p>The write() member copies the raw bytes of an object to a file. The read() member restores those bytes into an object. Both take a char pointer and a byte count.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+struct Record {
+  int id;
+  double score;
+};
+
+int main() {
+  Record r = {1, 3.5};
+  std::ofstream out("records.bin", std::ios::binary);
+  out.write(reinterpret_cast&lt;const char*&gt;(&amp;r), sizeof(r));
+  out.close();
+
+  std::ifstream in("records.bin", std::ios::binary);
+  Record copy;
+  in.read(reinterpret_cast&lt;char*&gt;(&amp;copy), sizeof(copy));
+  std::cout &lt;&lt; copy.id &lt;&lt; " " &lt;&lt; copy.score &lt;&lt; std::endl;
+  in.close();
+  return 0;
+}</code>
+          </div>
+
+          <h3>3. Random file access with seekg</h3>
+          <p>The seekg member repositions the get pointer by a byte offset. The offset can be measured from the start (<code>ios::beg</code>), the current position (<code>ios::cur</code>), or the end (<code>ios::end</code>). Fixed-size records let a record be read directly by multiplying its size by its index.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+
+struct Record {
+  int id;
+  double score;
+};
+
+int main() {
+  std::ofstream out("records.bin", std::ios::binary);
+  for (int i = 0; i &lt; 3; i++) {
+    Record r = {i, i * 1.5};
+    out.write(reinterpret_cast&lt;const char*&gt;(&amp;r), sizeof(r));
+  }
+  out.close();
+
+  std::ifstream in("records.bin", std::ios::binary);
+  Record r;
+  in.seekg(sizeof(Record) * 1, std::ios::beg);
+  in.read(reinterpret_cast&lt;char*&gt;(&amp;r), sizeof(r));
+  std::cout &lt;&lt; "Record 1: id=" &lt;&lt; r.id
+            &lt;&lt; ", score=" &lt;&lt; r.score &lt;&lt; std::endl;
+  in.close();
+  return 0;
+}</code>
+          </div>
+        </section>
+
+        <aside class="revision-tracker" data-page="oop/files-and-streams.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
+        <div class="chapter-nav">
+          <a href="templates-and-exception-handling.html">PREVIOUS CHAPTER — FUNCTION TEMPLATES AND EXCEPTION HANDLING</a>
+          <a href="past-questions.html">NEXT CHAPTER — PAST QUESTIONS →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer site"><span>Object Oriented Programming / File and Streams</span><span>Keep reading.</span></footer>
+
+  <script src="/assets/js/study-tools.js" defer></script>
+  <script src="/assets/js/notes.js" defer></script>
+  <script src="/assets/js/player.js" defer></script>
+  <script src="/assets/js/site-nav.js" defer></script>
+  <script src="../../assets/js/lecture-notes.js" defer></script>
+</body>
+</html>

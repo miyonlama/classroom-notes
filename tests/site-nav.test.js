@@ -75,9 +75,11 @@ function walk(dir) {
   });
 }
 walk(root);
-assert.strictEqual(pages.length, 25, "expected 25 pages, got " + pages.length);
+assert.strictEqual(pages.length, 34, "expected 34 pages, got " + pages.length);
 pages.forEach(function (p) {
-  if (path.relative(root, p).replace(/\\/g, "/") === "notes/discrete-structure.html") return;
+  var rel = path.relative(root, p).replace(/\\/g, "/");
+  // Redirect stubs leave for their chapter at once; no nav needed.
+  if (rel === "notes/discrete-structure.html" || rel === "notes/object-oriented-programming.html") return;
   var s = fs.readFileSync(p, "utf8");
   assert(s.indexOf("site-nav.js") !== -1, "missing site-nav.js in " + path.relative(root, p));
 });
