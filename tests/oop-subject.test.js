@@ -194,4 +194,40 @@ assert(archive.indexOf("#include &lt;iostream&gt;") !== -1, "archive code must e
   assert(/<div class="codeblock">[\s\S]*?<button class="copy-btn"[\s\S]*?<\/div>/.test(body), id + " must contain a copyable C++ program");
 });
 
+["paper-2080-2", "paper-2081", "paper-2082"].forEach(function (id) {
+  var m = archive.match(new RegExp('<section[^>]*id="' + id + '"[\\s\\S]*?<\\/section>'));
+  assert(m, "archive is missing section " + id);
+  var body = m[0];
+  var parts = body.split('<li class="question">');
+  assert.strictEqual(parts.length - 1, 12, id + " must hold 12 questions");
+  var answers = body.match(/<details class="worked-answer">[\s\S]*?<\/details>/g) || [];
+  assert.strictEqual(answers.length, 12, id + " must hold 12 worked answers");
+  parts.slice(1).forEach(function (part, i) {
+    assert(part.indexOf('<span class="qnum">Q' + (i + 1) + "</span>") !== -1, id + " Q" + (i + 1) + " has a wrong qnum");
+    assert(/class="marks">\[[^\]]+\]<\/span>/.test(part), id + " Q" + (i + 1) + " must show bracketed marks");
+    assert(part.indexOf('<details class="worked-answer">') !== -1, id + " Q" + (i + 1) + " must have a worked answer");
+    assert(part.indexOf("<summary>Worked answer</summary>") !== -1, id + " Q" + (i + 1) + " summary must read Worked answer");
+  });
+  assert(/<div class="codeblock">[\s\S]*?<button class="copy-btn"[\s\S]*?<\/div>/.test(body), id + " must contain a copyable C++ program");
+});
+
+assert.strictEqual((archive.match(/<li class="question">/g) || []).length, 72, "archive must hold 72 questions");
+assert.strictEqual((archive.match(/<details class="worked-answer">/g) || []).length, 72, "archive must hold 72 worked answers");
+
+var linkPages = unitPages.map(function (u) { return path.join(root, "notes", "oop", u.file); });
+linkPages.push(archivePath);
+var dangling = [];
+linkPages.forEach(function (page) {
+  var s = fs.readFileSync(page, "utf8");
+  (s.match(/href="[^"]*"/g) || []).forEach(function (attr) {
+    var href = attr.slice(6, -1);
+    if (href.charAt(0) !== ".") return;
+    var filePart = href.split("#")[0].split("?")[0];
+    if (!filePart) return;
+    var target = path.resolve(path.dirname(page), filePart);
+    if (!fs.existsSync(target)) dangling.push(path.relative(root, page) + " -> " + href);
+  });
+});
+assert.deepStrictEqual(dangling, [], "dangling local links: " + dangling.join(", "));
+
 console.log("oop subject tests ok");

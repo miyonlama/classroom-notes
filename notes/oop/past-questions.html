@@ -978,6 +978,1141 @@ int main() {
           </div>
         </section>
 
+        <section class="paper paper--collapsed" id="paper-2080-2" aria-hidden="true" inert>
+          <div class="paper-inner">
+          <div class="paper-body">
+          <h2>2080.2</h2>
+          <p class="paper-meta"><span>Tribhuvan University</span><span>BIT 153</span><span>Object Oriented Programming</span><span>Full marks 60</span></p>
+
+          <h3>Section A · Long answer questions <span class="exam-mark">Attempt any two</span></h3>
+          <ol class="question-list">
+            <li class="question"><span class="qnum">Q1</span><div class="qbody"><p>Why is object-oriented programming known as a bottom-up approach? Explain the different features of object-oriented programming.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Bottom-up</strong> means building a program from its basic units upwards. In OOP the basic unit is the object. We define classes that model real entities, give each class its data and behaviour, then combine those objects into larger components and finally into the whole application. Procedure-oriented programming is <strong>top-down</strong>: it starts with one overall function and breaks it into smaller functions that act on separate data.</p>
+                <ul>
+                  <li><strong>Encapsulation:</strong> data and the functions that use it are wrapped in a class, and access specifiers protect the representation.</li>
+                  <li><strong>Abstraction:</strong> a class shows only the interface a caller needs and hides implementation detail.</li>
+                  <li><strong>Inheritance:</strong> a derived class reuses and extends the members of a base class.</li>
+                  <li><strong>Polymorphism:</strong> one interface has many implementations: compile-time through overloading and templates, run-time through virtual functions.</li>
+                  <li><strong>Dynamic binding:</strong> a virtual call is resolved from the actual object type at run time.</li>
+                  <li><strong>Reusability and message passing:</strong> objects communicate through member function calls, so tested classes can be reused.</li>
+                </ul>
+              </details>
+            </div><span class="marks">[3 + 7]</span></li>
+
+            <li class="question"><span class="qnum">Q2</span><div class="qbody"><p>Differentiate between single-level inheritance and multiple inheritance. Write a C++ program to calculate the percentage of a student using multi-level inheritance. Accept the marks of three subjects in the base class Capture. Derive class Total from Capture, which should include a function to find the total marks obtained. Derive class Final from Total, which should calculate and display the percentage of the student.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Single-level inheritance</strong> has one base class and one derived class, for example <code>B</code> from <code>A</code>. <strong>Multiple inheritance</strong> has one derived class with more than one direct base, for example <code>D</code> from <code>B</code> and <code>C</code>. Multi-level inheritance is a chain: <code>Final</code> derives from <code>Total</code>, which derives from <code>Capture</code>.</p>
+                <p><code>Capture</code> holds the three marks as <code>protected</code> data so the derived classes can read them without exposing them to outside code. <code>Total</code> adds the total; <code>Final</code> turns it into a percentage of 300.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+class Capture {
+protected:
+  int m1, m2, m3;
+public:
+  void read() {
+    cout &lt;&lt; "Marks in three subjects: ";
+    cin &gt;&gt; m1 &gt;&gt; m2 &gt;&gt; m3;
+  }
+};
+
+class Total : public Capture {
+public:
+  int total() const { return m1 + m2 + m3; }
+};
+
+class Final : public Total {
+public:
+  void display() const {
+    double pct = total() * 100.0 / 300.0;
+    cout &lt;&lt; "Total: " &lt;&lt; total()
+         &lt;&lt; "  Percentage: " &lt;&lt; fixed &lt;&lt; setprecision(2)
+         &lt;&lt; pct &lt;&lt; endl;
+  }
+};
+
+int main() {
+  Final s;
+  s.read();
+  s.display();
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[3 + 7]</span></li>
+
+            <li class="question"><span class="qnum">Q3</span><div class="qbody"><p>Why is data conversion needed? How is conversion between objects of different classes carried out? Write a program containing classes Kilogram and Gram to convert grams to kilograms (1 kilogram = 1000 grams).</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Data conversion is needed when a value is held in one representation but another representation is required, for example a mass in grams where the calculation expects kilograms. C++ converts basic types automatically, but objects of different classes need an explicit rule. Give the destination class a <strong>converting constructor</strong> that takes the source object, or give the source class a <strong>conversion operator</strong> such as <code>operator int() const</code>. A <code>friend</code> function is another option when both classes must be read.</p>
+                <p>Here <code>Kilogram(const Gram&amp;)</code> divides the gram value by 1000. The declaration is needed before <code>Gram</code> is defined, and the definition comes after it.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Gram;
+
+class Kilogram {
+  double kg;
+public:
+  Kilogram(double k = 0) : kg(k) {}
+  Kilogram(const Gram&amp; g);        // Gram -&gt; Kilogram
+  double value() const { return kg; }
+  void show() const { cout &lt;&lt; kg &lt;&lt; " kg" &lt;&lt; endl; }
+};
+
+class Gram {
+  double g;
+public:
+  Gram(double v = 0) : g(v) {}
+  double value() const { return g; }
+  void show() const { cout &lt;&lt; g &lt;&lt; " g" &lt;&lt; endl; }
+};
+
+Kilogram::Kilogram(const Gram&amp; g) : kg(g.value() / 1000.0) {}
+
+int main() {
+  Gram grams(2500);
+  Kilogram kg = grams;             // uses the converting constructor
+  grams.show();                    // 2500 g
+  kg.show();                       // 2.5 kg
+  cout &lt;&lt; "Back in grams: " &lt;&lt; kg.value() * 1000 &lt;&lt; endl;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[2 + 4 + 4]</span></li>
+          </ol>
+
+          <h3>Section B · Short answer questions <span class="exam-mark">Attempt any eight</span></h3>
+          <ol class="question-list" start="4">
+            <li class="question"><span class="qnum">Q4</span><div class="qbody"><p>What is a constructor? Write a program to demonstrate constructor overloading in C++.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>constructor</strong> is a member function with the class name and no return type. It runs automatically when an object is created and initialises that object. Overloading means giving the class several constructors with different parameter lists: a default constructor, a parameterised constructor and a copy constructor. The compiler picks the one whose arguments match the creation expression.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Box {
+  int len;
+public:
+  Box() : len(0) {}                     // default
+  Box(int l) : len(l) {}                // parameterised
+  Box(const Box&amp; b) : len(b.len) {}  // copy
+  int value() const { return len; }
+};
+
+int main() {
+  Box a;       // Box()
+  Box b(10);   // Box(int)
+  Box c(b);    // Box(const Box&amp;)
+  cout &lt;&lt; a.value() &lt;&lt; " " &lt;&lt; b.value() &lt;&lt; " " &lt;&lt; c.value() &lt;&lt; endl;
+  return 0;    // 0 10 10
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q5</span><div class="qbody"><p>What is function overloading? Explain with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Function overloading</strong> lets several functions share a name when their parameter lists differ in number, type or order. The compiler selects the best match at compile time, so this is static polymorphism. The return type alone cannot distinguish overloads.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+int add(int a, int b, int c) { return a + b + c; }
+
+int main() {
+  cout &lt;&lt; add(2, 3) &lt;&lt; endl;          // int version: 5
+  cout &lt;&lt; add(2.5, 3.5) &lt;&lt; endl;      // double version: 6
+  cout &lt;&lt; add(1, 2, 3) &lt;&lt; endl;       // three-argument version: 6
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q6</span><div class="qbody"><p>What is the role of the protected access specifier in inheritance? Explain with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <code>protected</code> member behaves like a <code>private</code> member for ordinary outside code, but it is accessible inside derived classes. This is what makes inheritance useful: the base can hide its data from users while still letting subclasses build on it. With <code>public</code> inheritance, protected base members stay protected in the derived class.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Base {
+protected:
+  int x;                       // hidden from outside, visible to Derived
+public:
+  Base(int v) : x(v) {}
+};
+
+class Derived : public Base {
+public:
+  Derived(int v) : Base(v) {}
+  int doubled() const { return x * 2; }   // allowed
+};
+
+int main() {
+  Derived d(6);
+  cout &lt;&lt; d.doubled() &lt;&lt; endl;   // 12
+  // cout &lt;&lt; d.x;                 // error: x is protected
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q7</span><div class="qbody"><p>Differentiate between a virtual function and a pure virtual function with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>virtual function</strong> is declared with <code>virtual</code> in the base and has a body there. Derived classes may override it, and a call through a base pointer or reference reaches the override. A <strong>pure virtual function</strong> ends in <code>= 0</code> and has no base implementation; it forces every concrete derived class to override it. A class with a pure virtual function is abstract and cannot be instantiated.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Shape {
+public:
+  virtual void draw() const { cout &lt;&lt; "shape\n"; }  // has a body
+  virtual double area() const = 0;                    // pure virtual
+  virtual ~Shape() {}
+};
+
+class Circle : public Shape {
+  double r;
+public:
+  Circle(double radius) : r(radius) {}
+  void draw() const override { cout &lt;&lt; "circle\n"; }
+  double area() const override { return 3.14159 * r * r; }
+};
+
+int main() {
+  Circle c(2);
+  Shape* s = &amp;c;
+  s-&gt;draw();                 // circle
+  cout &lt;&lt; s-&gt;area() &lt;&lt; endl;  // 12.5664
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q8</span><div class="qbody"><p>What is a friend function? Write a program to add two private numbers from two different classes using a friend function.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>friend function</strong> is a non-member function declared with <code>friend</code> inside a class. Friendship grants access to private and protected members without making the function a member. It is useful when an operation involves two classes, as this addition does. Friendship is not inherited and is not symmetric.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class B;
+
+class A {
+  int a;
+public:
+  A(int v) : a(v) {}
+  friend int addPrivate(const A&amp;, const B&amp;);
+};
+
+class B {
+  int b;
+public:
+  B(int v) : b(v) {}
+  friend int addPrivate(const A&amp;, const B&amp;);
+};
+
+int addPrivate(const A&amp; x, const B&amp; y) {
+  return x.a + y.b;         // private in both classes
+}
+
+int main() {
+  A x(10);
+  B y(25);
+  cout &lt;&lt; addPrivate(x, y) &lt;&lt; endl;   // 35
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[1 + 4]</span></li>
+
+            <li class="question"><span class="qnum">Q9</span><div class="qbody"><p>What is operator overloading? Explain with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Operator overloading</strong> gives an existing operator a meaning for a user-defined type. It is written as a member or friend function named <code>operator@</code>, where <code>@</code> is the operator. Precedence, associativity and operand count cannot change, and at least one operand must be a class type. Overloading <code>+</code> for a <code>Complex</code> class lets complex numbers be added with the same notation as integers.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Complex {
+  int real, imag;
+public:
+  Complex(int r = 0, int i = 0) : real(r), imag(i) {}
+  Complex operator+(const Complex&amp; other) const {
+    return Complex(real + other.real, imag + other.imag);
+  }
+  void show() const {
+    cout &lt;&lt; real &lt;&lt; (imag &gt;= 0 ? "+" : "") &lt;&lt; imag &lt;&lt; "i" &lt;&lt; endl;
+  }
+};
+
+int main() {
+  Complex a(3, 4), b(1, -2);
+  Complex c = a + b;
+  c.show();                  // 4+2i
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q10</span><div class="qbody"><p>Illustrate exception handling in C++ using try, throw, and catch statements.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Code that may fail goes in a <code>try</code> block. On an error, <code>throw</code> raises a value. The first matching <code>catch</code> handles it; if none matches, the exception escapes and the program terminates. Here division by zero is detected before the division and reported with a thrown string literal, so the rest of the program still runs.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+  int a = 10, b = 0;
+  try {
+    if (b == 0) throw "division by zero";
+    cout &lt;&lt; a / b &lt;&lt; endl;
+  } catch (const char* msg) {
+    cerr &lt;&lt; "Error: " &lt;&lt; msg &lt;&lt; endl;
+  }
+  cout &lt;&lt; "Program continues" &lt;&lt; endl;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q11</span><div class="qbody"><p>Write a program that writes objects to a binary file and reads objects from the same file.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Open the file with <code>ios::binary</code> so no text translation happens. Use <code>write()</code> and <code>read()</code> with a <code>char*</code> obtained by <code>reinterpret_cast</code>, and pass <code>sizeof</code> the object. <code>read()</code> in a loop stops at end of file. This works for a simple POD struct; classes with pointers or virtual functions need proper serialisation instead.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+struct Record {
+  int id;
+  char name[20];
+};
+
+int main() {
+  Record first = {1, "Hari"}, second = {2, "Sita"};
+
+  ofstream out("records.bin", ios::binary);
+  if (!out) { cerr &lt;&lt; "Cannot open for writing" &lt;&lt; endl; return 1; }
+  out.write(reinterpret_cast&lt;const char*&gt;(&amp;first), sizeof(first));
+  out.write(reinterpret_cast&lt;const char*&gt;(&amp;second), sizeof(second));
+  out.close();
+
+  ifstream in("records.bin", ios::binary);
+  if (!in) { cerr &lt;&lt; "Cannot open for reading" &lt;&lt; endl; return 1; }
+  Record r;
+  while (in.read(reinterpret_cast&lt;char*&gt;(&amp;r), sizeof(r))) {
+    cout &lt;&lt; r.id &lt;&lt; " " &lt;&lt; r.name &lt;&lt; endl;
+  }
+  in.close();
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q12</span><div class="qbody"><p>What is a function template? Write a program to demonstrate the use of a function template that returns the greatest among integer and float values passed to it.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>function template</strong> is a generic function pattern. <code>template &lt;typename T&gt;</code> introduces a type parameter, and the compiler generates a version of the function for each type actually used. One implementation then serves <code>int</code>, <code>float</code> and any other comparable type, with type checking at compile time.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+T greatest(T a, T b) {
+  return (a &gt; b) ? a : b;
+}
+
+int main() {
+  cout &lt;&lt; greatest(7, 3) &lt;&lt; endl;         // int version: 7
+  cout &lt;&lt; greatest(2.5f, 4.75f) &lt;&lt; endl;  // float version: 4.75
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[1 + 4]</span></li>
+          </ol>
+          </div>
+          </div>
+        </section>
+
+        <section class="paper paper--collapsed" id="paper-2081" aria-hidden="true" inert>
+          <div class="paper-inner">
+          <div class="paper-body">
+          <h2>2081</h2>
+          <p class="paper-meta"><span>Tribhuvan University</span><span>BIT 153</span><span>Object Oriented Programming</span><span>Full marks 60</span></p>
+
+          <h3>Section A · Long answer questions <span class="exam-mark">Attempt any two</span></h3>
+          <ol class="question-list">
+            <li class="question"><span class="qnum">Q1</span><div class="qbody"><p>Define a stream. How do you read and write binary files? Write a program to read an integer from the user; if the integer is less than 100 write it to a file named “SMALL.TXT”, otherwise write it to a file named “LARGE.TXT”.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>stream</strong> is an abstraction of a sequence of bytes moving between a program and a source or destination. It carries formatting state and a position, so the same operations work with the console, a string or a file. Binary files are opened with <code>ios::binary</code> and transferred with <code>write()</code> and <code>read()</code>, which take a <code>char*</code> and a byte count; no text conversion is performed.</p>
+                <p>The program chooses the file name from the value entered, writes the integer in binary, then reads it back into a second variable to confirm the round trip.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+using namespace std;
+
+int main() {
+  int n;
+  cout &lt;&lt; "Enter an integer: ";
+  cin &gt;&gt; n;
+
+  const char* name = (n &lt; 100) ? "SMALL.TXT" : "LARGE.TXT";
+  ofstream out(name, ios::binary);
+  if (!out) { cerr &lt;&lt; "Cannot open " &lt;&lt; name &lt;&lt; endl; return 1; }
+  out.write(reinterpret_cast&lt;const char*&gt;(&amp;n), sizeof(n));
+  out.close();
+
+  ifstream in(name, ios::binary);
+  int back = 0;
+  if (in.read(reinterpret_cast&lt;char*&gt;(&amp;back), sizeof(back))) {
+    cout &lt;&lt; "Read back from " &lt;&lt; name &lt;&lt; ": " &lt;&lt; back &lt;&lt; endl;
+  } else {
+    cerr &lt;&lt; "Read failed" &lt;&lt; endl;
+  }
+  in.close();
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[2 + 3 + 5]</span></li>
+
+            <li class="question"><span class="qnum">Q2</span><div class="qbody"><p>How does a structure differ from a class? What are the uses of a friend function and a friend class? Explain the types of constructors.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>In C++ a <code>struct</code> and a <code>class</code> are almost identical: both may hold data, functions, constructors and base classes and may take part in inheritance and virtual functions. The difference is the default access: members and inherited bases of a <code>struct</code> are <code>public</code> by default, while those of a <code>class</code> are <code>private</code>.</p>
+                <p>A <strong>friend function</strong> lets one non-member reach private state, for example an operation involving two classes. A <strong>friend class</strong> lets every member of another class do the same, useful for tightly coupled helpers. Friendship is not inherited and works one way only.</p>
+                <p>Constructor types: <strong>default</strong> (no arguments), <strong>parameterised</strong> (initial values), <strong>copy</strong> (builds from an object of the same class) and <strong>move</strong> (takes resources from a temporary).</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Box {
+  int len;
+public:
+  Box() : len(0) {}                    // default
+  Box(int l) : len(l) {}               // parameterised
+  Box(const Box&amp; b) : len(b.len) {}  // copy
+  friend void show(const Box&amp;);       // friend function
+  friend class Ruler;                  // friend class
+};
+
+void show(const Box&amp; b) { cout &lt;&lt; b.len &lt;&lt; endl; }
+
+class Ruler {
+public:
+  static int read(const Box&amp; b) { return b.len; }
+};
+
+int main() {
+  Box a, b(10), c(b);
+  show(c);                  // 10
+  cout &lt;&lt; Ruler::read(a) &lt;&lt; endl;  // 0
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[1 + 3 + 6]</span></li>
+
+            <li class="question"><span class="qnum">Q3</span><div class="qbody"><p>List any two types of inheritance with examples. Describe the order of execution of constructors and destructors in derived classes.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Single inheritance:</strong> one derived class from one base, for example <code>class Dog : public Animal</code>. <strong>Multiple inheritance:</strong> one derived class from two or more bases, for example <code>class D : public B, public C</code>. Other forms are multi-level (<code>C</code> from <code>B</code> from <code>A</code>) and hierarchical (several classes from one base).</p>
+                <p>Construction runs top-down: the base constructor first, then each member object's constructor, then the derived constructor body. A base constructor can be selected in the member initialiser list; otherwise the base default constructor runs. Destruction is the reverse: derived destructor, members, then base. A virtual base is constructed by the most-derived class.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class A {
+public:
+  A() { cout &lt;&lt; "A ctor\n"; }
+  ~A() { cout &lt;&lt; "A dtor\n"; }
+};
+class B : public A {
+public:
+  B() { cout &lt;&lt; "B ctor\n"; }
+  ~B() { cout &lt;&lt; "B dtor\n"; }
+};
+class C : public B {
+public:
+  C() { cout &lt;&lt; "C ctor\n"; }
+  ~C() { cout &lt;&lt; "C dtor\n"; }
+};
+
+int main() {
+  C c;
+  return 0;
+}
+// A ctor -&gt; B ctor -&gt; C ctor -&gt; C dtor -&gt; B dtor -&gt; A dtor</code>
+                </div>
+              </details>
+            </div><span class="marks">[5 + 5]</span></li>
+          </ol>
+
+          <h3>Section B · Short answer questions <span class="exam-mark">Attempt any eight</span></h3>
+          <ol class="question-list" start="4">
+            <li class="question"><span class="qnum">Q4</span><div class="qbody"><p>Describe the features of object-oriented programming.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <ul>
+                  <li><strong>Encapsulation:</strong> data and its functions are bound into a class, and access specifiers protect the representation.</li>
+                  <li><strong>Abstraction:</strong> only the essential interface is shown; implementation detail is hidden.</li>
+                  <li><strong>Inheritance:</strong> a derived class reuses and extends a base class instead of copying its code.</li>
+                  <li><strong>Polymorphism:</strong> the same message produces different behaviour: overloading and templates at compile time, virtual functions at run time.</li>
+                  <li><strong>Dynamic binding:</strong> a virtual call binds to the actual object's override at run time.</li>
+                  <li><strong>Reusability and maintainability:</strong> objects communicate through interfaces, so tested classes can be reused.</li>
+                </ul>
+                <p>For example, a <code>Time</code> object owns hours, minutes and seconds; callers use <code>show()</code> and <code>add()</code> rather than changing the fields directly.</p>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q5</span><div class="qbody"><p>Distinguish between a concrete class and an abstract class. Describe the roles of polymorphism.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>An <strong>abstract class</strong> has at least one pure virtual function, so no object of it can be created. It defines an interface that concrete derived classes must complete. A <strong>concrete class</strong> has no unimplemented pure virtual function and can be instantiated directly.</p>
+                <p>Polymorphism lets one interface serve many types. Compile-time polymorphism (overloading, templates) keeps code generic and readable. Run-time polymorphism (virtual functions called through a base pointer or reference) lets new derived types be added without changing the calling code, which is the main extension point in an OOP design.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Shape {                       // abstract
+public:
+  virtual double area() const = 0;
+  virtual ~Shape() {}
+};
+
+class Square : public Shape {       // concrete
+  double side;
+public:
+  Square(double s) : side(s) {}
+  double area() const override { return side * side; }
+};
+
+int main() {
+  Shape* s = new Square(4);
+  cout &lt;&lt; s-&gt;area() &lt;&lt; endl;   // 16: decided at run time
+  delete s;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q6</span><div class="qbody"><p>Why do we need to handle exceptions? Illustrate with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Errors such as division by zero, failed allocation or a missing file would otherwise stop the program abruptly. Exception handling separates <em>detection</em> of an error from its <em>treatment</em>: the failing code throws a value and a matching <code>catch</code> decides what to do. Stack unwinding destroys automatic objects along the way, so resources are released. It also lets callers choose whether to recover or pass the error upwards.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+using namespace std;
+
+int divide(int a, int b) {
+  if (b == 0) throw runtime_error("division by zero");
+  return a / b;
+}
+
+int main() {
+  try {
+    cout &lt;&lt; divide(10, 0) &lt;&lt; endl;
+  } catch (const runtime_error&amp; e) {
+    cerr &lt;&lt; "Error: " &lt;&lt; e.what() &lt;&lt; endl;
+  }
+  cout &lt;&lt; "Still running" &lt;&lt; endl;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q7</span><div class="qbody"><p>How do you return an object from a function? Describe with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Declare the function's return type as the class name and return a constructed object: <code>return Number(v);</code>. The caller receives an independent object with its own data. Modern C++ uses copy elision or a move, so no extra deep copy is normally paid. Return by value is safe; returning a reference to a local object would be a dangling reference.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Number {
+  int n;
+public:
+  Number(int v = 0) : n(v) {}
+  int value() const { return n; }
+};
+
+Number makeNumber(int v) {
+  return Number(v);          // returns an object by value
+}
+
+int main() {
+  Number x = makeNumber(42);
+  cout &lt;&lt; x.value() &lt;&lt; endl;  // 42
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q8</span><div class="qbody"><p>Write a program to create a class named STUDENT with data member age, then overload the unary operator (++) to increment the age of an object of this class.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>The prefix form <code>operator++()</code> increments first and returns a reference to the same object. The postfix form carries a dummy <code>int</code> parameter, saves the old value, increments, and returns that old value by value. Returning the right type and value keeps both forms behaving like the built-in operator.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class STUDENT {
+  int age;
+public:
+  STUDENT(int a = 0) : age(a) {}
+  STUDENT&amp; operator++() {                       // prefix
+    ++age;
+    return *this;
+  }
+  STUDENT operator++(int) {                       // postfix
+    STUDENT old(age);
+    ++age;
+    return old;
+  }
+  int value() const { return age; }
+};
+
+int main() {
+  STUDENT s(20);
+  ++s;
+  cout &lt;&lt; s.value() &lt;&lt; endl;               // 21
+  STUDENT previous = s++;
+  cout &lt;&lt; previous.value() &lt;&lt; " " &lt;&lt; s.value() &lt;&lt; endl;  // 21 22
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q9</span><div class="qbody"><p>Explain advantages and disadvantages of inline functions.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>An <code>inline</code> function asks the compiler to put the function body at each call site instead of generating a call. The advantage is removal of call overhead, and the compiler can optimise the body in context. It suits small functions called often.</p>
+                <p>The cost is code bloat: every call site repeats the body, so a large function or many call sites make the binary bigger and can hurt instruction-cache use. <code>inline</code> is only a hint; recursive functions and functions with complex control flow are usually not inlined. Putting the definition in a header is required when the function is used across files.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+inline int square(int x) { return x * x; }   // small, no loop
+
+int main() {
+  cout &lt;&lt; square(5) &lt;&lt; endl;  // 25
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q10</span><div class="qbody"><p>How do you convert a basic data type to a user-defined data type? Explain.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Give the class a <strong>converting constructor</strong> whose single parameter is the basic type. When a value of that basic type appears where the class is expected, the compiler calls the constructor automatically. The reverse direction uses a conversion operator such as <code>operator int() const</code>. Mark a converting constructor <code>explicit</code> when silent conversion could cause surprising overload matches.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Distance {
+  int metres;
+public:
+  Distance(int m) : metres(m) {}   // int -&gt; Distance
+  int value() const { return metres; }
+};
+
+int main() {
+  Distance d = 12;                 // implicit conversion via Distance(int)
+  cout &lt;&lt; d.value() &lt;&lt; endl;     // 12
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q11</span><div class="qbody"><p>Illustrate the use of setw and setprecision with examples.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Both manipulators come from <code>&lt;iomanip&gt;</code>. <code>setw(n)</code> sets the minimum field width for the <em>next</em> insertion only, so repeat it for each value. <code>setprecision(n)</code> sets significant digits by default, but with <code>fixed</code> it sets digits after the decimal point and stays in effect until changed.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+int main() {
+  cout &lt;&lt; "[" &lt;&lt; setw(8) &lt;&lt; 42 &lt;&lt; "]" &lt;&lt; endl;      // right-aligned
+  cout &lt;&lt; fixed &lt;&lt; setprecision(2) &lt;&lt; 3.14159 &lt;&lt; endl;  // 3.14
+  cout &lt;&lt; setw(10) &lt;&lt; 2.5 &lt;&lt; endl;                   // 2.50 in width 10
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q12</span><div class="qbody"><p>What are the purposes of operator overloading? Explain issues that may arise with multiple inheritance.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Operator overloading makes user-defined types as natural to use as built-in types: <code>a + b</code> reads better than <code>add(a, b)</code>. It keeps related code in the class, supports generic code such as containers using <code>&lt;</code>, and does not change the operator's precedence or operand count. It should not be used to give an operator a surprising meaning.</p>
+                <p>Multiple inheritance can create duplicate base subobjects (the diamond problem), so a member such as <code>A::x</code> becomes ambiguous. Two bases may also declare the same name. Declare the shared base <code>virtual</code> so only one subobject exists, or qualify the member explicitly.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class A { public: int x; };
+class B : virtual public A {};
+class C : virtual public A {};
+class D : public B, public C {
+public:
+  void set() { x = 5; }      // one shared A::x, not two
+};
+
+int main() {
+  D d;
+  d.set();
+  cout &lt;&lt; d.x &lt;&lt; endl;     // 5
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+          </ol>
+          </div>
+          </div>
+        </section>
+
+        <section class="paper paper--collapsed" id="paper-2082" aria-hidden="true" inert>
+          <div class="paper-inner">
+          <div class="paper-body">
+          <h2>2082</h2>
+          <p class="paper-meta"><span>Tribhuvan University</span><span>BIT 153</span><span>Object Oriented Programming</span><span>Full marks 60</span></p>
+
+          <h3>Section A · Long answer questions <span class="exam-mark">Attempt any two</span></h3>
+          <ol class="question-list">
+            <li class="question"><span class="qnum">Q1</span><div class="qbody"><p>Write a program to create a class Student with data members id, name, and marks. Define constructors to initialize data members and demonstrate constructor overloading. Implement member functions to read student details, display them, and calculate average marks.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>The class keeps all three data members private. A default constructor supplies safe empty values, and a parameterised constructor takes initial values for every field; their different parameter lists make them overloaded constructors. <code>read()</code> fills the object from input, <code>display()</code> prints it, and <code>average()</code> sums the three marks and divides by 3.0 so the division is not truncated.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+class Student {
+  int id;
+  string name;
+  double marks[3];
+public:
+  Student() : id(0), name(""), marks{0, 0, 0} {}
+  Student(int i, const string&amp; n, double a, double b, double c)
+    : id(i), name(n), marks{a, b, c} {}
+
+  void read() {
+    cout &lt;&lt; "id, name, three marks: ";
+    cin &gt;&gt; id &gt;&gt; name &gt;&gt; marks[0] &gt;&gt; marks[1] &gt;&gt; marks[2];
+  }
+  void display() const {
+    cout &lt;&lt; id &lt;&lt; " " &lt;&lt; name &lt;&lt; " "
+         &lt;&lt; marks[0] &lt;&lt; " " &lt;&lt; marks[1] &lt;&lt; " " &lt;&lt; marks[2] &lt;&lt; endl;
+  }
+  double average() const {
+    return (marks[0] + marks[1] + marks[2]) / 3.0;
+  }
+};
+
+int main() {
+  Student a;                                  // default constructor
+  a.read();
+  a.display();
+  cout &lt;&lt; "Average: " &lt;&lt; a.average() &lt;&lt; endl;
+
+  Student b(2, "Sita", 80, 90, 70);            // parameterised constructor
+  b.display();
+  cout &lt;&lt; "Average: " &lt;&lt; b.average() &lt;&lt; endl;  // 80
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[10]</span></li>
+
+            <li class="question"><span class="qnum">Q2</span><div class="qbody"><p>Explain inheritance with a suitable example. Differentiate between single, multiple, and hybrid inheritance. Write a program to show constructor invocation order in multilevel inheritance.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Inheritance</strong> lets a derived class reuse a base class's members and add its own. For example <code>Dog : public Animal</code> inherits <code>eat()</code> and adds <code>bark()</code>.</p>
+                <ul>
+                  <li><strong>Single:</strong> one derived class from one base, <code>B : A</code>.</li>
+                  <li><strong>Multiple:</strong> one derived class from several bases, <code>D : B, C</code>.</li>
+                  <li><strong>Hybrid:</strong> a mix of the above, for example a multi-level chain combined with a second base.</li>
+                </ul>
+                <p>In multi-level inheritance the most base constructor runs first, then the intermediate one, then the most derived. Destructors run in the opposite order.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class A {
+public:
+  A() { cout &lt;&lt; "A ctor\n"; }
+  ~A() { cout &lt;&lt; "A dtor\n"; }
+};
+class B : public A {
+public:
+  B() { cout &lt;&lt; "B ctor\n"; }
+  ~B() { cout &lt;&lt; "B dtor\n"; }
+};
+class C : public B {
+public:
+  C() { cout &lt;&lt; "C ctor\n"; }
+  ~C() { cout &lt;&lt; "C dtor\n"; }
+};
+
+int main() {
+  C c;   // A ctor, B ctor, C ctor, then C dtor, B dtor, A dtor
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[1 + 4 + 5]</span></li>
+
+            <li class="question"><span class="qnum">Q3</span><div class="qbody"><p>Explain operator overloading with an example. Write a C++ class Number to store an integer. Overload the addition (+) and comparison (==) operators, and show conversion between int and Number. Write a program to perform these operations.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Operator overloading</strong> defines an operator's behaviour for a class type while keeping its syntax, precedence and arity. Here <code>operator+</code> returns a new Number, <code>operator==</code> compares two Numbers, the constructor <code>Number(int)</code> converts int to Number, and <code>operator int()</code> converts Number back to int.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Number {
+  int n;
+public:
+  Number(int v = 0) : n(v) {}                 // int -&gt; Number
+  operator int() const { return n; }          // Number -&gt; int
+  Number operator+(const Number&amp; other) const {
+    return Number(n + other.n);
+  }
+  bool operator==(const Number&amp; other) const {
+    return n == other.n;
+  }
+  void show() const { cout &lt;&lt; n &lt;&lt; endl; }
+};
+
+int main() {
+  Number a(5), b(7);
+  Number c = a + b;
+  c.show();                                  // 12
+  cout &lt;&lt; boolalpha &lt;&lt; (a == b) &lt;&lt; endl;     // false
+
+  int raw = c;                               // Number -&gt; int
+  cout &lt;&lt; raw &lt;&lt; endl;                       // 12
+  Number fromInt = 3;                        // int -&gt; Number
+  fromInt.show();                            // 3
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[2 + 8]</span></li>
+          </ol>
+
+          <h3>Section B · Short answer questions <span class="exam-mark">Attempt any eight</span></h3>
+          <ol class="question-list" start="4">
+            <li class="question"><span class="qnum">Q4</span><div class="qbody"><p>Explain default arguments and inline functions in C++ with suitable examples.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>default argument</strong> supplies a value when the caller omits that trailing parameter. Defaults are given in the declaration, rightmost parameters first, and must not be repeated in the definition. They reduce the number of overloads needed.</p>
+                <p>An <strong>inline function</strong> asks the compiler to substitute the body at each call site, removing call overhead for small functions. <code>inline</code> is a hint, not a command, and repeating a large body at many call sites increases code size.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+void print(int times = 3, char mark = '*') {
+  for (int i = 0; i &lt; times; ++i) cout &lt;&lt; mark;
+  cout &lt;&lt; endl;
+}
+
+inline int twice(int x) { return 2 * x; }
+
+int main() {
+  print();           // ***
+  print(2, '#');     // ##
+  cout &lt;&lt; twice(5) &lt;&lt; endl;  // 10
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q5</span><div class="qbody"><p>What is the use of the this pointer? Write a program to demonstrate it.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><code>this</code> is an implicit pointer available inside non-static member functions. It points to the object the function was called on. Its main uses are to disambiguate a parameter that hides a member of the same name, to return the current object (<code>return *this;</code>), and to pass the current object to another function. It does not exist in static member functions.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Box {
+  int len;
+public:
+  void set(int len) {
+    this-&gt;len = len;      // member = parameter
+  }
+  Box&amp; doubleIt() {
+    len *= 2;
+    return *this;
+  }
+  int value() const { return len; }
+};
+
+int main() {
+  Box b;
+  b.set(9);
+  b.doubleIt();
+  cout &lt;&lt; b.value() &lt;&lt; endl;  // 18
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q6</span><div class="qbody"><p>Explain friend function and friend class with examples.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A <strong>friend function</strong> is a non-member declared with <code>friend</code> inside a class; it can read that class's private members. A <strong>friend class</strong> is declared the same way and lets every member of the other class access private and protected members. Both are used when two classes are tightly coupled, such as a container and its helper. Friendship is granted by the class, is not inherited, and is not symmetric.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Box {
+  int len;
+public:
+  Box(int l) : len(l) {}
+  friend int twiceLen(const Box&amp;);   // friend function
+  friend class Ruler;                  // friend class
+};
+
+int twiceLen(const Box&amp; b) { return 2 * b.len; }
+
+class Ruler {
+public:
+  static int read(const Box&amp; b) { return b.len; }
+};
+
+int main() {
+  Box b(8);
+  cout &lt;&lt; twiceLen(b) &lt;&lt; " " &lt;&lt; Ruler::read(b) &lt;&lt; endl;  // 16 8
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q7</span><div class="qbody"><p>Differentiate between early binding and late binding. Write a program to show dynamic polymorphism using a virtual function.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p><strong>Early (static) binding</strong> fixes the function call at compile time; ordinary functions, overloads and templates use it. <strong>Late (dynamic) binding</strong> fixes the call at run time from the type of the actual object. Declare a base function <code>virtual</code>, override it in derived classes, and call it through a base pointer or reference.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Shape {
+public:
+  virtual void draw() const { cout &lt;&lt; "shape\n"; }
+  virtual ~Shape() {}
+};
+class Circle : public Shape {
+public:
+  void draw() const override { cout &lt;&lt; "circle\n"; }
+};
+class Square : public Shape {
+public:
+  void draw() const override { cout &lt;&lt; "square\n"; }
+};
+
+int main() {
+  Circle c;
+  Square s;
+  Shape* items[] = {&amp;c, &amp;s};
+  for (Shape* p : items) p-&gt;draw();   // circle, square
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[2 + 3]</span></li>
+
+            <li class="question"><span class="qnum">Q8</span><div class="qbody"><p>What are function templates? Write a program that swaps two values using function templates.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>A function template is one generic implementation parameterised by type. <code>template &lt;typename T&gt;</code> makes the compiler generate a version for each type used, so the same swap works for <code>int</code>, <code>double</code> and class types. Parameters taken by reference are essential here: a by-value swap would only exchange local copies.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+template &lt;typename T&gt;
+void swapValues(T&amp; a, T&amp; b) {
+  T temp = a;
+  a = b;
+  b = temp;
+}
+
+int main() {
+  int x = 3, y = 7;
+  double p = 1.5, q = 2.5;
+  swapValues(x, y);
+  swapValues(p, q);
+  cout &lt;&lt; x &lt;&lt; " " &lt;&lt; y &lt;&lt; endl;  // 7 3
+  cout &lt;&lt; p &lt;&lt; " " &lt;&lt; q &lt;&lt; endl;  // 2.5 1.5
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[1 + 4]</span></li>
+
+            <li class="question"><span class="qnum">Q9</span><div class="qbody"><p>Explain the ambiguity problem in multiple inheritance with an example. How is it resolved using a virtual base class?</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>In a diamond hierarchy, <code>B</code> and <code>C</code> both derive from <code>A</code>, and <code>D</code> derives from both. Without special handling <code>D</code> contains two separate <code>A</code> subobjects. A reference to <code>d.x</code> is then ambiguous, and the two copies can hold different values.</p>
+                <p>Making the inheritance from <code>A</code> virtual in both <code>B</code> and <code>C</code> keeps one shared <code>A</code> subobject. The most-derived class constructs that virtual base, so there is a single <code>x</code> to read and write. Explicit qualification such as <code>d.B::x</code> is the alternative when separate copies are intended.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class A { public: int x; };
+class B : virtual public A {};
+class C : virtual public A {};
+class D : public B, public C {
+public:
+  void set() { x = 5; }      // one shared A::x
+};
+
+int main() {
+  D d;
+  d.set();
+  cout &lt;&lt; d.x &lt;&lt; endl;     // 5
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q10</span><div class="qbody"><p>Write a program to handle division-by-zero exception using try, throw, and catch.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Check the divisor before dividing and throw a value describing the error. The <code>try</code> block holds the risky call; the matching <code>catch</code> reports it through <code>cerr</code>. Throwing a <code>runtime_error</code> instead of a plain string lets the handler use <code>what()</code> and keeps the error part of the standard exception hierarchy.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+using namespace std;
+
+double divide(double a, double b) {
+  if (b == 0.0) throw runtime_error("division by zero");
+  return a / b;
+}
+
+int main() {
+  try {
+    cout &lt;&lt; divide(10, 0) &lt;&lt; endl;
+  } catch (const runtime_error&amp; e) {
+    cerr &lt;&lt; "Error: " &lt;&lt; e.what() &lt;&lt; endl;
+  }
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q11</span><div class="qbody"><p>Write a C++ program to read a text file named data.txt and display its contents on the screen. Also count the number of lines, words, and characters in the file and display these counts after showing the file content.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>Open <code>data.txt</code> with <code>ifstream</code> and check that it opened. <code>getline()</code> reads one line at a time; print each line as it arrives. A line count increments once per line, an <code>istringstream</code> over the line extracts whitespace-separated words, and the character count adds <code>line.size() + 1</code> for the line separator. Print the totals after the loop, once the whole file has been shown.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+using namespace std;
+
+int main() {
+  ifstream in("data.txt");
+  if (!in) { cerr &lt;&lt; "Cannot open data.txt" &lt;&lt; endl; return 1; }
+
+  string line;
+  int lines = 0, words = 0, chars = 0;
+  while (getline(in, line)) {
+    cout &lt;&lt; line &lt;&lt; endl;
+    ++lines;
+    chars += static_cast&lt;int&gt;(line.size()) + 1;  // include separator
+    istringstream ss(line);
+    string word;
+    while (ss &gt;&gt; word) ++words;
+  }
+  in.close();
+
+  cout &lt;&lt; "Lines: " &lt;&lt; lines
+       &lt;&lt; "  Words: " &lt;&lt; words
+       &lt;&lt; "  Characters: " &lt;&lt; chars &lt;&lt; endl;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+
+            <li class="question"><span class="qnum">Q12</span><div class="qbody"><p>What is the difference between an abstract class and a concrete class? Explain with an example.</p>
+              <details class="worked-answer"><summary>Worked answer</summary>
+                <p>An <strong>abstract class</strong> declares at least one pure virtual function, written <code>virtual double area() const = 0;</code>. It cannot be instantiated and exists to define an interface. A <strong>concrete class</strong> overrides every pure virtual function and can be instantiated. Calling through a base pointer still reaches the concrete class's override, which is how the interface gives run-time polymorphism.</p>
+                <div class="codeblock">
+                  <button class="copy-btn" type="button">Copy</button>
+                  <code>#include &lt;iostream&gt;
+using namespace std;
+
+class Shape {                        // abstract
+public:
+  virtual double area() const = 0;
+  virtual ~Shape() {}
+};
+
+class Rectangle : public Shape {     // concrete
+  double w, h;
+public:
+  Rectangle(double a, double b) : w(a), h(b) {}
+  double area() const override { return w * h; }
+};
+
+int main() {
+  Shape* s = new Rectangle(3, 4);
+  cout &lt;&lt; s-&gt;area() &lt;&lt; endl;        // 12
+  delete s;
+  return 0;
+}</code>
+                </div>
+              </details>
+            </div><span class="marks">[5]</span></li>
+          </ol>
+          </div>
+          </div>
+        </section>
+
         <aside class="revision-tracker" data-page="oop/past-questions.html">
           <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
           <button class="revision-btn" type="button">Mark as reviewed</button>
