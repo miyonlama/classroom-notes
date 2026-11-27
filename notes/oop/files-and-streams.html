@@ -62,10 +62,10 @@
           <p class="source-line">Unit 8.1 of the syllabus.</p>
 
           <h3>1. Stream class hierarchy <span class="exam-mark">EXAM 6</span></h3>
-          <p>The stream hierarchy derives from base classes for input and output. `ifstream` handles file input, `ofstream` handles file output, and `fstream` handles both. Each uses a stream buffer for character transfer.</p>
+          <p>The stream hierarchy derives from base classes for input and output. <code>ifstream</code> handles file input, <code>ofstream</code> handles file output, and <code>fstream</code> handles both. Each uses a stream buffer for character transfer.</p>
 
           <h3>2. Reading and writing file pointers</h3>
-          <p>The get pointer marks the next byte to read; the put pointer marks the next byte to write. `seekg` repositions the get pointer, and `seekp` repositions the put pointer.</p>
+          <p>The get pointer marks the next byte to read; the put pointer marks the next byte to write. <code>seekg</code> repositions the get pointer, and <code>seekp</code> repositions the put pointer.</p>
 
           <div class="codeblock">
             <button class="copy-btn" type="button">Copy</button>
@@ -88,7 +88,7 @@ int main() {
           </div>
 
           <h3>3. Text files</h3>
-          <p>Text files store human-readable characters. Formatted operators (>> and <<) read and write typed values with automatic conversion. Each insertion ends with a newline when std::endl is used.</p>
+          <p>Text files store human-readable characters. Formatted operators (&gt;&gt; and &lt;&lt;) read and write typed values with automatic conversion. Each insertion ends with a newline when std::endl is used.</p>
 
           <h3>4. End-of-file detection</h3>
           <p>A read reaches end of file when no further value is available. The extraction expression itself becomes false in that state, so a while loop using it stops naturally. The eof() member reports the EOF flag.</p>
@@ -99,7 +99,7 @@ int main() {
           <p class="source-line">Unit 8.2 of the syllabus.</p>
 
           <h3>1. Binary files</h3>
-          <p>Binary files store raw bytes without text translation. Passing `ios::binary` to the stream constructor disables newline conversion and preserves the in-memory representation of data.</p>
+          <p>Binary files store raw bytes without text translation. Passing <code>ios::binary</code> to the stream constructor disables newline conversion and preserves the in-memory representation of data.</p>
 
           <div class="codeblock">
             <button class="copy-btn" type="button">Copy</button>
@@ -144,7 +144,7 @@ int main() {
           </div>
 
           <h3>3. Random file access with seekg</h3>
-          <p>The seekg member repositions the get pointer by a byte offset. The offset can be measured from the start (`ios::beg`), the current position (`ios::cur`), or the end (`ios::end`). Fixed-size records let a record be read directly by multiplying its size by its index.</p>
+          <p>The seekg member repositions the get pointer by a byte offset. The offset can be measured from the start (<code>ios::beg</code>), the current position (<code>ios::cur</code>), or the end (<code>ios::end</code>). Fixed-size records let a record be read directly by multiplying its size by its index.</p>
 
           <div class="codeblock">
             <button class="copy-btn" type="button">Copy</button>

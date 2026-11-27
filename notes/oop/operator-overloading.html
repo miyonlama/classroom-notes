@@ -72,7 +72,7 @@
           <p class="source-line">Unit 4.1 of the syllabus.</p>
 
           <h3>1. Operator overloading: fundamentals, restrictions, and member operator functions <span class="priority-mark">★★</span> <span class="exam-mark">EXAM 6</span></h3>
-          <p>Operator overloading lets a member function or a friend function carry out an operation the built-in operator has no meaning for. Restrictions: new, delete, and assignment cannot be overloaded; the number of operands is fixed by the operator.</p>
+          <p>Operator overloading lets a member function or a friend function carry out an operation the built-in operator has no meaning for. <code>operator new</code>, <code>new[]</code>, <code>delete</code>, <code>delete[]</code>, and <code>operator=</code> can be overloaded. Restrictions: no new operator symbols; arity, precedence, and associativity are fixed; at least one operand must be a class or enum type; <code>.</code>, <code>.*</code>, <code>::</code>, <code>?:</code>, <code>sizeof</code>, and <code>typeid</code> cannot be overloaded.</p>
         </section>
 
         <section class="topic-part" data-part="2">
@@ -87,7 +87,7 @@
           <h2>Part 3 · Binary Operators and String Concatenation <span class="priority-mark">★★</span></h2>
           <p class="source-line">Unit 4.3 of the syllabus.</p>
 
-          <h3>2. Binary plus, comparison, and String Concatenation <span class="priority-mark">★★</span></h3>
+          <h3>3. Binary plus, comparison, and String Concatenation <span class="priority-mark">★★</span></h3>
           <p>Binary operators take two operands. Plus can add numbers or concatenate strings; comparison operators can compare objects field by field.</p>
         </section>
 
@@ -96,13 +96,13 @@
           <p class="source-line">Unit 4.4 of the syllabus.</p>
 
           <h3>1. Basic-to-user-defined conversion</h3>
-          <p>A basic type converts into a user-defined type through an overloaded conversion operator.</p>
+          <p>A basic type converts into a user-defined type through a converting (non-<code>explicit</code>) constructor: a constructor callable with a single argument of the basic type. C++ uses it automatically when a value of the basic type is supplied where the class is expected. Mark it <code>explicit</code> if implicit conversion would be surprising.</p>
 
           <h3>2. User-defined-to-basic conversion</h3>
-          <p>A user-defined type converts into a basic type through a conversion operator or an explicit constructor.</p>
+          <p>A user-defined type converts into a basic type through a conversion operator, such as <code>operator int() const</code>, declared in the class. An <code>explicit</code> constructor does not convert.</p>
 
           <h3>3. User-defined-to-user-defined conversion</h3>
-          <p>A user-defined type converts into another user-defined type through a conversion operator or constructor chaining.</p>
+          <p>A user-defined type converts into another user-defined type through a conversion operator in the source class returning the target type, or through a converting constructor in the target class.</p>
         </section>
 
         <div class="codeblock">

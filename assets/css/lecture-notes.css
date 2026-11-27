@@ -550,6 +550,7 @@ html[data-theme="study"] .projector-wash {
   background: var(--board-deep);
   padding: 1rem 1.1rem;
   overflow-x: auto;
+  white-space: pre;
   font-family: ui-monospace, Consolas, monospace;
   font-size: 0.9rem;
   line-height: 1.5;
