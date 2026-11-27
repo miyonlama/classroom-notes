@@ -144,4 +144,54 @@ var streamsUnitPage = fs.readFileSync(path.join(root, "notes/oop/files-and-strea
   assert(streamsUnitPage.indexOf(needle) !== -1, "files-and-streams.html is missing required string: " + needle);
 });
 
+var archivePath = path.join(root, "notes/oop/past-questions.html");
+assert(fs.existsSync(archivePath), "notes/oop/past-questions.html must exist");
+var archive = fs.readFileSync(archivePath, "utf8");
+
+oopUnits.forEach(function (label) {
+  assert(archive.indexOf(label) !== -1, "archive is missing rail label: " + label);
+});
+assert.strictEqual((archive.match(/aria-current="true"/g) || []).length, 1, "archive must mark one rail label");
+assert(/<li><a href="past-questions.html" aria-current="true"[\s\S]*?Past Questions<\/span><\/a><\/li>/.test(archive), "archive must mark Past Questions current in the rail");
+
+var targetButtons = archive.match(/<button[^>]*data-target="[^"]+"[^>]*>/g) || [];
+assert.strictEqual(targetButtons.length, 6, "archive must have six paper-nav buttons");
+["#paper-2078", "#paper-2079", "#paper-2080-1", "#paper-2080-2", "#paper-2081", "#paper-2082"].forEach(function (target, i) {
+  assert(targetButtons[i] && targetButtons[i].indexOf('data-target="' + target + '"') !== -1,
+    "paper-nav button " + (i + 1) + " must target " + target);
+});
+
+["study-tools.js", "notes.js", "player.js", "site-nav.js"].forEach(function (name) {
+  assert(archive.indexOf("/assets/js/" + name) !== -1, "archive is missing script: " + name);
+});
+assert(archive.indexOf("../../assets/js/lecture-notes.js") !== -1, "archive is missing lecture-notes.js");
+assert(archive.indexOf("../../assets/js/past-questions.js") !== -1, "archive is missing past-questions.js");
+assert(archive.indexOf("/assets/js/study-tools.js") < archive.indexOf("/assets/js/notes.js"), "archive scripts out of order: study-tools before notes");
+assert(archive.indexOf("/assets/js/notes.js") < archive.indexOf("/assets/js/player.js"), "archive scripts out of order: notes before player");
+assert(archive.indexOf("/assets/js/player.js") < archive.indexOf("/assets/js/site-nav.js"), "archive scripts out of order: player before site-nav");
+
+assert(archive.indexOf("nine papers") === -1, "archive must not claim nine papers");
+assert(archive.indexOf("Six BIT 153 exam papers, 2078–2082") !== -1, "archive source line must name six papers");
+assert(archive.indexOf("Past Questions.txt") !== -1, "archive source line must name the text file");
+assert(archive.indexOf("model answers") !== -1, "archive must say its worked answers are model answers");
+assert(archive.indexOf("&lt;#include") === -1, "archive must not prefix #include with &lt;");
+assert(archive.indexOf("#include &lt;iostream&gt;") !== -1, "archive code must escape header angle brackets");
+
+["paper-2078", "paper-2079", "paper-2080-1"].forEach(function (id) {
+  var m = archive.match(new RegExp('<section[^>]*id="' + id + '"[\\s\\S]*?<\\/section>'));
+  assert(m, "archive is missing section " + id);
+  var body = m[0];
+  var parts = body.split('<li class="question">');
+  assert.strictEqual(parts.length - 1, 12, id + " must hold 12 questions");
+  var answers = body.match(/<details class="worked-answer">[\s\S]*?<\/details>/g) || [];
+  assert.strictEqual(answers.length, 12, id + " must hold 12 worked answers");
+  parts.slice(1).forEach(function (part, i) {
+    assert(part.indexOf('<span class="qnum">Q' + (i + 1) + "</span>") !== -1, id + " Q" + (i + 1) + " has a wrong qnum");
+    assert(/class="marks">\[[^\]]+\]<\/span>/.test(part), id + " Q" + (i + 1) + " must show bracketed marks");
+    assert(part.indexOf('<details class="worked-answer">') !== -1, id + " Q" + (i + 1) + " must have a worked answer");
+    assert(part.indexOf("<summary>Worked answer</summary>") !== -1, id + " Q" + (i + 1) + " summary must read Worked answer");
+  });
+  assert(/<div class="codeblock">[\s\S]*?<button class="copy-btn"[\s\S]*?<\/div>/.test(body), id + " must contain a copyable C++ program");
+});
+
 console.log("oop subject tests ok");

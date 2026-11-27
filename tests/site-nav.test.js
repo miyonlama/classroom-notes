@@ -75,7 +75,7 @@ function walk(dir) {
   });
 }
 walk(root);
-assert.strictEqual(pages.length, 33, "expected 33 pages, got " + pages.length);
+assert.strictEqual(pages.length, 34, "expected 34 pages, got " + pages.length);
 pages.forEach(function (p) {
   var rel = path.relative(root, p).replace(/\\/g, "/");
   // Redirect stubs leave for their chapter at once; no nav needed.
