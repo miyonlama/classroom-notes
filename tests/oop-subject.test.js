@@ -50,7 +50,9 @@ var currentLabels = {
   "classes-and-objects.html": oopUnits[2],
   "operator-overloading.html": oopUnits[3],
   "inheritance.html": oopUnits[4],
-  "virtual-functions-and-polymorphism.html": oopUnits[5]
+  "virtual-functions-and-polymorphism.html": oopUnits[5],
+  "templates-and-exception-handling.html": oopUnits[6],
+  "files-and-streams.html": oopUnits[7]
 };
 
 var unitPages = [
@@ -59,7 +61,9 @@ var unitPages = [
   { file: "classes-and-objects.html", next: "operator-overloading.html", prior: "basics-of-cpp.html" },
   { file: "operator-overloading.html", next: "inheritance.html", prior: "classes-and-objects.html" },
   { file: "inheritance.html", next: "virtual-functions-and-polymorphism.html", prior: "operator-overloading.html" },
-  { file: "virtual-functions-and-polymorphism.html", next: "templates-and-exception-handling.html", prior: "inheritance.html" }
+  { file: "virtual-functions-and-polymorphism.html", next: "templates-and-exception-handling.html", prior: "inheritance.html" },
+  { file: "templates-and-exception-handling.html", next: "files-and-streams.html", prior: "virtual-functions-and-polymorphism.html" },
+  { file: "files-and-streams.html", next: "past-questions.html", prior: "templates-and-exception-handling.html" }
 ];
 
 unitPages.forEach(function (u) {
@@ -129,6 +133,15 @@ var virtualUnitPage = fs.readFileSync(path.join(root, "notes/oop/virtual-functio
 });
 ["Pure Virtual", "Abstract class", "Virtual Destructor"].forEach(function (needle) {
   assert(virtualUnitPage.indexOf(needle) !== -1, "virtual-functions-and-polymorphism.html is missing required string: " + needle);
+});
+
+var templateUnitPage = fs.readFileSync(path.join(root, "notes/oop/templates-and-exception-handling.html"), "utf8");
+var streamsUnitPage = fs.readFileSync(path.join(root, "notes/oop/files-and-streams.html"), "utf8");
+["Function Template", "Class Template", "catch (...)"].forEach(function (needle) {
+  assert(templateUnitPage.indexOf(needle) !== -1, "templates-and-exception-handling.html is missing required string: " + needle);
+});
+["ifstream", "ofstream", "ios::binary", "seekg"].forEach(function (needle) {
+  assert(streamsUnitPage.indexOf(needle) !== -1, "files-and-streams.html is missing required string: " + needle);
 });
 
 console.log("oop subject tests ok");

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Function Templates and Exception Handling, OOP</title>
+  <link rel="stylesheet" href="../../assets/css/lecture-notes.css" />
+  <link rel="stylesheet" href="/assets/css/player.css" />
+</head>
+<body>
+  <div class="chalk-dust" aria-hidden="true"></div>
+  <div class="projector-wash" aria-hidden="true"></div>
+
+  <header class="masthead site">
+    <a class="brand" href="../../index.html"><span class="brand-mark" aria-hidden="true"></span>Classroom Notes</a>
+    <button id="study-toggle" class="study-toggle" type="button" aria-pressed="false"></button>
+    <div class="crumb"><a href="../index.html">Notes</a> / <a href="templates-and-exception-handling.html">Object Oriented Programming</a> / Function Templates and Exception Handling</div>
+  </header>
+
+  <main>
+    <div class="doc-shell">
+      <nav class="syllabus" id="syllabus" aria-label="Object Oriented Programming chapters">
+        <button id="syllabus-toggle" class="syllabus-toggle" type="button" aria-controls="syllabus" aria-expanded="true" aria-label="Toggle chapter list">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12M2 8h12M2 13h12"/></svg>
+        </button>
+        <p class="syllabus-label">Syllabus</p>
+        <ol class="chapter-rail">
+          <li><a href="introduction-to-oop.html"><b>01</b><span>Introduction to Object Oriented Programming</span></a></li>
+          <li><a href="basics-of-cpp.html"><b>02</b><span>Basics of C++ Programming</span></a></li>
+          <li><a href="classes-and-objects.html"><b>03</b><span>Class and Objects</span></a></li>
+          <li><a href="operator-overloading.html"><b>04</b><span>Operator Overloading</span></a></li>
+          <li><a href="inheritance.html"><b>05</b><span>Inheritance</span></a></li>
+          <li><a href="virtual-functions-and-polymorphism.html"><b>06</b><span>Virtual Function, Polymorphism, and other C++ Features</span></a></li>
+          <li><a href="templates-and-exception-handling.html" aria-current="true"><b>07</b><span>Function Templates and Exception Handling</span></a></li>
+          <li><a href="files-and-streams.html"><b>08</b><span>File and Streams</span></a></li>
+          <li><a href="past-questions.html"><b>PQ</b><span>Past Questions</span></a></li>
+        </ol>
+      </nav>
+
+      <article class="reading chapter-reading">
+        <span class="folio" aria-hidden="true">07</span>
+        <h1>Function Templates and Exception Handling</h1>
+        <p class="lede">Function templates provide generic functions that operate on multiple types. Exception handling lets a program recover from runtime errors through try, throw, and catch.</p>
+        <p class="source-line">Unit prose and C++ examples are written from the syllabus and standard C++.</p>
+
+        <aside class="exam-hits">
+          <h2>How to read the marks</h2>
+          <ul>
+            <li><span class="priority-mark">★★★</span> core / must-learn, multiple examples, exercises, and full derivations in the unit.</li>
+            <li><span class="priority-mark">★★</span> important, general explanation with examples.</li>
+            <li><span class="priority-mark">★</span> basic / supporting, brief treatment.</li>
+            <li><span class="exam-mark">EXAM 3</span> times the topic appears across the six OOP papers (2078–2082). Informational, not official weighting.</li>
+            <li><span class="exam-mark">EXAM 6</span> times the topic appears across the six OOP papers (2078–2082). Informational, not official weighting.</li>
+          </ul>
+          <h2>Past exam hits</h2>
+          <ul>
+            <li>Function templates, 3: 2080.1 Q10, 2080.2 Q12, 2082 Q8.</li>
+            <li>Exception handling, 6: 2078 Q11, 2079 Q1, 2080.1 Q5, 2080.2 Q10, 2081 Q6, 2082 Q10.</li>
+          </ul>
+        </aside>
+
+        <section class="topic-part" data-part="1">
+          <h2>Part 1 · Function Templates <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Unit 7.1 of the syllabus.</p>
+
+          <h3>1. Function templates <span class="exam-mark">EXAM 3</span></h3>
+          <p>Function templates enable a function to accept arguments of multiple types. The template parameter is deduced from the argument types or explicitly specified at the call.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+T maximum(T a, T b) {
+  return (a &gt; b) ? a : b;
+}
+
+int main() {
+  std::cout &lt;&lt; maximum(3, 7) &lt;&lt; std::endl;
+  std::cout &lt;&lt; maximum(3.5, 7.2) &lt;&lt; std::endl;
+  std::cout &lt;&lt; maximum(char('a'), char('b')) &lt;&lt; std::endl;
+}</code>
+          </div>
+
+          <h3>2. Class Template</h3>
+          <p>A Class Template defines a generic class whose members use the template type parameter. It supports containers that hold values of any chosen type.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+class Box {
+  T content;
+public:
+  void set(T c) { content = c; }
+  T get() { return content; }
+};
+
+int main() {
+  Box&lt;int&gt; intBox;
+  intBox.set(123);
+  std::cout &lt;&lt; intBox.get() &lt;&lt; std::endl;
+  Box&lt;double&gt; doubleBox;
+  doubleBox.set(3.5);
+  std::cout &lt;&lt; doubleBox.get() &lt;&lt; std::endl;
+}</code>
+          </div>
+
+          <h3>3. Templates and inheritance</h3>
+          <p>A derived class can inherit from a base template class, with the template argument fixed in the derivation clause. A virtual function in the base reaches the derived override through a base pointer.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+class Base {
+public:
+  virtual void print() { std::cout &lt;&lt; "Base" &lt;&lt; std::endl; }
+  virtual ~Base() {}
+};
+
+template &lt;typename T&gt;
+class Derived : public Base&lt;T&gt; {
+public:
+  void print() { std::cout &lt;&lt; "Derived" &lt;&lt; std::endl; }
+};
+
+int main() {
+  Derived&lt;int&gt; d;
+  Base&lt;int&gt; *b = &amp;d;
+  b-&gt;print();
+}</code>
+          </div>
+
+          <h3>4. Rules for templates</h3>
+          <p>Template arguments must be consistent with the parameter list. Default template arguments are allowed, and an explicit specialization can replace the generic definition for a specific type.</p>
+        </section>
+
+        <section class="topic-part" data-part="2">
+          <h2>Part 2 · Exception Handling <span class="priority-mark">★★★</span></h2>
+          <p class="source-line">Unit 7.2 of the syllabus.</p>
+
+          <h3>1. Exception mechanism: try, throw, catch <span class="exam-mark">EXAM 6</span></h3>
+          <p>An exception is thrown at runtime with throw and caught by a handler introduced with catch. A try block guards the statements that may raise the exception.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+
+double divide(double a, double b) {
+  if (b == 0) throw std::runtime_error("Division by zero");
+  return a / b;
+}
+
+int main() {
+  try {
+    std::cout &lt;&lt; divide(10, 0) &lt;&lt; std::endl;
+  } catch (const std::runtime_error&amp; e) {
+    std::cout &lt;&lt; "Caught: " &lt;&lt; e.what() &lt;&lt; std::endl;
+  } catch (...) {
+    std::cout &lt;&lt; "Caught unknown exception" &lt;&lt; std::endl;
+  }
+  return 0;
+}</code>
+          </div>
+
+          <h3>2. Multiple catch</h3>
+          <p>Catch handlers are examined in order. The first handler that matches the thrown type runs. Listing specific types before the catch-all handler gives precise recovery for each error.</p>
+
+          <div class="codeblock">
+            <button class="copy-btn" type="button">Copy</button>
+            <code>#include &lt;iostream&gt;
+
+int main() {
+  try {
+    throw 42;
+  } catch (int i) {
+    std::cout &lt;&lt; "Integer: " &lt;&lt; i &lt;&lt; std::endl;
+  } catch (double d) {
+    std::cout &lt;&lt; "Double: " &lt;&lt; d &lt;&lt; std::endl;
+  } catch (...) {
+    std::cout &lt;&lt; "Unknown exception" &lt;&lt; std::endl;
+  }
+  return 0;
+}</code>
+          </div>
+
+          <h3>3. Catching all exceptions</h3>
+          <p>A handler written as catch (...) matches every exception type. Place it last so that specific handlers keep priority and no exception escapes unhandled.</p>
+
+          <h3>4. Uses of exception handling</h3>
+          <p>Exception handling separates error detection from error recovery. It is used for invalid input, failed resource allocation, division by zero, and file or network errors.</p>
+        </section>
+
+        <aside class="revision-tracker" data-page="oop/templates-and-exception-handling.html">
+          <div><span class="revision-label">Revision</span><span class="revision-dates">Not reviewed yet</span></div>
+          <button class="revision-btn" type="button">Mark as reviewed</button>
+        </aside>
+        <div class="chapter-nav">
+          <a href="virtual-functions-and-polymorphism.html">PREVIOUS CHAPTER — VIRTUAL FUNCTION, POLYMORPHISM, AND OTHER C++ FEATURES</a>
+          <a href="files-and-streams.html">NEXT CHAPTER — FILE AND STREAMS →</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer site"><span>Object Oriented Programming / Function Templates and Exception Handling</span><span>Keep reading.</span></footer>
+
+  <script src="/assets/js/study-tools.js" defer></script>
+  <script src="/assets/js/notes.js" defer></script>
+  <script src="/assets/js/player.js" defer></script>
+  <script src="/assets/js/site-nav.js" defer></script>
+  <script src="../../assets/js/lecture-notes.js" defer></script>
+</body>
+</html>
